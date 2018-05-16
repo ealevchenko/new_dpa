@@ -1,0 +1,33 @@
+﻿@using WebUI.App_GlobalResources;
+@{
+    ViewBag.Title = @GlobalResource.home_title;
+    ViewBag.section = @GlobalResource.home_dpa;
+}
+
+@section styles {
+    <link rel="stylesheet" type="text/css" href="~/Content/homemenu.css">
+}
+
+@section scripts {
+    <script>
+        $('body').addClass('img-header-global');
+    </script>
+}
+
+<ul class="bmenu">
+    <li><a href="#">@GlobalResource.home_link_personnel</a></li>
+    <li><a href='@Url.Action("Index", "Home", new { area = "Systems" })'>@GlobalResource.home_link_systems</a></li>
+    <li><a href="#">@GlobalResource.home_link_equipment</a></li>
+    <li><a href="#">@GlobalResource.home_link_project</a></li>
+    <li><a href="#">@GlobalResource.home_link_1</a></li>
+    <li><a href="#">Contact</a></li>
+</ul>
+<div class="more">
+    <ul>
+        <li>@GlobalResource.home_more_link:</li>
+        <li><a href="#">Example 1</a></li>
+        <li><a href="#">Example 2</a></li>
+        <li><a href="#">Example 3</a></li>
+    </ul>
+</div>
+
