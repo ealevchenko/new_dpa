@@ -1,0 +1,43 @@
+﻿<!doctype html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="~/Content/project/reset.css"> <!-- CSS reset -->
+    <link rel="stylesheet" href="~/Content/project/global_project.css"> <!-- Resource style -->
+    <script src="~/Scripts/modernizr-2.6.2.js"></script> <!-- Modernizr -->
+
+    <title>@ViewBag.Title</title>
+    @RenderSection("styles", required: false)
+</head>
+<body>
+    <header class="cd-header">
+        <div id="cd-logo"><a href="#0"><img src="~/Images/project/amk_logo.png" alt="Logo"></a></div>
+        <nav class="cd-main-nav">
+            <ul>
+                <!-- inser more links here -->
+                <li><a href='@Url.Action("Index", "Home", new { area = "Project" })'>Home</a></li>
+                <li><a href='@Url.Action("ProjectList", "Home", new { area = "Project" })'>Программы</a></li>
+                <li><a href='@Url.Action("ProgrammList", "Home", new { area = "Project" })'>Проекты</a></li>
+                @*<li><a href="#0">Gallery</a></li>
+                <li><a href="#0">Contact</a></li>*@
+            </ul>
+        </nav> <!-- cd-main-nav -->
+    </header>
+    <section id="cd-intro">
+        <div id="cd-intro-background"></div>
+        <div id="cd-intro-tagline">
+            <h1>@ViewBag.Title</h1>
+        </div> <!-- cd-intro-tagline -->
+    </section> <!-- #cd-intro -->
+    <main class="cd-content">
+        <div class="cd-container">
+            @RenderBody()
+        </div>
+    </main> <!-- cd-content -->
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/project/global_project.js"></script> <!-- Resource jQuery -->
+    @RenderSection("scripts", required: false)
+</body>
+</html>

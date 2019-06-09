@@ -14,14 +14,14 @@
     </script>
 }
 
-<ul class="bmenu">
-    <li><a href="#">@GlobalResource.home_link_personnel</a></li>
-    <li><a href='@Url.Action("Index", "Home", new { area = "Systems" })'>@GlobalResource.home_link_systems</a></li>
-    <li><a href="#">@GlobalResource.home_link_equipment</a></li>
-    <li><a href="#">@GlobalResource.home_link_project</a></li>
-    <li><a href="#">@GlobalResource.home_link_1</a></li>
-    <li><a href="#">Contact</a></li>
-</ul>
+    <ul class="bmenu">
+        <li><a href="#">@GlobalResource.home_link_personnel</a></li>
+        <li><a href='@Url.Action("Index", "Home", new { area = "Systems" })'>@GlobalResource.home_link_systems</a></li>
+        <li><a href="#">@GlobalResource.home_link_equipment</a></li>
+        <li><a href='@Url.Action("Index", "Home", new { area = "Project" })'>@GlobalResource.home_link_project</a></li>
+        <li><a href="#">@GlobalResource.home_link_1</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
 <div class="more">
     <ul>
         <li>@GlobalResource.home_more_link:</li>
