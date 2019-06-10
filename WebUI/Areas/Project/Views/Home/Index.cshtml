@@ -1,0 +1,145 @@
+﻿@using WebUI.App_GlobalResources;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700|Merriweather:400italic,400' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="~/Content/project/reset.css"> <!-- CSS reset -->
+    <link rel="stylesheet" href="~/Content/project/home.css"> <!-- Resource style -->
+    <script src="~/Scripts/modernizr-2.6.2.js"></script> <!-- Modernizr -->
+
+    <title>Инвестиционные проекты</title>
+</head>
+<body>
+    <div class="projects-container">
+        <ul>
+            <li class="cd-single-project">
+                <div class="cd-title">
+                    <h2>@ProjectResource.home_menu_1_name</h2>
+                    <p>@ProjectResource.home_menu_1_description</p>
+                </div> <!-- .cd-title -->
+                <div class="cd-project-info">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, quod dicta aliquid nemo repellendus distinctio minus dolor aperiam suscipit, ea enim accusantium, deleniti qui sequi sint nihil modi amet eligendi, quidem animi error labore voluptatibus sed. Qui magnam labore, iusto nostrum. Praesentium non, impedit accusantium consequatur officia architecto, mollitia placeat aperiam tenetur pariatur voluptatibus corrupti vitae deserunt! Nostrum non mollitia deserunt ipsam. Sunt quaerat natus cupiditate iure ipsa voluptatibus recusandae ratione vitae amet distinctio, voluptas, minus vero expedita ea fugit similique sit cumque ad id facere? Ab quas, odio neque quis ratione. Natus labore sit esse, porro placeat eum hic.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, quod dicta aliquid nemo repellendus distinctio minus dolor aperiam suscipit, ea enim accusantium, deleniti qui sequi sint nihil modi amet eligendi, quidem animi error labore voluptatibus sed. Qui magnam labore, iusto nostrum. Praesentium non, impedit accusantium consequatur officia architecto, mollitia placeat aperiam tenetur pariatur voluptatibus corrupti vitae deserunt! Nostrum non mollitia deserunt ipsam. Sunt quaerat natus cupiditate iure ipsa voluptatibus recusandae ratione vitae amet distinctio, voluptas, minus vero expedita ea fugit similique sit cumque ad id facere? Ab quas, odio neque quis ratione. Natus labore sit esse, porro placeat eum hic.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, quod dicta aliquid nemo repellendus distinctio minus dolor aperiam suscipit, ea enim accusantium, deleniti qui sequi sint nihil modi amet eligendi, quidem animi error labore voluptatibus sed. Qui magnam labore, iusto nostrum. Praesentium non, impedit accusantium consequatur officia architecto, mollitia placeat aperiam tenetur pariatur voluptatibus corrupti vitae deserunt! Nostrum non mollitia deserunt ipsam. Sunt quaerat natus cupiditate iure ipsa voluptatibus recusandae ratione vitae amet distinctio, voluptas, minus vero expedita ea fugit similique sit cumque ad id facere? Ab quas, odio neque quis ratione. Natus labore sit esse, porro placeat eum hic.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, quod dicta aliquid nemo repellendus distinctio minus dolor aperiam suscipit, ea enim accusantium, deleniti qui sequi sint nihil modi amet eligendi, quidem animi error labore voluptatibus sed. Qui magnam labore, iusto nostrum. Praesentium non, impedit accusantium consequatur officia architecto, mollitia placeat aperiam tenetur pariatur voluptatibus corrupti vitae deserunt! Nostrum non mollitia deserunt ipsam. Sunt quaerat natus cupiditate iure ipsa voluptatibus recusandae ratione vitae amet distinctio, voluptas, minus vero expedita ea fugit similique sit cumque ad id facere? Ab quas, odio neque quis ratione. Natus labore sit esse, porro placeat eum hic.
+                    </p>
+                </div> <!-- .cd-project-info -->
+            </li>
+            <li class="cd-single-project">
+                <div class="cd-title">
+                    <h2>@ProjectResource.home_menu_2_name</h2>
+                    <p>@ProjectResource.home_menu_2_description</p>
+                    <div class="menu-cd-title">
+                        <a href='@Url.Action("ProgrammList", "Home", new { area = "Project" })'>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" style="" viewBox="0 0 16 16" x="0px" y="0px" width="16px" height="16px" version="1.1" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve">
+                                <polygon fill="#ffffff" points="15,7 4.4,7 8.4,3 7,1.6 0.6,8 0.6,8 0.6,8 7,14.4 8.4,13 4.4,9 15,9" />
+
+                            </svg>
+                            </span>
+                            Программы внедрения проектов
+                        </a>
+                        <a href='@Url.Action("ProjectList", "Home", new { area = "Project" })'>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" style="" viewBox="0 0 16 16" x="0px" y="0px" width="16px" height="16px" version="1.1" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve">
+                                <polygon fill="#ffffff" points="15,7 4.4,7 8.4,3 7,1.6 0.6,8 0.6,8 0.6,8 7,14.4 8.4,13 4.4,9 15,9" />
+
+                            </svg>
+                            </span>
+                            Инвестиционные проекты
+                        </a>
+                        <a href="#">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" style="" viewBox="0 0 16 16" x="0px" y="0px" width="16px" height="16px" version="1.1" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve">
+                                <polygon fill="#ffffff" points="15,7 4.4,7 8.4,3 7,1.6 0.6,8 0.6,8 0.6,8 7,14.4 8.4,13 4.4,9 15,9" />
+
+                            </svg>
+                            </span>
+                            Мои проекты ...
+                        </a>
+                    </div>
+                </div> <!-- .cd-title -->
+                <div class="cd-project-info">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, quod dicta aliquid nemo repellendus distinctio minus dolor aperiam suscipit, ea enim accusantium, deleniti qui sequi sint nihil modi amet eligendi, quidem animi error labore voluptatibus sed. Qui magnam labore, iusto nostrum. Praesentium non, impedit accusantium consequatur officia architecto, mollitia placeat aperiam tenetur pariatur voluptatibus corrupti vitae deserunt! Nostrum non mollitia deserunt ipsam. Sunt quaerat natus cupiditate iure ipsa voluptatibus recusandae ratione vitae amet distinctio, voluptas, minus vero expedita ea fugit similique sit cumque ad id facere? Ab quas, odio neque quis ratione. Natus labore sit esse, porro placeat eum hic.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, quod dicta aliquid nemo repellendus distinctio minus dolor aperiam suscipit, ea enim accusantium, deleniti qui sequi sint nihil modi amet eligendi, quidem animi error labore voluptatibus sed. Qui magnam labore, iusto nostrum. Praesentium non, impedit accusantium consequatur officia architecto, mollitia placeat aperiam tenetur pariatur voluptatibus corrupti vitae deserunt! Nostrum non mollitia deserunt ipsam. Sunt quaerat natus cupiditate iure ipsa voluptatibus recusandae ratione vitae amet distinctio, voluptas, minus vero expedita ea fugit similique sit cumque ad id facere? Ab quas, odio neque quis ratione. Natus labore sit esse, porro placeat eum hic.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, quod dicta aliquid nemo repellendus distinctio minus dolor aperiam suscipit, ea enim accusantium, deleniti qui sequi sint nihil modi amet eligendi, quidem animi error labore voluptatibus sed. Qui magnam labore, iusto nostrum. Praesentium non, impedit accusantium consequatur officia architecto, mollitia placeat aperiam tenetur pariatur voluptatibus corrupti vitae deserunt! Nostrum non mollitia deserunt ipsam. Sunt quaerat natus cupiditate iure ipsa voluptatibus recusandae ratione vitae amet distinctio, voluptas, minus vero expedita ea fugit similique sit cumque ad id facere? Ab quas, odio neque quis ratione. Natus labore sit esse, porro placeat eum hic.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, quod dicta aliquid nemo repellendus distinctio minus dolor aperiam suscipit, ea enim accusantium, deleniti qui sequi sint nihil modi amet eligendi, quidem animi error labore voluptatibus sed. Qui magnam labore, iusto nostrum. Praesentium non, impedit accusantium consequatur officia architecto, mollitia placeat aperiam tenetur pariatur voluptatibus corrupti vitae deserunt! Nostrum non mollitia deserunt ipsam. Sunt quaerat natus cupiditate iure ipsa voluptatibus recusandae ratione vitae amet distinctio, voluptas, minus vero expedita ea fugit similique sit cumque ad id facere? Ab quas, odio neque quis ratione. Natus labore sit esse, porro placeat eum hic.
+                    </p>
+                </div> <!-- .cd-project-info -->
+            </li>
+            <li class="cd-single-project">
+                <div class="cd-title">
+                    <h2>@ProjectResource.home_menu_3_name</h2>
+                    <p>@ProjectResource.home_menu_3_description</p>
+                </div> <!-- .cd-title -->
+                <div class="cd-project-info">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, quod dicta aliquid nemo repellendus distinctio minus dolor aperiam suscipit, ea enim accusantium, deleniti qui sequi sint nihil modi amet eligendi, quidem animi error labore voluptatibus sed. Qui magnam labore, iusto nostrum. Praesentium non, impedit accusantium consequatur officia architecto, mollitia placeat aperiam tenetur pariatur voluptatibus corrupti vitae deserunt! Nostrum non mollitia deserunt ipsam. Sunt quaerat natus cupiditate iure ipsa voluptatibus recusandae ratione vitae amet distinctio, voluptas, minus vero expedita ea fugit similique sit cumque ad id facere? Ab quas, odio neque quis ratione. Natus labore sit esse, porro placeat eum hic.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, quod dicta aliquid nemo repellendus distinctio minus dolor aperiam suscipit, ea enim accusantium, deleniti qui sequi sint nihil modi amet eligendi, quidem animi error labore voluptatibus sed. Qui magnam labore, iusto nostrum. Praesentium non, impedit accusantium consequatur officia architecto, mollitia placeat aperiam tenetur pariatur voluptatibus corrupti vitae deserunt! Nostrum non mollitia deserunt ipsam. Sunt quaerat natus cupiditate iure ipsa voluptatibus recusandae ratione vitae amet distinctio, voluptas, minus vero expedita ea fugit similique sit cumque ad id facere? Ab quas, odio neque quis ratione. Natus labore sit esse, porro placeat eum hic.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, quod dicta aliquid nemo repellendus distinctio minus dolor aperiam suscipit, ea enim accusantium, deleniti qui sequi sint nihil modi amet eligendi, quidem animi error labore voluptatibus sed. Qui magnam labore, iusto nostrum. Praesentium non, impedit accusantium consequatur officia architecto, mollitia placeat aperiam tenetur pariatur voluptatibus corrupti vitae deserunt! Nostrum non mollitia deserunt ipsam. Sunt quaerat natus cupiditate iure ipsa voluptatibus recusandae ratione vitae amet distinctio, voluptas, minus vero expedita ea fugit similique sit cumque ad id facere? Ab quas, odio neque quis ratione. Natus labore sit esse, porro placeat eum hic.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, quod dicta aliquid nemo repellendus distinctio minus dolor aperiam suscipit, ea enim accusantium, deleniti qui sequi sint nihil modi amet eligendi, quidem animi error labore voluptatibus sed. Qui magnam labore, iusto nostrum. Praesentium non, impedit accusantium consequatur officia architecto, mollitia placeat aperiam tenetur pariatur voluptatibus corrupti vitae deserunt! Nostrum non mollitia deserunt ipsam. Sunt quaerat natus cupiditate iure ipsa voluptatibus recusandae ratione vitae amet distinctio, voluptas, minus vero expedita ea fugit similique sit cumque ad id facere? Ab quas, odio neque quis ratione. Natus labore sit esse, porro placeat eum hic.
+                    </p>
+                </div> <!-- .cd-project-info -->
+            </li>
+            <li class="cd-single-project">
+                <div class="cd-title">
+                    <h2>@ProjectResource.home_menu_4_name</h2>
+                    <p>@ProjectResource.home_menu_4_description</p>
+                </div> <!-- .cd-title -->
+                <div class="cd-project-info">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, quod dicta aliquid nemo repellendus distinctio minus dolor aperiam suscipit, ea enim accusantium, deleniti qui sequi sint nihil modi amet eligendi, quidem animi error labore voluptatibus sed. Qui magnam labore, iusto nostrum. Praesentium non, impedit accusantium consequatur officia architecto, mollitia placeat aperiam tenetur pariatur voluptatibus corrupti vitae deserunt! Nostrum non mollitia deserunt ipsam. Sunt quaerat natus cupiditate iure ipsa voluptatibus recusandae ratione vitae amet distinctio, voluptas, minus vero expedita ea fugit similique sit cumque ad id facere? Ab quas, odio neque quis ratione. Natus labore sit esse, porro placeat eum hic.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, quod dicta aliquid nemo repellendus distinctio minus dolor aperiam suscipit, ea enim accusantium, deleniti qui sequi sint nihil modi amet eligendi, quidem animi error labore voluptatibus sed. Qui magnam labore, iusto nostrum. Praesentium non, impedit accusantium consequatur officia architecto, mollitia placeat aperiam tenetur pariatur voluptatibus corrupti vitae deserunt! Nostrum non mollitia deserunt ipsam. Sunt quaerat natus cupiditate iure ipsa voluptatibus recusandae ratione vitae amet distinctio, voluptas, minus vero expedita ea fugit similique sit cumque ad id facere? Ab quas, odio neque quis ratione. Natus labore sit esse, porro placeat eum hic.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, quod dicta aliquid nemo repellendus distinctio minus dolor aperiam suscipit, ea enim accusantium, deleniti qui sequi sint nihil modi amet eligendi, quidem animi error labore voluptatibus sed. Qui magnam labore, iusto nostrum. Praesentium non, impedit accusantium consequatur officia architecto, mollitia placeat aperiam tenetur pariatur voluptatibus corrupti vitae deserunt! Nostrum non mollitia deserunt ipsam. Sunt quaerat natus cupiditate iure ipsa voluptatibus recusandae ratione vitae amet distinctio, voluptas, minus vero expedita ea fugit similique sit cumque ad id facere? Ab quas, odio neque quis ratione. Natus labore sit esse, porro placeat eum hic.
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, quod dicta aliquid nemo repellendus distinctio minus dolor aperiam suscipit, ea enim accusantium, deleniti qui sequi sint nihil modi amet eligendi, quidem animi error labore voluptatibus sed. Qui magnam labore, iusto nostrum. Praesentium non, impedit accusantium consequatur officia architecto, mollitia placeat aperiam tenetur pariatur voluptatibus corrupti vitae deserunt! Nostrum non mollitia deserunt ipsam. Sunt quaerat natus cupiditate iure ipsa voluptatibus recusandae ratione vitae amet distinctio, voluptas, minus vero expedita ea fugit similique sit cumque ad id facere? Ab quas, odio neque quis ratione. Natus labore sit esse, porro placeat eum hic.
+                    </p>
+                </div> <!-- .cd-project-info -->
+            </li>
+        </ul>
+        <a href="#0" class="cd-close">Close</a>
+        <a href="#0" class="cd-scroll">Scroll</a>
+    </div> <!-- .project-container -->
+    <div class="cd-nugget-info">
+        <a href='@Url.Action("Index", "Home", new { area = "" })'>
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" style="" viewBox="0 0 16 16" x="0px" y="0px" width="16px" height="16px" version="1.1" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve">
+                <style type="text/css">
+                    .cd-nugget-info-arrow {
+                        fill: #383838;
+                    }
+</style>
+                <polygon class="cd-nugget-info-arrow" points="15,7 4.4,7 8.4,3 7,1.6 0.6,8 0.6,8 0.6,8 7,14.4 8.4,13 4.4,9 15,9" />
+
+                </svg>
+            </span>
+            На главную
+        </a>
+        <a href='@Url.Action("Index", "Home", new { area = "Project" })'>
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" style="" viewBox="0 0 16 16" x="0px" y="0px" width="16px" height="16px" version="1.1" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve">
+                <style type="text/css">
+                    .cd-nugget-info-arrow {
+                        fill: #383838;
+                    }
+                </style>
+                <polygon class="cd-nugget-info-arrow" points="15,7 4.4,7 8.4,3 7,1.6 0.6,8 0.6,8 0.6,8 7,14.4 8.4,13 4.4,9 15,9" />
+
+                </svg>
+            </span>
+            Проекты
+        </a>
+    </div>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/project/main_home.js"></script> <!-- Resource jQuery -->
+</body>
+</html>

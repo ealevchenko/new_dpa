@@ -118,6 +118,7 @@
     <Folder Include="Areas\Personnel\Controllers\" />
     <Folder Include="Areas\Personnel\Models\" />
     <Folder Include="Areas\Personnel\Views\Shared\" />
+    <Folder Include="Areas\Project\Models\" />
     <Folder Include="Areas\Systems\Models\" />
     <Folder Include="Controllers\api\" />
     <Folder Include="Models\" />
@@ -133,11 +134,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GlobalResource.en.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\ProjectResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Personnel\PersonnelAreaRegistration.cs" />
+    <Compile Include="Areas\Project\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Project\ProjectAreaRegistration.cs" />
     <Compile Include="Areas\Systems\Controllers\HomeController.cs" />
     <Compile Include="Areas\Systems\SystemsAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -477,6 +485,10 @@
     <Content Include="Content\images\sort_both.png" />
     <Content Include="Content\images\sort_desc.png" />
     <Content Include="Content\images\sort_desc_disabled.png" />
+    <Content Include="Content\project\global_project.css" />
+    <Content Include="Content\project\home.css" />
+    <Content Include="Content\project\home1.css" />
+    <Content Include="Content\project\reset.css" />
     <Content Include="Content\System\system.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -539,6 +551,26 @@
     <Content Include="Images\pattern.png" />
     <Content Include="Images\process-automation.jpg" />
     <Content Include="Images\process-automation1.jpg" />
+    <Content Include="Images\project\amk_logo.png" />
+    <Content Include="Images\project\cd-icon-arrow-desktop.svg" />
+    <Content Include="Images\project\cd-icon-arrow-mobile.svg" />
+    <Content Include="Images\project\cd-icon-arrow.svg" />
+    <Content Include="Images\project\cd-icon-close-desktop.svg" />
+    <Content Include="Images\project\cd-icon-close-mobile.svg" />
+    <Content Include="Images\project\cd-icon-menu.svg" />
+    <Content Include="Images\project\cd-intro-background.jpg" />
+    <Content Include="Images\project\img-1-large.jpg" />
+    <Content Include="Images\project\img-1-small.jpg" />
+    <Content Include="Images\project\img-1.jpg" />
+    <Content Include="Images\project\img-2-large.jpg" />
+    <Content Include="Images\project\img-2-small.jpg" />
+    <Content Include="Images\project\img-2.jpg" />
+    <Content Include="Images\project\img-3-large.jpg" />
+    <Content Include="Images\project\img-3-small.jpg" />
+    <Content Include="Images\project\img-3.jpg" />
+    <Content Include="Images\project\img-4-large.jpg" />
+    <Content Include="Images\project\img-4-small.jpg" />
+    <Content Include="Images\project\img-4.jpg" />
     <Content Include="Images\siemens-digital-plant.jpg" />
     <Content Include="Images\siemens-digitization-processes.jpg" />
     <Content Include="Images\ss-analytics-data-800x450.jpg" />
@@ -628,6 +660,14 @@
     <Content Include="Areas\Systems\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Systems\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Systems\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Project\Views\web.config" />
+    <Content Include="Areas\Project\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Project\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Project\Views\Home\Index1.cshtml" />
+    <Content Include="Areas\Project\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Project\Views\Shared\_Project.cshtml" />
+    <Content Include="Areas\Project\Views\Home\ProjectList.cshtml" />
+    <Content Include="Areas\Project\Views\Home\ProgrammList.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -738,6 +778,9 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\project\global_project.js" />
+    <Content Include="Scripts\project\main_home.js" />
+    <Content Include="Scripts\project\main_home1.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Web.config" />
@@ -766,6 +809,10 @@
     <EmbeddedResource Include="App_GlobalResources\GlobalResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>GlobalResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App_GlobalResources\ProjectResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProjectResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
