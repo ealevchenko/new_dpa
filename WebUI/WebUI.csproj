@@ -836,7 +836,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>58716</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:58716/</IISUrl>
+          <IISUrl>http://localhost:58716/dpa</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
