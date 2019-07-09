@@ -20,12 +20,24 @@
                 <li><a href='@Url.Action("Index", "Home", new { area = "Project" })'>Home</a></li>
                 <li><a href='@Url.Action("ProjectList", "Home", new { area = "Project" })'>Программы</a></li>
                 <li><a href='@Url.Action("ProgrammList", "Home", new { area = "Project" })'>Проекты</a></li>
+                @*<li><a href="#0">Gallery</a></li>
+                <li><a href="#0">Contact</a></li>*@
             </ul>
         </nav> <!-- cd-main-nav -->
     </header>
-    @RenderBody()
+    <section id="cd-intro">
+        <div id="cd-intro-background"></div>
+        <div id="cd-intro-tagline">
+            <h1>@ViewBag.Title</h1>
+        </div> <!-- cd-intro-tagline -->
+    </section> <!-- #cd-intro -->
+    <main class="cd-content">
+        <div class="cd-container">
+            @RenderBody()
+        </div>
+    </main> <!-- cd-content -->
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    @*<script src="~/Scripts/project/global_project.js"></script> <!-- Resource jQuery -->*@
+    <script src="~/Scripts/project/global_project.js"></script> <!-- Resource jQuery -->
     @RenderSection("scripts", required: false)
 </body>
 </html>

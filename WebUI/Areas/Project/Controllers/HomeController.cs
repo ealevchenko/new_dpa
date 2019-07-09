@@ -19,14 +19,15 @@ namespace WebUI.Areas.Project.Controllers
         {
             return View();
         }
+        public ActionResult ProjectList1()
+        {
+            return View();
+        }
+
         public ActionResult ProjectList()
         {
             return View();
-        }  
-        public ActionResult ProgrammList()
-        {
-            return View();
-        }          
+        } 
 
     }
 }
