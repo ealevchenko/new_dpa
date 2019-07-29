@@ -123,8 +123,35 @@
   <data name="filter_Normative_CAPEX" xml:space="preserve">
     <value>Нормативные</value>
   </data>
+  <data name="filter_select_title_select_division" xml:space="preserve">
+    <value>Выберите подразделение</value>
+  </data>
+  <data name="filter_status_close" xml:space="preserve">
+    <value>Выполнен</value>
+  </data>
+  <data name="filter_status_open" xml:space="preserve">
+    <value>В работе</value>
+  </data>
+  <data name="filter_status_pause" xml:space="preserve">
+    <value>Остановлен</value>
+  </data>
   <data name="filter_Strategic_CAPEX" xml:space="preserve">
     <value>Стратегические</value>
+  </data>
+  <data name="filter_title_close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="filter_title_filters" xml:space="preserve">
+    <value>Фильтр</value>
+  </data>
+  <data name="filter_title_no_results_found" xml:space="preserve">
+    <value>Проекты не найдены</value>
+  </data>
+  <data name="filter_title_status" xml:space="preserve">
+    <value>Статус проекта</value>
+  </data>
+  <data name="filter_title_subdivisions" xml:space="preserve">
+    <value>Подразделение</value>
   </data>
   <data name="home_menu_1_description" xml:space="preserve">
     <value>Статусы внедрения инвестиционных проектов</value>

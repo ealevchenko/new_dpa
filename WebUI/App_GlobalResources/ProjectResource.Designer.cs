@@ -79,11 +79,92 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Выберите подразделение.
+        /// </summary>
+        public static string filter_select_title_select_division {
+            get {
+                return ResourceManager.GetString("filter_select_title_select_division", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Выполнен.
+        /// </summary>
+        public static string filter_status_close {
+            get {
+                return ResourceManager.GetString("filter_status_close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на В работе.
+        /// </summary>
+        public static string filter_status_open {
+            get {
+                return ResourceManager.GetString("filter_status_open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Остановлен.
+        /// </summary>
+        public static string filter_status_pause {
+            get {
+                return ResourceManager.GetString("filter_status_pause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Стратегические.
         /// </summary>
         public static string filter_Strategic_CAPEX {
             get {
                 return ResourceManager.GetString("filter_Strategic_CAPEX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Закрыть.
+        /// </summary>
+        public static string filter_title_close {
+            get {
+                return ResourceManager.GetString("filter_title_close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Фильтр.
+        /// </summary>
+        public static string filter_title_filters {
+            get {
+                return ResourceManager.GetString("filter_title_filters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Проекты не найдены.
+        /// </summary>
+        public static string filter_title_no_results_found {
+            get {
+                return ResourceManager.GetString("filter_title_no_results_found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Статус проекта.
+        /// </summary>
+        public static string filter_title_status {
+            get {
+                return ResourceManager.GetString("filter_title_status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Подразделение.
+        /// </summary>
+        public static string filter_title_subdivisions {
+            get {
+                return ResourceManager.GetString("filter_title_subdivisions", resourceCulture);
             }
         }
         
