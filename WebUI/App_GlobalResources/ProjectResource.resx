@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="filter_All" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="filter_Normative_CAPEX" xml:space="preserve">
+    <value>Нормативные</value>
+  </data>
+  <data name="filter_Strategic_CAPEX" xml:space="preserve">
+    <value>Стратегические</value>
+  </data>
   <data name="home_menu_1_description" xml:space="preserve">
     <value>Статусы внедрения инвестиционных проектов</value>
   </data>

@@ -51,38 +51,62 @@ namespace EFProjects.Entities
         [Column(TypeName = "money")]
         public decimal? budget { get; set; }
 
+        public int? budget_currency { get; set; }
+
         [Column(TypeName = "money")]
         public decimal? contract_value { get; set; }
+
+        public int? contract_currency { get; set; }
 
         [Column(TypeName = "money")]
         public decimal? contract_engineering_value { get; set; }
 
+        public int? contract_engineering_currency { get; set; }
+
         [Column(TypeName = "money")]
         public decimal? contract_equipment_value { get; set; }
+
+        public int? contract_equipment_currency { get; set; }
 
         [Column(TypeName = "money")]
         public decimal? contract_construction_value { get; set; }
 
+        public int? contract_construction_currency { get; set; }
+
         [Column(TypeName = "money")]
         public decimal? contract_commissioning_value { get; set; }
+
+        public int? contract_commissioning_currency { get; set; }
 
         [Column(TypeName = "money")]
         public decimal? contract_other_value { get; set; }
 
+        public int? contract_other_currency { get; set; }
+
         [Column(TypeName = "money")]
         public decimal? payment_engineering_value { get; set; }
+
+        public int? payment_engineering_currency { get; set; }
 
         [Column(TypeName = "money")]
         public decimal? payment_equipment_value { get; set; }
 
+        public int? payment_equipment_currency { get; set; }
+
         [Column(TypeName = "money")]
         public decimal? payment_construction_value { get; set; }
+
+        public int? payment_construction_currency { get; set; }
 
         [Column(TypeName = "money")]
         public decimal? payment_commissioning_value { get; set; }
 
+        public int? payment_commissioning_currency { get; set; }
+
         [Column(TypeName = "money")]
         public decimal? payment_other_value { get; set; }
+
+        public int? payment_other_currency { get; set; }
 
         [StringLength(1000)]
         public string workspace { get; set; }

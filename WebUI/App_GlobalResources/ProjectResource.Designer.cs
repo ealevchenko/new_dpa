@@ -61,6 +61,33 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Все.
+        /// </summary>
+        public static string filter_All {
+            get {
+                return ResourceManager.GetString("filter_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Нормативные.
+        /// </summary>
+        public static string filter_Normative_CAPEX {
+            get {
+                return ResourceManager.GetString("filter_Normative_CAPEX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Стратегические.
+        /// </summary>
+        public static string filter_Strategic_CAPEX {
+            get {
+                return ResourceManager.GetString("filter_Strategic_CAPEX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Статусы внедрения инвестиционных проектов.
         /// </summary>
         public static string home_menu_1_description {
