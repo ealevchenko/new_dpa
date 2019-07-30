@@ -13,7 +13,8 @@
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700|Merriweather:400italic,400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="~/Content/project/reset.css"> <!-- CSS reset -->
     <link rel="stylesheet" href="~/Content/project/home.css"> <!-- Resource style -->
-    <script src="~/Scripts/modernizr-2.6.2.js"></script> <!-- Modernizr -->
+    @*<script src="~/Scripts/modernizr-2.6.2.js"></script>*@ <!-- Modernizr -->
+    @Scripts.Render("~/bundles/modernizr")
 
     <title>Sliding Panels Template | CodyHouse</title>
 </head>
@@ -134,7 +135,8 @@
             <li><a href="#0">Contact us</a></li>
         </ul>
     </nav> <!-- .cd-primary-nav -->
-    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    @*<script src="~/Scripts/jquery-3.3.1.js"></script>*@
+    @Scripts.Render("~/bundles/jquery")
     <script src="~/Scripts/project/main_home.js"></script> <!-- Resource jQuery -->
 </body>
 </html>
