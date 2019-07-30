@@ -1,6 +1,52 @@
 ﻿jQuery(document).ready(function ($) {
 
-    var user = $('input#username').val();
+    // Список общесистемных слов 
+    $.Text_View =
+        {
+            'default':  //default language: ru
+            {
+                'text_link_tabs_cars_list': 'ру',
+            },
+            'en':  //default language: English
+            {
+                'text_link_tabs_cars_list': 'ru',
+            }
+        };
+
+    var lang = $.cookie('lang'),
+        langs = $.extend(true, $.extend(true, getLanguages($.Text_View, lang), getLanguages($.Text_Common, lang)), getLanguages($.Text_Table, lang)),
+        user_name = $('input#username').val(),
+        user = null,
+        pm = null,
+        chain_pm = null,
+        while_pm = '0',
+        loadReference = function (callback) {
+            LockScreen(langView('mess_load', langs));
+            var count = 1;
+            // Загрузка 
+            getAsyncUsersOfName(user_name, function (result_user) {
+                user = result_user;
+                getAsyncProjectManagerOfIDUser(user.id, function (result_pm) {
+                    pm = result_pm;
+                    getAsyncChainProjectManagerOfIDPM(pm.id, function (result_chain_pm) {
+                        chain_pm = result_chain_pm;
+
+                        for (i = 0, count_i = chain_pm.length; i < count_i; i++) {
+                            while_pm += ',' + chain_pm[i].id
+                        }
+
+
+                        count -= 1;
+                        if (count <= 0) {
+                            if (typeof callback === 'function') {
+                                LockScreenOff();
+                                callback();
+                            }
+                        }
+                    })
+                })
+            })
+        }
 
     //open/close lateral filter
     $('.cd-filter-trigger').on('click', function () {
@@ -124,6 +170,13 @@
             }
         }, 200);
     });
+
+
+    // Загрузка библиотек
+    loadReference(function (result) {
+        LockScreenOff();
+    });
+
 });
 
 /*****************************************************
