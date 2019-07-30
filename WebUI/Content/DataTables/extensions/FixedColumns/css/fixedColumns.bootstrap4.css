@@ -42,3 +42,11 @@ div.DTFC_RightFootWrapper table {
   margin-top: 0 !important;
   background-color: white;
 }
+
+div.DTFC_Blocker {
+  background-color: white;
+}
+
+table.dataTable.table-striped.DTFC_Cloned tbody {
+  background-color: white;
+}

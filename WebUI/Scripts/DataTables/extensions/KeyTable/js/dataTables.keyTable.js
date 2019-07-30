@@ -1,15 +1,15 @@
-/*! KeyTable 2.2.1
- * ©2009-2016 SpryMedia Ltd - datatables.net/license
+/*! KeyTable 2.5.0
+ * ©2009-2018 SpryMedia Ltd - datatables.net/license
  */
 
 /**
  * @summary     KeyTable
  * @description Spreadsheet like keyboard navigation for DataTables
- * @version     2.2.1
+ * @version     2.5.0
  * @file        dataTables.keyTable.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     www.sprymedia.co.uk/contact
- * @copyright   Copyright 2009-2016 SpryMedia Ltd.
+ * @copyright   Copyright 2009-2018 SpryMedia Ltd.
  *
  * This source file is free software, available under the following license:
  *   MIT license - http://datatables.net/license/mit
@@ -226,8 +226,45 @@ $.extend( KeyTable.prototype, {
 		}
 
 		if ( this.c.editor ) {
+			var editor = this.c.editor;
+
+			// Need to disable KeyTable when the main editor is shown
+			editor.on( 'open.keyTableMain', function (e, mode, action) {
+				if ( mode !== 'inline' && that.s.enable ) {
+					that.enable( false );
+
+					editor.one( 'close.keyTable', function () {
+						that.enable( true );
+					} );
+				}
+			} );
+
+			if ( this.c.editOnFocus ) {
+				dt.on( 'key-focus.keyTable key-refocus.keyTable', function ( e, dt, cell, orig ) {
+					that._editor( null, orig, true );
+				} );
+			}
+
+			// Activate Editor when a key is pressed (will be ignored, if
+			// already active).
 			dt.on( 'key.keyTable', function ( e, dt, key, cell, orig ) {
-				that._editor( key, orig );
+				that._editor( key, orig, false );
+			} );
+
+			// Active editing on double click - it will already have focus from
+			// the click event handler above
+			$( dt.table().body() ).on( 'dblclick.keyTable', 'th, td', function (e) {
+				if ( that.s.enable === false ) {
+					return;
+				}
+
+				var cell = dt.cell( this );
+
+				if ( ! cell.any() ) {
+					return;
+				}
+
+				that._editor( null, e, true );
 			} );
 		}
 
@@ -266,12 +303,19 @@ $.extend( KeyTable.prototype, {
 			}
 		} );
 
+		// Clipboard support
+		if ( this.c.clipboard ) {
+			this._clipboard();
+		}
+
 		dt.on( 'destroy.keyTable', function () {
 			dt.off( '.keyTable' );
 			$( dt.table().body() ).off( 'click.keyTable', 'th, td' );
-			$( document.body )
+			$( document )
 				.off( 'keydown.keyTable' )
-				.off( 'click.keyTable' );
+				.off( 'click.keyTable' )
+				.off( 'copy.keyTable' )
+				.off( 'paste.keyTable' );
 		} );
 
 		// Initial focus comes from state or options
@@ -292,8 +336,6 @@ $.extend( KeyTable.prototype, {
 			dt.cell( this.c.focus ).focus();
 		}
 	},
-
-
 
 
 	/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -319,6 +361,73 @@ $.extend( KeyTable.prototype, {
 		this._updateFixedColumns(cell.index().column);
 
 		this._emitEvent( 'key-blur', [ this.s.dt, cell ] );
+	},
+
+
+	/**
+	 * Clipboard interaction handlers
+	 *
+	 * @private
+	 */
+	_clipboard: function () {
+		var dt = this.s.dt;
+		var that = this;
+
+		// IE8 doesn't support getting selected text
+		if ( ! window.getSelection ) {
+			return;
+		}
+
+		$(document).on( 'copy.keyTable', function (ejq) {
+			var e = ejq.originalEvent;
+			var selection = window.getSelection().toString();
+			var focused = that.s.lastFocus;
+
+			// Only copy cell text to clipboard if there is no other selection
+			// and there is a focused cell
+			if ( ! selection && focused ) {
+				e.clipboardData.setData(
+					'text/plain',
+					focused.cell.render( that.c.clipboardOrthogonal )
+				);
+				e.preventDefault();
+			}
+		} );
+
+		$(document).on( 'paste.keyTable', function (ejq) {
+			var e = ejq.originalEvent;
+			var focused = that.s.lastFocus;
+			var activeEl = document.activeElement;
+			var editor = that.c.editor;
+			var pastedText;
+
+			if ( focused && (! activeEl || activeEl.nodeName.toLowerCase() === 'body') ) {
+				e.preventDefault();
+
+				if ( window.clipboardData && window.clipboardData.getData ) {
+					// IE
+					pastedText = window.clipboardData.getData('Text');
+				}
+				else if ( e.clipboardData && e.clipboardData.getData ) {
+					// Everything else
+					pastedText = e.clipboardData.getData('text/plain');
+				}
+
+				if ( editor ) {
+					// Got Editor - need to activate inline editing,
+					// set the value and submit
+					editor
+						.inline( focused.cell.index() )
+						.set( editor.displayed()[0], pastedText )
+						.submit();
+				}
+				else {
+					// No editor, so just dump the data in
+					focused.cell.data( pastedText );
+					dt.draw(false);
+				}
+			}
+		} );
 	},
 
 
@@ -352,55 +461,97 @@ $.extend( KeyTable.prototype, {
 	 * @param  {object} orig Original event
 	 * @private
 	 */
-	_editor: function ( key, orig )
+	_editor: function ( key, orig, hardEdit )
 	{
 		var that = this;
 		var dt = this.s.dt;
 		var editor = this.c.editor;
+		var editCell = this.s.lastFocus.cell;
 
-		// Don't activate inline editing when the shift key is pressed
-		if ( key === 16 ) {
+		// Do nothing if there is already an inline edit in this cell
+		if ( $('div.DTE', editCell.node()).length ) {
+			return;
+		}
+
+		// Don't activate Editor on control key presses
+		if ( key !== null && (
+			(key >= 0x00 && key <= 0x09) ||
+			key === 0x0b ||
+			key === 0x0c ||
+			(key >= 0x0e && key <= 0x1f) ||
+			(key >= 0x70 && key <= 0x7b) ||
+			(key >= 0x7f && key <= 0x9f)
+		) ) {
 			return;
 		}
 
 		orig.stopPropagation();
 
-		// Return key should do nothing - for textareas's it would empty the
+		// Return key should do nothing - for textareas it would empty the
 		// contents
 		if ( key === 13 ) {
 			orig.preventDefault();
 		}
 
-		editor
-			.one( 'open.keyTable', function () {
-				// Remove cancel open
-				editor.off( 'cancelOpen.keyTable' );
+		var editInline = function () {
+			editor
+				.one( 'open.keyTable', function () {
+					// Remove cancel open
+					editor.off( 'cancelOpen.keyTable' );
 
-				// Excel style - select all text
-				$('div.DTE input, div.DTE textarea').select();
-
-				// Reduce the keys the Keys listens for
-				dt.keys.enable( that.c.editorKeys );
-
-				// On blur of the navigation submit
-				dt.one( 'key-blur.editor', function () {
-					if ( editor.displayed() ) {
-						editor.submit();
+					// Excel style - select all text
+					if ( ! hardEdit ) {
+						$('div.DTE_Field_InputControl input, div.DTE_Field_InputControl textarea').select();
 					}
-				} );
 
-				// Restore full key navigation on close
-				editor.one( 'close', function () {
-					dt.keys.enable( true );
-					dt.off( 'key-blur.editor' );
-				} );
-			} )
-			.one( 'cancelOpen.keyTable', function () {
-				// `preOpen` can cancel the display of the form, so it
-				// might be that the open event handler isn't needed
-				editor.off( 'open.keyTable' );
-			} )
-			.inline( this.s.lastFocus.cell.index() );
+					// Reduce the keys the Keys listens for
+					dt.keys.enable( hardEdit ? 'tab-only' : 'navigation-only' );
+
+					// On blur of the navigation submit
+					dt.on( 'key-blur.editor', function () {
+						if ( editor.displayed() ) {
+							editor.submit();
+						}
+					} );
+
+					// Highlight the cell a different colour on full edit
+					if ( hardEdit ) {
+						$( dt.table().container() ).addClass('dtk-focus-alt');
+					}
+
+					editor.on( 'submitUnsuccessful.keyTable', function () {
+						that._focus( editCell, null, false );
+					} );
+
+					// Restore full key navigation on close
+					editor.one( 'close', function () {
+						dt.keys.enable( true );
+						dt.off( 'key-blur.editor' );
+						editor.off( '.keyTable' );
+						$( dt.table().container() ).removeClass('dtk-focus-alt');
+					} );
+				} )
+				.one( 'cancelOpen.keyTable', function () {
+					// `preOpen` can cancel the display of the form, so it
+					// might be that the open event handler isn't needed
+					editor.off( '.keyTable' );
+				} )
+				.inline( editCell.index() );
+		};
+
+		// Editor 1.7 listens for `return` on keyup, so if return is the trigger
+		// key, we need to wait for `keyup` otherwise Editor would just submit
+		// the content triggered by this keypress.
+		if ( key === 13 ) {
+			hardEdit = true;
+
+			$(document).one( 'keyup', function () { // immediately removed
+				editInline();
+			} );
+		}
+		else {
+			editInline();
+		}
 	},
 
 
@@ -447,6 +598,11 @@ $.extend( KeyTable.prototype, {
 		}
 
 		if ( typeof row !== 'number' ) {
+			// Its an API instance - check that there is actually a row
+			if ( ! row.any() ) {
+				return;
+			}
+
 			// Convert the cell to a row and column
 			var index = row.index();
 			column = index.column;
@@ -454,6 +610,11 @@ $.extend( KeyTable.prototype, {
 				.rows( { filter: 'applied', order: 'applied' } )
 				.indexes()
 				.indexOf( index.row );
+			
+			// Don't focus rows that were filtered out.
+			if ( row < 0 ) {
+				return;
+			}
 
 			// For server-side processing normalise the row by adding the start
 			// point, since `rows().indexes()` includes only rows that are
@@ -492,11 +653,15 @@ $.extend( KeyTable.prototype, {
 			row -= pageInfo.start;
 		}
 
-		var cell = dt.cell( ':eq('+row+')', column, {search: 'applied'} );
+		// Get the cell from the current position - ignoring any cells which might
+		// not have been rendered (therefore can't use `:eq()` selector).
+		var cells = dt.cells( null, column, {search: 'applied', order: 'applied'} ).flatten();
+		var cell = dt.cell( cells[ row ] );
 
 		if ( lastFocus ) {
 			// Don't trigger a refocus on the same cell
 			if ( lastFocus.node === cell.node() ) {
+				this._emitEvent( 'key-refocus', [ this.s.dt, cell, originalEvent || null ] );
 				return;
 			}
 
@@ -557,7 +722,7 @@ $.extend( KeyTable.prototype, {
 			return;
 		}
 
-		if ( e.keyCode === 0 || e.ctrlKey || e.metaKey || e.altKey ) {
+		if ( (e.keyCode === 0 || e.ctrlKey || e.metaKey || e.altKey) && !(e.ctrlKey && e.altKey) ) {
 			return;
 		}
 
@@ -569,6 +734,7 @@ $.extend( KeyTable.prototype, {
 
 		var that = this;
 		var dt = this.s.dt;
+		var scrolling = this.s.dt.settings()[0].oScroll.sY ? true : false;
 
 		// If we are not listening for this key, do nothing
 		if ( this.c.keys && $.inArray( e.keyCode, this.c.keys ) === -1 ) {
@@ -589,7 +755,7 @@ $.extend( KeyTable.prototype, {
 
 			case 33: // page up (previous page)
 			case 34: // page down (next page)
-				if ( navEnable ) {
+				if ( navEnable && !scrolling ) {
 					e.preventDefault();
 
 					dt
@@ -666,6 +832,12 @@ $.extend( KeyTable.prototype, {
 		var scrollLeft = scroller.scrollLeft();
 		var containerHeight = container.height();
 		var containerWidth = container.width();
+
+		// If Scroller is being used, the table can be `position: absolute` and that
+		// needs to be taken account of in the offset. If no Scroller, this will be 0
+		if ( posOff === 'position' ) {
+			offset.top += parseInt( cell.closest('table').css('top'), 10 );
+		}
 
 		// Top correction
 		if ( offset.top < scrollTop ) {
@@ -854,6 +1026,18 @@ KeyTable.defaults = {
 	className: 'focus',
 
 	/**
+	 * Enable or disable clipboard support
+	 * @type {Boolean}
+	 */
+	clipboard: true,
+
+	/**
+	 * Orthogonal data that should be copied to clipboard
+	 * @type {string}
+	 */
+	clipboardOrthogonal: 'display',
+
+	/**
 	 * Columns that can be focused. This is automatically merged with the
 	 * visible columns as only visible columns can gain focus.
 	 * @type {String}
@@ -867,11 +1051,10 @@ KeyTable.defaults = {
 	editor: null,
 
 	/**
-	 * Option that defines what KeyTable's behaviour will be when used with
-	 * Editor's inline editing. Can be `navigation-only` or `tab-only`.
-	 * @type {String}
+	 * Trigger editing immediately on focus
+	 * @type {boolean}
 	 */
-	editorKeys: 'navigation-only',
+	editOnFocus: false,
 
 	/**
 	 * Select a cell to automatically select on start up. `null` for no
@@ -895,7 +1078,7 @@ KeyTable.defaults = {
 
 
 
-KeyTable.version = "2.2.1";
+KeyTable.version = "2.5.0";
 
 
 $.fn.dataTable.KeyTable = KeyTable;

@@ -52,6 +52,12 @@ div.dt-button-info > div {
   padding: 1em;
 }
 
+div.dt-button-collection-title {
+  text-align: center;
+  padding: 0.3em 0 0.5em;
+  font-size: 0.9em;
+}
+
 ul.dt-button-collection.dropdown-menu {
   display: block;
   z-index: 2002;
@@ -108,6 +114,9 @@ ul.dt-button-collection.dropdown-menu.four-column {
   -o-column-count: 4;
   column-count: 4;
 }
+ul.dt-button-collection.dropdown-menu .dt-button {
+  border-radius: 0;
+}
 
 ul.dt-button-collection {
   -webkit-column-gap: 8px;
@@ -162,6 +171,9 @@ ul.dt-button-collection.four-column {
   -ms-column-count: 4;
   -o-column-count: 4;
   column-count: 4;
+}
+ul.dt-button-collection .dt-button {
+  border-radius: 0;
 }
 ul.dt-button-collection.fixed {
   max-width: none;
