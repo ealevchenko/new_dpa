@@ -1,4 +1,7 @@
 ﻿jQuery(document).ready(function ($) {
+
+    var user = $('input#username').val();
+
     //open/close lateral filter
     $('.cd-filter-trigger').on('click', function () {
         triggerFilter(true);
