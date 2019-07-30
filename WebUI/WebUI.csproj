@@ -154,7 +154,6 @@
     <Folder Include="Areas\Personnel\Views\Shared\" />
     <Folder Include="Areas\Project\Models\" />
     <Folder Include="Areas\Systems\Models\" />
-    <Folder Include="Controllers\api\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +210,7 @@
     <Compile Include="Areas\Project\ProjectAreaRegistration.cs" />
     <Compile Include="Areas\Systems\Controllers\HomeController.cs" />
     <Compile Include="Areas\Systems\SystemsAreaRegistration.cs" />
+    <Compile Include="Controllers\api\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1025,6 +1025,16 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EFDPA\EFDPA.csproj">
+      <Project>{4c586710-af82-4f3d-8b30-f4ffa5ba0312}</Project>
+      <Name>EFDPA</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EFProjects\EFProjects.csproj">
+      <Project>{d0ab0dbd-0fb8-4db8-872a-fa4a68d73bbc}</Project>
+      <Name>EFProjects</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -69,6 +69,7 @@ namespace WebUI.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<EFDPA.Abstract.IRepository<EFDPA.Entities.Users>>().To<EFDPA.Concrete.EFUsers>();
         }        
     }
 }
