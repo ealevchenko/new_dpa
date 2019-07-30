@@ -36,7 +36,7 @@
             @RenderBody()
         </div>
     </main> <!-- cd-content -->
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
     <script src="~/Scripts/project/global_project.js"></script> <!-- Resource jQuery -->
     @RenderSection("scripts", required: false)
 </body>

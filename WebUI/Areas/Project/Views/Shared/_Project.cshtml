@@ -24,8 +24,7 @@
         </nav> <!-- cd-main-nav -->
     </header>
     @RenderBody()
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    @*<script src="~/Scripts/project/global_project.js"></script> <!-- Resource jQuery -->*@
+    @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 </body>
 </html>
