@@ -71,6 +71,7 @@ namespace WebUI.App_Start
         {
             kernel.Bind<EFDPA.Abstract.IRepository<EFDPA.Entities.Users>>().To<EFDPA.Concrete.EFUsers>();
             kernel.Bind<EFProjects.Abstract.IRepository<EFProjects.Entities.ProjectManager>>().To<EFProjects.Concrete.EFProjectManager>();
+            kernel.Bind<EFProjects.Abstract.IRepository<EFProjects.Entities.ListProjects>>().To<EFProjects.Concrete.EFListProjects>();
         }        
     }
 }

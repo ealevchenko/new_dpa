@@ -210,6 +210,7 @@
     <Compile Include="Areas\Project\ProjectAreaRegistration.cs" />
     <Compile Include="Areas\Systems\Controllers\HomeController.cs" />
     <Compile Include="Areas\Systems\SystemsAreaRegistration.cs" />
+    <Compile Include="Controllers\api\ListProjectsController.cs" />
     <Compile Include="Controllers\api\ProjectManagerController.cs" />
     <Compile Include="Controllers\api\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -556,6 +557,10 @@
     <Content Include="Images\project\cd-icon-check.svg" />
     <Content Include="Images\project\cd-icon-filter.svg" />
     <Content Include="Images\project\img.png" />
+    <Content Include="Images\project\pm10.jpg" />
+    <Content Include="Images\project\pm2.jpg" />
+    <Content Include="Images\project\pm3.jpg" />
+    <Content Include="Images\project\pm9.jpg" />
     <Content Include="Scripts\api\common.js" />
     <Content Include="Scripts\api\dpa.js" />
     <Content Include="Scripts\api\project.js" />
