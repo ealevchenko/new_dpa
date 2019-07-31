@@ -32,7 +32,7 @@ var getAllObjects = function (obj, key, val) {
         }
     }
     return objects;
-}
+};
 // Поиск элемента массива по ключу по первому уровню 
 var getObjects = function (obj, key, val) {
     var objects = [];
@@ -46,7 +46,7 @@ var getObjects = function (obj, key, val) {
             }
     }
     return objects;
-}
+};
 // Поиск элемента массива во вложенных обектах второго уровня 
 var getChildObjects = function (obj, key, val) {
     var objects = [];
@@ -60,7 +60,14 @@ var getChildObjects = function (obj, key, val) {
             }
     }
     return objects;
-}
+};
+// Вернуть объект из списка
+var getObjOflist = function (list, field, value) {
+    var res = getObjects(list, field, value);
+    if (res !== null && res.length > 0) {
+        return res[0];
+    }
+};
 
 /* ----------------------------------------------------------
     DataTables Вывод текста согласно региональных настроек

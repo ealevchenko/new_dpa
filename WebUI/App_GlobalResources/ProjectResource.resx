@@ -177,4 +177,7 @@
   <data name="home_menu_4_name" xml:space="preserve">
     <value>Документация</value>
   </data>
+  <data name="filter_title_project_manager" xml:space="preserve">
+    <value>Руководители проектов</value>
+  </data>
 </root>

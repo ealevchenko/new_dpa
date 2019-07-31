@@ -19,7 +19,7 @@ namespace WebUI.App_GlobalResources {
     // с помощью такого средства, как ResGen или Visual Studio.
     // Чтобы добавить или удалить член, измените файл .ResX и снова запустите ResGen
     // с параметром /str или перестройте свой проект VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ProjectResource {
@@ -147,6 +147,15 @@ namespace WebUI.App_GlobalResources {
         public static string filter_title_no_results_found {
             get {
                 return ResourceManager.GetString("filter_title_no_results_found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Руководители проектов.
+        /// </summary>
+        public static string filter_title_project_manager {
+            get {
+                return ResourceManager.GetString("filter_title_project_manager", resourceCulture);
             }
         }
         

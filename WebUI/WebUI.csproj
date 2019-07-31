@@ -212,6 +212,7 @@
     <Compile Include="Areas\Systems\SystemsAreaRegistration.cs" />
     <Compile Include="Controllers\api\ListProjectsController.cs" />
     <Compile Include="Controllers\api\ProjectManagerController.cs" />
+    <Compile Include="Controllers\api\StructuralSubdivisionsController.cs" />
     <Compile Include="Controllers\api\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -558,8 +559,13 @@
     <Content Include="Images\project\cd-icon-filter.svg" />
     <Content Include="Images\project\img.png" />
     <Content Include="Images\project\pm10.jpg" />
+    <Content Include="Images\project\pm11.jpg" />
+    <Content Include="Images\project\pm12.jpg" />
+    <Content Include="Images\project\pm13.jpg" />
+    <Content Include="Images\project\pm14.jpg" />
     <Content Include="Images\project\pm2.jpg" />
     <Content Include="Images\project\pm3.jpg" />
+    <Content Include="Images\project\pm4.jpg" />
     <Content Include="Images\project\pm9.jpg" />
     <Content Include="Scripts\api\common.js" />
     <Content Include="Scripts\api\dpa.js" />
@@ -780,6 +786,7 @@
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Content\DataTables\extensions\Buttons\css\mixins.scss" />
     <Content Include="Content\DataTables\extensions\Buttons\css\common.scss" />
+    <Content Include="Areas\Project\Views\Home\Project.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

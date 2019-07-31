@@ -70,6 +70,8 @@ namespace WebUI.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<EFDPA.Abstract.IRepository<EFDPA.Entities.Users>>().To<EFDPA.Concrete.EFUsers>();
+            kernel.Bind<EFDPA.Abstract.IRepository<EFDPA.Entities.StructuralSubdivisions>>().To<EFDPA.Concrete.EFStructuralSubdivisions>();
+
             kernel.Bind<EFProjects.Abstract.IRepository<EFProjects.Entities.ProjectManager>>().To<EFProjects.Concrete.EFProjectManager>();
             kernel.Bind<EFProjects.Abstract.IRepository<EFProjects.Entities.ListProjects>>().To<EFProjects.Concrete.EFListProjects>();
         }        

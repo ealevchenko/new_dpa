@@ -25,11 +25,34 @@ function getAsyncUsers(callback) {
         },
     });
 }
-
+// 
 function getAsyncUsersOfName(user_name, callback) {
     $.ajax({
         type: 'GET',
         url: '../../api/users/user_name/'+ user_name,
+        async: true,
+        dataType: 'json',
+        beforeSend: function () {
+            AJAXBeforeSend();
+        },
+        success: function (data) {
+            if (typeof callback === 'function') {
+                callback(data);
+            }
+        },
+        error: function (x, y, z) {
+            OnAJAXError(x, y, z);
+        },
+        complete: function () {
+            AJAXComplete();
+        },
+    });
+}
+// Веруть список структурных подразделений
+function getAsyncStructuralSubdivisions(callback) {
+    $.ajax({
+        type: 'GET',
+        url: '../../api/ss/all',
         async: true,
         dataType: 'json',
         beforeSend: function () {

@@ -17,7 +17,7 @@
         langs = $.extend(true, $.extend(true, getLanguages($.Text_View, lang), getLanguages($.Text_Common, lang)), getLanguages($.Text_Table, lang)),
         user_name = $('input#username').val(),
         list_users = [],
-
+        list_structural_subdivisions= [],
         user = null,
         pm = null,
         chain_pm = null,
@@ -27,7 +27,7 @@
         list_ss = [],
         loadReference = function (callback) {
             LockScreen(langView('mess_load', langs));
-            var count = 1;
+            var count = 2;
             // Загрузка пользователей
             getAsyncUsers(function (result_users) {
                 list_users = result_users;
@@ -38,7 +38,18 @@
                         callback();
                     }
                 }
-            })
+            });
+            // Загрузка структурных подразделений
+            getAsyncStructuralSubdivisions(function (result_structural_subdivisions) {
+                list_structural_subdivisions = result_structural_subdivisions;
+                count -= 1;
+                if (count <= 0) {
+                    if (typeof callback === 'function') {
+                        LockScreenOff();
+                        callback();
+                    }
+                }
+            });
         },
         loadData = function (callback) {
             LockScreen(langView('mess_delay', langs));
@@ -72,7 +83,8 @@
                             $.each(list_project, function (i, el) {
                                 if ($.inArray(el.id_structural_subdivisions, uniqueNames) === -1) {
                                     uniqueNames.push(el.id_structural_subdivisions);
-                                    list_ss.push(el.id_structural_subdivisions);
+                                    //list_ss.push(el.id_structural_subdivisions);
+                                    list_ss.push(getObjOflist(list_structural_subdivisions, 'id', el.id_structural_subdivisions));
                                 }
                             });
                             LockScreenOff();
@@ -80,19 +92,32 @@
                                 LockScreenOff();
                                 callback();
                             }
-                        })
-                    })
-                })
-            })
-        }
+                        });
+                    });
+                });
+            });
+        };
 
+
+    if (lang === undefined) lang = 'ru';
     // Загрузка библиотек
     loadReference(function (result) {
         // Загрузка данных
         loadData(function (result) {
 
-            //$("section.cd-gallery ul").append('<li><a href="/user/messages"><span class="tab">Message Center</span></a></li>');
+            // Создадим список структурных подразделений
+            $.each(list_ss, function (i, el) {
+                $("select#selectThis")
+                    .append('<option value=".subdivisions' + el.id + '">' + (lang === 'ru' ? el.name_subdivisions_full_ru : el.name_subdivisions_full_en) + '</option>');
+            });
+            // Сформировать список руководителей проектов
+            $.each(list_pm, function (i, el) {
+                var user = getObjOflist(list_users, 'id', el.id_user);
+                $("div#list-project-manager ul")
+                    .append('<li><input class="filter" data-filter=".pm' + el.id + '" type="checkbox" id="checkbox' + el.id + '"><label class="checkbox-label" for="checkbox' + el.id + '">' + user.surname + ' ' + user.name +'</label></li>');
+            });
 
+            // Создадим список проектов
             $.each(list_project, function (i, el) {
                 // Определим тип
                 var type = null;
@@ -107,12 +132,11 @@
                     case 1: status = 'status-close'; break;
                     case 2: status = 'status-pause'; break;
                 }
-                $("section.cd-gallery ul")
-                    .append('<li class="mix ' + type + ' check1 ' + status + ' subdivisions' + el.id_structural_subdivisions + '"><a href="#' + el.id + '"><img src="../../Images/project/pm' + el.id_project_manager + '.jpg" alt=""><div class="project-men"><p>' + el.name_project_ru + '</p></div><div class="project-info"><h2>' + type_title + '</h2><p>' + el.name_project_ru + '</p></div></a></li>')
-            });
+                var ss = getObjOflist(list_structural_subdivisions, 'id', el.id_structural_subdivisions);
 
-            //' + el.id_project_manager + '
-            //'<li class="mix strategic check1 status-open subdivisions3"><a href="#0"><img src="~/Images/project/img.png" alt="Image 1"><div class="project-info"><h2>Project 1</h2><p>Lorem ipsum dolor sit amet.</p></div></a></li>'
+                $("section.cd-gallery ul")
+                    .append('<li class="mix ' + type + ' pm' + el.id_project_manager + ' ' + status + ' subdivisions' + el.id_structural_subdivisions + '"><a href="Project/'+ el.id +'"><img src="../../Images/project/pm' + el.id_project_manager + '.jpg" alt=""><div class="project-men"><p>' + el.name_project_ru + '</p></div><div class="project-info"><h2>' + (ss !== null ? ss.name_subdivisions_ru : '?') + '</h2><p>' + type_title + (el.spp_sap !=="" ? ' ('+ el.spp_sap +')' : '' ) +'</p></div></a></li>')
+            });
 
             //************************
             //open/close lateral filter
@@ -164,7 +188,7 @@
             //close filter dropdown inside lateral .cd-filter 
             $('.cd-filter-block h4').on('click', function () {
                 $(this).toggleClass('closed').siblings('.cd-filter-content').slideToggle(300);
-            })
+            });
 
             //fix lateral filter and gallery on scrolling
             $(window).on('scroll', function () {

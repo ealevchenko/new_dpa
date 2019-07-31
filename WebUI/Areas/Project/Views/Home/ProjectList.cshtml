@@ -161,10 +161,10 @@
                     </div> <!-- cd-filter-content -->
                 </div> <!-- cd-filter-block -->*@
 
-            @*<div class="cd-filter-block">
-                    <h4>Check boxes</h4>
+            <div class="cd-filter-block" id="list-project-manager">
+                <h4>@ProjectResource.filter_title_project_manager</h4>
                     <ul class="cd-filter-content cd-filters list">
-                        <li>
+                        @*<li>
                             <input class="filter" data-filter=".check1" type="checkbox" id="checkbox1">
                             <label class="checkbox-label" for="checkbox1">Option 1</label>
                         </li>
@@ -175,9 +175,9 @@
                         <li>
                             <input class="filter" data-filter=".check3" type="checkbox" id="checkbox3">
                             <label class="checkbox-label" for="checkbox3">Option 3</label>
-                        </li>
+                        </li>*@
                     </ul> <!-- cd-filter-content -->
-                </div> <!-- cd-filter-block -->*@
+                </div> <!-- cd-filter-block -->
 
             <div class="cd-filter-block">
                 <h4>@ProjectResource.filter_title_subdivisions</h4>
@@ -186,10 +186,10 @@
                     <div class="cd-select cd-filters">
                         <select class="filter" name="selectThis" id="selectThis">
                             <option value="">@ProjectResource.filter_select_title_select_division</option>
-                            <option value=".subdivisions1">Option 1</option>
+                            @*<option value=".subdivisions1">Option 1</option>
                             <option value=".subdivisions2">Option 2</option>
                             <option value=".subdivisions3">Option 3</option>
-                            <option value=".subdivisions4">Option 4</option>
+                            <option value=".subdivisions4">Option 4</option>*@
                         </select>
                     </div> <!-- cd-select -->
                 </div> <!-- cd-filter-content -->
@@ -198,11 +198,11 @@
                 <h4>@ProjectResource.filter_title_status</h4>
                 <ul class="cd-filter-content cd-filters list">
                     <li>
-                        <input class="filter" data-filter="" type="radio" name="radioButton" id="radio1" checked>
+                        <input class="filter" data-filter="" type="radio" name="radioButton" id="radio1">
                         <label class="radio-label" for="radio1">@ProjectResource.filter_All</label>
                     </li>
                     <li>
-                        <input class="filter" data-filter=".status-open" type="radio" name="radioButton" id="status-open">
+                        <input class="filter" data-filter=".status-open" type="radio" name="radioButton" id="status-open" checked>
                         <label class="radio-label" for="status-open">@ProjectResource.filter_status_open</label>
                     </li>
                     <li>
