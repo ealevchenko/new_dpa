@@ -5,11 +5,15 @@
         {
             'default':  //default language: ru
             {
-                'text_link_tabs_cars_list': 'ру',
+                'text_type_tytle_strategic': 'Стратегический',
+                'text_type_tytle_normative': 'Нормативный',
+                'text_type_tytle_project': ' проект',
             },
             'en':  //default language: English
             {
-                'text_link_tabs_cars_list': 'ru',
+                'text_type_tytle_strategic': 'Strategic',
+                'text_type_tytle_normative': 'Normative',
+                'text_type_tytle_project': ' project',
             }
         };
 
@@ -123,8 +127,8 @@
                 var type = null;
                 var type_title = null;
                 switch(el.id_type_project){
-                    case 1: type = 'strategic'; type_title= 'Стратегический'; break;
-                    case 2: type = 'normative'; type_title= 'Нормативный'; break;
+                    case 1: type = 'strategic'; type_title = langView('text_type_tytle_strategic', langs); break;
+                    case 2: type = 'normative'; type_title = langView('text_type_tytle_normative', langs); break;
                 }
                 var status = null;
                 switch (el.id_status_project) {
@@ -135,13 +139,13 @@
                 var ss = getObjOflist(list_structural_subdivisions, 'id', el.id_structural_subdivisions);
 
                 $("section.cd-gallery ul")
-                    .append('<li class="mix ' + type + ' pm' + el.id_project_manager + ' ' + status + ' subdivisions' + el.id_structural_subdivisions + '"><a href="#'+ el.id +'" id="'+ el.id +'"><img src="../../Images/project/pm' + el.id_project_manager + '.jpg" alt=""><div class="project-men"><p>' + el.name_project_ru + '</p></div><div class="project-info"><h2>' + (ss !== null ? ss.name_subdivisions_ru : '?') + '</h2><p>' + type_title + (el.spp_sap !=="" ? ' ('+ el.spp_sap +')' : '' ) +'</p></div></a></li>')
+                    .append('<li class="mix ' + type + ' pm' + el.id_project_manager + ' ' + status + ' subdivisions' + el.id_structural_subdivisions + '"><a href="#" id="' + el.id + '"><img src="../../Images/project/pm' + el.id_project_manager + '.jpg" alt=""><div class="project-men"><p>' + el.name_project_ru + '</p></div><div class="project-info"><h2>' + (ss !== null ? ss.name_subdivisions_ru : '?') + '</h2><p>' + type_title + (el.spp_sap !== "" ? ' (' + el.spp_sap + ')' : '') + '</p></div></a></li>');
             });
 
 
 
             //************************
-            singleProjectContent = $('.cd-project-content')
+            singleProjectContent = $('.cd-project-content');
 
             $('.cd-gallery ul li a').on('click', function () {
                 event.preventDefault();
@@ -149,9 +153,29 @@
                 var id = $(this).attr('id');
                 // загрузим проект
                 var project = getObjOflist(list_project, 'id', id);
+                // Определим тип проекта
+                var type_project = '';
+                switch (project.id_type_project) {
+                    case 1: type_project = langView('text_type_tytle_strategic', langs); break;
+                    case 2: type_project = langView('text_type_tytle_normative', langs);  break;
+                }
+                // тип пректа и название
+                $('.cd-project-content div h2').text(type_project + langView('text_type_tytle_project', langs));
+                $('.cd-project-content div em').text(lang === 'ru' ? project.name_project_ru : project.name_project_en);
+                // цели проекта
+                $('textarea#goals-project').val(lang === 'ru' ? project.goals_project_ru : project.goals_project_en);
+                // Структурное подразделение где реализуется проект
+                var structural_subdivisions = getObjOflist(list_structural_subdivisions, 'id', project.id_structural_subdivisions);
+                $('input#structural-subdivisions').val(lang === 'ru' ? structural_subdivisions.name_subdivisions_full_ru : structural_subdivisions.name_subdivisions_full_en);
+                // Структурное подразделение заказчик
+                var project_customer = getObjOflist(list_structural_subdivisions, 'id', project.id_project_customer);
+                $('input#project-customer').val(lang === 'ru' ? project_customer.name_subdivisions_full_ru : project_customer.name_subdivisions_full_en);
+                // СПП-элемент и владелец строки
+                var spp_owner = getObjOflist(list_structural_subdivisions, 'id', project.id_spp_owner);
+                $('input#spp-element').val((project.spp_sap !== "" ? "("+project.spp_sap+")" : "") +' ' + (spp_owner !== undefined ? (lang === 'ru' ? spp_owner.name_subdivisions_full_ru : spp_owner.name_subdivisions_full_en) : ''));
 
-                $('input#project-name-ru').val(project.name_project_ru);
-                $('input#project-name-en').val(project.name_project_en);
+                $('input#start-project').val(project.start_project);
+                $('input#stop-project').val(project.stop_project_contract);
 
                 singleProjectContent.addClass('is-visible');
             });

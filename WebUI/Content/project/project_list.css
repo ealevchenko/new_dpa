@@ -1036,11 +1036,12 @@ Form
   -moz-animation: cd-bounce 0.3s;
   animation: cd-bounce 0.3s;
 }
-.cd-form textarea {
-  min-height: 200px;
-  resize: vertical;
-  overflow: auto;
-}
+    .cd-form textarea {
+        min-height: 200px;
+        resize: vertical;
+        overflow: auto;
+        background-color: #ffffff;
+    }
 .cd-form input[type="submit"] {
   /* button style */
   border: none;
@@ -1073,9 +1074,9 @@ Form
   -o-transform: scale(0.9);
   transform: scale(0.9);
 }
-.cd-form [required] {
+/*.cd-form [required] {
   background: url("../img/cd-required.svg") no-repeat top right;
-}
+}*/
 .cd-form .error-message p {
   background: #e94b35;
   color: #ffffff;

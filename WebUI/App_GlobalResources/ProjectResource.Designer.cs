@@ -248,5 +248,77 @@ namespace WebUI.App_GlobalResources {
                 return ResourceManager.GetString("home_menu_4_name", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Цели:.
+        /// </summary>
+        public static string title_goals_project {
+            get {
+                return ResourceManager.GetString("title_goals_project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Заказчик:.
+        /// </summary>
+        public static string title_project_customer {
+            get {
+                return ResourceManager.GetString("title_project_customer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Информация о проекте.
+        /// </summary>
+        public static string title_project_info {
+            get {
+                return ResourceManager.GetString("title_project_info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Прооект:.
+        /// </summary>
+        public static string title_project_name {
+            get {
+                return ResourceManager.GetString("title_project_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на СПП-элемент\Владелец строки:.
+        /// </summary>
+        public static string title_spp_element_owner {
+            get {
+                return ResourceManager.GetString("title_spp_element_owner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Начат:.
+        /// </summary>
+        public static string title_start_project {
+            get {
+                return ResourceManager.GetString("title_start_project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Окончание согласно контракта:.
+        /// </summary>
+        public static string title_stop_project {
+            get {
+                return ResourceManager.GetString("title_stop_project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Структурное подразделение:.
+        /// </summary>
+        public static string title_structural_subdivisions {
+            get {
+                return ResourceManager.GetString("title_structural_subdivisions", resourceCulture);
+            }
+        }
     }
 }

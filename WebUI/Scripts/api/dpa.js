@@ -29,7 +29,7 @@ function getAsyncUsers(callback) {
 function getAsyncUsersOfName(user_name, callback) {
     $.ajax({
         type: 'GET',
-        url: '../../api/users/user_name/'+ user_name.replace(/EUROPE\\/g, ''),
+        url: '../../api/users/user_name/' + user_name.replace(/EUROPE\\/g, '').replace(/HP_EDIK\\/g, ''),
         async: true,
         dataType: 'json',
         beforeSend: function () {

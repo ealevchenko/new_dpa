@@ -180,4 +180,28 @@
   <data name="filter_title_project_manager" xml:space="preserve">
     <value>Руководители проектов</value>
   </data>
+  <data name="title_goals_project" xml:space="preserve">
+    <value>Цели:</value>
+  </data>
+  <data name="title_project_customer" xml:space="preserve">
+    <value>Заказчик:</value>
+  </data>
+  <data name="title_project_info" xml:space="preserve">
+    <value>Информация о проекте</value>
+  </data>
+  <data name="title_project_name" xml:space="preserve">
+    <value>Прооект:</value>
+  </data>
+  <data name="title_spp_element_owner" xml:space="preserve">
+    <value>СПП-элемент\Владелец строки:</value>
+  </data>
+  <data name="title_start_project" xml:space="preserve">
+    <value>Начат:</value>
+  </data>
+  <data name="title_stop_project" xml:space="preserve">
+    <value>Окончание согласно контракта:</value>
+  </data>
+  <data name="title_structural_subdivisions" xml:space="preserve">
+    <value>Структурное подразделение:</value>
+  </data>
 </root>

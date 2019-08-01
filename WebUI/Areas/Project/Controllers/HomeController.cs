@@ -28,11 +28,5 @@ namespace WebUI.Areas.Project.Controllers
         {
             return View();
         } 
-
-        public ActionResult Project(int id)
-        {
-            return View();
-        }
-
     }
 }

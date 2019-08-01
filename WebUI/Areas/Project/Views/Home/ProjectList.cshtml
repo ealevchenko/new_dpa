@@ -224,82 +224,87 @@
 
 <div class="cd-project-content">
     <div>
-        @*<h2>Проект CAPEX</h2>
-        <em>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt, ullam.</em>*@
+        <h2></h2>
+        <em></em>
         <form class="cd-form floating-labels">
             <fieldset>
-                <legend>Project Info</legend>
+                <legend>@ProjectResource.title_project_info</legend>
 
                 <div class="icon">
-                    <label class="cd-label" for="project-name-ru">Название проекта (ru)</label>
-                    <input class="user" type="text" name="cd-name" id="project-name-ru" disabled="disabled" required>
-                </div> 
-
-                <div class="icon">
-                    <label class="cd-label" for="project-name-en">Название проекта (en)</label>
-                    <input class="user" type="text" name="cd-name" id="project-name-en" disabled="disabled" required>
-                </div> 
-
-                <div class="icon">
-                    <label class="cd-label" for="cd-textarea">Цели проекта (ru)</label>
-                    <textarea class="message" name="cd-textarea" id="cd-textarea" required></textarea>
+                    <label class="cd-label" for="goals-project">@ProjectResource.title_goals_project</label>
+                    <textarea class="goals-project" name="cd-textarea" id="goals-project" disabled="disabled"></textarea>
                 </div>
-
                 <div class="icon">
-                    <label class="cd-label" for="cd-textarea">Цели проекта (en)</label>
-                    <textarea class="message" name="cd-textarea" id="cd-textarea" required></textarea>
+                    <label class="cd-label" for="structural-subdivisions">@ProjectResource.title_structural_subdivisions</label>
+                    <input class="structural-subdivisions" type="text" name="cd-name" id="structural-subdivisions" disabled="disabled">
+                </div>
+                <div class="icon">
+                    <label class="cd-label" for="project-customer">@ProjectResource.title_project_customer</label>
+                    <input class="project-customer" type="text" name="cd-name" id="project-customer" disabled="disabled">
+                </div>
+                <div class="icon">
+                    <label class="cd-label" for="spp-element">@ProjectResource.title_spp_element_owner</label>
+                    <input class="spp-element" type="text" name="cd-name" id="spp-element" disabled="disabled">
+                </div>
+                <div class="icon">
+                    <label class="cd-label" for="start-project">@ProjectResource.title_start_project</label>
+                    <input class="start-project" type="text" name="cd-name" id="start-project" disabled="disabled">
+                </div>
+                <div class="icon">
+                    <label class="cd-label" for="stop-project">@ProjectResource.title_stop_project</label>
+                    <input class="stop-project" type="text" name="cd-name" id="stop-project" disabled="disabled">
                 </div>
 
                 @*<div>
-                    <h4>Budget</h4>
-                    <p class="cd-select icon">
-                        <select class="budget">
-                            <option value="0">Select Budget</option>
-                            <option value="1">&lt; $5000</option>
-                            <option value="2">$5000 - $10000</option>
-                            <option value="3">&gt; $10000</option>
-                        </select>
-                    </p>
-                </div>*@
-                <div>
-                    <h4>Project type</h4>
-                    <ul class="cd-form-list">
-                        <li>
-                            <input type="radio" name="radio-button" id="cd-radio-1" checked>
-                            <label for="cd-radio-1">Choice 1</label>
-                        </li>
+            <h4>Budget</h4>
+            <p class="cd-select icon">
+                <select class="budget">
+                    <option value="0">Select Budget</option>
+                    <option value="1">&lt; $5000</option>
+                    <option value="2">$5000 - $10000</option>
+                    <option value="3">&gt; $10000</option>
+                </select>
+            </p>
+        </div>*@
+                @*<div>
+            <h4>Project type</h4>
+            <ul class="cd-form-list">
+                <li>
+                    <input type="radio" name="radio-button" id="cd-radio-1" checked>
+                    <label for="cd-radio-1">Choice 1</label>
+                </li>
 
-                        <li>
-                            <input type="radio" name="radio-button" id="cd-radio-2">
-                            <label for="cd-radio-2">Choice 2</label>
-                        </li>
-                        <li>
-                            <input type="radio" name="radio-button" id="cd-radio-3">
-                            <label for="cd-radio-3">Choice 3</label>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Features</h4>
-                    <ul class="cd-form-list">
-                        <li>
-                            <input type="checkbox" id="cd-checkbox-1">
-                            <label for="cd-checkbox-1">Option 1</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="cd-checkbox-2">
-                            <label for="cd-checkbox-2">Option 2</label>
-                        </li>
-                        <li>
-                            <input type="checkbox" id="cd-checkbox-3">
-                            <label for="cd-checkbox-3">Option 3</label>
-                        </li>
-                    </ul>
-                </div>
-                <div class="icon">
-                    <label class="cd-label" for="cd-textarea">Project description</label>
-                    <textarea class="message" name="cd-textarea" id="cd-textarea" required></textarea>
-                </div>
+                <li>
+                    <input type="radio" name="radio-button" id="cd-radio-2">
+                    <label for="cd-radio-2">Choice 2</label>
+                </li>
+                <li>
+                    <input type="radio" name="radio-button" id="cd-radio-3">
+                    <label for="cd-radio-3">Choice 3</label>
+                </li>
+            </ul>
+        </div>*@
+                @*<div>
+            <h4>Features</h4>
+            <ul class="cd-form-list">
+                <li>
+                    <input type="checkbox" id="cd-checkbox-1">
+                    <label for="cd-checkbox-1">Option 1</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="cd-checkbox-2">
+                    <label for="cd-checkbox-2">Option 2</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="cd-checkbox-3">
+                    <label for="cd-checkbox-3">Option 3</label>
+                </li>
+            </ul>
+        </div>*@
+                @*<div class="icon">
+            <label class="cd-label" for="cd-textarea">Project description</label>
+            <textarea class="message" name="cd-textarea" id="cd-textarea" required></textarea>
+        </div>*@
             </fieldset>
             </form>
             @*<p>
