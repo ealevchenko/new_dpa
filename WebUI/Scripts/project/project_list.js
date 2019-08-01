@@ -135,9 +135,32 @@
                 var ss = getObjOflist(list_structural_subdivisions, 'id', el.id_structural_subdivisions);
 
                 $("section.cd-gallery ul")
-                    .append('<li class="mix ' + type + ' pm' + el.id_project_manager + ' ' + status + ' subdivisions' + el.id_structural_subdivisions + '"><a href="Project/'+ el.id +'"><img src="../../Images/project/pm' + el.id_project_manager + '.jpg" alt=""><div class="project-men"><p>' + el.name_project_ru + '</p></div><div class="project-info"><h2>' + (ss !== null ? ss.name_subdivisions_ru : '?') + '</h2><p>' + type_title + (el.spp_sap !=="" ? ' ('+ el.spp_sap +')' : '' ) +'</p></div></a></li>')
+                    .append('<li class="mix ' + type + ' pm' + el.id_project_manager + ' ' + status + ' subdivisions' + el.id_structural_subdivisions + '"><a href="#'+ el.id +'" id="'+ el.id +'"><img src="../../Images/project/pm' + el.id_project_manager + '.jpg" alt=""><div class="project-men"><p>' + el.name_project_ru + '</p></div><div class="project-info"><h2>' + (ss !== null ? ss.name_subdivisions_ru : '?') + '</h2><p>' + type_title + (el.spp_sap !=="" ? ' ('+ el.spp_sap +')' : '' ) +'</p></div></a></li>')
             });
 
+
+
+            //************************
+            singleProjectContent = $('.cd-project-content')
+
+            $('.cd-gallery ul li a').on('click', function () {
+                event.preventDefault();
+                // Определим id проекта
+                var id = $(this).attr('id');
+                // загрузим проект
+                var project = getObjOflist(list_project, 'id', id);
+
+                $('input#project-name-ru').val(project.name_project_ru);
+                $('input#project-name-en').val(project.name_project_en);
+
+                singleProjectContent.addClass('is-visible');
+            });
+
+            //close single project content
+            singleProjectContent.on('click', '.close', function (event) {
+                event.preventDefault();
+                singleProjectContent.removeClass('is-visible');
+            });
             //************************
             //open/close lateral filter
             $('.cd-filter-trigger').on('click', function () {

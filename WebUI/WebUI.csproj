@@ -555,6 +555,7 @@
     <Content Include="Content\project\home1.css" />
     <Content Include="Content\project\project_list.css" />
     <Content Include="Images\project\cd-arrow.svg" />
+    <Content Include="Images\project\cd-close-dark.svg" />
     <Content Include="Images\project\cd-icon-check.svg" />
     <Content Include="Images\project\cd-icon-filter.svg" />
     <Content Include="Images\project\img.png" />
