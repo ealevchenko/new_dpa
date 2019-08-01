@@ -57,7 +57,7 @@
                 user = result_user;
                 getAsyncProjectManagerOfIDUser(user.id, function (result_pm) {
                     pm = result_pm;
-                    //pm.id = 1; // !!!!!!!!! тест
+                    pm.id = 1; // !!!!!!!!! тест
                     getAsyncChainProjectManagerOfIDPM(pm.id, function (result_chain_pm) {
                         chain_pm = result_chain_pm;
 
