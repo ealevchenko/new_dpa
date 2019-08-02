@@ -19,7 +19,7 @@ namespace WebUI.App_GlobalResources {
     // с помощью такого средства, как ResGen или Visual Studio.
     // Чтобы добавить или удалить член, измените файл .ResX и снова запустите ResGen
     // с параметром /str или перестройте свой проект VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ProjectResource {
@@ -250,11 +250,173 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Бюджет:.
+        /// </summary>
+        public static string title_budget_value {
+            get {
+                return ResourceManager.GetString("title_budget_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на ПНР (контракт):.
+        /// </summary>
+        public static string title_contract_commissioning_value {
+            get {
+                return ResourceManager.GetString("title_contract_commissioning_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на СМР (контракт):.
+        /// </summary>
+        public static string title_contract_construction_value {
+            get {
+                return ResourceManager.GetString("title_contract_construction_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Инжиниринговые работы (контракт):.
+        /// </summary>
+        public static string title_contract_engineering_value {
+            get {
+                return ResourceManager.GetString("title_contract_engineering_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Стоимость оборудования (контракт):.
+        /// </summary>
+        public static string title_contract_equipment_value {
+            get {
+                return ResourceManager.GetString("title_contract_equipment_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Другие затраты (контракт):.
+        /// </summary>
+        public static string title_contract_other_value {
+            get {
+                return ResourceManager.GetString("title_contract_other_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Контракт:.
+        /// </summary>
+        public static string title_contract_value {
+            get {
+                return ResourceManager.GetString("title_contract_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Email:.
+        /// </summary>
+        public static string title_email_performer {
+            get {
+                return ResourceManager.GetString("title_email_performer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Цели:.
         /// </summary>
         public static string title_goals_project {
             get {
                 return ResourceManager.GetString("title_goals_project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Руководитель:.
+        /// </summary>
+        public static string title_name_boss_performer {
+            get {
+                return ResourceManager.GetString("title_name_boss_performer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Подрядная организация:.
+        /// </summary>
+        public static string title_name_performer {
+            get {
+                return ResourceManager.GetString("title_name_performer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на ПНР (факт):.
+        /// </summary>
+        public static string title_payment_commissioning_value {
+            get {
+                return ResourceManager.GetString("title_payment_commissioning_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на СМР (факт):.
+        /// </summary>
+        public static string title_payment_construction_value {
+            get {
+                return ResourceManager.GetString("title_payment_construction_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Инжиниринговые работы (факт):.
+        /// </summary>
+        public static string title_payment_engineering_value {
+            get {
+                return ResourceManager.GetString("title_payment_engineering_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Стоимость оборудования (факт):.
+        /// </summary>
+        public static string title_payment_equipment_value {
+            get {
+                return ResourceManager.GetString("title_payment_equipment_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Другие затраты (факт):.
+        /// </summary>
+        public static string title_payment_other_value {
+            get {
+                return ResourceManager.GetString("title_payment_other_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Телефон руководителя:.
+        /// </summary>
+        public static string title_phone_boss_performer {
+            get {
+                return ResourceManager.GetString("title_phone_boss_performer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Телефон:.
+        /// </summary>
+        public static string title_phone_performer {
+            get {
+                return ResourceManager.GetString("title_phone_performer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Затраты.
+        /// </summary>
+        public static string title_project_budget {
+            get {
+                return ResourceManager.GetString("title_project_budget", resourceCulture);
             }
         }
         
@@ -277,11 +439,65 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Ответственный от ДАТП.
+        /// </summary>
+        public static string title_project_manager {
+            get {
+                return ResourceManager.GetString("title_project_manager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Email:.
+        /// </summary>
+        public static string title_project_manager_email {
+            get {
+                return ResourceManager.GetString("title_project_manager_email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на ФИО:.
+        /// </summary>
+        public static string title_project_manager_fio {
+            get {
+                return ResourceManager.GetString("title_project_manager_fio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Мобильный телефон:.
+        /// </summary>
+        public static string title_project_manager_phone_mobile {
+            get {
+                return ResourceManager.GetString("title_project_manager_phone_mobile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Рабочий телефон:.
+        /// </summary>
+        public static string title_project_manager_phone_work {
+            get {
+                return ResourceManager.GetString("title_project_manager_phone_work", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Прооект:.
         /// </summary>
         public static string title_project_name {
             get {
                 return ResourceManager.GetString("title_project_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Исполнитель работ.
+        /// </summary>
+        public static string title_project_performer {
+            get {
+                return ResourceManager.GetString("title_project_performer", resourceCulture);
             }
         }
         

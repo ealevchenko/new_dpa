@@ -5,15 +5,21 @@
         {
             'default':  //default language: ru
             {
-                'text_type_tytle_strategic': 'Стратегический',
-                'text_type_tytle_normative': 'Нормативный',
-                'text_type_tytle_project': ' проект',
+                'text_type_title_strategic': 'Стратегический',
+                'text_type_title_normative': 'Нормативный',
+                'text_title_project': ' CAPEX',
+                'text_status_open': 'В работе',
+                'text_status_close': 'Завершен',
+                'text_status_pause': 'Остановлен',
             },
             'en':  //default language: English
             {
-                'text_type_tytle_strategic': 'Strategic',
-                'text_type_tytle_normative': 'Normative',
-                'text_type_tytle_project': ' project',
+                'text_type_title_strategic': 'Strategic',
+                'text_type_title_normative': 'Normative',
+                'text_title_project': ' CAPEX',
+                'text_status_open': 'In progress',
+                'text_status_close': 'Completed',
+                'text_status_pause': 'Stopped',
             }
         };
 
@@ -127,8 +133,8 @@
                 var type = null;
                 var type_title = null;
                 switch(el.id_type_project){
-                    case 1: type = 'strategic'; type_title = langView('text_type_tytle_strategic', langs); break;
-                    case 2: type = 'normative'; type_title = langView('text_type_tytle_normative', langs); break;
+                    case 1: type = 'strategic'; type_title = langView('text_type_title_strategic', langs); break;
+                    case 2: type = 'normative'; type_title = langView('text_type_title_normative', langs); break;
                 }
                 var status = null;
                 switch (el.id_status_project) {
@@ -139,14 +145,16 @@
                 var ss = getObjOflist(list_structural_subdivisions, 'id', el.id_structural_subdivisions);
 
                 $("section.cd-gallery ul")
-                    .append('<li class="mix ' + type + ' pm' + el.id_project_manager + ' ' + status + ' subdivisions' + el.id_structural_subdivisions + '"><a href="#" id="' + el.id + '"><img src="../../Images/project/pm' + el.id_project_manager + '.jpg" alt=""><div class="project-men"><p>' + el.name_project_ru + '</p></div><div class="project-info"><h2>' + (ss !== null ? ss.name_subdivisions_ru : '?') + '</h2><p>' + type_title + (el.spp_sap !== "" ? ' (' + el.spp_sap + ')' : '') + '</p></div></a></li>');
+                    .append('<li class="mix ' + type + ' pm' + el.id_project_manager + ' ' + status + ' subdivisions' + el.id_structural_subdivisions + '"><a href="#" id="' + el.id + '"><img src="../../Images/project/pm' + el.id_project_manager + '.jpg" alt=""><div class="project-men"><p class="' + status + '">' + el.name_project_ru + '</p></div><div class="project-info"><h2>' + (ss !== null ? ss.name_subdivisions_ru : '?') + '</h2><p>' + type_title + (el.spp_sap !== "" ? ' (' + el.spp_sap + ')' : '') + '</p></div></a></li>');
             });
 
 
 
             //************************
+            // Показать проект детально
+            //*************************
             singleProjectContent = $('.cd-project-content');
-
+            // Событие выбора проекта
             $('.cd-gallery ul li a').on('click', function () {
                 event.preventDefault();
                 // Определим id проекта
@@ -156,12 +164,22 @@
                 // Определим тип проекта
                 var type_project = '';
                 switch (project.id_type_project) {
-                    case 1: type_project = langView('text_type_tytle_strategic', langs); break;
-                    case 2: type_project = langView('text_type_tytle_normative', langs);  break;
+                    case 1: type_project = langView('text_type_title_strategic', langs); break;
+                    case 2: type_project = langView('text_type_title_normative', langs);  break;
                 }
+                // Статус проекта
+                var status_project = null;
+                switch (project.id_status_project) {
+                    case 0: status_project = langView('text_status_open', langs); $('.cd-project-content div h2').removeClass().addClass('status-open'); break;
+                    case 1: status_project = langView('text_status_close', langs); $('.cd-project-content div h2').removeClass().addClass('status-close'); break;
+                    case 2: status_project = langView('text_status_pause', langs); $('.cd-project-content div h2').removeClass().addClass('status-pause'); break;
+                }
+
                 // тип пректа и название
-                $('.cd-project-content div h2').text(type_project + langView('text_type_tytle_project', langs));
+                
+                $('.cd-project-content div h2').text(type_project + langView('text_title_project', langs) + ' (' + status_project + ')');
                 $('.cd-project-content div em').text(lang === 'ru' ? project.name_project_ru : project.name_project_en);
+
                 // цели проекта
                 $('textarea#goals-project').val(lang === 'ru' ? project.goals_project_ru : project.goals_project_en);
                 // Структурное подразделение где реализуется проект
@@ -173,13 +191,44 @@
                 // СПП-элемент и владелец строки
                 var spp_owner = getObjOflist(list_structural_subdivisions, 'id', project.id_spp_owner);
                 $('input#spp-element').val((project.spp_sap !== "" ? "("+project.spp_sap+")" : "") +' ' + (spp_owner !== undefined ? (lang === 'ru' ? spp_owner.name_subdivisions_full_ru : spp_owner.name_subdivisions_full_en) : ''));
+                // Начало и окончание проекта
+                $('input#start-project').val(toDate(project.start_project));
+                $('input#stop-project').val(toDate(project.stop_project_contract));
+                // Исполнитель работ
+                if (project.WorkPerformers !== null) {
+                    $('input#name-performer').val(lang === 'ru' ? project.WorkPerformers.name_performer_ru : project.WorkPerformers.name_performer_en);
+                    $('input#email-performer').val(project.WorkPerformers.email_performer);
+                    $('input#phone-performer').val(project.WorkPerformers.phone_performer);
+                    $('input#name-boss-performer').val(project.WorkPerformers.phone_performer);
+                    $('input#phone-boss-performer').val(project.WorkPerformers.name_boss);
+                }
+                // Бюджет
+                $('input#contract-value').val(toValueCurrency(project.contract_value,project.contract_currency, lang));
+                $('input#budget-value').val(toValueCurrency(project.budget, project.budget_currency, lang));
 
-                $('input#start-project').val(project.start_project);
-                $('input#stop-project').val(project.stop_project_contract);
+                $('input#contract-engineering-value').val(toValueCurrency(project.contract_engineering_value, project.contract_engineering_currency, lang));
+                $('input#payment-engineering-value').val(toValueCurrency(project.payment_engineering_value, project.payment_engineering_currency, lang));
+                $('input#contract-equipment-value').val(toValueCurrency(project.contract_equipment_value, project.contract_equipment_currency, lang));
+                $('input#payment-equipment-value').val(toValueCurrency(project.payment_equipment_value, project.payment_equipment_currency, lang));
+                $('input#contract-construction-value').val(toValueCurrency(project.contract_construction_value, project.contract_construction_currency, lang));
+                $('input#payment-construction-value').val(toValueCurrency(project.payment_construction_value, project.payment_construction_currency, lang));
+                $('input#contract-commissioning-value').val(toValueCurrency(project.contract_commissioning_value, project.contract_commissioning_currency, lang));
+                $('input#payment-commissioning-value').val(toValueCurrency(project.payment_commissioning_value, project.payment_commissioning_currency, lang));
+                $('input#contract-other-value').val(toValueCurrency(project.contract_other_value, project.contract_other_currency, lang));
+                $('input#payment-other-value').val(toValueCurrency(project.payment_other_value, project.payment_other_currency, lang));
+                // Руководитель проектов и программ
+                if (project.ProjectManager !== null) {
+                    var user = getObjOflist(list_users, 'id', project.ProjectManager.id_user);
+                    $('input#project-manager-fio').val(user.surname + ' ' + user.name + ' ' + user.patronymic);
+                    $('input#project-manager-email').val(project.ProjectManager.email);
+                    $('input#project-manager-phone-work').val(project.ProjectManager.phone_work);
+                    $('input#project-manager-phone-mobile').val(project.ProjectManager.phone_mobile);
+                }
+
+
 
                 singleProjectContent.addClass('is-visible');
             });
-
             //close single project content
             singleProjectContent.on('click', '.close', function (event) {
                 event.preventDefault();

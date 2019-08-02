@@ -204,4 +204,76 @@
   <data name="title_structural_subdivisions" xml:space="preserve">
     <value>Структурное подразделение:</value>
   </data>
+  <data name="title_budget_value" xml:space="preserve">
+    <value>Бюджет:</value>
+  </data>
+  <data name="title_contract_commissioning_value" xml:space="preserve">
+    <value>ПНР (контракт):</value>
+  </data>
+  <data name="title_contract_construction_value" xml:space="preserve">
+    <value>СМР (контракт):</value>
+  </data>
+  <data name="title_contract_engineering_value" xml:space="preserve">
+    <value>Инжиниринговые работы (контракт):</value>
+  </data>
+  <data name="title_contract_equipment_value" xml:space="preserve">
+    <value>Стоимость оборудования (контракт):</value>
+  </data>
+  <data name="title_contract_other_value" xml:space="preserve">
+    <value>Другие затраты (контракт):</value>
+  </data>
+  <data name="title_contract_value" xml:space="preserve">
+    <value>Контракт:</value>
+  </data>
+  <data name="title_email_performer" xml:space="preserve">
+    <value>Email:</value>
+  </data>
+  <data name="title_name_boss_performer" xml:space="preserve">
+    <value>Руководитель:</value>
+  </data>
+  <data name="title_name_performer" xml:space="preserve">
+    <value>Подрядная организация:</value>
+  </data>
+  <data name="title_payment_commissioning_value" xml:space="preserve">
+    <value>ПНР (факт):</value>
+  </data>
+  <data name="title_payment_construction_value" xml:space="preserve">
+    <value>СМР (факт):</value>
+  </data>
+  <data name="title_payment_engineering_value" xml:space="preserve">
+    <value>Инжиниринговые работы (факт):</value>
+  </data>
+  <data name="title_payment_equipment_value" xml:space="preserve">
+    <value>Стоимость оборудования (факт):</value>
+  </data>
+  <data name="title_payment_other_value" xml:space="preserve">
+    <value>Другие затраты (факт):</value>
+  </data>
+  <data name="title_phone_boss_performer" xml:space="preserve">
+    <value>Телефон руководителя:</value>
+  </data>
+  <data name="title_phone_performer" xml:space="preserve">
+    <value>Телефон:</value>
+  </data>
+  <data name="title_project_budget" xml:space="preserve">
+    <value>Затраты</value>
+  </data>
+  <data name="title_project_manager" xml:space="preserve">
+    <value>Ответственный от ДАТП</value>
+  </data>
+  <data name="title_project_manager_email" xml:space="preserve">
+    <value>Email:</value>
+  </data>
+  <data name="title_project_manager_fio" xml:space="preserve">
+    <value>ФИО:</value>
+  </data>
+  <data name="title_project_manager_phone_mobile" xml:space="preserve">
+    <value>Мобильный телефон:</value>
+  </data>
+  <data name="title_project_manager_phone_work" xml:space="preserve">
+    <value>Рабочий телефон:</value>
+  </data>
+  <data name="title_project_performer" xml:space="preserve">
+    <value>Исполнитель работ</value>
+  </data>
 </root>

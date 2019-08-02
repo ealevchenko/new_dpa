@@ -184,6 +184,26 @@ var toISOStringTZ = function (date) {
     return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
 };
 
+var toDate = function (datetime) {
+    return datetime !== null ? datetime.substring(0, 10) : '';
+}
+
+var toCurrency = function (currency, lang) {
+    switch (currency !== null ? Number(currency) : 0) {
+        case 1: return lang === 'ru' ? 'тыс. грн.' : 'kUAH';
+        case 2: return lang === 'ru' ? 'тыс. $' : 'k$';
+    }
+};
+
+var toValueCurrency = function (value, currency, lang) {
+    var val = null
+    if (value != null) val = Number(value).toFixed(2);
+    switch (currency !== null ? Number(currency) : 0) {
+        case 1: return lang === 'ru' ? val + ' тыс. грн.' : val + ' kUAH';
+        case 2: return lang === 'ru' ? val + ' тыс. $' : val + ' k$';
+    }
+};
+
 var outVal = function (i) {
     return i != null ? Number(i) : '';
 };
