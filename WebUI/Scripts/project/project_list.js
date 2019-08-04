@@ -27,7 +27,7 @@
         langs = $.extend(true, $.extend(true, getLanguages($.Text_View, lang), getLanguages($.Text_Common, lang)), getLanguages($.Text_Table, lang)),
         user_name = $('input#username').val(),
         list_users = [],
-        list_structural_subdivisions= [],
+        list_structural_subdivisions = [],
         user = null,
         pm = null,
         chain_pm = null,
@@ -124,7 +124,7 @@
             $.each(list_pm, function (i, el) {
                 var user = getObjOflist(list_users, 'id', el.id_user);
                 $("div#list-project-manager ul")
-                    .append('<li><input class="filter" data-filter=".pm' + el.id + '" type="checkbox" id="checkbox' + el.id + '"><label class="checkbox-label" for="checkbox' + el.id + '">' + user.surname + ' ' + user.name +'</label></li>');
+                    .append('<li><input class="filter" data-filter=".pm' + el.id + '" type="checkbox" id="checkbox' + el.id + '"><label class="checkbox-label" for="checkbox' + el.id + '">' + user.surname + ' ' + user.name + '</label></li>');
             });
 
             // Создадим список проектов
@@ -132,7 +132,7 @@
                 // Определим тип
                 var type = null;
                 var type_title = null;
-                switch(el.id_type_project){
+                switch (el.id_type_project) {
                     case 1: type = 'strategic'; type_title = langView('text_type_title_strategic', langs); break;
                     case 2: type = 'normative'; type_title = langView('text_type_title_normative', langs); break;
                 }
@@ -165,7 +165,7 @@
                 var type_project = '';
                 switch (project.id_type_project) {
                     case 1: type_project = langView('text_type_title_strategic', langs); break;
-                    case 2: type_project = langView('text_type_title_normative', langs);  break;
+                    case 2: type_project = langView('text_type_title_normative', langs); break;
                 }
                 // Статус проекта
                 var status_project = null;
@@ -176,7 +176,7 @@
                 }
 
                 // тип пректа и название
-                
+
                 $('.cd-project-content div h2').text(type_project + langView('text_title_project', langs) + ' (' + status_project + ')');
                 $('.cd-project-content div em').text(lang === 'ru' ? project.name_project_ru : project.name_project_en);
 
@@ -190,7 +190,7 @@
                 $('input#project-customer').val(lang === 'ru' ? project_customer.name_subdivisions_full_ru : project_customer.name_subdivisions_full_en);
                 // СПП-элемент и владелец строки
                 var spp_owner = getObjOflist(list_structural_subdivisions, 'id', project.id_spp_owner);
-                $('input#spp-element').val((project.spp_sap !== "" ? "("+project.spp_sap+")" : "") +' ' + (spp_owner !== undefined ? (lang === 'ru' ? spp_owner.name_subdivisions_full_ru : spp_owner.name_subdivisions_full_en) : ''));
+                $('input#spp-element').val((project.spp_sap !== "" ? "(" + project.spp_sap + ")" : "") + ' ' + (spp_owner !== undefined ? (lang === 'ru' ? spp_owner.name_subdivisions_full_ru : spp_owner.name_subdivisions_full_en) : ''));
                 // Начало и окончание проекта
                 $('input#start-project').val(toDate(project.start_project));
                 $('input#stop-project').val(toDate(project.stop_project_contract));
@@ -203,7 +203,7 @@
                     $('input#phone-boss-performer').val(project.WorkPerformers.name_boss);
                 }
                 // Бюджет
-                $('input#contract-value').val(toValueCurrency(project.contract_value,project.contract_currency, lang));
+                $('input#contract-value').val(toValueCurrency(project.contract_value, project.contract_currency, lang));
                 $('input#budget-value').val(toValueCurrency(project.budget, project.budget_currency, lang));
 
                 $('input#contract-engineering-value').val(toValueCurrency(project.contract_engineering_value, project.contract_engineering_currency, lang));
@@ -227,8 +227,15 @@
 
 
 
+
                 singleProjectContent.addClass('is-visible');
             });
+
+            $('fieldset legend').on('click', function (event) {
+                event.preventDefault();
+                $(this).siblings('.view-info').slideToggle();
+            });
+
             //close single project content
             singleProjectContent.on('click', '.close', function (event) {
                 event.preventDefault();

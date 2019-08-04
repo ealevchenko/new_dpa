@@ -229,136 +229,144 @@
         <form class="cd-form floating-labels">
             <fieldset>
                 <legend>@ProjectResource.title_project_info</legend>
+                <div id="project_info" class="view-info">
+                    <div class="icon">
+                        <label class="cd-label" for="goals-project">@ProjectResource.title_goals_project</label>
+                        <textarea class="goals-project" name="cd-textarea" id="goals-project" disabled="disabled"></textarea>
+                    </div>
+                    <div class="icon">
+                        <label class="cd-label" for="structural-subdivisions">@ProjectResource.title_structural_subdivisions</label>
+                        <input class="structural-subdivisions" type="text" name="cd-name" id="structural-subdivisions" disabled="disabled">
+                    </div>
+                    <div class="icon">
+                        <label class="cd-label" for="project-customer">@ProjectResource.title_project_customer</label>
+                        <input class="project-customer" type="text" name="cd-name" id="project-customer" disabled="disabled">
+                    </div>
+                    <div class="icon">
+                        <label class="cd-label" for="spp-element">@ProjectResource.title_spp_element_owner</label>
+                        <input class="spp-element" type="text" name="cd-name" id="spp-element" disabled="disabled">
+                    </div>
+                    <div class="icon">
+                        <label class="cd-label" for="start-project">@ProjectResource.title_start_project</label>
+                        <input class="start-project" type="date" name="cd-name" id="start-project" disabled="disabled">
+                    </div>
+                    <div class="icon">
+                        <label class="cd-label" for="stop-project">@ProjectResource.title_stop_project</label>
+                        <input class="stop-project" type="date" name="cd-name" id="stop-project" disabled="disabled">
+                    </div>
+                </div>
 
-                <div class="icon">
-                    <label class="cd-label" for="goals-project">@ProjectResource.title_goals_project</label>
-                    <textarea class="goals-project" name="cd-textarea" id="goals-project" disabled="disabled"></textarea>
-                </div>
-                <div class="icon">
-                    <label class="cd-label" for="structural-subdivisions">@ProjectResource.title_structural_subdivisions</label>
-                    <input class="structural-subdivisions" type="text" name="cd-name" id="structural-subdivisions" disabled="disabled">
-                </div>
-                <div class="icon">
-                    <label class="cd-label" for="project-customer">@ProjectResource.title_project_customer</label>
-                    <input class="project-customer" type="text" name="cd-name" id="project-customer" disabled="disabled">
-                </div>
-                <div class="icon">
-                    <label class="cd-label" for="spp-element">@ProjectResource.title_spp_element_owner</label>
-                    <input class="spp-element" type="text" name="cd-name" id="spp-element" disabled="disabled">
-                </div>
-                <div class="icon">
-                    <label class="cd-label" for="start-project">@ProjectResource.title_start_project</label>
-                    <input class="start-project" type="date" name="cd-name" id="start-project" disabled="disabled">
-                </div>
-                <div class="icon">
-                    <label class="cd-label" for="stop-project">@ProjectResource.title_stop_project</label>
-                    <input class="stop-project" type="date" name="cd-name" id="stop-project" disabled="disabled">
-                </div>
 
             </fieldset>
             <fieldset>
                 <legend>@ProjectResource.title_project_performer</legend>
-                <div class="icon">
-                    <label class="cd-label" for="name-performer">@ProjectResource.title_name_performer</label>
-                    <input class="name-performer" type="text" name="cd-name" id="name-performer" disabled="disabled">
-                </div>
-                <div class="icon">
-                    <label class="cd-label" for="email-performer">@ProjectResource.title_email_performer</label>
-                    <input class="email-performer" type="email" name="cd-name" id="email-performer" disabled="disabled">
-                </div>
-                <div class="icon">
-                    <label class="cd-label" for="phone-performer">@ProjectResource.title_phone_performer</label>
-                    <input class="phone-performer" type="tel" name="cd-name" id="phone-performer" disabled="disabled">
-                </div>
-                <div class="icon">
-                    <label class="cd-label" for="name-boss-performer">@ProjectResource.title_name_boss_performer</label>
-                    <input class="name-boss-performer" type="text" name="cd-name" id="name-boss-performer" disabled="disabled">
-                </div>
-                <div class="icon">
-                    <label class="cd-label" for="phone-boss-performer">@ProjectResource.title_phone_boss_performer</label>
-                    <input class="phone-boss-performer" type="tel" name="cd-name" id="phone-boss-performer" disabled="disabled">
+                <div id="project_info" class="view-info">
+                    <div class="icon">
+                        <label class="cd-label" for="name-performer">@ProjectResource.title_name_performer</label>
+                        <input class="name-performer" type="text" name="cd-name" id="name-performer" disabled="disabled">
+                    </div>
+                    <div class="icon">
+                        <label class="cd-label" for="email-performer">@ProjectResource.title_email_performer</label>
+                        <input class="email-performer" type="email" name="cd-name" id="email-performer" disabled="disabled">
+                    </div>
+                    <div class="icon">
+                        <label class="cd-label" for="phone-performer">@ProjectResource.title_phone_performer</label>
+                        <input class="phone-performer" type="tel" name="cd-name" id="phone-performer" disabled="disabled">
+                    </div>
+                    <div class="icon">
+                        <label class="cd-label" for="name-boss-performer">@ProjectResource.title_name_boss_performer</label>
+                        <input class="name-boss-performer" type="text" name="cd-name" id="name-boss-performer" disabled="disabled">
+                    </div>
+                    <div class="icon">
+                        <label class="cd-label" for="phone-boss-performer">@ProjectResource.title_phone_boss_performer</label>
+                        <input class="phone-boss-performer" type="tel" name="cd-name" id="phone-boss-performer" disabled="disabled">
+                    </div>
                 </div>
             </fieldset>
             <fieldset>
                 <legend>@ProjectResource.title_project_budget</legend>
-                <div class="icon">
-                    <div class="left-position">
-                        <label class="cd-label" for="contract-value">@ProjectResource.title_contract_value</label>
-                        <input class="contract-value" type="number" name="cd-name" id="contract-value" disabled="disabled">
+                <div id="project_info" class="view-info">
+                    <div class="icon">
+                        <div class="left-position">
+                            <label class="cd-label" for="contract-value">@ProjectResource.title_contract_value</label>
+                            <input class="contract-value" type="number" name="cd-name" id="contract-value" disabled="disabled">
+                        </div>
+                        <div class="right-position">
+                            <label class="cd-label" for="budget-value">@ProjectResource.title_budget_value</label>
+                            <input class="budget-value" type="number" name="cd-name" id="budget-value" disabled="disabled">
+                        </div>
                     </div>
-                    <div class="right-position">
-                        <label class="cd-label" for="budget-value">@ProjectResource.title_budget_value</label>
-                        <input class="budget-value" type="number" name="cd-name" id="budget-value" disabled="disabled">
+                    <div class="icon">
+                        <div class="left-position">
+                            <label class="cd-label" for="contract-engineering-value">@ProjectResource.title_contract_engineering_value</label>
+                            <input class="contract-engineering-value" type="number" name="cd-name" id="contract-engineering-value" disabled="disabled">
+                        </div>
+                        <div class="right-position">
+                            <label class="cd-label" for="payment-engineering-value">@ProjectResource.title_payment_engineering_value</label>
+                            <input class="payment-engineering-value" type="number" name="cd-name" id="payment-engineering-value" disabled="disabled">
+                        </div>
                     </div>
-                </div>
-                <div class="icon">
-                    <div class="left-position">
-                        <label class="cd-label" for="contract-engineering-value">@ProjectResource.title_contract_engineering_value</label>
-                        <input class="contract-engineering-value" type="number" name="cd-name" id="contract-engineering-value" disabled="disabled">
+                    <div class="icon">
+                        <div class="left-position">
+                            <label class="cd-label" for="contract-equipment-value">@ProjectResource.title_contract_equipment_value</label>
+                            <input class="contract-equipment-value" type="number" name="cd-name" id="contract-equipment-value" disabled="disabled">
+                        </div>
+                        <div class="right-position">
+                            <label class="cd-label" for="payment-equipment-value">@ProjectResource.title_payment_equipment_value</label>
+                            <input class="payment-equipment-value" type="number" name="cd-name" id="payment-equipment-value" disabled="disabled">
+                        </div>
                     </div>
-                    <div class="right-position">
-                        <label class="cd-label" for="payment-engineering-value">@ProjectResource.title_payment_engineering_value</label>
-                        <input class="payment-engineering-value" type="number" name="cd-name" id="payment-engineering-value" disabled="disabled">
+                    <div class="icon">
+                        <div class="left-position">
+                            <label class="cd-label" for="contract-construction-value">@ProjectResource.title_contract_construction_value</label>
+                            <input class="contract-construction-value" type="number" name="cd-name" id="contract-construction-value" disabled="disabled">
+                        </div>
+                        <div class="right-position">
+                            <label class="cd-label" for="payment-construction-value">@ProjectResource.title_payment_construction_value</label>
+                            <input class="payment-construction-value" type="number" name="cd-name" id="payment-construction-value" disabled="disabled">
+                        </div>
                     </div>
-                </div>
-                <div class="icon">
-                    <div class="left-position">
-                        <label class="cd-label" for="contract-equipment-value">@ProjectResource.title_contract_equipment_value</label>
-                        <input class="contract-equipment-value" type="number" name="cd-name" id="contract-equipment-value" disabled="disabled">
+                    <div class="icon">
+                        <div class="left-position">
+                            <label class="cd-label" for="contract-commissioning-value">@ProjectResource.title_contract_commissioning_value</label>
+                            <input class="contract-commissioning-value" type="number" name="cd-name" id="contract-commissioning-value" disabled="disabled">
+                        </div>
+                        <div class="right-position">
+                            <label class="cd-label" for="payment-commissioning-value">@ProjectResource.title_payment_commissioning_value</label>
+                            <input class="payment-commissioning-value" type="number" name="cd-name" id="payment-commissioning-value" disabled="disabled">
+                        </div>
                     </div>
-                    <div class="right-position">
-                        <label class="cd-label" for="payment-equipment-value">@ProjectResource.title_payment_equipment_value</label>
-                        <input class="payment-equipment-value" type="number" name="cd-name" id="payment-equipment-value" disabled="disabled">
-                    </div>
-                </div>
-                <div class="icon">
-                    <div class="left-position">
-                        <label class="cd-label" for="contract-construction-value">@ProjectResource.title_contract_construction_value</label>
-                        <input class="contract-construction-value" type="number" name="cd-name" id="contract-construction-value" disabled="disabled">
-                    </div>
-                    <div class="right-position">
-                        <label class="cd-label" for="payment-construction-value">@ProjectResource.title_payment_construction_value</label>
-                        <input class="payment-construction-value" type="number" name="cd-name" id="payment-construction-value" disabled="disabled">
-                    </div>
-                </div>
-                <div class="icon">
-                    <div class="left-position">
-                        <label class="cd-label" for="contract-commissioning-value">@ProjectResource.title_contract_commissioning_value</label>
-                        <input class="contract-commissioning-value" type="number" name="cd-name" id="contract-commissioning-value" disabled="disabled">
-                    </div>
-                    <div class="right-position">
-                        <label class="cd-label" for="payment-commissioning-value">@ProjectResource.title_payment_commissioning_value</label>
-                        <input class="payment-commissioning-value" type="number" name="cd-name" id="payment-commissioning-value" disabled="disabled">
-                    </div>
-                </div>
-                <div class="icon">
-                    <div class="left-position">
-                        <label class="cd-label" for="contract-other-value">@ProjectResource.title_contract_other_value</label>
-                        <input class="contract-other-value" type="number" name="cd-name" id="contract-other-value" disabled="disabled">
-                    </div>
-                    <div class="right-position">
-                        <label class="cd-label" for="payment-other-value">@ProjectResource.title_payment_other_value</label>
-                        <input class="payment-other-value" type="number" name="cd-name" id="payment-other-value" disabled="disabled">
+                    <div class="icon">
+                        <div class="left-position">
+                            <label class="cd-label" for="contract-other-value">@ProjectResource.title_contract_other_value</label>
+                            <input class="contract-other-value" type="number" name="cd-name" id="contract-other-value" disabled="disabled">
+                        </div>
+                        <div class="right-position">
+                            <label class="cd-label" for="payment-other-value">@ProjectResource.title_payment_other_value</label>
+                            <input class="payment-other-value" type="number" name="cd-name" id="payment-other-value" disabled="disabled">
+                        </div>
                     </div>
                 </div>
             </fieldset>
             <fieldset>
                 <legend>@ProjectResource.title_project_manager</legend>
-                <div class="icon">
-                    <label class="cd-label" for="project-manager-fio">@ProjectResource.title_project_manager_fio</label>
-                    <input class="project-manager-fio" type="email" name="cd-name" id="project-manager-fio" disabled="disabled">
-                </div>
-                <div class="icon">
-                    <label class="cd-label" for="project-manager-email">@ProjectResource.title_project_manager_email</label>
-                    <input class="project-manager-email" type="email" name="cd-name" id="project-manager-email" disabled="disabled">
-                </div>
-                <div class="icon">
-                    <label class="cd-label" for="project-manager-phone-work">@ProjectResource.title_project_manager_phone_work</label>
-                    <input class="project-manager-phone-work" type="tel" name="cd-name" id="project-manager-phone-work" disabled="disabled">
-                </div>
-                <div class="icon">
-                    <label class="cd-label" for="project-manager-phone-mobile">@ProjectResource.title_project_manager_phone_mobile</label>
-                    <input class="project-manager-phone-mobile" type="tel" name="cd-name" id="project-manager-phone-mobile" disabled="disabled">
+                <div id="project_info" class="view-info">
+                    <div class="icon">
+                        <label class="cd-label" for="project-manager-fio">@ProjectResource.title_project_manager_fio</label>
+                        <input class="project-manager-fio" type="email" name="cd-name" id="project-manager-fio" disabled="disabled">
+                    </div>
+                    <div class="icon">
+                        <label class="cd-label" for="project-manager-email">@ProjectResource.title_project_manager_email</label>
+                        <input class="project-manager-email" type="email" name="cd-name" id="project-manager-email" disabled="disabled">
+                    </div>
+                    <div class="icon">
+                        <label class="cd-label" for="project-manager-phone-work">@ProjectResource.title_project_manager_phone_work</label>
+                        <input class="project-manager-phone-work" type="tel" name="cd-name" id="project-manager-phone-work" disabled="disabled">
+                    </div>
+                    <div class="icon">
+                        <label class="cd-label" for="project-manager-phone-mobile">@ProjectResource.title_project_manager_phone_mobile</label>
+                        <input class="project-manager-phone-mobile" type="tel" name="cd-name" id="project-manager-phone-mobile" disabled="disabled">
+                    </div>
                 </div>
             </fieldset>
         </form>
