@@ -276,4 +276,13 @@
   <data name="title_project_performer" xml:space="preserve">
     <value>Исполнитель работ</value>
   </data>
+  <data name="title_en" xml:space="preserve">
+    <value>(en)</value>
+  </data>
+  <data name="title_name_project" xml:space="preserve">
+    <value>Проект:</value>
+  </data>
+  <data name="title_ru" xml:space="preserve">
+    <value>(ru)</value>
+  </data>
 </root>

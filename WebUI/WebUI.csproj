@@ -558,6 +558,7 @@
     <Content Include="Images\project\cd-close-dark.svg" />
     <Content Include="Images\project\cd-icon-check.svg" />
     <Content Include="Images\project\cd-icon-filter.svg" />
+    <Content Include="Images\project\cd-sprite-1.svg" />
     <Content Include="Images\project\img.png" />
     <Content Include="Images\project\pm10.jpg" />
     <Content Include="Images\project\pm11.jpg" />
@@ -1000,7 +1001,9 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

@@ -322,6 +322,15 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на (en).
+        /// </summary>
+        public static string title_en {
+            get {
+                return ResourceManager.GetString("title_en", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Цели:.
         /// </summary>
         public static string title_goals_project {
@@ -345,6 +354,15 @@ namespace WebUI.App_GlobalResources {
         public static string title_name_performer {
             get {
                 return ResourceManager.GetString("title_name_performer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Проект:.
+        /// </summary>
+        public static string title_name_project {
+            get {
+                return ResourceManager.GetString("title_name_project", resourceCulture);
             }
         }
         
@@ -498,6 +516,15 @@ namespace WebUI.App_GlobalResources {
         public static string title_project_performer {
             get {
                 return ResourceManager.GetString("title_project_performer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на (ru).
+        /// </summary>
+        public static string title_ru {
+            get {
+                return ResourceManager.GetString("title_ru", resourceCulture);
             }
         }
         

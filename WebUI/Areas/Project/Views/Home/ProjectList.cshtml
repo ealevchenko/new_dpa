@@ -4,10 +4,13 @@
     Layout = "~/Areas/Project/Views/Shared/_Project.cshtml";
 }
 @section styles {
+    @Styles.Render("~/jquery-ui/css")
     <link rel="stylesheet" type="text/css" href="~/Content/project/project_list.css">
 }
 
 @section scripts {
+
+    @Scripts.Render("~/bundles/jquery-ui");
     <script src="~/Scripts/jquery.mixitup.min.js" type="text/javascript"></script>
     <script src="~/Scripts/jquery.cookie.js" type="text/javascript"></script>
     <script src="~/Scripts/shared/common.js" type="text/javascript"></script>
@@ -255,8 +258,6 @@
                         <input class="stop-project" type="date" name="cd-name" id="stop-project" disabled="disabled">
                     </div>
                 </div>
-
-
             </fieldset>
             <fieldset>
                 <legend>@ProjectResource.title_project_performer</legend>
@@ -380,5 +381,48 @@
                 Illum quaerat asperiores aliquam voluptate saepe omnis porro excepturi in atque veritatis sapiente ipsam voluptates iste amet deserunt ullam error pariatur, magni consectetur optio nostrum minima dolorum. Soluta animi nihil doloremque ipsa incidunt vitae architecto beatae, maxime libero, dolore corporis vero porro tenetur ipsam modi repudiandae magnam enim, quibusdam sit.
             </p>*@
     </div>
-    <a href="#0" class="close cd-img-replace">Close</a>
+    <nav class="cd-stretchy-nav">
+        <a class="cd-nav-trigger" href="#0">
+            Menu
+            <span aria-hidden="true"></span>
+        </a>
+        <ul>
+            <li><a href="#0" id="close-detali-project"><span>Закрыть</span></a></li>
+            <li><a href="#0" id="add-detali-project"><span>Добавить</span></a></li>
+            <li><a href="#0" id="edit-detali-project"><span>Править</span></a></li>
+            <li><a href="#0" id="delete-detali-project"><span>Удалить</span></a></li>
+        </ul>
+        <span aria-hidden="true" class="stretchy-nav-bg"></span>
+    </nav>
 </div> <!-- .cd-project-content -->
+
+@* Окно редактирования и добавления проекта *@
+<div id="add-edit-project" title="">
+    <p class="validateTips">All form fields are required.</p>
+    <form class="cd-form">
+        <fieldset>
+            <div class="icon">
+                <label class="cd-label" for="cd-name">Name</label>
+                <input class="user" type="text" name="cd-name" id="cd-name" required>
+            </div> 
+            <div class="icon">
+                <label class="cd-label" for="cd-name-project">@ProjectResource.title_name_project @ProjectResource.title_ru</label>
+                <textarea class="name-project" name="cd-name-project" id="cd-name-project"></textarea>
+            </div>
+            <div class="icon">
+                <label class="cd-label" for="cd-name-project">@ProjectResource.title_name_project @ProjectResource.title_en</label>
+                <textarea class="name-project" name="cd-name-project" id="cd-name-project"></textarea>
+            </div>
+            @*<label for="name">Name</label>
+                <input type="text" name="name" id="name" value="Jane Smith" class="text ui-widget-content ui-corner-all">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" value="jane@smith.com" class="text ui-widget-content ui-corner-all">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" value="xxxxxxx" class="text ui-widget-content ui-corner-all">*@
+            <!-- Allow form submission with keyboard without duplicating the dialog button -->
+            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+        </fieldset>
+    </form>
+</div>
+
+

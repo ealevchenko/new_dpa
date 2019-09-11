@@ -106,61 +106,57 @@
                     });
                 });
             });
-        };
+        },
+        project_detali = {
+            content: $('.cd-project-content'),
+            project: null,
+            id_project: null,
+            init: function () {
 
+                // Показать\спрятать информацию
+                $('form.cd-form fieldset legend').on('click', function (event) {
+                    event.preventDefault();
+                    $(this).siblings('.view-info').slideToggle();
+                });
 
-    if (lang === undefined) lang = 'ru';
-    // Загрузка библиотек
-    loadReference(function (result) {
-        // Загрузка данных
-        loadData(function (result) {
+                // Активировать меню редактирования пректов
+                if ($('.cd-stretchy-nav').length > 0) {
+                    var stretchyNavs = $('.cd-stretchy-nav');
 
-            // Создадим список структурных подразделений
-            $.each(list_ss, function (i, el) {
-                $("select#selectThis")
-                    .append('<option value=".subdivisions' + el.id + '">' + (lang === 'ru' ? el.name_subdivisions_full_ru : el.name_subdivisions_full_en) + '</option>');
-            });
-            // Сформировать список руководителей проектов
-            $.each(list_pm, function (i, el) {
-                var user = getObjOflist(list_users, 'id', el.id_user);
-                $("div#list-project-manager ul")
-                    .append('<li><input class="filter" data-filter=".pm' + el.id + '" type="checkbox" id="checkbox' + el.id + '"><label class="checkbox-label" for="checkbox' + el.id + '">' + user.surname + ' ' + user.name + '</label></li>');
-            });
+                    stretchyNavs.each(function () {
+                        var stretchyNav = $(this),
+                            stretchyNavTrigger = stretchyNav.find('.cd-nav-trigger');
 
-            // Создадим список проектов
-            $.each(list_project, function (i, el) {
-                // Определим тип
-                var type = null;
-                var type_title = null;
-                switch (el.id_type_project) {
-                    case 1: type = 'strategic'; type_title = langView('text_type_title_strategic', langs); break;
-                    case 2: type = 'normative'; type_title = langView('text_type_title_normative', langs); break;
+                        stretchyNavTrigger.on('click', function (event) {
+                            event.preventDefault();
+                            stretchyNav.toggleClass('nav-is-visible');
+                        });
+                    });
+
+                    $(document).on('click', function (event) {
+                        (!$(event.target).is('.cd-nav-trigger') && !$(event.target).is('.cd-nav-trigger span')) && stretchyNavs.removeClass('nav-is-visible');
+
+                        // Закрыть окно детально
+                        if ($(event.target).is('#close-detali-project') || $(event.target).is('#close-detali-project span')) {
+                            project_detali.content.removeClass('is-visible');
+                        }
+                        if ($(event.target).is('#add-detali-project') || $(event.target).is('#add-detali-project span')) {
+                            confirm_edit_project.open(null);
+                        }
+                        if ($(event.target).is('#edit-detali-project') || $(event.target).is('#edit-detali-project span')) {
+                            confirm_edit_project.open(project_detali.id_project);
+                        }
+                        if ($(event.target).is('#delete-detali-project') || $(event.target).is('#delete-detali-project span')) {
+
+                        }
+                    });
                 }
-                var status = null;
-                switch (el.id_status_project) {
-                    case 0: status = 'status-open'; break;
-                    case 1: status = 'status-close'; break;
-                    case 2: status = 'status-pause'; break;
-                }
-                var ss = getObjOflist(list_structural_subdivisions, 'id', el.id_structural_subdivisions);
-
-                $("section.cd-gallery ul")
-                    .append('<li class="mix ' + type + ' pm' + el.id_project_manager + ' ' + status + ' subdivisions' + el.id_structural_subdivisions + '"><a href="#" id="' + el.id + '"><img src="../../Images/project/pm' + el.id_project_manager + '.jpg" alt=""><div class="project-men"><p class="' + status + '">' + el.name_project_ru + '</p></div><div class="project-info"><h2>' + (ss !== null ? ss.name_subdivisions_ru : '?') + '</h2><p>' + type_title + (el.spp_sap !== "" ? ' (' + el.spp_sap + ')' : '') + '</p></div></a></li>');
-            });
-
-
-
-            //************************
-            // Показать проект детально
-            //*************************
-            singleProjectContent = $('.cd-project-content');
-            // Событие выбора проекта
-            $('.cd-gallery ul li a').on('click', function () {
-                event.preventDefault();
-                // Определим id проекта
-                var id = $(this).attr('id');
+            },
+            view: function (id) {
+                this.id_project = id;
                 // загрузим проект
                 var project = getObjOflist(list_project, 'id', id);
+                this.project = project;
                 // Определим тип проекта
                 var type_project = '';
                 switch (project.id_type_project) {
@@ -224,23 +220,105 @@
                     $('input#project-manager-phone-work').val(project.ProjectManager.phone_work);
                     $('input#project-manager-phone-mobile').val(project.ProjectManager.phone_mobile);
                 }
+                // Показать страницу детально
+                this.content.addClass('is-visible');
+            }
+        },
+        confirm_edit_project = {
+            content: $('#add-edit-project'),            
+            obj: null,
+            init: function () {
+                this.obj = this.content.dialog({
+                    resizable: false,
+                    modal: true,
+                    autoOpen: false,
+                    height: "auto",
+                    width: 900,
+                    close: function (event, ui) {
+
+                    },
+                    buttons: {
+                        'Сохранить': function () {
+
+                        },
+                        'Отмена': function () {
+
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+                // Sumbit form
+                this.form = this.obj.find("form").on("submit", function (event) {
+                    event.preventDefault();
+                });
+            },
+            open: function (id) {
+                this.obj.dialog("open");
+            }
+        };
 
 
+    if (lang === undefined) lang = 'ru';
+    // Загрузка библиотек
+    loadReference(function (result) {
+        // Загрузка данных
+        loadData(function (result) {
 
-
-                singleProjectContent.addClass('is-visible');
+            // Создадим список структурных подразделений
+            $.each(list_ss, function (i, el) {
+                $("select#selectThis")
+                    .append('<option value=".subdivisions' + el.id + '">' + (lang === 'ru' ? el.name_subdivisions_full_ru : el.name_subdivisions_full_en) + '</option>');
             });
+            // Сформировать список руководителей проектов
+            $.each(list_pm, function (i, el) {
+                var user = getObjOflist(list_users, 'id', el.id_user);
+                $("div#list-project-manager ul")
+                    .append('<li><input class="filter" data-filter=".pm' + el.id + '" type="checkbox" id="checkbox' + el.id + '"><label class="checkbox-label" for="checkbox' + el.id + '">' + user.surname + ' ' + user.name + '</label></li>');
+            });
+            // Создадим список проектов
+            $.each(list_project, function (i, el) {
+                // Определим тип
+                var type = null;
+                var type_title = null;
+                switch (el.id_type_project) {
+                    case 1: type = 'strategic'; type_title = langView('text_type_title_strategic', langs); break;
+                    case 2: type = 'normative'; type_title = langView('text_type_title_normative', langs); break;
+                }
+                var status = null;
+                switch (el.id_status_project) {
+                    case 0: status = 'status-open'; break;
+                    case 1: status = 'status-close'; break;
+                    case 2: status = 'status-pause'; break;
+                }
+                var ss = getObjOflist(list_structural_subdivisions, 'id', el.id_structural_subdivisions);
 
-            $('fieldset legend').on('click', function (event) {
+                $("section.cd-gallery ul")
+                    .append('<li class="mix ' + type + ' pm' + el.id_project_manager + ' ' + status + ' subdivisions' + el.id_structural_subdivisions + '"><a href="#" id="' + el.id + '"><img src="../../Images/project/pm' + el.id_project_manager + '.jpg" alt=""><div class="project-men"><p class="' + status + '">' + el.name_project_ru + '</p></div><div class="project-info"><h2>' + (ss !== null ? ss.name_subdivisions_ru : '?') + '</h2><p>' + type_title + (el.spp_sap !== "" ? ' (' + el.spp_sap + ')' : '') + '</p></div></a></li>');
+            });
+            
+            // Инициализация окна правки проекта
+            confirm_edit_project.init();
+
+            // Инициализация окна проект детально
+            project_detali.init();
+
+
+            // Событие выбора проекта
+            $('.cd-gallery ul li a').on('click', function () {
                 event.preventDefault();
-                $(this).siblings('.view-info').slideToggle();
+                // Определим id проекта
+                var id = $(this).attr('id');
+                project_detali.view(id)
+
             });
 
-            //close single project content
-            singleProjectContent.on('click', '.close', function (event) {
-                event.preventDefault();
-                singleProjectContent.removeClass('is-visible');
-            });
+
+            // !!! Убрал закрывается через меню
+            ////close single project content
+            //singleProjectContent.on('click', '.close', function (event) {
+            //    event.preventDefault();
+            //    singleProjectContent.removeClass('is-visible');
+            //});
             //************************
             //open/close lateral filter
             $('.cd-filter-trigger').on('click', function () {
