@@ -7,7 +7,7 @@
 function getAsyncProjectManager(callback) {
     $.ajax({
         type: 'GET',
-        url: '../../api/pm/all',
+        url: '../../api/project/pm/all',
         async: true,
         dataType: 'json',
         beforeSend: function () {
@@ -30,7 +30,7 @@ function getAsyncProjectManager(callback) {
 function getAsyncProjectManagerOfIDUser(id_user, callback) {
     $.ajax({
         type: 'GET',
-        url: '../../api/pm/user/id/' + id_user,
+        url: '../../api/project/pm/user/id/' + id_user,
         async: true,
         dataType: 'json',
         beforeSend: function () {
@@ -53,7 +53,7 @@ function getAsyncProjectManagerOfIDUser(id_user, callback) {
 function getAsyncChainProjectManagerOfIDPM(id_pm, callback) {
     $.ajax({
         type: 'GET',
-        url: '../../api/pm/chain_manager/id/' + id_pm,
+        url: '../../api/project/pm/chain_manager/id/' + id_pm,
         async: true,
         dataType: 'json',
         beforeSend: function () {
@@ -77,7 +77,7 @@ function getAsyncChainProjectManagerOfIDPM(id_pm, callback) {
 function getAsyncListProjects(callback) {
     $.ajax({
         type: 'GET',
-        url: '../../api/lp/all',
+        url: '../../api/project/lp/all',
         async: true,
         dataType: 'json',
         beforeSend: function () {
@@ -100,7 +100,55 @@ function getAsyncListProjects(callback) {
 function getAsyncListProjectsOfListIDPM(list_id, callback) {
     $.ajax({
         type: 'GET',
-        url: '../../api/lp/pm/list_id/' + list_id,
+        url: '../../api/project/lp/pm/list_id/' + list_id,
+        async: true,
+        dataType: 'json',
+        beforeSend: function () {
+            AJAXBeforeSend();
+        },
+        success: function (data) {
+            if (typeof callback === 'function') {
+                callback(data);
+            }
+        },
+        error: function (x, y, z) {
+            OnAJAXError(x, y, z);
+        },
+        complete: function () {
+            AJAXComplete();
+        },
+    });
+}
+//======= TypeProject ======================================
+// Веруть список типов проекта
+function getAsyncTypeProject(callback) {
+    $.ajax({
+        type: 'GET',
+        url: '../../api/project/tp/all',
+        async: true,
+        dataType: 'json',
+        beforeSend: function () {
+            AJAXBeforeSend();
+        },
+        success: function (data) {
+            if (typeof callback === 'function') {
+                callback(data);
+            }
+        },
+        error: function (x, y, z) {
+            OnAJAXError(x, y, z);
+        },
+        complete: function () {
+            AJAXComplete();
+        },
+    });
+}
+//======= WorkPerformers ======================================
+// Веруть список подрядных организаций
+function getAsyncWorkPerformers(callback) {
+    $.ajax({
+        type: 'GET',
+        url: '../../api/project/wp/all',
         async: true,
         dataType: 'json',
         beforeSend: function () {

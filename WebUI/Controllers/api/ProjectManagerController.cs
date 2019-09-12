@@ -10,7 +10,7 @@ using System.Web.Http.Description;
 
 namespace WebUI.Controllers.api
 {
-    [RoutePrefix("api/pm")]
+    [RoutePrefix("api/project/pm")]
     public class ProjectManagerController : ApiController
     {
         protected IRepository<ProjectManager> ef_pm;
@@ -20,7 +20,7 @@ namespace WebUI.Controllers.api
             this.ef_pm = pm;
         }
 
-        // GET: api/pm/all
+        // GET: api/project/pm/all
         [Route("all")]
         [ResponseType(typeof(ProjectManager))]
         public IHttpActionResult GetProjectManager()
@@ -62,7 +62,7 @@ namespace WebUI.Controllers.api
             }
         }
 
-        // GET: api/pm/user/id/1
+        // GET: api/project/pm/user/id/1
         [Route("user/id/{id_user:int}")]
         [ResponseType(typeof(ProjectManager))]
         public IHttpActionResult GetProjectManagerOfIDUser(int id_user)
@@ -133,7 +133,7 @@ namespace WebUI.Controllers.api
             }
         }
 
-        // GET: api/pm/chain_manager/id/1
+        // GET: api/project/pm/chain_manager/id/1
         [Route("chain_manager/id/{id_pm:int}")]
         [ResponseType(typeof(ProjectManager))]
         public IHttpActionResult GetChainProjectManagerOfIDPM(int id_pm)

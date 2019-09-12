@@ -250,6 +250,24 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Бюджет\Контракт.
+        /// </summary>
+        public static string title_budget_contract {
+            get {
+                return ResourceManager.GetString("title_budget_contract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Бюджет проекта.
+        /// </summary>
+        public static string title_budget_project {
+            get {
+                return ResourceManager.GetString("title_budget_project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Бюджет:.
         /// </summary>
         public static string title_budget_value {
@@ -273,6 +291,15 @@ namespace WebUI.App_GlobalResources {
         public static string title_contract_construction_value {
             get {
                 return ResourceManager.GetString("title_contract_construction_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Контракт детально.
+        /// </summary>
+        public static string title_contract_detali {
+            get {
+                return ResourceManager.GetString("title_contract_detali", resourceCulture);
             }
         }
         
@@ -304,11 +331,29 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Сумма по контракту.
+        /// </summary>
+        public static string title_contract_project {
+            get {
+                return ResourceManager.GetString("title_contract_project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Контракт:.
         /// </summary>
         public static string title_contract_value {
             get {
                 return ResourceManager.GetString("title_contract_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Валюта.
+        /// </summary>
+        public static string title_currency {
+            get {
+                return ResourceManager.GetString("title_currency", resourceCulture);
             }
         }
         
@@ -340,6 +385,24 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Цели внедрения проекта (en):.
+        /// </summary>
+        public static string title_goals_project_en {
+            get {
+                return ResourceManager.GetString("title_goals_project_en", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Цели внедрения проекта (ru):.
+        /// </summary>
+        public static string title_goals_project_ru {
+            get {
+                return ResourceManager.GetString("title_goals_project_ru", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Руководитель:.
         /// </summary>
         public static string title_name_boss_performer {
@@ -367,6 +430,24 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Название проекта (en):.
+        /// </summary>
+        public static string title_name_project_en {
+            get {
+                return ResourceManager.GetString("title_name_project_en", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Название проекта (ru):.
+        /// </summary>
+        public static string title_name_project_ru {
+            get {
+                return ResourceManager.GetString("title_name_project_ru", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на ПНР (факт):.
         /// </summary>
         public static string title_payment_commissioning_value {
@@ -381,6 +462,15 @@ namespace WebUI.App_GlobalResources {
         public static string title_payment_construction_value {
             get {
                 return ResourceManager.GetString("title_payment_construction_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Оплата детально.
+        /// </summary>
+        public static string title_payment_detali {
+            get {
+                return ResourceManager.GetString("title_payment_detali", resourceCulture);
             }
         }
         
@@ -520,11 +610,29 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Шаги выполнения проекта.
+        /// </summary>
+        public static string title_project_steps {
+            get {
+                return ResourceManager.GetString("title_project_steps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на (ru).
         /// </summary>
         public static string title_ru {
             get {
                 return ResourceManager.GetString("title_ru", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на СПП-элемент:.
+        /// </summary>
+        public static string title_spp_element {
+            get {
+                return ResourceManager.GetString("title_spp_element", resourceCulture);
             }
         }
         
@@ -538,11 +646,29 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Владелец строки:.
+        /// </summary>
+        public static string title_spp_owner {
+            get {
+                return ResourceManager.GetString("title_spp_owner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Начат:.
         /// </summary>
         public static string title_start_project {
             get {
                 return ResourceManager.GetString("title_start_project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Статус проекта:.
+        /// </summary>
+        public static string title_status_project {
+            get {
+                return ResourceManager.GetString("title_status_project", resourceCulture);
             }
         }
         
@@ -561,6 +687,60 @@ namespace WebUI.App_GlobalResources {
         public static string title_structural_subdivisions {
             get {
                 return ResourceManager.GetString("title_structural_subdivisions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сумма на ПНР.
+        /// </summary>
+        public static string title_summ_commissioning {
+            get {
+                return ResourceManager.GetString("title_summ_commissioning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сумма на СМР.
+        /// </summary>
+        public static string title_summ_construction {
+            get {
+                return ResourceManager.GetString("title_summ_construction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сумма на инжиниринг.
+        /// </summary>
+        public static string title_summ_engineering {
+            get {
+                return ResourceManager.GetString("title_summ_engineering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сумма на оборудование.
+        /// </summary>
+        public static string title_summ_equipment {
+            get {
+                return ResourceManager.GetString("title_summ_equipment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Сумма на другие затраты.
+        /// </summary>
+        public static string title_summ_other {
+            get {
+                return ResourceManager.GetString("title_summ_other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Тип проекта:.
+        /// </summary>
+        public static string title_type_project {
+            get {
+                return ResourceManager.GetString("title_type_project", resourceCulture);
             }
         }
     }

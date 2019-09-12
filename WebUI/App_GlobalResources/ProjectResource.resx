@@ -285,4 +285,64 @@
   <data name="title_ru" xml:space="preserve">
     <value>(ru)</value>
   </data>
+  <data name="title_goals_project_en" xml:space="preserve">
+    <value>Цели внедрения проекта (en):</value>
+  </data>
+  <data name="title_goals_project_ru" xml:space="preserve">
+    <value>Цели внедрения проекта (ru):</value>
+  </data>
+  <data name="title_name_project_en" xml:space="preserve">
+    <value>Название проекта (en):</value>
+  </data>
+  <data name="title_name_project_ru" xml:space="preserve">
+    <value>Название проекта (ru):</value>
+  </data>
+  <data name="title_project_steps" xml:space="preserve">
+    <value>Шаги выполнения проекта</value>
+  </data>
+  <data name="title_spp_element" xml:space="preserve">
+    <value>СПП-элемент:</value>
+  </data>
+  <data name="title_spp_owner" xml:space="preserve">
+    <value>Владелец строки:</value>
+  </data>
+  <data name="title_status_project" xml:space="preserve">
+    <value>Статус проекта:</value>
+  </data>
+  <data name="title_type_project" xml:space="preserve">
+    <value>Тип проекта:</value>
+  </data>
+  <data name="title_budget_contract" xml:space="preserve">
+    <value>Бюджет\Контракт</value>
+  </data>
+  <data name="title_budget_project" xml:space="preserve">
+    <value>Бюджет проекта</value>
+  </data>
+  <data name="title_contract_detali" xml:space="preserve">
+    <value>Контракт детально</value>
+  </data>
+  <data name="title_contract_project" xml:space="preserve">
+    <value>Сумма по контракту</value>
+  </data>
+  <data name="title_currency" xml:space="preserve">
+    <value>Валюта</value>
+  </data>
+  <data name="title_payment_detali" xml:space="preserve">
+    <value>Оплата детально</value>
+  </data>
+  <data name="title_summ_commissioning" xml:space="preserve">
+    <value>Сумма на ПНР</value>
+  </data>
+  <data name="title_summ_construction" xml:space="preserve">
+    <value>Сумма на СМР</value>
+  </data>
+  <data name="title_summ_engineering" xml:space="preserve">
+    <value>Сумма на инжиниринг</value>
+  </data>
+  <data name="title_summ_equipment" xml:space="preserve">
+    <value>Сумма на оборудование</value>
+  </data>
+  <data name="title_summ_other" xml:space="preserve">
+    <value>Сумма на другие затраты</value>
+  </data>
 </root>

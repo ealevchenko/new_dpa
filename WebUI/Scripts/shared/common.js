@@ -224,3 +224,125 @@ var LockScreenOff = function () {
     if (lock)
         lock.className = 'LockOff';
 };
+/* ----------------------------------------------------------
+    Компоненты UI
+-------------------------------------------------------------*/
+// Инициализация компонента Select JQuery UI компонент
+var initSelect = function (obj_select, property, data, callback_option, value_select, event_change, exceptions_value) {
+    var options = [];
+    var lang = 'ru';
+    if (property.lang) {
+        lang = property.lang;
+    }
+
+    // Проверка выбор неопределен
+    if (value_select == -1) {
+        options.push("<option value='-1' >" + (lang == 'en' ? 'Select...' : 'Выберите...') + "</option>");
+    }
+    if (data != null) {
+        for (i = 0, count_data_select = data.length; i < count_data_select; i++) {
+            var option = { value: data[i].value, text: data[i].text, disabled: data[i].disabled }
+            // Преобразовать формат
+            if (typeof callback_option === 'function') {
+                option = callback_option(data[i]);
+            }
+            if (option != null) {
+                if (exceptions_value != null) {
+                    if (exceptions_value.indexOf(option.value) == -1) {
+                        options.push("<option value='" + option.value + "' " + (option.disabled ? "disabled='disabled'" : "") + ">" + option.text + "</option>");
+                    }
+                } else {
+                    options.push("<option value='" + option.value + "' " + (option.disabled ? "disabled='disabled'" : "") + ">" + option.text + "</option>");
+                }
+            }
+        }
+    }
+    obj_select.empty();
+    obj_select.selectmenu({
+        icons: { button: "ui-icon ui-icon-circle-triangle-s" },
+        width: property.width,
+        change: event_change,
+    }).selectmenu("menuWidget").addClass("overflow");;
+    // Заполним селект 
+    obj_select.append(options.join(""))
+        .val(value_select)
+        .selectmenu("refresh");
+    return obj_select;
+};
+// Инициализация компонента Select CD компонент
+var cd_initSelect = function (obj_select, property, data, callback_option, value_select, event_change, exceptions_value) {
+    var options = [];
+    var lang = 'ru';
+    if (property.lang) {
+        lang = property.lang;
+    }
+
+    // Проверка выбор неопределен
+    if (value_select == -1) {
+        options.push("<option value='-1' >" + (lang == 'en' ? 'Select...' : 'Выберите...') + "</option>");
+    }
+    if (data != null) {
+        for (i = 0, count_data_select = data.length; i < count_data_select; i++) {
+            var option = { value: data[i].value, text: data[i].text, disabled: data[i].disabled }
+            // Преобразовать формат
+            if (typeof callback_option === 'function') {
+                option = callback_option(data[i]);
+            }
+            if (option != null) {
+                if (exceptions_value != null) {
+                    if (exceptions_value.indexOf(option.value) == -1) {
+                        options.push("<option value='" + option.value + "' " + (option.disabled ? "disabled='disabled'" : "") + ">" + option.text + "</option>");
+                    }
+                } else {
+                    options.push("<option value='" + option.value + "' " + (option.disabled ? "disabled='disabled'" : "") + ">" + option.text + "</option>");
+                }
+            }
+        }
+    }
+    obj_select.empty();
+    //obj_select.selectmenu({
+    //    icons: { button: "ui-icon ui-icon-circle-triangle-s" },
+    //    width: property.width,
+    //    change: event_change,
+    //}).selectmenu("menuWidget").addClass("overflow");;
+    // Заполним селект 
+    //obj_select.append(options.join(""))
+    //    .val(value_select)
+    //    .selectmenu("refresh");
+    obj_select.append(options.join("")).val(value_select);
+    obj_select.on("change", event_change);
+    return obj_select;
+};
+
+// Обновим компонента Select
+var updateOptionSelect = function (obj_select, data, callback_option, value_select, exceptions_value) {
+    var options = [];
+    var lang = 'ru';
+    // Проверка выбор неопределен
+    if (value_select === -1) {
+        options.push("<option value='-1' >" + (lang == 'en' ? 'Select...' : 'Выберите...') + "</option>");
+    }
+    if (data !== null) {
+        for (i = 0, count_data_update = data.length; i < count_data_update; i++) {
+            var option = { value: data[i].value, text: data[i].text, disabled: data[i].disabled };
+            // Преобразовать формат
+            if (typeof callback_option === 'function') {
+                option = callback_option(data[i]);
+            }
+            if (option !== null) {
+                if (exceptions_value !== null) {
+                    if (exceptions_value.indexOf(option.value) == -1) {
+                        options.push("<option value='" + option.value + "' " + (option.disabled ? "disabled='disabled'" : "") + ">" + option.text + "</option>");
+                    }
+                } else {
+                    options.push("<option value='" + option.value + "' " + (option.disabled ? "disabled='disabled'" : "") + ">" + option.text + "</option>");
+                }
+            }
+        }
+    }
+    // Заполним селект 
+    obj_select.empty()
+        .append(options.join(""))
+        .val(value_select)
+        .selectmenu("refresh");
+};

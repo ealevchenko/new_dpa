@@ -12,7 +12,7 @@ using System.Web.Http.Description;
 
 namespace WebUI.Controllers.api
 {
-    [RoutePrefix("api/lp")]
+    [RoutePrefix("api/project/lp")]
     public class ListProjectsController : ApiController
     {
         protected IRepository<ListProjects> ef_lp;
@@ -22,7 +22,7 @@ namespace WebUI.Controllers.api
             this.ef_lp = lp;
         }
 
-        // GET: api/lp/all
+        // GET: api/project/lp/all
         [Route("all")]
         [ResponseType(typeof(ListProjects))]
         public IHttpActionResult GetListProjects()
@@ -119,7 +119,7 @@ namespace WebUI.Controllers.api
             }
         }
 
-        // GET: api/lp/pm/list_id/1,2,3,4
+        // GET: api/project/lp/pm/list_id/1,2,3,4
         [Route("pm/list_id/{list_id}")]
         [ResponseType(typeof(ListProjects))]
         public IHttpActionResult GetListProjectsOfListIDPM(string list_id)

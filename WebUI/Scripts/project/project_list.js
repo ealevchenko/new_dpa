@@ -11,6 +11,9 @@
                 'text_status_open': 'В работе',
                 'text_status_close': 'Завершен',
                 'text_status_pause': 'Остановлен',
+                'text_status_delete': 'Удален',
+                'text_kgrivna': 'тыс. грн.',
+                'text_kdolar': 'тыс. $',
             },
             'en':  //default language: English
             {
@@ -20,6 +23,9 @@
                 'text_status_open': 'In progress',
                 'text_status_close': 'Completed',
                 'text_status_pause': 'Stopped',
+                'text_status_delete': 'Deleted',
+                'text_kgrivna': 'kUAH',
+                'text_kdolar': 'k$',
             }
         };
 
@@ -28,6 +34,9 @@
         user_name = $('input#username').val(),
         list_users = [],
         list_structural_subdivisions = [],
+        list_type_project = [],
+        list_work_performers = [], // Подрядная организация
+        list_currency = [{ id: 1, text: langView('text_kgrivna', langs) }, { id: 2, text: langView('text_kdolar', langs) }], // Валюта
         user = null,
         pm = null,
         chain_pm = null,
@@ -37,7 +46,7 @@
         list_ss = [],
         loadReference = function (callback) {
             LockScreen(langView('mess_load', langs));
-            var count = 2;
+            var count = 4;
             // Загрузка пользователей
             getAsyncUsers(function (result_users) {
                 list_users = result_users;
@@ -52,6 +61,28 @@
             // Загрузка структурных подразделений
             getAsyncStructuralSubdivisions(function (result_structural_subdivisions) {
                 list_structural_subdivisions = result_structural_subdivisions;
+                count -= 1;
+                if (count <= 0) {
+                    if (typeof callback === 'function') {
+                        LockScreenOff();
+                        callback();
+                    }
+                }
+            });
+            // Загрузка типов проекта
+            getAsyncTypeProject(function (result_type_project) {
+                list_type_project = result_type_project;
+                count -= 1;
+                if (count <= 0) {
+                    if (typeof callback === 'function') {
+                        LockScreenOff();
+                        callback();
+                    }
+                }
+            });
+            // Загрузка подрядных организаций
+            getAsyncWorkPerformers(function (result_work_performers) {
+                list_work_performers = result_work_performers;
                 count -= 1;
                 if (count <= 0) {
                     if (typeof callback === 'function') {
@@ -109,15 +140,469 @@
         },
         project_detali = {
             content: $('.cd-project-content'),
+            content_accordion_project_info: $("#accordion_project_info"),
+            content_accordion_project_performer: $("#accordion_project_performer"),
+            content_accordion_project_budget: $("#accordion_project_budget"),
+            content_accordion_project_manager: $("#accordion_project_manager"),
+            content_accordion_project_steps: $("#accordion_project_steps"),
+            //--компоненты
+            select_status_project: null, // Статус проекта
+            select_type_project: null, // Тип проекта CAPEX
+            select_structural_subdivisions_project: null, // Структурное подразделение где внедряется проект
+
+            textarea_name_project_ru: null, // Название проекта на русском
+            textarea_name_project_en: null, // Название проекта на английском
+            textarea_goals_project_ru: null, // Цели проекта на русском
+            textarea_goals_project_en: null, // Цели проекта на английском
+            select_customer_project: null,  // ЗАКАЗЧИК (Структурное подразделение)
+            select_spp_owner_project: null,  // Владелец строки (Структурное подразделение)
+            input_spp_sap_project: null,  // СПП-элемент
+            input_start_project: null,  // Начало проекта
+            input_stop_project: null,  // Конец проекта
+
+            select_name_performer_project: null,  // Подрдная организаия
+            input_email_performer_project: null,  // Email подрядной организации
+            input_phone_performer_project: null,  // Телефон подрядной организации
+            input_name_boss_performer_project: null,  // ФИО BOSSa подрядной организации
+            input_phone_boss_performer_project: null,  // Телефон BOSSa подрядной организации
+
+            input_budget_project: null,  // Бюджет проекта
+            select_budget_currency_project: null,  // Бюджет валюта проекта
+
+            input_contract_project: null,                                   // Контракт проекта
+            select_contract_currency_project: null,               // Контракт валюта проекта
+            input_contract_engineering_project: null,                       // Контракт проекта
+            select_contract_engineering_currency_project: null,   // Контракт валюта проекта
+            input_contract_equipment_project: null,                       // Контракт проекта
+            select_contract_equipment_currency_project: null,   // Контракт валюта проекта
+            input_contract_construction_project: null,                       // Контракт проекта
+            select_contract_construction_currency_project: null,   // Контракт валюта проекта
+            input_contract_commissioning_project: null,                       // Контракт проекта
+            select_contract_commissioning_currency_project: null,   // Контракт валюта проекта
+            input_contract_other_project: null,                       // Контракт проекта
+            select_contract_other_currency_project: null,   // Контракт валюта проекта
+
+            input_payment_project: null,                                   // Оплата проекта
+            select_payment_currency_project: null,               // Оплата валюта проекта
+            input_payment_engineering_project: null,                       // Оплата проекта
+            select_payment_engineering_currency_project: null,   // Оплата валюта проекта
+            input_payment_equipment_project: null,                       // Оплата проекта
+            select_payment_equipment_currency_project: null,   // Оплата валюта проекта
+            input_payment_construction_project: null,                       // Оплата проекта
+            select_payment_construction_currency_project: null,   // Оплата валюта проекта
+            input_payment_commissioning_project: null,                       // Оплата проекта
+            select_payment_commissioning_currency_project: null,   // Оплата валюта проекта
+            input_payment_other_project: null,                       // Оплата проекта
+            select_payment_other_currency_project: null,   // Оплата валюта проекта
+
+            select_project_manager: null,               // Менеджер проекта
+
+            mode:0, // 0-view 1 -add 2 - edit 3 -delete
             project: null,
             id_project: null,
             init: function () {
+                //--------------------------------------------------
+                // Настройка перемещения названия полей
+                if ($('.floating-labels').length > 0) floatLabels();
+                //
+                function floatLabels() {
+                    var inputFields = $('.floating-labels .cd-label').next();
+                    inputFields.each(function () {
+                        var singleInput = $(this);
+                        //check if user is filling one of the form fields 
+                        checkVal(singleInput);
+                        singleInput.on('change keyup', function () {
+                            checkVal(singleInput);
+                        });
+                    });
+                }
+                // Установка подписи компонента (если заполнен подпись над компонентом)
+                function checkVal(inputField) {
+                    (inputField.val() == '') ? inputField.prev('.cd-label').removeClass('float') : inputField.prev('.cd-label').addClass('float');
+                }
+
+                //--------------------------------------------------
+                // Настроим компоненты акардионы
+                this.content_accordion_project_info.accordion({
+                    heightStyle: "content",
+                    collapsible: true,
+                    activate: function (event, ui) {
+                        var active = project_detali.content_accordion_project_info.accordion("option", "active");
+                        if (active === 0) {
+
+                        }
+                    }
+                });
+                this.content_accordion_project_performer.accordion({
+                    heightStyle: "content",
+                    collapsible: true,
+                    activate: function (event, ui) {
+                        var active = project_detali.content_accordion_project_performer.accordion("option", "active");
+                        if (active === 0) {
+
+                        }
+                    }
+                });
+                this.content_accordion_project_budget.accordion({
+                    heightStyle: "content",
+                    collapsible: true,
+                    activate: function (event, ui) {
+                        var active = project_detali.content_accordion_project_budget.accordion("option", "active");
+                        if (active === 0) {
+
+                        }
+                    }
+                });
+                this.content_accordion_project_manager.accordion({
+                    heightStyle: "content",
+                    collapsible: true,
+                    activate: function (event, ui) {
+                        var active = project_detali.content_accordion_project_manager.accordion("option", "active");
+                        if (active === 0) {
+
+                        }
+                    }
+                });
+                this.content_accordion_project_steps.accordion({
+                    heightStyle: "content",
+                    collapsible: true,
+                    activate: function (event, ui) {
+                        var active = project_detali.content_accordion_project_steps.accordion("option", "active");
+                        if (active === 0) {
+
+                        }
+                    }
+                });
+                //--------------------------------------------------
+                // Привяжим компоненты на форме
+
+                //this.select_type_project = initSelect(
+                //    $('select#cd-type-project'),
+                //    { width: 300, lang:lang},
+                //    list_type_project,
+                //    function (row) {
+                //        return { value: Number(row.id), text: (lang == 'en' ? row.type_project_en : row.type_project_ru) };
+                //    },
+                //    -1,
+                //    function (event, ui) {
+                //        event.preventDefault();
+                //    },
+                //    null);
+                // Статус проекта
+                this.select_status_project = cd_initSelect(
+                    $('select#cd-status-project'),
+                    {lang:lang},
+                    [
+                        { id: 0, text: langView('text_status_open', langs) },
+                        { id: 1, text: langView('text_status_close', langs) },
+                        { id: 2, text: langView('text_status_pause', langs) },
+                        { id: 3, text: langView('text_status_delete', langs) },
+                    ],
+                    null,
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val()
+                    },
+                    null);
+                // Тип проекта
+                this.select_type_project = cd_initSelect(
+                    $('select#cd-type-project'),
+                    {lang:lang},
+                    list_type_project,
+                    function (row) {
+                        return { value: Number(row.id), text: (lang == 'en' ? row.type_project_en : row.type_project_ru) };
+                    },
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val()
+                    },
+                    null);
+                // Структурное подразделение
+                this.select_structural_subdivisions_project = cd_initSelect(
+                    $('select#cd-structural-subdivisions-project'),
+                    {lang:lang},
+                    list_structural_subdivisions,
+                    function (row) {
+                        return { value: Number(row.id), text: (lang == 'en' ? row.name_subdivisions_full_en : row.name_subdivisions_full_ru) };
+                    },
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val()
+                    },
+                    null);
+                // Название
+                this.textarea_name_project_ru = $('textarea#cd-name-project-ru').text('');
+                this.textarea_name_project_en = $('textarea#cd-name-project-en').text('');
+                // Цели
+                this.textarea_goals_project_ru = $('textarea#cd-goals-project-ru').text('');
+                this.textarea_goals_project_en = $('textarea#cd-goals-project-en').text('');
+                // Заказчик
+                this.select_structural_subdivisions_project = cd_initSelect(
+                    $('select#cd-customer-project'),
+                    { lang: lang },
+                    list_structural_subdivisions,
+                    function (row) {
+                        return { value: Number(row.id), text: (lang == 'en' ? row.name_subdivisions_full_en : row.name_subdivisions_full_ru) };
+                    },
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val()
+                    },
+                    null);
+                // Владелец строки
+                this.select_spp_owner_project = cd_initSelect(
+                    $('select#cd-spp-owner-project'),
+                    { lang: lang },
+                    list_structural_subdivisions,
+                    function (row) {
+                        return { value: Number(row.id), text: (lang == 'en' ? row.name_subdivisions_en : row.name_subdivisions_ru) };
+                    },
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val()
+                    },
+                    null);
+                // СПП-элемент
+                this.input_spp_sap_project = $('input#cd-spp-sap').val('');
+                // Начало пректа
+                this.input_start_project = $("input#cd-start-project").datepicker({
+                    showOtherMonths: true,
+                    selectOtherMonths: true,
+                    showAnim: 'slideDown',
+                    //language: lang == 'en' ? 'en-GB' : 'ru',
+                })
+                // Окончание пректа по контракту
+                this.input_stop_project = $("input#cd-stop-project").datepicker({
+                    showOtherMonths: true,
+                    selectOtherMonths: true,
+                    showAnim: 'slideDown',
+                    //language: lang == 'en' ? 'en-GB' : 'ru',
+                })
+                //------------------------------------------------------------------
+                // Подрядная организация
+                this.select_name_performer_project = cd_initSelect(
+                    $('select#cd-name-performer-project'),
+                    {lang:lang},
+                    list_work_performers,
+                    function (row) {
+                        return { value: Number(row.id), text: (lang == 'en' ? row.name_performer_en : row.name_performer_ru) };
+                    },
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val()
+                    },
+                    null);
+                // Email подрядной организации
+                this.input_email_performer_project = $('input#cd-email-performer-project').val('');
+                // Телефон подрядной организации
+                this.input_phone_performer_project = $('input#cd-phone-performer-project').val('');
+                // Телефон bossa подрядной организации
+                this.input_name_boss_performer_project = $('input#cd-name-boss-performer-project').val('');
+                // Телефон bossa подрядной организации
+                this.input_phone_boss_performer_project = $('input#cd-phone-boss-performer-project').val('');
+                //------------------------------------------------------------------------------------------------
+                // Бюджет пректа
+                this.input_budget_project = $('input#cd-budget-project').val('');
+                // Бюджет валюта пректа
+                this.select_budget_currency_project = cd_initSelect(
+                    $('select#cd-budget-currency-project'),
+                    {lang:lang},
+                    list_currency,
+                    null,
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val()
+                    },
+                    null);
+                // Контракт пректа
+                this.input_contract_project = $('input#cd-contract-project').val('');
+                // Контракт валюта пректа
+                this.select_contract_currency_project = cd_initSelect(
+                    $('select#cd-contract-currency-project'),
+                    {lang:lang},
+                    list_currency,
+                    null,
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val()
+                    },
+                    null);
+                // Контракт пректа
+                this.input_contract_engineering_project = $('input#cd-contract-engineering-project').val('');
+                // Контракт валюта пректа
+                this.select_contract_engineering_currency_project = cd_initSelect(
+                    $('select#cd-contract-engineering-currency-project'),
+                    {lang:lang},
+                    list_currency,
+                    null,
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val()
+                    },
+                    null);
+                // Контракт пректа
+                this.input_contract_equipment_project = $('input#cd-contract-equipment-project').val('');
+                // Контракт валюта пректа
+                this.select_contract_equipment_currency_project = cd_initSelect(
+                    $('select#cd-contract-equipment-currency-project'),
+                    {lang:lang},
+                    list_currency,
+                    null,
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val()
+                    },
+                    null);
+                // Контракт пректа
+                this.input_contract_construction_project = $('input#cd-contract-construction-project').val('');
+                // Контракт валюта пректа
+                this.select_contract_construction_currency_project = cd_initSelect(
+                    $('select#cd-contract-construction-currency-project'),
+                    {lang:lang},
+                    list_currency,
+                    null,
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val()
+                    },
+                    null);
+                // Контракт пректа
+                this.input_contract_commissioning_project = $('input#cd-contract-commissioning-project').val('');
+                // Контракт валюта пректа
+                this.select_contract_commissioning_currency_project = cd_initSelect(
+                    $('select#cd-contract-commissioning-currency-project'),
+                    {lang:lang},
+                    list_currency,
+                    null,
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val()
+                    },
+                    null);
+                // Контракт пректа
+                this.input_contract_other_project = $('input#cd-contract-other-project').val('');
+                // Контракт валюта пректа
+                this.select_contract_other_currency_project = cd_initSelect(
+                    $('select#cd-contract-other-currency-project'),
+                    {lang:lang},
+                    list_currency,
+                    null,
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val()
+                    },
+                    null);
+                //-----------------------------------------------------------------------
+                // Оплата пректа
+                this.input_payment_engineering_project = $('input#cd-payment-engineering-project').val('');
+                // Оплата валюта пректа
+                this.select_payment_engineering_currency_project = cd_initSelect(
+                    $('select#cd-payment-engineering-currency-project'),
+                    { lang: lang },
+                    list_currency,
+                    null,
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val()
+                    },
+                    null);
+                // Оплата пректа
+                this.input_payment_equipment_project = $('input#cd-payment-equipment-project').val('');
+                // Оплата валюта пректа
+                this.select_payment_equipment_currency_project = cd_initSelect(
+                    $('select#cd-payment-equipment-currency-project'),
+                    { lang: lang },
+                    list_currency,
+                    null,
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val()
+                    },
+                    null);
+                // Оплата пректа
+                this.input_payment_construction_project = $('input#cd-payment-construction-project').val('');
+                // Оплата валюта пректа
+                this.select_payment_construction_currency_project = cd_initSelect(
+                    $('select#cd-payment-construction-currency-project'),
+                    { lang: lang },
+                    list_currency,
+                    null,
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val()
+                    },
+                    null);
+                // Оплата пректа
+                this.input_payment_commissioning_project = $('input#cd-payment-commissioning-project').val('');
+                // Оплата валюта пректа
+                this.select_payment_commissioning_currency_project = cd_initSelect(
+                    $('select#cd-payment-commissioning-currency-project'),
+                    { lang: lang },
+                    list_currency,
+                    null,
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val()
+                    },
+                    null);
+                // Оплата пректа
+                this.input_payment_other_project = $('input#cd-payment-other-project').val('');
+                // Оплата валюта пректа
+                this.select_payment_other_currency_project = cd_initSelect(
+                    $('select#cd-payment-other-currency-project'),
+                    { lang: lang },
+                    list_currency,
+                    null,
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val()
+                    },
+                    null);
+                //----------------------------------------------------------------------
+                // Проект менеджер
+                this.select_project_manager = cd_initSelect(
+                    $('select#cd-project-manager'),
+                    { lang: lang },
+                    list_pm,
+                    function (row) {
+                        return { value: Number(row.id), text: getFIOPM(row.id_user)};
+                    },
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val()
+                    },
+                    null);
+                // функция определения ФИО менеджера
+                function getFIOPM(id_user) {
+                    var user = getObjOflist(list_users, 'id', id_user);
+                    if (user) return user.surname + ' ' + user.name + ' ' + user.patronymic;
+                }
 
                 // Показать\спрятать информацию
                 $('form.cd-form fieldset legend').on('click', function (event) {
                     event.preventDefault();
                     $(this).siblings('.view-info').slideToggle();
                 });
+
 
                 // Активировать меню редактирования пректов
                 if ($('.cd-stretchy-nav').length > 0) {

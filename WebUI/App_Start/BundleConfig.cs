@@ -23,14 +23,26 @@ namespace WebUI
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
-
+            //jquery-ui
             bundles.Add(new ScriptBundle("~/bundles/jquery-ui").Include(
-                    "~/Scripts/jquery-ui-1.12.1.min.js"));
+                    "~/Scripts/jquery-ui-1.12.1.min.js",
+                    "~/Scripts/datepicker-ru.js"//,
+                    //"~/Scripts/datepicker-en-GB.js"
+                    ));
+
 
             bundles.Add(new StyleBundle("~/jquery-ui/css").Include(
                 "~/Content/themes/base/jquery-ui.css",
                 "~/Content/themes/base/jquery-ui.structure.css",
                 "~/Content/themes/base/jquery-ui.theme.css"));
+            //
+            // Календарь
+            bundles.Add(new ScriptBundle("~/bundles/DateTime").Include(
+                "~/Scripts/DateTime/moment.min.js"
+                , "~/Scripts/DateTime/jquery.daterangepicker.js"
+                ));
+
+            bundles.Add(new StyleBundle("~/DateTime/css").Include("~/Content/DateTime/daterangepicker.css"));
         }
     }
 }
