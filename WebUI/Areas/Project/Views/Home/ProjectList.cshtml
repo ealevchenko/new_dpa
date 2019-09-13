@@ -229,66 +229,77 @@
 
 <div class="cd-project-content">
     <div>
-        <h2></h2>
-        <em></em>
+        <h2 class="mode-view mode-edit"></h2>
+        <em class="mode-view mode-edit"></em>
         <form class="cd-form floating-labels">
+            <div class="mode-add">
+                <input type="submit" id="save-all" value="Save All">
+                <input type="button" id="edit-cancel" value="Cancel">
+            </div>
             <div id="accordion_project_info">
                 <h3>@ProjectResource.title_project_info</h3>
                 <div>
-                    <div id="status-project">
+
+                    <div>
+                        <input type="button" id="edit-info" value="Edit Info" class="mode-view">                        
+                        <input type="submit" id="save-info" value="Save Info" class="mode-edit-info">
+                        <input type="button" id="edit-cancel" value="Cancel" class="mode-edit-info"> 
+                    </div>
+
+                    <div class="mode-edit-info mode-add">
                         <h4>@ProjectResource.title_status_project</h4>
                         <p class="cd-select icon">
                             <select class="budget" id="cd-status-project" name="cd-status-project" required></select>
                         </p>
                     </div>
 
-                    <div id="type-project">
+                    <div class="mode-edit-info mode-add">
                         <h4>@ProjectResource.title_type_project</h4>
                         <p class="cd-select icon">
                             <select class="type-project" id="cd-type-project" name="cd-type-project" required></select>
                         </p>
                     </div>
 
-                    <div id="structural-subdivisions-project">
+                    <div class="mode-edit-info mode-add">
                         <h4>@ProjectResource.title_structural_subdivisions</h4>
                         <p class="cd-select icon">
                             <select class="budget" id="cd-structural-subdivisions-project" name="cd-structural-subdivisions-project" required></select>
                         </p>
                     </div>
 
-                    @*<div class="icon" id="type-project">
-                            <label class="cd-label" for="cd-type-project">@ProjectResource.title_type_project</label>
-                            <select class="ui-widget-content ui-corner-all type-project" name="cd-type-project" id="cd-type-project"></select>
-                        </div>*@
-
-                    <div class="icon" id="name-project-ru">
+                    <div class="icon mode-edit-info mode-add">
                         <label class="cd-label" for="cd-name-project-ru">@ProjectResource.title_name_project_ru</label>
                         <textarea class="message" name="cd-name-project-ru" id="cd-name-project-ru" required></textarea>
                     </div>
 
-                    <div class="icon" id="name-project-en">
+                    <div class="icon mode-edit-info mode-add">
                         <label class="cd-label" for="cd-name-project-ru">@ProjectResource.title_name_project_en</label>
                         <textarea class="message" name="cd-name-project-en" id="cd-name-project-en" required></textarea>
                     </div>
 
-                    <div class="icon" id="goals-project-ru">
+                    <div class="icon mode-view mode-edit-info mode-add" data-lang="ru">
                         <label class="cd-label" for="cd-goals-project-ru">@ProjectResource.title_goals_project_ru</label>
-                        <textarea class="message" name="cd-goals-project-ru" id="cd-goals-project-ru" required></textarea>
+                        <textarea class="message mode-edit-switch" name="cd-goals-project-ru" id="cd-goals-project-ru" required></textarea>
                     </div>
 
-                    <div class="icon" id="goals-project-en">
+                    <div class="icon mode-view mode-edit-info mode-add" data-lang="en">
                         <label class="cd-label" for="cd-goals-project-ru">@ProjectResource.title_goals_project_en</label>
-                        <textarea class="message" name="cd-goals-project-en" id="cd-goals-project-en" required></textarea>
+                        <textarea class="message mode-edit-switch" name="cd-goals-project-en" id="cd-goals-project-en" required></textarea>
                     </div>
 
-                    <div id="customer-project">
+                    <div class="mode-edit-info mode-add">
                         <h4>@ProjectResource.title_project_customer</h4>
                         <p class="cd-select icon">
                             <select class="budget" id="cd-customer-project" name="cd-customer-project" required></select>
                         </p>
                     </div>
+                    <div class="icon mode-view">
+                        <label class="cd-label" for="cd-customer-project">@ProjectResource.title_project_customer</label>
+                        <input class="budget" type="text" id="cd-customer-project" name="cd-customer-project" disabled="disabled">
+                    </div>
 
-                    <div class="icon-group">
+
+                    <div class="icon-group mode-edit-info mode-add">
                         <div id="spp-project" class="left-position">
                             <h4>@ProjectResource.title_spp_owner</h4>
                             <p class="cd-select icon">
@@ -301,14 +312,19 @@
                         </div>
                     </div>
 
+                    <div class="icon mode-view">
+                        <label class="cd-label" for="cd-spp-element-owner-project">@ProjectResource.title_spp_element_owner</label>
+                        <input class="message" type="text" id="cd-spp-element-owner-project" name="cd-spp-element-owner-project" disabled="disabled">
+                    </div>
+
                     <div class="icon-group">
                         <div class="icon left-position">
                             <label class="cd-label" for="cd-start-project">@ProjectResource.title_start_project</label>
-                            <input class="message" type="date" id="cd-start-project" name="cd-start-project">
+                            <input class="message mode-edit-switch" type="date" id="cd-start-project" name="cd-start-project">
                         </div>
                         <div class="icon right-position">
                             <label class="cd-label" for="cd-stop-project">@ProjectResource.title_stop_project</label>
-                            <input class="message" type="date" id="cd-stop-project" name="cd-stop-project">
+                            <input class="message mode-edit-switch" type="date" id="cd-stop-project" name="cd-stop-project">
                         </div>
                     </div>
                 </div>
@@ -517,7 +533,6 @@
 
                 </div>
             </div>
-
             @*<fieldset>
                     <legend>@ProjectResource.title_project_info</legend>
 
@@ -624,7 +639,7 @@
     </nav>
 </div> <!-- .cd-project-content -->
 @* Окно редактирования и добавления проекта *@
-<div id="add-edit-project" title="">
+@*<div id="add-edit-project" title="">
     <p class="validateTips">All form fields are required.</p>
     <form class="cd-form">
         <fieldset>
@@ -640,16 +655,9 @@
                 <label class="cd-label" for="cd-name-project">@ProjectResource.title_name_project @ProjectResource.title_en</label>
                 <textarea class="name-project" name="cd-name-project" id="cd-name-project"></textarea>
             </div>
-            @*<label for="name">Name</label>
-                <input type="text" name="name" id="name" value="Jane Smith" class="text ui-widget-content ui-corner-all">
-                <label for="email">Email</label>
-                <input type="text" name="email" id="email" value="jane@smith.com" class="text ui-widget-content ui-corner-all">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" value="xxxxxxx" class="text ui-widget-content ui-corner-all">*@
-            <!-- Allow form submission with keyboard without duplicating the dialog button -->
             <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
         </fieldset>
     </form>
-</div>
+</div>*@
 
 
