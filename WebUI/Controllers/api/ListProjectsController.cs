@@ -219,6 +219,45 @@ namespace WebUI.Controllers.api
             }
         }
 
+
+        // POST api/project/lp
+        [HttpPost]
+        [Route("")]
+        public int PostListProjects([FromBody]ListProjects value)
+        {
+            try
+            {
+                this.ef_lp.Add(value);
+                this.ef_lp.Save();
+                this.ef_lp.Refresh(value);
+                return value.id;
+            }
+            catch (Exception e)
+            {
+                //String.Format("Ошибка выполнения метода API:PostFuelSale(value={0})", value).SaveError(e);
+                return -1;
+            }
+        }
+
+        // PUT api/project/lp/5
+        [HttpPut]
+        [Route("{id:int}")]
+        public int PutListProjects(int id, [FromBody]ListProjects value)
+        {
+            try
+            {
+                this.ef_lp.Update(value);
+                return this.ef_lp.Save();
+            }
+            catch (Exception e)
+            {
+                //String.Format("Ошибка выполнения метода API:PutListProjects(id={0}, value={1})", id, value).SaveError(e);
+                return -1;
+            }
+        }
+
+
+
         // GET: api/project/lp/pm/list_id/1,2,3,4
         [Route("pm/list_id/{list_id}")]
         [ResponseType(typeof(ListProjects))]

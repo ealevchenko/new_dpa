@@ -1269,14 +1269,14 @@ Form
   background: url("../../../../Images/project/cd-required.svg") no-repeat top right;
 }
 .cd-form .error-message p {
-  background: #e94b35;
-  color: #ffffff;
-  font-size: 1.4rem;
-  text-align: center;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  border-radius: .25em;
-  padding: 16px;
+    background: #e94b35;
+    color: #ffffff;
+    font-size: 1.4rem;
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    border-radius: .25em;
+    padding: 16px;
 }
 .cd-form .error {
   border-color: #e94b35 !important;

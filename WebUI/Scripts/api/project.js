@@ -121,6 +121,80 @@ Project.prototype.getAsyncListProjectsOfListIDPM = function (list_id, callback) 
         },
     });
 };
+//Обновить проект
+Project.prototype.putAsyncListProjects = function (project, callback) {
+    $.ajax({
+        type: 'PUT',
+        url: '../../api/project/lp/' + project.id,
+        data: JSON.stringify(project),
+        contentType: "application/json;charset=utf-8",
+        async: true,
+        beforeSend: function () {
+            AJAXBeforeSend();
+        },
+        success: function (data) {
+            if (typeof callback === 'function') {
+                callback(data);
+            }
+        },
+        error: function (x, y, z) {
+            OnAJAXError(x, y, z);
+        },
+        complete: function () {
+            AJAXComplete();
+        },
+    });
+};
+// Удалить проект по id
+Project.prototype.deleteAsyncListProjects = function (id, callback) {
+    $.ajax({
+        url: '../../api/project/lp/' + id,
+        type: 'DELETE',
+        contentType: "application/json;charset=utf-8",
+        async: true,
+        beforeSend: function () {
+            AJAXBeforeSend();
+        },
+        success: function (data) {
+            if (typeof callback === 'function') {
+                callback(data);
+            }
+        },
+        error: function (x, y, z) {
+            OnAJAXError(x, y, z);
+        },
+        complete: function () {
+            AJAXComplete();
+        },
+    });
+};
+//Добавить проект
+Project.prototype.postAsyncListProjects = function (project, callback) {
+    $.ajax({
+        url: '../../api/project/lp/',
+        type: 'POST',
+        data: JSON.stringify(project),
+        contentType: "application/json;charset=utf-8",
+        async: true,
+        beforeSend: function () {
+            AJAXBeforeSend();
+        },
+        success: function (data) {
+            if (typeof callback === 'function') {
+                callback(data);
+            }
+        },
+        error: function (x, y, z) {
+            LockScreenOff();
+            OnAJAXError(x, y, z);
+        },
+        complete: function () {
+            AJAXComplete();
+        },
+    });
+};
+
+
 //======= ProjectManager ======================================
 // Веруть список менеджеров проектов
 Project.prototype.getAsyncProjectManager = function (callback) {
