@@ -22,7 +22,7 @@
     <script src="~/Scripts/api/project.js" type="text/javascript"></script>
 
     <script src="~/Scripts/project/project_list.js" type="text/javascript"></script>
-
+    @*<script src="~/Scripts/project/test.js" type="text/javascript"></script>*@
 }
 
 <input id="username" type="hidden" value="@User.Identity.Name" />
@@ -229,9 +229,12 @@
 
 <div class="cd-project-content">
     <div>
-        <h2 class="mode-view mode-edit"></h2>
-        <em class="mode-view mode-edit"></em>
+        <h2 class="mode-view"></h2>
+        <em class="mode-view"></em>
         <form class="cd-form floating-labels">
+            <div>
+                <p class="validateTips">Please enter a valid email address</p>
+            </div>
             <div class="mode-add">
                 <input type="submit" id="save-all" value="Save All">
                 <input type="button" id="edit-cancel" value="Cancel">
@@ -239,95 +242,124 @@
             <div id="accordion_project_info">
                 <h3>@ProjectResource.title_project_info</h3>
                 <div>
+                    @* Окно для просмотра *@
+                    <div class="mode-view">
+                        <div>
+                            <input type="button" id="edit-info" value="Edit Info">
+                        </div>
 
-                    <div>
-                        <input type="button" id="edit-info" value="Edit Info" class="mode-view">                        
-                        <input type="submit" id="save-info" value="Save Info" class="mode-edit-info">
-                        <input type="button" id="edit-cancel" value="Cancel" class="mode-edit-info"> 
+                        <div class="icon">
+                            <label class="cd-label" for="cd-structural-subdivisions-project-view">@ProjectResource.title_structural_subdivisions</label>
+                            <input class="budget" type="text" id="cd-structural-subdivisions-project-view" name="cd-structural-subdivisions-project-view" disabled="disabled">
+                        </div>
+
+                        <div class="icon">
+                            <label class="cd-label" for="cd-goals-project-view">@ProjectResource.title_goals_project</label>
+                            <textarea class="message" name="cd-goals-project-view" id="cd-goals-project-view" disabled="disabled"></textarea>
+                        </div>
+
+                        <div class="icon">
+                            <label class="cd-label" for="cd-customer-project-view">@ProjectResource.title_project_customer</label>
+                            <input class="budget" type="text" id="cd-customer-project-view" name="cd-customer-project-view" disabled="disabled">
+                        </div>
+
+                        <div class="icon">
+                            <label class="cd-label" for="cd-spp-element-owner-project-view">@ProjectResource.title_spp_element_owner</label>
+                            <input class="message" type="text" id="cd-spp-element-owner-project-view" name="cd-spp-element-owner-project-view" disabled="disabled">
+                        </div>
+
+                        <div class="icon-group">
+                            <div class="icon left-position">
+                                <label class="cd-label" for="cd-start-project-view">@ProjectResource.title_start_project</label>
+                                <input class="message" type="date" id="cd-start-project-view" name="cd-start-project-view" disabled="disabled">
+                            </div>
+                            <div class="icon right-position">
+                                <label class="cd-label" for="cd-stop-project-edit">@ProjectResource.title_stop_project</label>
+                                <input class="message" type="date" id="cd-stop-project-view" name="cd-stop-project-view" disabled="disabled">
+                            </div>
+                        </div>
                     </div>
+                    @* Окно для правки *@
+                    <div class="mode-add mode-edit-info">
+                        <div>
+                            <input type="submit" id="save-info" value="Save Info" class="mode-edit-info">
+                            <input type="button" id="edit-cancel" value="Cancel" class="mode-edit-info">
+                        </div>
 
-                    <div class="mode-edit-info mode-add">
-                        <h4>@ProjectResource.title_status_project</h4>
-                        <p class="cd-select icon">
-                            <select class="budget" id="cd-status-project" name="cd-status-project" required></select>
-                        </p>
-                    </div>
-
-                    <div class="mode-edit-info mode-add">
-                        <h4>@ProjectResource.title_type_project</h4>
-                        <p class="cd-select icon">
-                            <select class="type-project" id="cd-type-project" name="cd-type-project" required></select>
-                        </p>
-                    </div>
-
-                    <div class="mode-edit-info mode-add">
-                        <h4>@ProjectResource.title_structural_subdivisions</h4>
-                        <p class="cd-select icon">
-                            <select class="budget" id="cd-structural-subdivisions-project" name="cd-structural-subdivisions-project" required></select>
-                        </p>
-                    </div>
-
-                    <div class="icon mode-edit-info mode-add">
-                        <label class="cd-label" for="cd-name-project-ru">@ProjectResource.title_name_project_ru</label>
-                        <textarea class="message" name="cd-name-project-ru" id="cd-name-project-ru" required></textarea>
-                    </div>
-
-                    <div class="icon mode-edit-info mode-add">
-                        <label class="cd-label" for="cd-name-project-ru">@ProjectResource.title_name_project_en</label>
-                        <textarea class="message" name="cd-name-project-en" id="cd-name-project-en" required></textarea>
-                    </div>
-
-                    <div class="icon mode-view mode-edit-info mode-add" data-lang="ru">
-                        <label class="cd-label" for="cd-goals-project-ru">@ProjectResource.title_goals_project_ru</label>
-                        <textarea class="message mode-edit-switch" name="cd-goals-project-ru" id="cd-goals-project-ru" required></textarea>
-                    </div>
-
-                    <div class="icon mode-view mode-edit-info mode-add" data-lang="en">
-                        <label class="cd-label" for="cd-goals-project-ru">@ProjectResource.title_goals_project_en</label>
-                        <textarea class="message mode-edit-switch" name="cd-goals-project-en" id="cd-goals-project-en" required></textarea>
-                    </div>
-
-                    <div class="mode-edit-info mode-add">
-                        <h4>@ProjectResource.title_project_customer</h4>
-                        <p class="cd-select icon">
-                            <select class="budget" id="cd-customer-project" name="cd-customer-project" required></select>
-                        </p>
-                    </div>
-                    <div class="icon mode-view">
-                        <label class="cd-label" for="cd-customer-project">@ProjectResource.title_project_customer</label>
-                        <input class="budget" type="text" id="cd-customer-project" name="cd-customer-project" disabled="disabled">
-                    </div>
-
-
-                    <div class="icon-group mode-edit-info mode-add">
-                        <div id="spp-project" class="left-position">
-                            <h4>@ProjectResource.title_spp_owner</h4>
+                        <div>
+                            <h4>@ProjectResource.title_status_project</h4>
                             <p class="cd-select icon">
-                                <select class="budget" id="cd-spp-owner-project" name="cd-spp-owner-project"></select>
+                                <select class="budget" id="cd-status-project-edit" name="cd-status-project-edit" required></select>
                             </p>
                         </div>
-                        <div class="icon right-position-select">
-                            <label class="cd-label" for="cd-spp-sap">@ProjectResource.title_spp_element</label>
-                            <input class="message" type="text" id="cd-spp-sap" name="cd-spp-sap">
-                        </div>
-                    </div>
 
-                    <div class="icon mode-view">
-                        <label class="cd-label" for="cd-spp-element-owner-project">@ProjectResource.title_spp_element_owner</label>
-                        <input class="message" type="text" id="cd-spp-element-owner-project" name="cd-spp-element-owner-project" disabled="disabled">
-                    </div>
-
-                    <div class="icon-group">
-                        <div class="icon left-position">
-                            <label class="cd-label" for="cd-start-project">@ProjectResource.title_start_project</label>
-                            <input class="message mode-edit-switch" type="date" id="cd-start-project" name="cd-start-project">
+                        <div>
+                            <h4>@ProjectResource.title_type_project</h4>
+                            <p class="cd-select icon">
+                                <select class="type-project" id="cd-type-project-edit" name="cd-type-project-edit" required></select>
+                            </p>
                         </div>
-                        <div class="icon right-position">
-                            <label class="cd-label" for="cd-stop-project">@ProjectResource.title_stop_project</label>
-                            <input class="message mode-edit-switch" type="date" id="cd-stop-project" name="cd-stop-project">
+
+                        <div>
+                            <h4>@ProjectResource.title_structural_subdivisions</h4>
+                            <p class="cd-select icon">
+                                <select class="budget" id="cd-structural-subdivisions-project-edit" name="cd-structural-subdivisions-project-edit" required></select>
+                            </p>
+                        </div>
+
+                        <div class="icon">
+                            <label class="cd-label" for="cd-name-project-ru-edit">@ProjectResource.title_name_project_ru</label>
+                            <textarea class="message" name="cd-name-project-ru-edit" id="cd-name-project-ru-edit" required></textarea>
+                        </div>
+
+                        <div class="icon">
+                            <label class="cd-label" for="cd-name-project-en-edit">@ProjectResource.title_name_project_en</label>
+                            <textarea class="message" name="cd-name-project-en-edit" id="cd-name-project-en-edit" required></textarea>
+                        </div>
+
+                        <div class="icon">
+                            <label class="cd-label" for="cd-goals-project-ru-edit">@ProjectResource.title_goals_project_ru</label>
+                            <textarea class="message" name="cd-goals-project-ru-edit" id="cd-goals-project-ru-edit" required></textarea>
+                        </div>
+
+                        <div class="icon">
+                            <label class="cd-label" for="cd-goals-project-en-edit">@ProjectResource.title_goals_project_en</label>
+                            <textarea class="message" name="cd-goals-project-en-edit" id="cd-goals-project-en-edit" required></textarea>
+                        </div>
+
+                        <div>
+                            <h4>@ProjectResource.title_project_customer</h4>
+                            <p class="cd-select icon">
+                                <select class="budget" id="cd-customer-project-edit" name="cd-customer-project-edit" required></select>
+                            </p>
+                        </div>
+
+                        <div class="icon-group">
+                            <div class="left-position">
+                                <h4>@ProjectResource.title_spp_owner</h4>
+                                <p class="cd-select icon">
+                                    <select class="budget" id="cd-spp-owner-project-edit" name="cd-spp-owner-project-edit"></select>
+                                </p>
+                            </div>
+                            <div class="icon right-position-select">
+                                <label class="cd-label" for="cd-spp-sap-edit">@ProjectResource.title_spp_element</label>
+                                <input class="message" type="text" id="cd-spp-sap-edit" name="cd-spp-sap-edit">
+                            </div>
+                        </div>
+
+                        <div class="icon-group">
+                            <div class="icon left-position">
+                                <label class="cd-label" for="cd-start-project-edit">@ProjectResource.title_start_project</label>
+                                <input class="message" type="date" id="cd-start-project-edit" name="cd-start-project-edit">
+                            </div>
+                            <div class="icon right-position">
+                                <label class="cd-label" for="cd-stop-project-edit">@ProjectResource.title_stop_project</label>
+                                <input class="message" type="date" id="cd-stop-project-edit" name="cd-stop-project-edit">
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
             <div id="accordion_project_performer">
                 <h3>@ProjectResource.title_project_performer</h3>
@@ -638,26 +670,27 @@
         <span aria-hidden="true" class="stretchy-nav-bg"></span>
     </nav>
 </div> <!-- .cd-project-content -->
+
 @* Окно редактирования и добавления проекта *@
 @*<div id="add-edit-project" title="">
-    <p class="validateTips">All form fields are required.</p>
-    <form class="cd-form">
-        <fieldset>
-            <div class="icon">
-                <label class="cd-label" for="cd-name">Name</label>
-                <input class="user" type="text" name="cd-name" id="cd-name" required>
-            </div>
-            <div class="icon">
-                <label class="cd-label" for="cd-name-project">@ProjectResource.title_name_project @ProjectResource.title_ru</label>
-                <textarea class="name-project" name="cd-name-project" id="cd-name-project"></textarea>
-            </div>
-            <div class="icon">
-                <label class="cd-label" for="cd-name-project">@ProjectResource.title_name_project @ProjectResource.title_en</label>
-                <textarea class="name-project" name="cd-name-project" id="cd-name-project"></textarea>
-            </div>
-            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-        </fieldset>
-    </form>
-</div>*@
+        <p class="validateTips">All form fields are required.</p>
+        <form class="cd-form">
+            <fieldset>
+                <div class="icon">
+                    <label class="cd-label" for="cd-name">Name</label>
+                    <input class="user" type="text" name="cd-name" id="cd-name" required>
+                </div>
+                <div class="icon">
+                    <label class="cd-label" for="cd-name-project">@ProjectResource.title_name_project @ProjectResource.title_ru</label>
+                    <textarea class="name-project" name="cd-name-project" id="cd-name-project"></textarea>
+                </div>
+                <div class="icon">
+                    <label class="cd-label" for="cd-name-project">@ProjectResource.title_name_project @ProjectResource.title_en</label>
+                    <textarea class="name-project" name="cd-name-project" id="cd-name-project"></textarea>
+                </div>
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </fieldset>
+        </form>
+    </div>*@
 
 

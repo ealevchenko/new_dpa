@@ -1037,6 +1037,7 @@
     <Content Include="Scripts\project\global_project1.js" />
     <Content Include="Scripts\project\main_home.js" />
     <Content Include="Scripts\project\main_home1.js" />
+    <Content Include="Scripts\project\test.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />

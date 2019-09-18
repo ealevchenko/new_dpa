@@ -188,6 +188,22 @@ var toDate = function (datetime) {
     return datetime !== null ? datetime.substring(0, 10) : '';
 }
 
+var StringToDateTime = function (date_string) {
+    //yyyy-mm-ddThh:mm:ss
+    //0123456789012345678
+    if (date_string) {
+        var strDate = date_string;
+        var year = strDate.substr(0, 4);
+        var mont = strDate.substr(5, 2);
+        var day = strDate.substr(8, 2);
+        var hour = strDate.substr(11, 2);
+        var min = strDate.substr(14, 2);
+        var sec = strDate.substr(17, 2);
+        var date = new Date(year, Number(mont) - 1, day, hour, min, sec);
+        return date;
+    }
+};
+
 var toCurrency = function (currency, lang) {
     switch (currency !== null ? Number(currency) : 0) {
         case 1: return lang === 'ru' ? 'тыс. грн.' : 'kUAH';
