@@ -33,6 +33,25 @@ a {
 .menu-cd-title {
     display:none;
 }
+/*
+     нопка выбора
+*/
+.cd-section {
+  padding: 2em;
+  text-align: center;
+}
+
+.cd-bouncy-nav-trigger {
+  /* button style */
+  background: #DC965A;
+  color: #ffffff;
+  padding: 1.2em 2em;
+  border-radius: 10em;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 0 10px #171718;
+}
+.no-touch .cd-bouncy-nav-trigger:hover {
+  background: #e0a36f;
+}
 /* -------------------------------- 
 
 Main Components 
@@ -251,25 +270,23 @@ Main Components
   text-align: center;
 }
 
-    .cd-title div a {
-        /*display: inline-block;*/
-        /*width:300px;*/
+    /*.cd-title div a {
         margin-bottom: 5px;
         display: block;
         padding: 1.2em 1.6em;
         border-radius: 50em;
-        border: 2px solid #ead7a5; /*rgba(255,255,255,.5);*/
+        border: 2px solid #ead7a5; 
         font-weight: 700;
         color: #fff;
         font-family: Georgia, lora, serif;
         font-size: 16px;
         color: #ead7a5;
-    }
+    }*/
 
-.no-touch .cd-title div a:hover {
+/*.no-touch .cd-title div a:hover {
     border-color: goldenrod;
     color: goldenrod;
-}
+}*/
 
 .is-full-width .cd-title {
   top: 50vh;

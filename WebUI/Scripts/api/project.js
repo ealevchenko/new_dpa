@@ -393,3 +393,41 @@ Project.prototype.getStopProject = function (project) {
         return this.lang === 'ru' ? moment(project.stop_project_contract).format('DD.MM.YYYY') : moment(project.stop_project_contract).format('DD/MM/YYYY');
     } else return null;
 };
+//------------------------------------------------------------------------
+//  WorkPerformers
+// 
+Project.prototype.getNameWorkPerformersOfProject = function (project) {
+    if (project && project.WorkPerformers) {
+        return this.getNameWorkPerformers(project.WorkPerformers);
+    }
+};
+// Получить название исполнителя
+Project.prototype.getNameWorkPerformers = function (wp) {
+    if (wp) {
+        return this.lang === 'ru' ? wp.name_performer_ru : wp.name_performer_en;
+    } else return null;
+};
+// Получить Email исполнителя
+Project.prototype.getEmailWorkPerformers = function (wp) {
+    if (wp) {
+        return wp.email_performer;
+    } else return null;
+};
+// Получить телефон исполнителя
+Project.prototype.getPhoneWorkPerformers = function (wp) {
+    if (wp) {
+        return wp.phone_performer;
+    } else return null;
+};
+// Получить ФИО начальника исполнителя
+Project.prototype.getNameBossWorkPerformers = function (wp) {
+    if (wp) {
+        return wp.name_boss;
+    } else return null;
+};
+// Получить Телефон начальника исполнителя
+Project.prototype.getPhoneBossWorkPerformers = function (wp) {
+    if (wp) {
+        return wp.phone_boss;
+    } else return null;
+};

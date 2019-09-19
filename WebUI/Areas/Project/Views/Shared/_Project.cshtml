@@ -18,9 +18,9 @@
         <nav class="cd-main-nav">
             <ul>
                 <!-- inser more links here -->
-                <li><a href='@Url.Action("Index", "Home", new { area = "Project" })'>Home</a></li>
-                <li><a href='@Url.Action("ProjectList", "Home", new { area = "Project" })'>Проекты</a></li>
-                @*<li><a href='@Url.Action("ProgrammList", "Home", new { area = "Project" })'>Проекты</a></li>*@
+                <li><a href='@Url.Action("Index", "Home", new { area = "" })'>Home</a></li>
+                <li><a href='@Url.Action("Index", "Home", new { area = "Project" })'>Проекты</a></li>
+                <li><a id="new-project" href='#'>Новый проект</a></li>
             </ul>
         </nav> <!-- cd-main-nav -->
     </header>

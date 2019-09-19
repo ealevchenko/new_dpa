@@ -157,10 +157,10 @@
     <value>Статусы внедрения инвестиционных проектов</value>
   </data>
   <data name="home_menu_1_name" xml:space="preserve">
-    <value>CAPEX</value>
+    <value>Отчеты</value>
   </data>
   <data name="home_menu_2_description" xml:space="preserve">
-    <value>Список проектов и программ ДАТП</value>
+    <value>Список выших проектов.</value>
   </data>
   <data name="home_menu_2_name" xml:space="preserve">
     <value>Проекты</value>
@@ -344,5 +344,8 @@
   </data>
   <data name="title_summ_other" xml:space="preserve">
     <value>Сумма на другие затраты</value>
+  </data>
+  <data name="home_menu_link" xml:space="preserve">
+    <value>Перейти...</value>
   </data>
 </root>

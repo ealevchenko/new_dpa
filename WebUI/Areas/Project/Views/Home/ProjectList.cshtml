@@ -234,13 +234,13 @@
         <form class="cd-form floating-labels">
             <div class="mode-add">
                 <input type="submit" id="save-all" value="Save All">
-                <input type="button" id="edit-cancel" value="Cancel">
+                <input type="button" id="cancel-all" value="Cancel">
             </div>
             <div id="accordion_project_info">
                 <h3>@ProjectResource.title_project_info</h3>
                 <div>
                     @* Окно для просмотра *@
-                    <div class="mode-view">
+                    <div class="mode-view mode-edit-performer">
                         <div>
                             <input type="button" id="edit-info" value="Edit Info">
                         </div>
@@ -277,13 +277,13 @@
                         </div>
                     </div>
                     @* Окно для правки *@
-                    <div class="mode-add mode-edit-info">
+                    <div class="mode-add mode-edit-info" id="accordion-info">
                         <div>
-                            <p class="validateTips"></p>
+                            <p class="validate-info"></p>
                         </div>
                         <div>
                             <input type="submit" id="save-info" value="Save Info" class="mode-edit-info">
-                            <input type="button" id="edit-cancel" value="Cancel" class="mode-edit-info">
+                            <input type="button" id="cancel-info" value="Cancel" class="mode-edit-info">
                         </div>
 
                         <div>
@@ -333,8 +333,8 @@
                                 <select class="budget" id="cd-customer-project-edit" name="cd-customer-project-edit" required></select>
                             </p>
                         </div>
-
-                        <div class="icon-group">
+                        
+                        @*<div class="icon">*@
                             <div class="left-position">
                                 <h4>@ProjectResource.title_spp_owner</h4>
                                 <p class="cd-select icon">
@@ -345,46 +345,66 @@
                                 <label class="cd-label" for="cd-spp-sap-edit">@ProjectResource.title_spp_element</label>
                                 <input class="message" type="text" id="cd-spp-sap-edit" name="cd-spp-sap-edit">
                             </div>
-                        </div>
+                        @*</div>*@
 
-                        <div class="icon-group">
-                            <div class="icon left-position">
-                                <label class="cd-label" for="cd-start-project-edit">@ProjectResource.title_start_project</label>
-                                <input class="message" type="date" id="cd-start-project-edit" name="cd-start-project-edit">
-                            </div>
-                            <div class="icon right-position">
-                                <label class="cd-label" for="cd-stop-project-edit">@ProjectResource.title_stop_project</label>
-                                <input class="message" type="date" id="cd-stop-project-edit" name="cd-stop-project-edit">
-                            </div>
-                        </div>
+                @*<div class="icon">*@
+                    <div class="icon left-position">
+                        <label class="cd-label" for="cd-start-project-edit">@ProjectResource.title_start_project</label>
+                        <input class="message" type="date" id="cd-start-project-edit" name="cd-start-project-edit">
                     </div>
-                </div>
-
+                    <div class="icon right-position">
+                        <label class="cd-label" for="cd-stop-project-edit">@ProjectResource.title_stop_project</label>
+                        <input class="message" type="date" id="cd-stop-project-edit" name="cd-stop-project-edit">
+                    </div>
+                @*<</div>*@
             </div>
-            <div id="accordion_project_performer">
-                <h3>@ProjectResource.title_project_performer</h3>
-                <div>
-                    <div id="name-performer-project">
-                        <h4>@ProjectResource.title_name_performer</h4>
-                        <p class="cd-select icon">
-                            <select class="budget" id="cd-name-performer-project" name="cd-name-performer-project"></select>
-                        </p>
+        </div>
+
+    </div>
+    <div id="accordion_project_performer">
+        <h3>@ProjectResource.title_project_performer</h3>
+        <div>
+            @* Окно для просмотра *@
+                    <div class="mode-view mode-edit-info">
+                        <div>
+                            <input type="button" id="edit-performer" value="Edit Performer">
+                        </div>
+                        <div class="icon">
+                            <label class="cd-label" for="cd-name-performer-project-view">@ProjectResource.title_email_performer</label>
+                            <input class="budget" type="text" id="cd-name-performer-project-view" name="cd-name-performer-project-view" disabled="disabled">
+                        </div>
+                        <div class="icon">
+                            <label class="cd-label" for="cd-email-performer-project-view">@ProjectResource.title_email_performer</label>
+                            <input class="email" type="email" id="cd-email-performer-project-view" name="cd-email-performer-project-view" disabled="disabled">
+                        </div>
+                        <div class="icon">
+                            <label class="cd-label" for="cd-phone-performer-project-view">@ProjectResource.title_phone_performer ((xxx)-xx-xx-xxx)</label>
+                            <input class="budget" type="tel" id="cd-phone-performer-project-view" name="cd-phone-performer-project-view" disabled="disabled">
+                        </div>
+                        <div class="icon">
+                            <label class="cd-label" for="cd-name-boss-performer-project-view">@ProjectResource.title_name_boss_performer</label>
+                            <input class="user" type="text" id="cd-name-boss-performer-project-view" name="cd-name-boss-performer-project-view" disabled="disabled">
+                        </div>
+                        <div class="icon">
+                            <label class="cd-label" for="cd-phone-boss-performer-project-view">@ProjectResource.title_phone_boss_performer ((xxx)-xx-xx-xxx)</label>
+                            <input class="budget" type="tel" id="cd-phone-boss-performer-project-view" name="cd-phone-boss-performer-project-view" disabled="disabled">
+                        </div>
                     </div>
-                    <div class="icon" id="email-performer-project">
-                        <label class="cd-label" for="cd-email-performer-project">@ProjectResource.title_email_performer</label>
-                        <input class="email" type="email" id="cd-email-performer-project" name="cd-email-performer-project" disabled="disabled">
-                    </div>
-                    <div class="icon" id="phone-performer-project">
-                        <label class="cd-label" for="cd-phone-performer-project">@ProjectResource.title_phone_performer ((xxx)-xx-xx-xxx)</label>
-                        <input class="budget" type="tel" id="cd-phone-performer-project" name="cd-phone-performer-project" disabled="disabled">
-                    </div>
-                    <div class="icon" id="name-boss-performer-project">
-                        <label class="cd-label" for="cd-name-boss-performer-project">@ProjectResource.title_name_boss_performer</label>
-                        <input class="user" type="text" id="cd-name-boss-performer-project" name="cd-name-boss-performer-project" disabled="disabled">
-                    </div>
-                    <div class="icon" id="phone-boss-performer-project">
-                        <label class="cd-label" for="cd-phone-boss-performer-project">@ProjectResource.title_phone_boss_performer ((xxx)-xx-xx-xxx)</label>
-                        <input class="budget" type="tel" id="cd-phone-boss-performer-project" name="cd-phone-boss-performer-project" disabled="disabled">
+                    @* Окно для правки *@
+                    <div class="mode-add mode-edit-performer" id="accordion-performer">
+                        <div>
+                            <p class="validate-performer"></p>
+                        </div>
+                        <div>
+                            <input type="submit" id="save-performer" value="Save Performer" class="mode-edit-performer">
+                            <input type="button" id="cancel-performer" value="Cancel" class="mode-edit-performer">
+                        </div>
+                        <div id="name-performer-project">
+                            <h4>@ProjectResource.title_name_performer</h4>
+                            <p class="cd-select icon">
+                                <select class="budget" id="cd-name-performer-project-edit" name="cd-name-performer-project-edit"></select>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -565,98 +585,10 @@
 
                 </div>
             </div>
-            @*<fieldset>
-                    <legend>@ProjectResource.title_project_info</legend>
-
-                <fieldset>
-                    <legend>@ProjectResource.title_project_budget</legend>
-                    <div id="project_info" class="view-info">
-                        <div class="icon">
-                            <div class="left-position">
-                                <label class="cd-label" for="contract-value">@ProjectResource.title_contract_value</label>
-                                <input class="contract-value" type="number" name="cd-name" id="contract-value" disabled="disabled">
-                            </div>
-                            <div class="right-position">
-                                <label class="cd-label" for="budget-value">@ProjectResource.title_budget_value</label>
-                                <input class="budget-value" type="number" name="cd-name" id="budget-value" disabled="disabled">
-                            </div>
-                        </div>
-                        <div class="icon">
-                            <div class="left-position">
-                                <label class="cd-label" for="contract-engineering-value">@ProjectResource.title_contract_engineering_value</label>
-                                <input class="contract-engineering-value" type="number" name="cd-name" id="contract-engineering-value" disabled="disabled">
-                            </div>
-                            <div class="right-position">
-                                <label class="cd-label" for="payment-engineering-value">@ProjectResource.title_payment_engineering_value</label>
-                                <input class="payment-engineering-value" type="number" name="cd-name" id="payment-engineering-value" disabled="disabled">
-                            </div>
-                        </div>
-                        <div class="icon">
-                            <div class="left-position">
-                                <label class="cd-label" for="contract-equipment-value">@ProjectResource.title_contract_equipment_value</label>
-                                <input class="contract-equipment-value" type="number" name="cd-name" id="contract-equipment-value" disabled="disabled">
-                            </div>
-                            <div class="right-position">
-                                <label class="cd-label" for="payment-equipment-value">@ProjectResource.title_payment_equipment_value</label>
-                                <input class="payment-equipment-value" type="number" name="cd-name" id="payment-equipment-value" disabled="disabled">
-                            </div>
-                        </div>
-                        <div class="icon">
-                            <div class="left-position">
-                                <label class="cd-label" for="contract-construction-value">@ProjectResource.title_contract_construction_value</label>
-                                <input class="contract-construction-value" type="number" name="cd-name" id="contract-construction-value" disabled="disabled">
-                            </div>
-                            <div class="right-position">
-                                <label class="cd-label" for="payment-construction-value">@ProjectResource.title_payment_construction_value</label>
-                                <input class="payment-construction-value" type="number" name="cd-name" id="payment-construction-value" disabled="disabled">
-                            </div>
-                        </div>
-                        <div class="icon">
-                            <div class="left-position">
-                                <label class="cd-label" for="contract-commissioning-value">@ProjectResource.title_contract_commissioning_value</label>
-                                <input class="contract-commissioning-value" type="number" name="cd-name" id="contract-commissioning-value" disabled="disabled">
-                            </div>
-                            <div class="right-position">
-                                <label class="cd-label" for="payment-commissioning-value">@ProjectResource.title_payment_commissioning_value</label>
-                                <input class="payment-commissioning-value" type="number" name="cd-name" id="payment-commissioning-value" disabled="disabled">
-                            </div>
-                        </div>
-                        <div class="icon">
-                            <div class="left-position">
-                                <label class="cd-label" for="contract-other-value">@ProjectResource.title_contract_other_value</label>
-                                <input class="contract-other-value" type="number" name="cd-name" id="contract-other-value" disabled="disabled">
-                            </div>
-                            <div class="right-position">
-                                <label class="cd-label" for="payment-other-value">@ProjectResource.title_payment_other_value</label>
-                                <input class="payment-other-value" type="number" name="cd-name" id="payment-other-value" disabled="disabled">
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend>@ProjectResource.title_project_manager</legend>
-                    <div id="project_info" class="view-info">
-                        <div class="icon">
-                            <label class="cd-label" for="project-manager-fio">@ProjectResource.title_project_manager_fio</label>
-                            <input class="project-manager-fio" type="email" name="cd-name" id="project-manager-fio" disabled="disabled">
-                        </div>
-                        <div class="icon">
-                            <label class="cd-label" for="project-manager-email">@ProjectResource.title_project_manager_email</label>
-                            <input class="project-manager-email" type="email" name="cd-name" id="project-manager-email" disabled="disabled">
-                        </div>
-                        <div class="icon">
-                            <label class="cd-label" for="project-manager-phone-work">@ProjectResource.title_project_manager_phone_work</label>
-                            <input class="project-manager-phone-work" type="tel" name="cd-name" id="project-manager-phone-work" disabled="disabled">
-                        </div>
-                        <div class="icon">
-                            <label class="cd-label" for="project-manager-phone-mobile">@ProjectResource.title_project_manager_phone_mobile</label>
-                            <input class="project-manager-phone-mobile" type="tel" name="cd-name" id="project-manager-phone-mobile" disabled="disabled">
-                        </div>
-                    </div>
-                </fieldset>*@
         </form>
     </div>
-    <nav class="cd-stretchy-nav">
+    <a href="#0" class="close cd-img-replace">Close</a>
+    @*<nav class="cd-stretchy-nav">
         <a class="cd-nav-trigger" href="#0">
             Menu
             <span aria-hidden="true"></span>
@@ -668,7 +600,7 @@
             <li><a href="#0" id="delete-detali-project"><span>Удалить</span></a></li>
         </ul>
         <span aria-hidden="true" class="stretchy-nav-bg"></span>
-    </nav>
+    </nav>*@
 </div> <!-- .cd-project-content -->
 
 @* Окно редактирования и добавления проекта *@

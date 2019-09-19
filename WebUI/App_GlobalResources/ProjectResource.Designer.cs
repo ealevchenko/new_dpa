@@ -187,7 +187,7 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на CAPEX.
+        ///   Ищет локализованную строку, похожую на Отчеты.
         /// </summary>
         public static string home_menu_1_name {
             get {
@@ -196,7 +196,7 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Список проектов и программ ДАТП.
+        ///   Ищет локализованную строку, похожую на Список выших проектов..
         /// </summary>
         public static string home_menu_2_description {
             get {
@@ -246,6 +246,15 @@ namespace WebUI.App_GlobalResources {
         public static string home_menu_4_name {
             get {
                 return ResourceManager.GetString("home_menu_4_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Перейти....
+        /// </summary>
+        public static string home_menu_link {
+            get {
+                return ResourceManager.GetString("home_menu_link", resourceCulture);
             }
         }
         

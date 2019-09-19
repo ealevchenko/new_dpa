@@ -40,23 +40,32 @@
                     <h2>@ProjectResource.home_menu_2_name</h2>
                     <p>@ProjectResource.home_menu_2_description</p>
                     <div class="menu-cd-title">
-                        <a href='@Url.Action("ProjectList", "Home", new { area = "Project" })'>
-                            <span>
-                                <svg xmlns="http://www.w3.org/2000/svg" style="" viewBox="0 0 16 16" x="0px" y="0px" width="16px" height="16px" version="1.1" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve">
-                                <polygon fill="#ffffff" points="15,7 4.4,7 8.4,3 7,1.6 0.6,8 0.6,8 0.6,8 7,14.4 8.4,13 4.4,9 15,9" />
+                        <section class="cd-section">
+                            <a class="cd-bouncy-nav-trigger" href='@Url.Action("ProjectList", "Home", new { area = "Project" })'>@ProjectResource.home_menu_link</a>
+                        </section> <!-- .cd-section -->
+                        @*<a href='@Url.Action("ProjectList", "Home", new { area = "Project" })'>
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" style="" viewBox="0 0 16 16" x="0px" y="0px" width="16px" height="16px" version="1.1" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve">
+                                    <polygon fill="#ffffff" points="15,7 4.4,7 8.4,3 7,1.6 0.6,8 0.6,8 0.6,8 7,14.4 8.4,13 4.4,9 15,9" />
 
-                            </svg>
-                            </span>
-                            Мои проекты
-                        </a>
+                                </svg>
+                                </span>
+                                Мои проекты
+                            </a>*@
                     </div>
                 </div> <!-- .cd-title -->
                 <div class="cd-project-info">
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, quod dicta aliquid nemo repellendus distinctio minus dolor aperiam suscipit, ea enim accusantium, deleniti qui sequi sint nihil modi amet eligendi, quidem animi error labore voluptatibus sed. Qui magnam labore, iusto nostrum. Praesentium non, impedit accusantium consequatur officia architecto, mollitia placeat aperiam tenetur pariatur voluptatibus corrupti vitae deserunt! Nostrum non mollitia deserunt ipsam. Sunt quaerat natus cupiditate iure ipsa voluptatibus recusandae ratione vitae amet distinctio, voluptas, minus vero expedita ea fugit similique sit cumque ad id facere? Ab quas, odio neque quis ratione. Natus labore sit esse, porro placeat eum hic.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, quod dicta aliquid nemo repellendus distinctio minus dolor aperiam suscipit, ea enim accusantium, deleniti qui sequi sint nihil modi amet eligendi, quidem animi error labore voluptatibus sed. Qui magnam labore, iusto nostrum. Praesentium non, impedit accusantium consequatur officia architecto, mollitia placeat aperiam tenetur pariatur voluptatibus corrupti vitae deserunt! Nostrum non mollitia deserunt ipsam. Sunt quaerat natus cupiditate iure ipsa voluptatibus recusandae ratione vitae amet distinctio, voluptas, minus vero expedita ea fugit similique sit cumque ad id facere? Ab quas, odio neque quis ratione. Natus labore sit esse, porro placeat eum hic.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, quod dicta aliquid nemo repellendus distinctio minus dolor aperiam suscipit, ea enim accusantium, deleniti qui sequi sint nihil modi amet eligendi, quidem animi error labore voluptatibus sed. Qui magnam labore, iusto nostrum. Praesentium non, impedit accusantium consequatur officia architecto, mollitia placeat aperiam tenetur pariatur voluptatibus corrupti vitae deserunt! Nostrum non mollitia deserunt ipsam. Sunt quaerat natus cupiditate iure ipsa voluptatibus recusandae ratione vitae amet distinctio, voluptas, minus vero expedita ea fugit similique sit cumque ad id facere? Ab quas, odio neque quis ratione. Natus labore sit esse, porro placeat eum hic.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima, quod dicta aliquid nemo repellendus distinctio minus dolor aperiam suscipit, ea enim accusantium, deleniti qui sequi sint nihil modi amet eligendi, quidem animi error labore voluptatibus sed. Qui magnam labore, iusto nostrum. Praesentium non, impedit accusantium consequatur officia architecto, mollitia placeat aperiam tenetur pariatur voluptatibus corrupti vitae deserunt! Nostrum non mollitia deserunt ipsam. Sunt quaerat natus cupiditate iure ipsa voluptatibus recusandae ratione vitae amet distinctio, voluptas, minus vero expedita ea fugit similique sit cumque ad id facere? Ab quas, odio neque quis ratione. Natus labore sit esse, porro placeat eum hic.
+                        В этом разделе вы сможете найти полную информацию по всем проектам, внедряемым, выполненным или остановленным в вашем структурном подразделении.
+                    </p>
+                    <p>
+                        Доступ к этой информации ограничен.
+                    </p>
+                    <p>
+                        Если вы руководитель структурного подразделения вам будет предоставлен доступ (просмотр) к проектам только вашего структурного подразделения или к проектам ваших руководителей проектов и программ.
+                    </p>
+                    <p>
+                        Если вы руководитель проектов и программ вам будет предоставлен полный доступ (просмотр и редактирование) только к вашим проектам.
                     </p>
                 </div> <!-- .cd-project-info -->
             </li>
@@ -114,7 +123,7 @@
                     .cd-nugget-info-arrow {
                         fill: #383838;
                     }
-                </style>
+                    </style>
                 <polygon class="cd-nugget-info-arrow" points="15,7 4.4,7 8.4,3 7,1.6 0.6,8 0.6,8 0.6,8 7,14.4 8.4,13 4.4,9 15,9" />
 
                 </svg>
