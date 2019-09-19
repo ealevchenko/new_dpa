@@ -348,4 +348,37 @@
   <data name="home_menu_link" xml:space="preserve">
     <value>Перейти...</value>
   </data>
+  <data name="title_contract_commissioning" xml:space="preserve">
+    <value>ПНР (контракт)</value>
+  </data>
+  <data name="title_contract_construction" xml:space="preserve">
+    <value>СМР (контракт)</value>
+  </data>
+  <data name="title_contract_engineering" xml:space="preserve">
+    <value>Инжиниринг (контракт)</value>
+  </data>
+  <data name="title_contract_equipment" xml:space="preserve">
+    <value>Оборудование (контракт)</value>
+  </data>
+  <data name="title_contract_other" xml:space="preserve">
+    <value>Другие работы (контракт)</value>
+  </data>
+  <data name="title_payment_commissioning" xml:space="preserve">
+    <value>ПНР(факт)</value>
+  </data>
+  <data name="title_payment_construction" xml:space="preserve">
+    <value>СМР (факт)</value>
+  </data>
+  <data name="title_payment_engineering" xml:space="preserve">
+    <value>Инжиниринг (факт)</value>
+  </data>
+  <data name="title_payment_equipment" xml:space="preserve">
+    <value>Оборудование (факт)</value>
+  </data>
+  <data name="title_payment_other" xml:space="preserve">
+    <value>Другие работы (факт)</value>
+  </data>
+  <data name="title_plan_fact" xml:space="preserve">
+    <value>Контракт\Оплата</value>
+  </data>
 </root>

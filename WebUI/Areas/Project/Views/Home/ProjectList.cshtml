@@ -333,39 +333,39 @@
                                 <select class="budget" id="cd-customer-project-edit" name="cd-customer-project-edit" required></select>
                             </p>
                         </div>
-                        
+
                         @*<div class="icon">*@
-                            <div class="left-position">
-                                <h4>@ProjectResource.title_spp_owner</h4>
-                                <p class="cd-select icon">
-                                    <select class="budget" id="cd-spp-owner-project-edit" name="cd-spp-owner-project-edit"></select>
-                                </p>
-                            </div>
-                            <div class="icon right-position-select">
-                                <label class="cd-label" for="cd-spp-sap-edit">@ProjectResource.title_spp_element</label>
-                                <input class="message" type="text" id="cd-spp-sap-edit" name="cd-spp-sap-edit">
-                            </div>
+                        <div class="left-position">
+                            <h4>@ProjectResource.title_spp_owner</h4>
+                            <p class="cd-select icon">
+                                <select class="budget" id="cd-spp-owner-project-edit" name="cd-spp-owner-project-edit"></select>
+                            </p>
+                        </div>
+                        <div class="icon right-position-select">
+                            <label class="cd-label" for="cd-spp-sap-edit">@ProjectResource.title_spp_element</label>
+                            <input class="message" type="text" id="cd-spp-sap-edit" name="cd-spp-sap-edit">
+                        </div>
                         @*</div>*@
 
-                @*<div class="icon">*@
-                    <div class="icon left-position">
-                        <label class="cd-label" for="cd-start-project-edit">@ProjectResource.title_start_project</label>
-                        <input class="message" type="date" id="cd-start-project-edit" name="cd-start-project-edit">
+                        @*<div class="icon">*@
+                        <div class="icon left-position">
+                            <label class="cd-label" for="cd-start-project-edit">@ProjectResource.title_start_project</label>
+                            <input class="message" type="date" id="cd-start-project-edit" name="cd-start-project-edit">
+                        </div>
+                        <div class="icon right-position">
+                            <label class="cd-label" for="cd-stop-project-edit">@ProjectResource.title_stop_project</label>
+                            <input class="message" type="date" id="cd-stop-project-edit" name="cd-stop-project-edit">
+                        </div>
+                        @*<</div>*@
                     </div>
-                    <div class="icon right-position">
-                        <label class="cd-label" for="cd-stop-project-edit">@ProjectResource.title_stop_project</label>
-                        <input class="message" type="date" id="cd-stop-project-edit" name="cd-stop-project-edit">
-                    </div>
-                @*<</div>*@
-            </div>
-        </div>
+                </div>
 
-    </div>
-    <div id="accordion_project_performer">
-        <h3>@ProjectResource.title_project_performer</h3>
-        <div>
-            @* Окно для просмотра *@
-                    <div class="mode-view mode-edit-info">
+            </div>
+            <div id="accordion_project_performer">
+                <h3>@ProjectResource.title_project_performer</h3>
+                <div>
+                    @* Окно для просмотра *@
+                    <div class="mode-view mode-edit-info mode-edit-budget">
                         <div>
                             <input type="button" id="edit-performer" value="Edit Performer">
                         </div>
@@ -411,161 +411,233 @@
             <div id="accordion_project_budget">
                 <h3>@ProjectResource.title_project_budget</h3>
                 <div>
-                    <fieldset>
-                        <legend>@ProjectResource.title_budget_contract</legend>
-                        <div class="icon-group">
-                            <div class="icon left-position-select">
-                                <label class="cd-label" for="cd-budget-project">@ProjectResource.title_budget_project</label>
-                                <input class="budget" type="number" id="cd-budget-project" name="cd-budget-project">
-                            </div>
-                            <div id="budget-currency-project" class="right-position">
-                                <h4>@ProjectResource.title_currency</h4>
-                                <p class="cd-select icon">
-                                    <select class="budget" id="cd-budget-currency-project" name="cd-budget-currency-project"></select>
-                                </p>
-                            </div>
+                    @* Окно для просмотра *@
+                    <div class="mode-view mode-edit-info mode-edit-performer">
+                        <div>
+                            <input type="button" id="edit-budget" value="Edit Budget">
                         </div>
-                        <div class="icon-group">
-                            <div class="icon left-position-select">
-                                <label class="cd-label" for="cd-contract-project">@ProjectResource.title_contract_project</label>
-                                <input class="budget" type="number" id="cd-contract-project" name="cd-contract-project">
+                        <fieldset>
+                            <legend>@ProjectResource.title_budget_contract</legend>
+                            <div class="icon left-position">
+                                <label class="cd-label" for="cd-budget-project-view">@ProjectResource.title_budget_project</label>
+                                <input class="budget" type="number" id="cd-budget-project-view" name="cd-budget-project-view" disabled="disabled">
                             </div>
-                            <div id="contract-currency-project" class="right-position">
-                                <h4>@ProjectResource.title_currency</h4>
-                                <p class="cd-select icon">
-                                    <select class="budget" id="cd-contract-currency-project" name="cd-contract-currency-project"></select>
-                                </p>
+                            <div class="icon right-position">
+                                <label class="cd-label" for="cd-contract-project-view">@ProjectResource.title_contract_project</label>
+                                <input class="budget" type="number" id="cd-contract-project-view" name="cd-contract-project-view" disabled="disabled">
                             </div>
-                        </div>
-                    </fieldset>
-                    <fieldset>
-                        <legend>@ProjectResource.title_contract_detali</legend>
-                        <div class="icon-group">
-                            <div class="icon left-position-select">
-                                <label class="cd-label" for="cd-contract-engineering-project">@ProjectResource.title_summ_engineering</label>
-                                <input class="budget" type="number" id="cd-contract-engineering-project" name="cd-contract-engineering-project">
+                        </fieldset>
+                        <fieldset>
+                            <legend>@ProjectResource.title_plan_fact</legend>
+                            <div class="icon left-position">
+                                <label class="cd-label" for="cd-contract-engineering-project-view">@ProjectResource.title_contract_engineering</label>
+                                <input class="budget" type="number" id="cd-contract-engineering-project-view" name="cd-contract-engineering-project-view" disabled="disabled">
                             </div>
-                            <div id="contract-currency-engineering-project" class="right-position">
-                                <h4>@ProjectResource.title_currency</h4>
-                                <p class="cd-select icon">
-                                    <select class="budget" id="cd-contract-engineering-currency-project" name="cd-contract-engineering-currency-project"></select>
-                                </p>
+                            <div class="icon right-position">
+                                <label class="cd-label" for="cd-payment-engineering-project-view">@ProjectResource.title_payment_engineering</label>
+                                <input class="budget" type="number" id="cd-payment-engineering-project-view" name="cd-payment-engineering-project-view" disabled="disabled">
                             </div>
-                        </div>
-                        <div class="icon-group">
-                            <div class="icon left-position-select">
-                                <label class="cd-label" for="cd-contract-equipment-project">@ProjectResource.title_summ_equipment</label>
-                                <input class="budget" type="number" id="cd-contract-equipment-project" name="cd-contract-equipment-project">
+                            <div class="icon left-position">
+                                <label class="cd-label" for="cd-contract-equipment-project-view">@ProjectResource.title_contract_equipment</label>
+                                <input class="budget" type="number" id="cd-contract-equipment-project-view" name="cd-contract-equipment-project-view" disabled="disabled">
                             </div>
-                            <div id="contract-currency-equipment-project" class="right-position">
-                                <h4>@ProjectResource.title_currency</h4>
-                                <p class="cd-select icon">
-                                    <select class="budget" id="cd-contract-equipment-currency-project" name="cd-contract-equipment-currency-project"></select>
-                                </p>
+                            <div class="icon right-position">
+                                <label class="cd-label" for="cd-payment-equipment-project-view">@ProjectResource.title_payment_equipment</label>
+                                <input class="budget" type="number" id="cd-payment-equipment-project-view" name="cd-payment-equipment-project-view" disabled="disabled">
                             </div>
-                        </div>
-                        <div class="icon-group">
-                            <div class="icon left-position-select">
-                                <label class="cd-label" for="cd-contract-construction-project">@ProjectResource.title_summ_construction</label>
-                                <input class="budget" type="number" id="cd-contract-construction-project" name="cd-contract-construction-project">
+                            <div class="icon left-position">
+                                <label class="cd-label" for="cd-contract-construction-project-view">@ProjectResource.title_contract_construction</label>
+                                <input class="budget" type="number" id="cd-contract-construction-project-view" name="cd-contract-construction-project-view" disabled="disabled">
                             </div>
-                            <div id="contract-currency-construction-project" class="right-position">
-                                <h4>@ProjectResource.title_currency</h4>
-                                <p class="cd-select icon">
-                                    <select class="budget" id="cd-contract-construction-currency-project" name="cd-contract-construction-currency-project"></select>
-                                </p>
+                            <div class="icon right-position">
+                                <label class="cd-label" for="cd-payment-construction-project-view">@ProjectResource.title_payment_construction</label>
+                                <input class="budget" type="number" id="cd-payment-construction-project-view" name="cd-payment-construction-project-view" disabled="disabled">
                             </div>
-                        </div>
-                        <div class="icon-group">
-                            <div class="icon left-position-select">
-                                <label class="cd-label" for="cd-contract-commissioning-project">@ProjectResource.title_summ_commissioning</label>
-                                <input class="budget" type="number" id="cd-contract-commissioning-project" name="cd-contract-commissioning-project">
+                            <div class="icon left-position">
+                                <label class="cd-label" for="cd-contract-commissioning-project-view">@ProjectResource.title_contract_commissioning</label>
+                                <input class="budget" type="number" id="cd-contract-commissioning-project-view" name="cd-contract-commissioning-project-view" disabled="disabled">
                             </div>
-                            <div id="contract-currency-commissioning-project" class="right-position">
-                                <h4>@ProjectResource.title_currency</h4>
-                                <p class="cd-select icon">
-                                    <select class="budget" id="cd-contract-commissioning-currency-project" name="cd-contract-commissioning-currency-project"></select>
-                                </p>
+                            <div class="icon right-position">
+                                <label class="cd-label" for="cd-payment-commissioning-project-view">@ProjectResource.title_payment_commissioning</label>
+                                <input class="budget" type="number" id="cd-payment-commissioning-project-view" name="cd-payment-commissioning-project-view" disabled="disabled">
                             </div>
-                        </div>
-                        <div class="icon-group">
-                            <div class="icon left-position-select">
-                                <label class="cd-label" for="cd-contract-other-project">@ProjectResource.title_summ_other</label>
-                                <input class="budget" type="number" id="cd-contract-other-project" name="cd-contract-other-project">
+                            <div class="icon left-position">
+                                <label class="cd-label" for="cd-contract-other-project-view">@ProjectResource.title_contract_other</label>
+                                <input class="budget" type="number" id="cd-contract-other-project-view" name="cd-contract-other-project-view" disabled="disabled">
                             </div>
-                            <div id="contract-currency-other-project" class="right-position">
-                                <h4>@ProjectResource.title_currency</h4>
-                                <p class="cd-select icon">
-                                    <select class="budget" id="cd-contract-other-currency-project" name="cd-contract-other-currency-project"></select>
-                                </p>
+                            <div class="icon right-position">
+                                <label class="cd-label" for="cd-payment-other-project-view">@ProjectResource.title_payment_other</label>
+                                <input class="budget" type="number" id="cd-payment-other-project-view" name="cd-payment-other-project-view" disabled="disabled">
                             </div>
-                        </div>
+                        </fieldset>
 
-                    </fieldset>
-                    <fieldset>
-                        <legend>@ProjectResource.title_payment_detali</legend>
-                        <div class="icon-group">
-                            <div class="icon left-position-select">
-                                <label class="cd-label" for="cd-payment-engineering-project">@ProjectResource.title_summ_engineering</label>
-                                <input class="budget" type="number" id="cd-payment-engineering-project" name="cd-payment-engineering-project">
-                            </div>
-                            <div id="payment-currency-engineering-project" class="right-position">
-                                <h4>@ProjectResource.title_currency</h4>
-                                <p class="cd-select icon">
-                                    <select class="budget" id="cd-payment-engineering-currency-project" name="cd-payment-engineering-currency-project"></select>
-                                </p>
-                            </div>
+                    </div>
+                    @* Окно для правки *@
+                    <div class="mode-add mode-edit-budget" id="accordion-budget">
+                        <div>
+                            <p class="validate-budget"></p>
                         </div>
-                        <div class="icon-group">
-                            <div class="icon left-position-select">
-                                <label class="cd-label" for="cd-payment-equipment-project">@ProjectResource.title_summ_equipment</label>
-                                <input class="budget" type="number" id="cd-payment-equipment-project" name="cd-payment-equipment-project">
-                            </div>
-                            <div id="payment-currency-equipment-project" class="right-position">
-                                <h4>@ProjectResource.title_currency</h4>
-                                <p class="cd-select icon">
-                                    <select class="budget" id="cd-payment-equipment-currency-project" name="cd-payment-equipment-currency-project"></select>
-                                </p>
-                            </div>
+                        <div>
+                            <input type="submit" id="save-budget" value="Save Budget" class="mode-edit-budget">
+                            <input type="button" id="cancel-budget" value="Cancel" class="mode-edit-budget">
                         </div>
-                        <div class="icon-group">
-                            <div class="icon left-position-select">
-                                <label class="cd-label" for="cd-payment-construction-project">@ProjectResource.title_summ_construction</label>
-                                <input class="budget" type="number" id="cd-payment-construction-project" name="cd-payment-construction-project">
+                        <fieldset>
+                            <legend>@ProjectResource.title_budget_contract</legend>
+                            <div class="icon-group">
+                                <div class="icon left-position-select">
+                                    <label class="cd-label" for="cd-budget-project-edit">@ProjectResource.title_budget_project</label>
+                                    <input class="budget" type="number" id="cd-budget-project-edit" name="cd-budget-project-edit">
+                                </div>
+                                <div class="right-position">
+                                    <h4>@ProjectResource.title_currency</h4>
+                                    <p class="cd-select icon">
+                                        <select class="budget" id="cd-budget-currency-project-edit" name="cd-budget-currency-project-edit"></select>
+                                    </p>
+                                </div>
                             </div>
-                            <div id="payment-currency-construction-project" class="right-position">
-                                <h4>@ProjectResource.title_currency</h4>
-                                <p class="cd-select icon">
-                                    <select class="budget" id="cd-payment-construction-currency-project" name="cd-payment-construction-currency-project"></select>
-                                </p>
+                            <div class="icon-group">
+                                <div class="icon left-position-select">
+                                    <label class="cd-label" for="cd-contract-project-edit">@ProjectResource.title_contract_project</label>
+                                    <input class="budget" type="number" id="cd-contract-project-edit" name="cd-contract-project-edit">
+                                </div>
+                                <div class="right-position">
+                                    <h4>@ProjectResource.title_currency</h4>
+                                    <p class="cd-select icon">
+                                        <select class="budget" id="cd-contract-currency-project-edit" name="cd-contract-currency-project-edit"></select>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="icon-group">
-                            <div class="icon left-position-select">
-                                <label class="cd-label" for="cd-payment-commissioning-project">@ProjectResource.title_summ_commissioning</label>
-                                <input class="budget" type="number" id="cd-payment-commissioning-project" name="cd-payment-commissioning-project">
+                        </fieldset>
+                        <fieldset>
+                            <legend>@ProjectResource.title_contract_detali</legend>
+                            <div class="icon-group">
+                                <div class="icon left-position-select">
+                                    <label class="cd-label" for="cd-contract-engineering-project-edit">@ProjectResource.title_summ_engineering</label>
+                                    <input class="budget" type="number" id="cd-contract-engineering-project-edit" name="cd-contract-engineering-project-edit">
+                                </div>
+                                <div class="right-position">
+                                    <h4>@ProjectResource.title_currency</h4>
+                                    <p class="cd-select icon">
+                                        <select class="budget" id="cd-contract-engineering-currency-project-edit" name="cd-contract-engineering-currency-project-edit"></select>
+                                    </p>
+                                </div>
                             </div>
-                            <div id="payment-currency-commissioning-project" class="right-position">
-                                <h4>@ProjectResource.title_currency</h4>
-                                <p class="cd-select icon">
-                                    <select class="budget" id="cd-payment-commissioning-currency-project" name="cd-payment-commissioning-currency-project"></select>
-                                </p>
+                            <div class="icon-group">
+                                <div class="icon left-position-select">
+                                    <label class="cd-label" for="cd-contract-equipment-project-edit">@ProjectResource.title_summ_equipment</label>
+                                    <input class="budget" type="number" id="cd-contract-equipment-project-edit" name="cd-contract-equipment-project-edit">
+                                </div>
+                                <div class="right-position">
+                                    <h4>@ProjectResource.title_currency</h4>
+                                    <p class="cd-select icon">
+                                        <select class="budget" id="cd-contract-equipment-currency-project-edit" name="cd-contract-equipment-currency-project-edit"></select>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="icon-group">
-                            <div class="icon left-position-select">
-                                <label class="cd-label" for="cd-payment-other-project">@ProjectResource.title_summ_other</label>
-                                <input class="budget" type="number" id="cd-payment-other-project" name="cd-payment-other-project">
+                            <div class="icon-group">
+                                <div class="icon left-position-select">
+                                    <label class="cd-label" for="cd-contract-construction-project-edit">@ProjectResource.title_summ_construction</label>
+                                    <input class="budget" type="number" id="cd-contract-construction-project-edit" name="cd-contract-construction-project-edit">
+                                </div>
+                                <div class="right-position">
+                                    <h4>@ProjectResource.title_currency</h4>
+                                    <p class="cd-select icon">
+                                        <select class="budget" id="cd-contract-construction-currency-project-edit" name="cd-contract-construction-currency-project-edit"></select>
+                                    </p>
+                                </div>
                             </div>
-                            <div id="payment-currency-other-project" class="right-position">
-                                <h4>@ProjectResource.title_currency</h4>
-                                <p class="cd-select icon">
-                                    <select class="budget" id="cd-payment-other-currency-project" name="cd-payment-other-currency-project"></select>
-                                </p>
+                            <div class="icon-group">
+                                <div class="icon left-position-select">
+                                    <label class="cd-label" for="cd-contract-commissioning-project-edit">@ProjectResource.title_summ_commissioning</label>
+                                    <input class="budget" type="number" id="cd-contract-commissioning-project-edit" name="cd-contract-commissioning-project-edit">
+                                </div>
+                                <div class="right-position">
+                                    <h4>@ProjectResource.title_currency</h4>
+                                    <p class="cd-select icon">
+                                        <select class="budget" id="cd-contract-commissioning-currency-project-edit" name="cd-contract-commissioning-currency-project-edit"></select>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                            <div class="icon-group">
+                                <div class="icon left-position-select">
+                                    <label class="cd-label" for="cd-contract-other-project-edit">@ProjectResource.title_summ_other</label>
+                                    <input class="budget" type="number" id="cd-contract-other-project-edit" name="cd-contract-other-project-edit">
+                                </div>
+                                <div class="right-position">
+                                    <h4>@ProjectResource.title_currency</h4>
+                                    <p class="cd-select icon">
+                                        <select class="budget" id="cd-contract-other-currency-project-edit" name="cd-contract-other-currency-project-edit"></select>
+                                    </p>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>@ProjectResource.title_payment_detali</legend>
+                            <div class="icon-group">
+                                <div class="icon left-position-select">
+                                    <label class="cd-label" for="cd-payment-engineering-project-edit">@ProjectResource.title_summ_engineering</label>
+                                    <input class="budget" type="number" id="cd-payment-engineering-project-edit" name="cd-payment-engineering-project-edit">
+                                </div>
+                                <div class="right-position">
+                                    <h4>@ProjectResource.title_currency</h4>
+                                    <p class="cd-select icon">
+                                        <select class="budget" id="cd-payment-engineering-currency-project-edit" name="cd-payment-engineering-currency-project-edit"></select>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="icon-group">
+                                <div class="icon left-position-select">
+                                    <label class="cd-label" for="cd-payment-equipment-project-edit">@ProjectResource.title_summ_equipment</label>
+                                    <input class="budget" type="number" id="cd-payment-equipment-project-edit" name="cd-payment-equipment-project-edit">
+                                </div>
+                                <div class="right-position">
+                                    <h4>@ProjectResource.title_currency</h4>
+                                    <p class="cd-select icon">
+                                        <select class="budget" id="cd-payment-equipment-currency-project-edit" name="cd-payment-equipment-currency-project-edit"></select>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="icon-group">
+                                <div class="icon left-position-select">
+                                    <label class="cd-label" for="cd-payment-construction-project-edit">@ProjectResource.title_summ_construction</label>
+                                    <input class="budget" type="number" id="cd-payment-construction-project-edit" name="cd-payment-construction-project-edit">
+                                </div>
+                                <div class="right-position">
+                                    <h4>@ProjectResource.title_currency</h4>
+                                    <p class="cd-select icon">
+                                        <select class="budget" id="cd-payment-construction-currency-project-edit" name="cd-payment-construction-currency-project-edit"></select>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="icon-group">
+                                <div class="icon left-position-select">
+                                    <label class="cd-label" for="cd-payment-commissioning-project-edit">@ProjectResource.title_summ_commissioning</label>
+                                    <input class="budget" type="number" id="cd-payment-commissioning-project-edit" name="cd-payment-commissioning-project-edit">
+                                </div>
+                                <div class="right-position">
+                                    <h4>@ProjectResource.title_currency</h4>
+                                    <p class="cd-select icon">
+                                        <select class="budget" id="cd-payment-commissioning-currency-project-edit" name="cd-payment-commissioning-currency-project-edit"></select>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="icon-group">
+                                <div class="icon left-position-select">
+                                    <label class="cd-label" for="cd-payment-other-project-edit">@ProjectResource.title_summ_other</label>
+                                    <input class="budget" type="number" id="cd-payment-other-project-edit" name="cd-payment-other-project-edit">
+                                </div>
+                                <div class="right-position">
+                                    <h4>@ProjectResource.title_currency</h4>
+                                    <p class="cd-select icon">
+                                        <select class="budget" id="cd-payment-other-currency-project-edit" name="cd-payment-other-currency-project-edit"></select>
+                                    </p>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
 
-                    </fieldset>
+
+
                 </div>
             </div>
             <div id="accordion_project_manager">
@@ -589,20 +661,19 @@
     </div>
     <a href="#0" class="close cd-img-replace">Close</a>
     @*<nav class="cd-stretchy-nav">
-        <a class="cd-nav-trigger" href="#0">
-            Menu
-            <span aria-hidden="true"></span>
-        </a>
-        <ul>
-            <li><a href="#0" id="close-detali-project"><span>Закрыть</span></a></li>
-            <li><a href="#0" id="add-detali-project"><span>Добавить</span></a></li>
-            <li><a href="#0" id="edit-detali-project"><span>Править</span></a></li>
-            <li><a href="#0" id="delete-detali-project"><span>Удалить</span></a></li>
-        </ul>
-        <span aria-hidden="true" class="stretchy-nav-bg"></span>
-    </nav>*@
+            <a class="cd-nav-trigger" href="#0">
+                Menu
+                <span aria-hidden="true"></span>
+            </a>
+            <ul>
+                <li><a href="#0" id="close-detali-project"><span>Закрыть</span></a></li>
+                <li><a href="#0" id="add-detali-project"><span>Добавить</span></a></li>
+                <li><a href="#0" id="edit-detali-project"><span>Править</span></a></li>
+                <li><a href="#0" id="delete-detali-project"><span>Удалить</span></a></li>
+            </ul>
+            <span aria-hidden="true" class="stretchy-nav-bg"></span>
+        </nav>*@
 </div> <!-- .cd-project-content -->
-
 @* Окно редактирования и добавления проекта *@
 @*<div id="add-edit-project" title="">
         <p class="validateTips">All form fields are required.</p>

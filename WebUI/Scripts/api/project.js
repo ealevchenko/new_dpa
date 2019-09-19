@@ -431,3 +431,88 @@ Project.prototype.getPhoneBossWorkPerformers = function (wp) {
         return wp.phone_boss;
     } else return null;
 };
+//------------------------------------------------------------------------
+//  Budget
+// 
+// Получить сумму
+Project.prototype.StringValueCurrency = function (value, currency) {
+    if (value || currency) {
+        switch (Number(currency)) {
+            case 1: return this.lang === 'ru' ? Number(value).toFixed(2) + ' тыс. грн.' : val + ' kUAH';
+            case 2: return this.lang === 'ru' ? Number(value).toFixed(2) + ' тыс. $' : val + ' k$';
+        }
+    }
+    return null;
+};
+// Получить бюджет
+Project.prototype.getBudgetProject = function (project) {
+    if (project) {
+        return this.StringValueCurrency(project.budget, project.budget_currency);
+    } else return null;
+};
+// Получить контракт
+Project.prototype.getContractProject = function (project) {
+    if (project) {
+        return this.StringValueCurrency(project.contract_value, project.contract_currency);
+    } else return null;
+};
+// Получить инжиниринг (контракт)
+Project.prototype.getContractEngineeringProject = function (project) {
+    if (project) {
+        return this.StringValueCurrency(project.contract_engineering_value, project.contract_engineering_currency);
+    } else return null;
+};
+// Получить инжиниринг (оплата)
+Project.prototype.getPaymentEngineeringProject = function (project) {
+    if (project) {
+        return this.StringValueCurrency(project.payment_engineering_value, project.payment_engineering_currency);
+    } else return null;
+};
+// Получить Оборудование (контракт)
+Project.prototype.getContractEquipmentProject = function (project) {
+    if (project) {
+        return this.StringValueCurrency(project.contract_equipment_value, project.contract_equipment_currency);
+    } else return null;
+};
+// Получить Оборудование (оплата)
+Project.prototype.getPaymentEquipmentProject = function (project) {
+    if (project) {
+        return this.StringValueCurrency(project.payment_equipment_value, project.payment_equipment_currency);
+    } else return null;
+};
+// Получить СМР (контракт)
+Project.prototype.getContractConstructionProject = function (project) {
+    if (project) {
+        return this.StringValueCurrency(project.contract_construction_value, project.contract_construction_currency);
+    } else return null;
+};
+// Получить СМР (оплата)
+Project.prototype.getPaymentConstructionProject = function (project) {
+    if (project) {
+        return this.StringValueCurrency(project.payment_construction_value, project.payment_construction_currency);
+    } else return null;
+};
+// Получить ПНР (контракт)
+Project.prototype.getContractCommissioningProject = function (project) {
+    if (project) {
+        return this.StringValueCurrency(project.contract_commissioning_value, project.contract_commissioning_currency);
+    } else return null;
+};
+// Получить ПНР (оплата)
+Project.prototype.getPaymentCommissioningProject = function (project) {
+    if (project) {
+        return this.StringValueCurrency(project.payment_commissioning_value, project.payment_commissioning_currency);
+    } else return null;
+};
+// Получить другие (контракт)
+Project.prototype.getContractOtherProject = function (project) {
+    if (project) {
+        return this.StringValueCurrency(project.contract_other_value, project.contract_other_currency);
+    } else return null;
+};
+// Получить другие (оплата)
+Project.prototype.getPaymentOtherProject = function (project) {
+    if (project) {
+        return this.StringValueCurrency(project.payment_other_value, project.payment_other_currency);
+    } else return null;
+};

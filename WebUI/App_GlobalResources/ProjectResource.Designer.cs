@@ -19,7 +19,7 @@ namespace WebUI.App_GlobalResources {
     // с помощью такого средства, как ResGen или Visual Studio.
     // Чтобы добавить или удалить член, измените файл .ResX и снова запустите ResGen
     // с параметром /str или перестройте свой проект VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ProjectResource {
@@ -286,11 +286,29 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на ПНР (контракт).
+        /// </summary>
+        public static string title_contract_commissioning {
+            get {
+                return ResourceManager.GetString("title_contract_commissioning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на ПНР (контракт):.
         /// </summary>
         public static string title_contract_commissioning_value {
             get {
                 return ResourceManager.GetString("title_contract_commissioning_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на СМР (контракт).
+        /// </summary>
+        public static string title_contract_construction {
+            get {
+                return ResourceManager.GetString("title_contract_construction", resourceCulture);
             }
         }
         
@@ -313,6 +331,15 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Инжиниринг (контракт).
+        /// </summary>
+        public static string title_contract_engineering {
+            get {
+                return ResourceManager.GetString("title_contract_engineering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Инжиниринговые работы (контракт):.
         /// </summary>
         public static string title_contract_engineering_value {
@@ -322,11 +349,29 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Оборудование (контракт).
+        /// </summary>
+        public static string title_contract_equipment {
+            get {
+                return ResourceManager.GetString("title_contract_equipment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Стоимость оборудования (контракт):.
         /// </summary>
         public static string title_contract_equipment_value {
             get {
                 return ResourceManager.GetString("title_contract_equipment_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Другие работы (контракт).
+        /// </summary>
+        public static string title_contract_other {
+            get {
+                return ResourceManager.GetString("title_contract_other", resourceCulture);
             }
         }
         
@@ -457,11 +502,29 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на ПНР(факт).
+        /// </summary>
+        public static string title_payment_commissioning {
+            get {
+                return ResourceManager.GetString("title_payment_commissioning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на ПНР (факт):.
         /// </summary>
         public static string title_payment_commissioning_value {
             get {
                 return ResourceManager.GetString("title_payment_commissioning_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на СМР (факт).
+        /// </summary>
+        public static string title_payment_construction {
+            get {
+                return ResourceManager.GetString("title_payment_construction", resourceCulture);
             }
         }
         
@@ -484,6 +547,15 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Инжиниринг (факт).
+        /// </summary>
+        public static string title_payment_engineering {
+            get {
+                return ResourceManager.GetString("title_payment_engineering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Инжиниринговые работы (факт):.
         /// </summary>
         public static string title_payment_engineering_value {
@@ -493,11 +565,29 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Оборудование (факт).
+        /// </summary>
+        public static string title_payment_equipment {
+            get {
+                return ResourceManager.GetString("title_payment_equipment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Стоимость оборудования (факт):.
         /// </summary>
         public static string title_payment_equipment_value {
             get {
                 return ResourceManager.GetString("title_payment_equipment_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Другие работы (факт).
+        /// </summary>
+        public static string title_payment_other {
+            get {
+                return ResourceManager.GetString("title_payment_other", resourceCulture);
             }
         }
         
@@ -525,6 +615,15 @@ namespace WebUI.App_GlobalResources {
         public static string title_phone_performer {
             get {
                 return ResourceManager.GetString("title_phone_performer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Контракт\Оплата.
+        /// </summary>
+        public static string title_plan_fact {
+            get {
+                return ResourceManager.GetString("title_plan_fact", resourceCulture);
             }
         }
         
