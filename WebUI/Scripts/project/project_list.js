@@ -1061,7 +1061,42 @@ jQuery(document).ready(function ($) {
                 }
                 // EDIT BUDJET
                 if (mode === 4) {
-                    //project.id_work_performer = Number(project_detali.edit_select_name_performer_project.val()) > -1 ? Number(project_detali.edit_select_name_performer_project.val()) : null;
+
+                    project.budget = project_detali.edit_input_budget_project.val() !== null && project_detali.edit_input_budget_project.val() !== "" ? Number(project_detali.edit_input_budget_project.val()) : null;
+                    project.budget_currency = Number(project_detali.edit_select_budget_currency_project.val()) > -1 ? Number(project_detali.edit_select_budget_currency_project.val()) : null;
+
+                    project.contract_value = project_detali.edit_input_contract_project.val() !== null && project_detali.edit_input_contract_project.val() !== "" ? Number(project_detali.edit_input_contract_project.val()) : null;
+                    project.contract_currency = Number(project_detali.edit_select_contract_currency_project.val()) > -1 ? Number(project_detali.edit_select_contract_currency_project.val()) : null;
+
+                    project.contract_engineering_value = project_detali.edit_input_contract_engineering_project.val() !== null && project_detali.edit_input_contract_engineering_project.val() !== "" ? Number(project_detali.edit_input_contract_engineering_project.val()) : null;
+                    project.contract_engineering_currency = Number(project_detali.edit_select_contract_engineering_currency_project.val()) > -1 ? Number(project_detali.edit_select_contract_engineering_currency_project.val()) : null;
+
+                    project.contract_equipment_value = project_detali.edit_input_contract_equipment_project.val() !== null && project_detali.edit_input_contract_equipment_project.val() !== "" ? Number(project_detali.edit_input_contract_equipment_project.val()) : null;
+                    project.contract_equipment_currency = Number(project_detali.edit_select_contract_equipment_currency_project.val()) > -1 ? Number(project_detali.edit_select_contract_equipment_currency_project.val()) : null;
+
+                    project.contract_construction_value = project_detali.edit_input_contract_construction_project.val() !== null && project_detali.edit_input_contract_construction_project.val() !== "" ? Number(project_detali.edit_input_contract_construction_project.val()) : null;
+                    project.contract_construction_currency = Number(project_detali.edit_select_contract_construction_currency_project.val()) > -1 ? Number(project_detali.edit_select_contract_construction_currency_project.val()) : null;
+
+                    project.contract_commissioning_value = project_detali.edit_input_contract_commissioning_project.val() !== null && project_detali.edit_input_contract_commissioning_project.val() !== "" ? Number(project_detali.edit_input_contract_commissioning_project.val()) : null;
+                    project.contract_commissioning_currency = Number(project_detali.edit_select_contract_commissioning_currency_project.val()) > -1 ? Number(project_detali.edit_select_contract_commissioning_currency_project.val()) : null;
+
+                    project.contract_other_value = project_detali.edit_input_contract_other_project.val() !== null && project_detali.edit_input_contract_other_project.val() !== "" ? Number(project_detali.edit_input_contract_other_project.val()) : null;
+                    project.contract_other_currency = Number(project_detali.edit_select_contract_other_currency_project.val()) > -1 ? Number(project_detali.edit_select_contract_other_currency_project.val()) : null;
+
+                    project.payment_engineering_value = project_detali.edit_input_payment_engineering_project.val() !== null && project_detali.edit_input_payment_engineering_project.val() !== "" ? Number(project_detali.edit_input_payment_engineering_project.val()) : null;
+                    project.payment_engineering_currency = Number(project_detali.edit_select_payment_engineering_currency_project.val()) > -1 ? Number(project_detali.edit_select_payment_engineering_currency_project.val()) : null;
+
+                    project.payment_equipment_value = project_detali.edit_input_payment_equipment_project.val() !== null && project_detali.edit_input_payment_equipment_project.val() !== "" ? Number(project_detali.edit_input_payment_equipment_project.val()) : null;
+                    project.payment_equipment_currency = Number(project_detali.edit_select_payment_equipment_currency_project.val()) > -1 ? Number(project_detali.edit_select_payment_equipment_currency_project.val()) : null;
+
+                    project.payment_construction_value = project_detali.edit_input_payment_construction_project.val() !== null && project_detali.edit_input_payment_construction_project.val() !== "" ? Number(project_detali.edit_input_payment_construction_project.val()) : null;
+                    project.payment_construction_currency = Number(project_detali.edit_select_payment_construction_currency_project.val()) > -1 ? Number(project_detali.edit_select_payment_construction_currency_project.val()) : null;
+
+                    project.payment_commissioning_value = project_detali.edit_input_payment_commissioning_project.val() !== null && project_detali.edit_input_payment_commissioning_project.val() !== "" ? Number(project_detali.edit_input_payment_commissioning_project.val()) : null;
+                    project.payment_commissioning_currency = Number(project_detali.edit_select_payment_commissioning_currency_project.val()) > -1 ? Number(project_detali.edit_select_payment_commissioning_currency_project.val()) : null;
+
+                    project.payment_other_value = project_detali.edit_input_payment_other_project.val() !== null && project_detali.edit_input_payment_other_project.val() !== "" ? Number(project_detali.edit_input_payment_other_project.val()) : null;
+                    project.payment_other_currency = Number(project_detali.edit_select_payment_other_currency_project.val()) > -1 ? Number(project_detali.edit_select_payment_other_currency_project.val()) : null;
                 }
                 project.change = toISOStringTZ(new Date());
                 project.change_user = user_name;
@@ -1289,12 +1324,9 @@ jQuery(document).ready(function ($) {
                 }, 200);
             });
             //************************
-            //triggerFilter(true);
-            //triggerFilter(false);
-
-            //$('.cd-gallery ul').mixItUp('filter', 'status-open');
+            // Отсортируем по открытым проектам
             $('.cd-gallery ul').mixItUp('filter', '.status-open');
-            //$('.cd-fail-message').fadeOut(200);
+
         });
     });
 

@@ -240,7 +240,7 @@
                 <h3>@ProjectResource.title_project_info</h3>
                 <div>
                     @* Окно для просмотра *@
-                    <div class="mode-view mode-edit-performer">
+                    <div class="mode-view mode-edit-performer  mode-edit-budget mode-edit-manager">
                         <div>
                             <input type="button" id="edit-info" value="Edit Info">
                         </div>
@@ -365,7 +365,7 @@
                 <h3>@ProjectResource.title_project_performer</h3>
                 <div>
                     @* Окно для просмотра *@
-                    <div class="mode-view mode-edit-info mode-edit-budget">
+                    <div class="mode-view mode-edit-info mode-edit-budget mode-edit-manager">
                         <div>
                             <input type="button" id="edit-performer" value="Edit Performer">
                         </div>
@@ -412,7 +412,7 @@
                 <h3>@ProjectResource.title_project_budget</h3>
                 <div>
                     @* Окно для просмотра *@
-                    <div class="mode-view mode-edit-info mode-edit-performer">
+                    <div class="mode-view mode-edit-info mode-edit-performer mode-edit-manager">
                         <div>
                             <input type="button" id="edit-budget" value="Edit Budget">
                         </div>
@@ -643,6 +643,14 @@
             <div id="accordion_project_manager">
                 <h3>@ProjectResource.title_project_manager</h3>
                 <div>
+                    @* Окно для просмотра *@
+                    <div class="mode-view mode-edit-info mode-edit-performer mode-edit-budget">
+
+                    </div>
+                    @* Окно для правки *@
+                    <div class="mode-add mode-edit-manager" id="accordion-manager">
+
+                    </div>
                     <div id="project_manager">
                         <h4>@ProjectResource.title_project_manager</h4>
                         <p class="cd-select icon">
