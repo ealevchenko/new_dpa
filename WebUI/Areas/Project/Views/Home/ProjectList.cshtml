@@ -635,9 +635,6 @@
                             </div>
                         </fieldset>
                     </div>
-
-
-
                 </div>
             </div>
             <div id="accordion_project_manager">
@@ -645,17 +642,49 @@
                 <div>
                     @* Окно для просмотра *@
                     <div class="mode-view mode-edit-info mode-edit-performer mode-edit-budget">
-
+                        <div>
+                            <input type="button" id="edit-manager" value="Edit Manager">
+                        </div>
+                        <div class="icon">
+                            <label class="cd-label" for="cd-project-manager-surname-view">@ProjectResource.title_surname</label>
+                            <input class="user" type="text" id="cd-project-manager-surname-view" name="cd-project-manager-surname-view" disabled="disabled">
+                        </div>
+                        <div class="icon">
+                            <label class="cd-label" for="cd-project-manager-name-view">@ProjectResource.title_name</label>
+                            <input class="user" type="text" id="cd-project-manager-name-view" name="cd-project-manager-name-view" disabled="disabled">
+                        </div>
+                        <div class="icon">
+                            <label class="cd-label" for="cd-project-manager-patronymic-view">@ProjectResource.title_patronymic</label>
+                            <input class="user" type="text" id="cd-project-manager-patronymic-view" name="cd-project-manager-patronymic-view" disabled="disabled">
+                        </div>
+                        <div class="icon">
+                            <label class="cd-label" for="cd-project-manager-email-view">@ProjectResource.title_email</label>
+                            <input class="email" type="email" id="cd-project-manager-email-view" name="cd-project-manager-email-view" disabled="disabled">
+                        </div>
+                        <div class="icon">
+                            <label class="cd-label" for="cd-project-manager-mobil-phone-view">@ProjectResource.title_mobil_phone ((xxx)-xx-xx-xxx)</label>
+                            <input class="budget" type="tel" id="cd-project-manager-mobil-phone-view" name="cd-project-manager-mobil-phone-view" disabled="disabled">
+                        </div>
+                        <div class="icon">
+                            <label class="cd-label" for="cd-project-manager-work-phone-view">@ProjectResource.title_work_phone (xxxxx)</label>
+                            <input class="budget" type="tel" id="cd-project-manager-work-phone-view" name="cd-project-manager-work-phone-view" disabled="disabled">
+                        </div>
                     </div>
                     @* Окно для правки *@
                     <div class="mode-add mode-edit-manager" id="accordion-manager">
-
-                    </div>
-                    <div id="project_manager">
-                        <h4>@ProjectResource.title_project_manager</h4>
-                        <p class="cd-select icon">
-                            <select class="user" id="cd-project-manager" name="cd-project-manager"></select>
-                        </p>
+                        <div>
+                            <p class="validate-manager"></p>
+                        </div>
+                        <div>
+                            <input type="submit" id="save-manager" value="Save Manager" class="mode-edit-manager">
+                            <input type="button" id="cancel-manager" value="Cancel" class="mode-edit-manager">
+                        </div>
+                        <div id="project_manager">
+                            <h4>@ProjectResource.title_project_manager</h4>
+                            <p class="cd-select icon">
+                                <select class="user" id="cd-project-manager" name="cd-project-manager" required></select>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -19,7 +19,7 @@ namespace WebUI.App_GlobalResources {
     // с помощью такого средства, как ResGen или Visual Studio.
     // Чтобы добавить или удалить член, измените файл .ResX и снова запустите ResGen
     // с параметром /str или перестройте свой проект VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class ProjectResource {
@@ -414,6 +414,15 @@ namespace WebUI.App_GlobalResources {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Email:.
         /// </summary>
+        public static string title_email {
+            get {
+                return ResourceManager.GetString("title_email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Email:.
+        /// </summary>
         public static string title_email_performer {
             get {
                 return ResourceManager.GetString("title_email_performer", resourceCulture);
@@ -453,6 +462,24 @@ namespace WebUI.App_GlobalResources {
         public static string title_goals_project_ru {
             get {
                 return ResourceManager.GetString("title_goals_project_ru", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Мобильный телефон:.
+        /// </summary>
+        public static string title_mobil_phone {
+            get {
+                return ResourceManager.GetString("title_mobil_phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Имя:.
+        /// </summary>
+        public static string title_name {
+            get {
+                return ResourceManager.GetString("title_name", resourceCulture);
             }
         }
         
@@ -498,6 +525,15 @@ namespace WebUI.App_GlobalResources {
         public static string title_name_project_ru {
             get {
                 return ResourceManager.GetString("title_name_project_ru", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Отчество:.
+        /// </summary>
+        public static string title_patronymic {
+            get {
+                return ResourceManager.GetString("title_patronymic", resourceCulture);
             }
         }
         
@@ -844,11 +880,29 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Фамиля:.
+        /// </summary>
+        public static string title_surname {
+            get {
+                return ResourceManager.GetString("title_surname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Тип проекта:.
         /// </summary>
         public static string title_type_project {
             get {
                 return ResourceManager.GetString("title_type_project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Рабочий телефон:.
+        /// </summary>
+        public static string title_work_phone {
+            get {
+                return ResourceManager.GetString("title_work_phone", resourceCulture);
             }
         }
     }

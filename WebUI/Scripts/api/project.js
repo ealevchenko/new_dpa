@@ -4,15 +4,15 @@ var Project = function (lang) {
     this.dpa_obj = new Dpa(lang);
 };
 
-Project.list_type_project = [];
-Project.list_work_performers = [];// Подрядная организация
-Project.list_project = [];
-
+Project.list_type_project = [];     // список типов проекта
+Project.list_work_performers = [];  // Подрядная организация
+Project.list_project = [];          // Список проектов
+Project.list_project_manager = [];  // Список руководителей проектов
 
 Project.prototype.load = function (list, callback) {
     var count = list.length + 1;
     var obj = this;
-    this.dpa_obj.load(['ss'], function () {
+    this.dpa_obj.load(['user','ss'], function () {
         count -= 1;
         if (count <= 0) {
             if (typeof callback === 'function') {
@@ -22,6 +22,7 @@ Project.prototype.load = function (list, callback) {
         }
     });
     $.each(list, function (i, el) {
+        // Загрузить список типов проекта
         if (el === 'type') {
             Project.prototype.getAsyncTypeProject(function (result_type_project) {
                 obj.list_type_project = result_type_project;
@@ -34,9 +35,23 @@ Project.prototype.load = function (list, callback) {
                 }
             });
         };
+        // Загрузить список исполнителей
         if (el === 'wp') {
             Project.prototype.getAsyncWorkPerformers(function (result_work_performers) {
                 obj.list_work_performers = result_work_performers;
+                count -= 1;
+                if (count <= 0) {
+                    if (typeof callback === 'function') {
+                        LockScreenOff();
+                        callback();
+                    }
+                }
+            });
+        };
+        // Загрузить список менеджеров проекта
+        if (el === 'pm') {
+            Project.prototype.getAsyncProjectManager(function (result_project_manager) {
+                obj.list_project_manager = result_project_manager;
                 count -= 1;
                 if (count <= 0) {
                     if (typeof callback === 'function') {
@@ -515,4 +530,39 @@ Project.prototype.getPaymentOtherProject = function (project) {
     if (project) {
         return this.StringValueCurrency(project.payment_other_value, project.payment_other_currency);
     } else return null;
+};
+//------------------------------------------------------------------------
+//  Manager
+// 
+// Получить пользователя по ID
+Project.prototype.getProjectManagerOfID = function (id_project_manager) {
+    return getObjOflist(this.list_project_manager, 'id', id_project_manager);
+};
+// Вернуть пользователя по ID
+Project.prototype.getUsersOfID = function (id_user) {
+    if (id_user) {
+        return getObjOflist(this.dpa_obj.list_users, 'id', id_user);
+    }
+    return null;
+};
+// Вернуть Email руководителя проектов
+Project.prototype.getEmailProjectManagerOfID = function (project_manager) {
+    if (project_manager) {
+        return project_manager.email;
+    }
+    return null;
+};
+// Вернуть мобильный телефон руководителя проектов
+Project.prototype.getPhoneMobileProjectManagerOfID = function (project_manager) {
+    if (project_manager) {
+        return project_manager.phone_mobile;
+    }
+    return null;
+};
+// Вернуть рабочий телефон руководителя проектов
+Project.prototype.getPhoneWorkProjectManagerOfID = function (project_manager) {
+    if (project_manager) {
+        return project_manager.phone_work;
+    }
+    return null;
 };

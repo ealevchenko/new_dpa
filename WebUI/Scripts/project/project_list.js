@@ -160,20 +160,16 @@ jQuery(document).ready(function ($) {
             edit_input_stop_project: null,  // Конец проекта
             view_input_stop_project: null,  // Конец проекта
             //  PERFORMER ------------------------------------------------------------
-            edit_select_name_performer_project: null,  // Подрдная организаия
-            view_input_name_performer_project: null,  // Подрдная организаия
-            //edit_input_email_performer_project: null,  // Email подрядной организации
-            view_input_email_performer_project: null,  // Email подрядной организации
-            //edit_input_phone_performer_project: null,  // Телефон подрядной организации
-            view_input_phone_performer_project: null,  // Телефон подрядной организации
-            //edit_input_name_boss_performer_project: null,  // ФИО BOSSa подрядной организации
-            view_input_name_boss_performer_project: null,  // ФИО BOSSa подрядной организации
-            //edit_input_phone_boss_performer_project: null,  // Телефон BOSSa подрядной организации
-            view_input_phone_boss_performer_project: null,  // Телефон BOSSa подрядной организации
+            edit_select_name_performer_project: null,                   // Подрдная организаия
+            view_input_name_performer_project: null,                    // Подрдная организаия
+            view_input_email_performer_project: null,                   // Email подрядной организации
+            view_input_phone_performer_project: null,                   // Телефон подрядной организации
+            view_input_name_boss_performer_project: null,               // ФИО BOSSa подрядной организации
+            view_input_phone_boss_performer_project: null,              // Телефон BOSSa подрядной организации
             //  BUDGET ------------------------------------------------------------
-            edit_input_budget_project: null,                        // Бюджет проекта
-            edit_select_budget_currency_project: null,              // Бюджет валюта проекта
-            view_input_budget_project: null,                        // Бюджет проекта
+            edit_input_budget_project: null,                            // Бюджет проекта
+            edit_select_budget_currency_project: null,                  // Бюджет валюта проекта
+            view_input_budget_project: null,                            // Бюджет проекта
 
             edit_input_contract_project: null,                          // Контракт проекта
             edit_select_contract_currency_project: null,                // Контракт валюта проекта
@@ -199,10 +195,6 @@ jQuery(document).ready(function ($) {
             edit_select_contract_other_currency_project: null,          // Контракт валюта проекта
             view_input_contract_other_project: null,                    // Контракт проекта
 
-            //edit_input_payment_project: null,                           // Оплата проекта
-            //edit_select_payment_currency_project: null,                 // Оплата валюта проекта
-            //view_input_payment_project: null,                           // Оплата проекта
-
             edit_input_payment_engineering_project: null,               // Оплата проекта
             edit_select_payment_engineering_currency_project: null,     // Оплата валюта проекта
             view_input_payment_engineering_project: null,               // Оплата проекта
@@ -222,10 +214,16 @@ jQuery(document).ready(function ($) {
             edit_input_payment_other_project: null,                     // Оплата проекта
             edit_select_payment_other_currency_project: null,           // Оплата валюта проекта
             view_input_payment_other_project: null,                     // Оплата проекта
+            //  MANAGER ------------------------------------------------------------
+            view_input_project_manager_surname: null,                   // Фамилия менеджера проектов
+            view_input_project_manager_name: null,                      // Имя менеджера проектов
+            view_input_project_manager_patronymic: null,                // Отчество менеджера проектов
+            view_input_project_manager_email: null,                     // Email менеджера проектов
+            view_input_project_manager_mobil_phone: null,               // Моб. телефон менеджера проектов
+            view_input_project_manager_work_phone: null,                // Раб. телефон менеджера проектов
 
-
-            select_project_manager: null,               // Менеджер проекта
-
+            edit_select_project_manager: null,                          // Менеджер проекта
+            //  SYSTEM ------------------------------------------------------------
             mode: 0, // 0-view 1 -add 2 - edit-info 3 -edit-performer 4-edit-budget 5-edit-manager 6-edit-steps
             id_project: null,   // Выбранный id текущего проекта
             project: null,      // Выбранный текущий проект
@@ -286,6 +284,100 @@ jQuery(document).ready(function ($) {
 
                 }
 
+                //  BUDJET --------------------------------------------------------------------------------
+                if (mode === 1 || mode === 4) {
+
+
+                    if (project_detali.edit_input_budget_project.val() !== null && project_detali.edit_input_budget_project.val() !== "") {
+                        valid = valid && project_detali.checkSelectValOfMessage(project_detali.edit_select_budget_currency_project, "validate-budget", "Укажите валюту бюджета");
+                    } else {
+                        if (Number(project_detali.edit_select_budget_currency_project.val()) !== -1) {
+                            valid = valid && project_detali.checkIsNullOfMessage(project_detali.edit_input_budget_project, "validate-budget", "Укажите сумму бюджета")
+                        }
+                    }
+                    if (project_detali.edit_input_contract_project.val() !== null && project_detali.edit_input_contract_project.val() !== "") {
+                        valid = valid && project_detali.checkSelectValOfMessage(project_detali.edit_select_contract_currency_project, "validate-budget", "Укажите валюту контракта");
+                    } else {
+                        if (Number(project_detali.edit_select_contract_currency_project.val()) !== -1) {
+                            valid = valid && project_detali.checkIsNullOfMessage(project_detali.edit_input_contract_project, "validate-budget", "Укажите сумму контракта")
+                        }
+                    }
+                    if (project_detali.edit_input_contract_engineering_project.val() !== null && project_detali.edit_input_contract_engineering_project.val() !== "") {
+                        valid = valid && project_detali.checkSelectValOfMessage(project_detali.edit_select_contract_engineering_currency_project, "validate-budget", "Укажите валюту оплаты ИР (по контракту)");
+                    } else {
+                        if (Number(project_detali.edit_select_contract_engineering_currency_project.val()) !== -1) {
+                            valid = valid && project_detali.checkIsNullOfMessage(project_detali.edit_input_contract_engineering_project, "validate-budget", "Укажите сумму оплаты ИР (по контракту)")
+                        }
+                    }
+                    if (project_detali.edit_input_contract_equipment_project.val() !== null && project_detali.edit_input_contract_equipment_project.val() !== "") {
+                        valid = valid && project_detali.checkSelectValOfMessage(project_detali.edit_select_contract_equipment_currency_project, "validate-budget", "Укажите валюту оплаты оборудования (по контракту)");
+                    } else {
+                        if (Number(project_detali.edit_select_contract_equipment_currency_project.val()) !== -1) {
+                            valid = valid && project_detali.checkIsNullOfMessage(project_detali.edit_input_contract_equipment_project, "validate-budget", "Укажите сумму оплаты оборудования (по контракту)")
+                        }
+                    }
+                    if (project_detali.edit_input_contract_construction_project.val() !== null && project_detali.edit_input_contract_construction_project.val() !== "") {
+                        valid = valid && project_detali.checkSelectValOfMessage(project_detali.edit_select_contract_construction_currency_project, "validate-budget", "Укажите валюту оплаты СМР (по контракту)");
+                    } else {
+                        if (Number(project_detali.edit_select_contract_construction_currency_project.val()) !== -1) {
+                            valid = valid && project_detali.checkIsNullOfMessage(project_detali.edit_input_contract_construction_project, "validate-budget", "Укажите сумму оплаты СМР (по контракту)")
+                        }
+                    }
+                    if (project_detali.edit_input_contract_commissioning_project.val() !== null && project_detali.edit_input_contract_commissioning_project.val() !== "") {
+                        valid = valid && project_detali.checkSelectValOfMessage(project_detali.edit_select_contract_commissioning_currency_project, "validate-budget", "Укажите валюту оплаты ПНР (по контракту)");
+                    } else {
+                        if (Number(project_detali.edit_select_contract_commissioning_currency_project.val()) !== -1) {
+                            valid = valid && project_detali.checkIsNullOfMessage(project_detali.edit_input_contract_commissioning_project, "validate-budget", "Укажите сумму оплаты ПНР (по контракту)")
+                        }
+                    }
+                    if (project_detali.edit_input_contract_other_project.val() !== null && project_detali.edit_input_contract_other_project.val() !== "") {
+                        valid = valid && project_detali.checkSelectValOfMessage(project_detali.edit_select_contract_other_currency_project, "validate-budget", "Укажите валюту оплаты других работ (по контракту)");
+                    } else {
+                        if (Number(project_detali.edit_select_contract_other_currency_project.val()) !== -1) {
+                            valid = valid && project_detali.checkIsNullOfMessage(project_detali.edit_input_contract_other_project, "validate-budget", "Укажите сумму оплаты других работ (по контракту)")
+                        }
+                    }
+                    //---------
+                    if (project_detali.edit_input_payment_engineering_project.val() !== null && project_detali.edit_input_payment_engineering_project.val() !== "") {
+                        valid = valid && project_detali.checkSelectValOfMessage(project_detali.edit_select_payment_engineering_currency_project, "validate-budget", "Укажите валюту оплаты ИР (по факту)");
+                    } else {
+                        if (Number(project_detali.edit_select_payment_engineering_currency_project.val()) !== -1) {
+                            valid = valid && project_detali.checkIsNullOfMessage(project_detali.edit_input_payment_engineering_project, "validate-budget", "Укажите сумму оплаты ИР (по факту)")
+                        }
+                    }
+                    if (project_detali.edit_input_payment_equipment_project.val() !== null && project_detali.edit_input_payment_equipment_project.val() !== "") {
+                        valid = valid && project_detali.checkSelectValOfMessage(project_detali.edit_select_payment_equipment_currency_project, "validate-budget", "Укажите валюту оплаты оборудования (по факту)");
+                    } else {
+                        if (Number(project_detali.edit_select_payment_equipment_currency_project.val()) !== -1) {
+                            valid = valid && project_detali.checkIsNullOfMessage(project_detali.edit_input_payment_equipment_project, "validate-budget", "Укажите сумму оплаты оборудования (по факту)")
+                        }
+                    }
+                    if (project_detali.edit_input_payment_construction_project.val() !== null && project_detali.edit_input_payment_construction_project.val() !== "") {
+                        valid = valid && project_detali.checkSelectValOfMessage(project_detali.edit_select_payment_construction_currency_project, "validate-budget", "Укажите валюту оплаты СМР (по факту)");
+                    } else {
+                        if (Number(project_detali.edit_select_payment_construction_currency_project.val()) !== -1) {
+                            valid = valid && project_detali.checkIsNullOfMessage(project_detali.edit_input_payment_construction_project, "validate-budget", "Укажите сумму оплаты СМР (по факту)")
+                        }
+                    }
+                    if (project_detali.edit_input_payment_commissioning_project.val() !== null && project_detali.edit_input_payment_commissioning_project.val() !== "") {
+                        valid = valid && project_detali.checkSelectValOfMessage(project_detali.edit_select_payment_commissioning_currency_project, "validate-budget", "Укажите валюту оплаты ПНР (по факту)");
+                    } else {
+                        if (Number(project_detali.edit_select_payment_commissioning_currency_project.val()) !== -1) {
+                            valid = valid && project_detali.checkIsNullOfMessage(project_detali.edit_input_payment_commissioning_project, "validate-budget", "Укажите сумму оплаты ПНР (по факту)")
+                        }
+                    }
+                    if (project_detali.edit_input_payment_other_project.val() !== null && project_detali.edit_input_payment_other_project.val() !== "") {
+                        valid = valid && project_detali.checkSelectValOfMessage(project_detali.edit_select_payment_other_currency_project, "validate-budget", "Укажите валюту оплаты других работ (по факту)");
+                    } else {
+                        if (Number(project_detali.edit_select_payment_other_currency_project.val()) !== -1) {
+                            valid = valid && project_detali.checkIsNullOfMessage(project_detali.edit_input_payment_other_project, "validate-budget", "Укажите сумму оплаты других работ (по факту)")
+                        }
+                    }
+                }
+                //  MANAGER --------------------------------------------------------------------------------
+                if (mode === 1 || mode === 5) {
+                    valid = valid && project_detali.checkSelectValOfMessage(project_detali.edit_select_project_manager, "validate-manager", "Укажите руководителя проектов и программ");
+                }
                 return valid;
             },
             //вывести в комоненте текст с перемещением текста label
@@ -296,7 +388,7 @@ jQuery(document).ready(function ($) {
             // Инициализаия проект детально
             init: function () {
                 //--------------------------------------------------
-                // Настройка перемещения названия полей
+                // Настройка перемещения названия полей на форме
                 if ($('.floating-labels').length > 0) floatLabels();
                 //
                 function floatLabels() {
@@ -379,6 +471,28 @@ jQuery(document).ready(function ($) {
                 });
                 //--------------------------------------------------
                 //  ПРИВЯЗКА КОМПОНЕНТОВ ФОРМЫ
+                // Инициализаия кнопки "Добавить проект"
+                // Инициализаия кнопки "Редактировать save-info"
+                $('input#save-all').on('click', function () {
+                    var valid = project_detali.validationConfirm(1);
+                    if (valid) {
+                        var project = project_detali.get_project(1);
+                        prj.postAsyncListProjects(project, function (result_id) {
+                            if (result_id > 0) {
+                                // Окей, записали
+                                project_detali.view(result_id, 0);
+                            } else {
+                                project_detali.updateTips("validate-info", "Ошибка добавления нового проекта");
+                            }
+                        });
+
+                    }
+
+                });
+                $('input#cancel-all').on('click', function () {
+                    event.preventDefault();
+                    project_detali.content.removeClass('is-visible');
+                });
                 //  INFO -----------------------------------------------------------------------------------------------
                 // Инициализаия кнопки "Редактировать info"
                 $('input#edit-info').on('click', function () {
@@ -749,11 +863,41 @@ jQuery(document).ready(function ($) {
                         var id = $(this).val();
                     },
                     null);
-
-
+                //------------------------------------------------------------------------------------------------
+                // MANAGER ------------------------------------------------------------
+                // Инициализаия кнопки "Редактировать manager"
                 //----------------------------------------------------------------------
-                // Проект менеджер
-                this.select_project_manager = cd_initSelect(
+                $('input#edit-manager').on('click', function () {
+                    project_detali.view(project_detali.id_project, 5);
+                });
+                // Инициализаия кнопки "Редактировать save-manager"
+                $('input#save-manager').on('click', function () {
+                    var valid = project_detali.validationConfirm(5);
+                    if (valid) {
+                        var project = project_detali.get_project(5);
+                        prj.putAsyncListProjects(project, function (result_id) {
+                            if (result_id > 0) {
+                                // Окей, записали
+                                project_detali.view(project_detali.id_project, 0);
+                            } else {
+                                project_detali.updateTips("validate-manager", "Ошибка записи проекта MANAGER");
+                            }
+                        });
+                    }
+                });
+                // Инициализаия кнопки "Отмена cancel-budget"
+                $('input#cancel-manager').on('click', function () {
+                    project_detali.view(project_detali.id_project, 0);
+                });
+                // Менеджер проекта показать
+                this.view_input_project_manager_surname = $('input#cd-project-manager-surname-view').val('');
+                this.view_input_project_manager_name = $('input#cd-project-manager-name-view').val('');
+                this.view_input_project_manager_patronymic = $('input#cd-project-manager-patronymic-view').val('');
+                this.view_input_project_manager_email = $('input#cd-project-manager-email-view').val('');
+                this.view_input_project_manager_mobil_phone = $('input#cd-project-manager-mobil-phone-view').val('');
+                this.view_input_project_manager_work_phone = $('input#cd-project-manager-work-phone-view').val('');
+                // Менеджер проекта править
+                this.edit_select_project_manager = cd_initSelect(
                     $('select#cd-project-manager'),
                     { lang: lang },
                     list_pm,
@@ -839,6 +983,7 @@ jQuery(document).ready(function ($) {
                     case 2: project_detali.mode_project_edit_info(project); break;
                     case 3: project_detali.mode_project_edit_performer(project); break;
                     case 4: project_detali.mode_project_edit_budget(project); break;
+                    case 5: project_detali.mode_project_edit_manager(project); break;
                 }
             },
             //
@@ -877,6 +1022,18 @@ jQuery(document).ready(function ($) {
                     project_detali.viewCheckVal(this.view_input_payment_commissioning_project, prj.getPaymentCommissioningProject(project));
                     project_detali.viewCheckVal(this.view_input_contract_other_project, prj.getContractOtherProject(project));
                     project_detali.viewCheckVal(this.view_input_payment_other_project, prj.getPaymentOtherProject(project));
+                    //  MANAGER ------------------------------------------------------------
+                    if (project.ProjectManager) {
+                        var user = prj.getUsersOfID(project.ProjectManager.id_user)
+                        if (user) {
+                            project_detali.viewCheckVal(this.view_input_project_manager_surname, dpa.getSurnameUsers(user));
+                            project_detali.viewCheckVal(this.view_input_project_manager_name, dpa.getNameUsers(user));
+                            project_detali.viewCheckVal(this.view_input_project_manager_patronymic, dpa.getPatronymicUsers(user));
+                            project_detali.viewCheckVal(this.view_input_project_manager_email, prj.getEmailProjectManagerOfID(project.ProjectManager));
+                            project_detali.viewCheckVal(this.view_input_project_manager_mobil_phone, prj.getPhoneMobileProjectManagerOfID(project.ProjectManager));
+                            project_detali.viewCheckVal(this.view_input_project_manager_work_phone, prj.getPhoneWorkProjectManagerOfID(project.ProjectManager));
+                        }
+                    }
 
                 }
             },
@@ -898,6 +1055,37 @@ jQuery(document).ready(function ($) {
                 //  PERFORMER --------------------------------------------------------------------------------
                 project_detali.viewCheckVal(this.edit_select_name_performer_project, -1);
                 //  BUDGET ------------------------------------------------------------
+                project_detali.viewCheckVal(this.edit_input_budget_project, '');
+                project_detali.viewCheckVal(this.edit_select_budget_currency_project, -1);
+                project_detali.viewCheckVal(this.edit_input_contract_project, '');
+                project_detali.viewCheckVal(this.edit_select_contract_currency_project, -1);
+
+                project_detali.viewCheckVal(this.edit_input_contract_engineering_project, '');
+                project_detali.viewCheckVal(this.edit_select_contract_engineering_currency_project, -1);
+                project_detali.viewCheckVal(this.edit_input_payment_engineering_project, '');
+                project_detali.viewCheckVal(this.edit_select_payment_engineering_currency_project, -1);
+
+                project_detali.viewCheckVal(this.edit_input_contract_equipment_project, '');
+                project_detali.viewCheckVal(this.edit_select_contract_equipment_currency_project, -1);
+                project_detali.viewCheckVal(this.edit_input_payment_equipment_project, '');
+                project_detali.viewCheckVal(this.edit_select_payment_equipment_currency_project, -1);
+
+                project_detali.viewCheckVal(this.edit_input_contract_construction_project, '');
+                project_detali.viewCheckVal(this.edit_select_contract_construction_currency_project, -1);
+                project_detali.viewCheckVal(this.edit_input_payment_construction_project, '');
+                project_detali.viewCheckVal(this.edit_select_payment_construction_currency_project, -1);
+
+                project_detali.viewCheckVal(this.edit_input_contract_commissioning_project, '');
+                project_detali.viewCheckVal(this.edit_select_contract_commissioning_currency_project, -1);
+                project_detali.viewCheckVal(this.edit_input_payment_commissioning_project, '');
+                project_detali.viewCheckVal(this.edit_select_payment_commissioning_currency_project, -1);
+
+                project_detali.viewCheckVal(this.edit_input_contract_other_project, '');
+                project_detali.viewCheckVal(this.edit_select_contract_other_currency_project, -1);
+                project_detali.viewCheckVal(this.edit_input_payment_other_project, '');
+                project_detali.viewCheckVal(this.edit_select_payment_other_currency_project, -1);
+                // EDIT MANAGER
+                project_detali.viewCheckVal(this.edit_select_project_manager, pm.id !== null ? pm.id : -1);
             },
             // EDIT INFO
             mode_project_edit_info: function (project) {
@@ -956,13 +1144,21 @@ jQuery(document).ready(function ($) {
                     project_detali.viewCheckVal(this.edit_select_payment_other_currency_project, project.payment_other_currency !== null ? project.payment_other_currency : -1);
                 }
             },
+            // EDIT MANAGER
+            mode_project_edit_manager: function (project) {
+                if (project) {
+                    project_detali.viewCheckVal(this.edit_select_project_manager, project.id_project_manager !== null ? project.id_project_manager : -1);
+                }
+            },
 
             // Установить режим окна детально
             set_mode: function (mode) {
-                $('.mode-view, .mode-add, .mode-edit, .mode-edit-info, .mode-edit-performer').hide();
+                $('.mode-view, .mode-add, .mode-edit, .mode-edit-info, .mode-edit-performer .mode-edit-budget .mode-edit-manager').hide();
                 $('div.mode-edit').removeClass('mode-edit');
                 $(".validate-info").text('');
                 $(".validate-performer").text('');
+                $(".validate-budget").text('');
+                $(".validate-manager").text('');
                 switch (mode) {
                     case 0:
                         project_detali.mode = 0;
@@ -973,6 +1169,8 @@ jQuery(document).ready(function ($) {
                         $('.mode-add').show();
                         $('div#accordion-info').addClass('mode-edit');
                         $('div#accordion-performer').addClass('mode-edit');
+                        $('div#accordion-budget').addClass('mode-edit');
+                        $('div#accordion-manager').addClass('mode-edit');
                         break;
                     case 2:
                         project_detali.mode = 2;
@@ -989,59 +1187,64 @@ jQuery(document).ready(function ($) {
                         $('.mode-edit-budget').show();
                         $('div#accordion-budget').addClass('mode-edit');
                         break;
+                    case 5:
+                        project_detali.mode = 5;
+                        $('.mode-edit-manager').show();
+                        $('div#accordion-manager').addClass('mode-edit');
+                        break;
                 }
             },
             // Получить новый проект
             get_project: function (mode) {
 
                 var project = {
-                    id: project_detali.project.id,
-                    id_type_project: project_detali.project.id_type_project,
-                    id_structural_subdivisions: project_detali.project.id_structural_subdivisions,
-                    name_project_ru: project_detali.project.name_project_ru,
-                    name_project_en: project_detali.project.name_project_en,
-                    goals_project_ru: project_detali.project.goals_project_ru,
-                    goals_project_en: project_detali.project.goals_project_en,
-                    id_project_customer: project_detali.project.id_project_customer,
-                    spp_sap: project_detali.project.spp_sap,
-                    id_spp_owner: project_detali.project.id_spp_owner,
-                    start_project: project_detali.project.start_project,
-                    id_work_performer: project_detali.project.id_work_performer,
-                    stop_project_contract: project_detali.project.stop_project_contract,
-                    budget: project_detali.project.budget,
-                    budget_currency: project_detali.project.budget_currency,
-                    contract_value: project_detali.project.contract_value,
-                    contract_currency: project_detali.project.contract_currency,
-                    contract_engineering_value: project_detali.project.contract_engineering_value,
-                    contract_engineering_currency: project_detali.project.contract_engineering_currency,
-                    contract_equipment_value: project_detali.project.contract_equipment_value,
-                    contract_equipment_currency: project_detali.project.contract_equipment_currency,
-                    contract_construction_value: project_detali.project.contract_construction_value,
-                    contract_construction_currency: project_detali.project.contract_construction_currency,
-                    contract_commissioning_value: project_detali.project.contract_commissioning_value,
-                    contract_commissioning_currency: project_detali.project.contract_commissioning_currency,
-                    contract_other_value: project_detali.project.contract_other_value,
-                    contract_other_currency: project_detali.project.contract_other_currency,
-                    payment_engineering_value: project_detali.project.payment_engineering_value,
-                    payment_engineering_currency: project_detali.project.payment_engineering_currency,
-                    payment_equipment_value: project_detali.project.payment_equipment_value,
-                    payment_equipment_currency: project_detali.project.payment_equipment_currency,
-                    payment_construction_value: project_detali.project.payment_construction_value,
-                    payment_construction_currency: project_detali.project.payment_construction_currency,
-                    payment_commissioning_value: project_detali.project.payment_commissioning_value,
-                    payment_commissioning_currency: project_detali.project.payment_commissioning_currency,
-                    payment_other_value: project_detali.project.payment_other_value,
-                    payment_other_currency: project_detali.project.payment_other_currency,
-                    workspace: project_detali.project.workspace,
-                    id_project_manager: project_detali.project.id_project_manager,
-                    id_status_project: project_detali.project.id_status_project,
-                    create: project_detali.project.create,
-                    create_user: project_detali.project.create_user,
-                    change: project_detali.project.change,
-                    change_user: project_detali.project.change_user
+                    id: mode !== 1 ? project_detali.project.id : 0,
+                    id_type_project: mode !== 1 ? project_detali.project.id_type_project : null,
+                    id_structural_subdivisions: mode !== 1 ? project_detali.project.id_structural_subdivisions : null,
+                    name_project_ru: mode !== 1 ? project_detali.project.name_project_ru : null,
+                    name_project_en: mode !== 1 ? project_detali.project.name_project_en : null,
+                    goals_project_ru: mode !== 1 ? project_detali.project.goals_project_ru : null,
+                    goals_project_en: mode !== 1 ? project_detali.project.goals_project_en : null,
+                    id_project_customer: mode !== 1 ? project_detali.project.id_project_customer : null,
+                    spp_sap: mode !== 1 ? project_detali.project.spp_sap : null,
+                    id_spp_owner: mode !== 1 ? project_detali.project.id_spp_owner : null,
+                    start_project: mode !== 1 ? project_detali.project.start_project : null,
+                    id_work_performer: mode !== 1 ? project_detali.project.id_work_performer : null,
+                    stop_project_contract: mode !== 1 ? project_detali.project.stop_project_contract : null,
+                    budget: mode !== 1 ? project_detali.project.budget : null,
+                    budget_currency: mode !== 1 ? project_detali.project.budget_currency : null,
+                    contract_value: mode !== 1 ? project_detali.project.contract_value : null,
+                    contract_currency: mode !== 1 ? project_detali.project.contract_currency : null,
+                    contract_engineering_value: mode !== 1 ? project_detali.project.contract_engineering_value : null,
+                    contract_engineering_currency: mode !== 1 ? project_detali.project.contract_engineering_currency : null,
+                    contract_equipment_value: mode !== 1 ? project_detali.project.contract_equipment_value : null,
+                    contract_equipment_currency: mode !== 1 ? project_detali.project.contract_equipment_currency : null,
+                    contract_construction_value: mode !== 1 ? project_detali.project.contract_construction_value : null,
+                    contract_construction_currency: mode !== 1 ? project_detali.project.contract_construction_currency : null,
+                    contract_commissioning_value: mode !== 1 ? project_detali.project.contract_commissioning_value : null,
+                    contract_commissioning_currency: mode !== 1 ? project_detali.project.contract_commissioning_currency : null,
+                    contract_other_value: mode !== 1 ? project_detali.project.contract_other_value : null,
+                    contract_other_currency: mode !== 1 ? project_detali.project.contract_other_currency : null,
+                    payment_engineering_value: mode !== 1 ? project_detali.project.payment_engineering_value : null,
+                    payment_engineering_currency: mode !== 1 ? project_detali.project.payment_engineering_currency : null,
+                    payment_equipment_value: mode !== 1 ? project_detali.project.payment_equipment_value : null,
+                    payment_equipment_currency: mode !== 1 ? project_detali.project.payment_equipment_currency : null,
+                    payment_construction_value: mode !== 1 ? project_detali.project.payment_construction_value : null,
+                    payment_construction_currency: mode !== 1 ? project_detali.project.payment_construction_currency : null,
+                    payment_commissioning_value: mode !== 1 ? project_detali.project.payment_commissioning_value : null,
+                    payment_commissioning_currency: mode !== 1 ? project_detali.project.payment_commissioning_currency : null,
+                    payment_other_value: mode !== 1 ? project_detali.project.payment_other_value : null,
+                    payment_other_currency: mode !== 1 ? project_detali.project.payment_other_currency : null,
+                    workspace: mode !== 1 ? project_detali.project.workspace : null,
+                    id_project_manager: mode !== 1 ? project_detali.project.id_project_manager : null,
+                    id_status_project: mode !== 1 ? project_detali.project.id_status_project : null,
+                    create: mode !== 1 ? project_detali.project.create : null,
+                    create_user: mode !== 1 ? project_detali.project.create_user : null,
+                    change: mode !== 1 ? project_detali.project.change : null,
+                    change_user: mode !== 1 ? project_detali.project.change_user : null
                 };
                 //  INFO
-                if (mode === 2) {
+                if (mode === 1 || mode === 2) {
                     project.id_type_project = Number(project_detali.edit_select_type_project.val());
                     project.id_status_project = Number(project_detali.edit_select_status_project.val());
                     project.id_structural_subdivisions = Number(project_detali.edit_select_structural_subdivisions_project.val());
@@ -1056,11 +1259,11 @@ jQuery(document).ready(function ($) {
                     project.stop_project_contract = project_detali.edit_input_stop_project.val() !== null && project_detali.edit_input_stop_project.val() !== "" ? project_detali.edit_input_stop_project.val() : null;
                 };
                 // EDIT PERFORMER
-                if (mode === 3) {
+                if (mode === 1 || mode === 3) {
                     project.id_work_performer = Number(project_detali.edit_select_name_performer_project.val()) > -1 ? Number(project_detali.edit_select_name_performer_project.val()) : null;
                 }
                 // EDIT BUDJET
-                if (mode === 4) {
+                if (mode === 1 || mode === 4) {
 
                     project.budget = project_detali.edit_input_budget_project.val() !== null && project_detali.edit_input_budget_project.val() !== "" ? Number(project_detali.edit_input_budget_project.val()) : null;
                     project.budget_currency = Number(project_detali.edit_select_budget_currency_project.val()) > -1 ? Number(project_detali.edit_select_budget_currency_project.val()) : null;
@@ -1098,6 +1301,15 @@ jQuery(document).ready(function ($) {
                     project.payment_other_value = project_detali.edit_input_payment_other_project.val() !== null && project_detali.edit_input_payment_other_project.val() !== "" ? Number(project_detali.edit_input_payment_other_project.val()) : null;
                     project.payment_other_currency = Number(project_detali.edit_select_payment_other_currency_project.val()) > -1 ? Number(project_detali.edit_select_payment_other_currency_project.val()) : null;
                 }
+                // EDIT MANAGER
+                if (mode === 1 || mode === 5) {
+                    project.id_project_manager = Number(project_detali.edit_select_project_manager.val()) > -1 ? Number(project_detali.edit_select_project_manager.val()) : null;
+                }
+                if (mode === 1) {
+                    project.create = toISOStringTZ(new Date());
+                    project.create_user = user_name;
+                }
+
                 project.change = toISOStringTZ(new Date());
                 project.change_user = user_name;
                 return project;

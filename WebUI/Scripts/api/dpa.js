@@ -113,10 +113,34 @@ Dpa.prototype.getAsyncStructuralSubdivisions = function (callback) {
 /* ----------------------------------------------------------
 Функции
 -------------------------------------------------------------*/
-//======= ListProjects ======================================
+//======= Users ======================================
 Dpa.prototype.getSNPofIDUsers = function (id_user) {
     var user = getObjOflist(this.list_users, 'id', id_user);
     if (user) return user.surname + ' ' + user.name + ' ' + user.patronymic;
+};
+// Получить пользователя по ID
+Dpa.prototype.getUsersOfID = function (id_user) {
+    return getObjOflist(this.list_users, 'id', id_user);
+};
+// Фамилия пользователя
+Dpa.prototype.getSurnameUsers = function (user) {
+    if (user) return user.surname;
+    return null
+};
+// Имя пользователя
+Dpa.prototype.getNameUsers = function (user) {
+    if (user) return user.name;
+    return null
+};
+// Отчество пользователя
+Dpa.prototype.getPatronymicUsers = function (user) {
+    if (user) return user.patronymic;
+    return null
+};
+// email пользователя
+Dpa.prototype.getEmailUsers = function (user) {
+    if (user) return user.email;
+    return null
 };
 // Получить название структурного подразделения
 Dpa.prototype.getNameStructuralSubdivisions = function (ss) {

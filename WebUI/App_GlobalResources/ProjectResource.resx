@@ -381,4 +381,22 @@
   <data name="title_plan_fact" xml:space="preserve">
     <value>Контракт\Оплата</value>
   </data>
+  <data name="title_email" xml:space="preserve">
+    <value>Email:</value>
+  </data>
+  <data name="title_mobil_phone" xml:space="preserve">
+    <value>Мобильный телефон:</value>
+  </data>
+  <data name="title_name" xml:space="preserve">
+    <value>Имя:</value>
+  </data>
+  <data name="title_patronymic" xml:space="preserve">
+    <value>Отчество:</value>
+  </data>
+  <data name="title_surname" xml:space="preserve">
+    <value>Фамиля:</value>
+  </data>
+  <data name="title_work_phone" xml:space="preserve">
+    <value>Рабочий телефон:</value>
+  </data>
 </root>
