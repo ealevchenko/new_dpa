@@ -73,7 +73,7 @@ jQuery(document).ready(function ($) {
                 user = result_user;
                 prj.getAsyncProjectManagerOfIDUser(user.id, function (result_pm) {
                     pm = result_pm;
-                    //pm.id = 1; // !!!!!!!!! тест
+                    //pm.id = 11; // !!!!!!!!! тест
                     prj.getAsyncChainProjectManagerOfIDPM(pm.id, function (result_chain_pm) {
                         chain_pm = result_chain_pm;
 
@@ -87,6 +87,7 @@ jQuery(document).ready(function ($) {
                             // Определим список руководителей проектов с проектами
                             var uniqueNames = [];
                             list_pm = [];
+                            list_project.length === 0 ? list_pm.push(pm) : [];
                             $.each(list_project, function (i, el) {
                                 if ($.inArray(el.ProjectManager.id, uniqueNames) === -1) {
                                     uniqueNames.push(el.ProjectManager.id);

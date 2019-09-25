@@ -12,7 +12,7 @@ Project.list_project_manager = [];  // Список руководителей �
 Project.prototype.load = function (list, callback) {
     var count = list.length + 1;
     var obj = this;
-    this.dpa_obj.load(['user','ss'], function () {
+    this.dpa_obj.load(['user', 'ss'], function () {
         count -= 1;
         if (count <= 0) {
             if (typeof callback === 'function') {
@@ -129,6 +129,12 @@ Project.prototype.getAsyncListProjectsOfListIDPM = function (list_id, callback) 
             }
         },
         error: function (x, y, z) {
+            if (x.status === 404) {
+                if (typeof callback === 'function') {
+                    callback([]);
+                }
+            }
+
             OnAJAXError(x, y, z);
         },
         complete: function () {
@@ -405,7 +411,7 @@ Project.prototype.getNameSAPOwnerProject = function (project) {
 
 Project.prototype.getStartProject = function (project) {
     if (project && project.start_project) {
-        return this.lang === 'ru' ?  moment(project.start_project).format('DD.MM.YYYY') :  moment(project.start_project).format('DD/MM/YYYY');
+        return this.lang === 'ru' ? moment(project.start_project).format('DD.MM.YYYY') : moment(project.start_project).format('DD/MM/YYYY');
     } else return null;
 };
 
