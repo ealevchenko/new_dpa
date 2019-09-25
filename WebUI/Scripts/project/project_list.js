@@ -113,15 +113,6 @@ jQuery(document).ready(function ($) {
                 });
             });
         },
-
-        // Получить тип проекта
-        //getTypeProject1 = function (id_type_project) {
-        //    switch (id_type_project) {
-        //        case 1: return langView('text_type_title_strategic', langs);
-        //        case 2: return langView('text_type_title_normative', langs);
-        //        default: return null;
-        //    }
-        //},
         // Получить статус проекта
         getStatusProject = function (id_status_project) {
             switch (id_status_project) {
@@ -131,7 +122,69 @@ jQuery(document).ready(function ($) {
                 default: return null;
             }
         },
+        // Получить тип проекта для формирования галереи
+        getTypeProjectGallery = function (id_type_project) {
+            switch (id_type_project) {
+                case 1: return 'strategic';
+                case 2: return 'normative';
+            }
+        },
+        // Получить статус для формирования галереи
+        getStatusProjectGallery = function (id_status_project) {
+            switch (id_status_project) {
+                case 0: return 'status-open';
+                case 1: return 'status-close';
+                case 2: return 'status-pause';
+            }
+        },
+        // Добавить карту к галереи
+        addCardGallery = function (project) {
+            if (project) {
+                var type = getTypeProjectGallery(project.id_type_project);
+                var type_title = prj.getTypeProjectOfProject(project);
+                var status = getStatusProjectGallery(project.id_status_project);
+                var ss = prj.getStructuralSubdivisionsOfID(project.id_structural_subdivisions);
+                $("section.cd-gallery ul")
+                    .append('<li class="mix ' + type + ' pm' + project.id_project_manager + ' ' + status + ' subdivisions' + project.id_structural_subdivisions + '"><a href="#" id="' + project.id + '"><img src="../../Images/project/pm' + project.id_project_manager + '.jpg" alt=""><div class="project-men"><p class="' + status + '">' + project.name_project_ru + '</p></div><div class="project-info"><h2>' + (ss !== null ? ss.name_subdivisions_ru : '?') + '</h2><p>' + type_title + (project.spp_sap !== "" ? ' (' + project.spp_sap + ')' : '') + '</p></div></a></li>');
+                // Привяжим событие выбора проекта
+                $("section.cd-gallery ul li a#" + project.id).on('click', function () {
+                    event.preventDefault();
+                    // Определим id проекта
+                    var id = $(this).attr('id');
+                    project_detali.view(id, 0);
 
+                });
+            }
+        },
+        // Обновить карту в галерее
+        updateCardGallery = function (project) {
+            if (project) {
+                var type = getTypeProjectGallery(project.id_type_project);
+                var type_title = prj.getTypeProjectOfProject(project);
+                var status = getStatusProjectGallery(project.id_status_project);
+                var ss = prj.getStructuralSubdivisionsOfID(project.id_structural_subdivisions);
+                // Привяжим событие выбора проекта
+                var li = $("section.cd-gallery ul li a#" + project.id).parent();
+                var a = li.children()[0];
+                var img = $(a).children()[0];
+                var p_div_men = $($(a).children()[1]).children()[0];
+                var h2_div_info = $($(a).children()[2]).children()[0];
+                var p_div_info = $($(a).children()[2]).children()[1];
+                li.removeClass().addClass("mix " + type + " pm" + project.id_project_manager + " " + status + " subdivisions" + project.id_structural_subdivisions);
+                $(img).attr('src', "../../Images/project/pm" + project.id_project_manager + ".jpg").attr('alt', '');
+                $(p_div_men).removeClass().addClass(status).text(project.name_project_ru);
+                $(h2_div_info).text((ss !== null ? ss.name_subdivisions_ru : '?'));
+                $(p_div_info).text(type_title + (project.spp_sap !== "" ? ' (' + project.spp_sap + ')' : ''));
+            }
+        },
+        // Загрузить галерею
+        loadGallery = function (list_project) {
+            $("section.cd-gallery ul").empty();
+            $.each(list_project, function (i, el) {
+                addCardGallery(el);
+            })
+        },
+        // Окно проекты детально
         project_detali = {
             content: $('.cd-project-content'),
             content_accordion_project_info: $("#accordion_project_info"),
@@ -471,8 +524,7 @@ jQuery(document).ready(function ($) {
                 });
                 //--------------------------------------------------
                 //  ПРИВЯЗКА КОМПОНЕНТОВ ФОРМЫ
-                // Инициализаия кнопки "Добавить проект"
-                // Инициализаия кнопки "Редактировать save-info"
+                // Инициализаия кнопки "Добавить проект save-all"
                 $('input#save-all').on('click', function () {
                     var valid = project_detali.validationConfirm(1);
                     if (valid) {
@@ -480,7 +532,15 @@ jQuery(document).ready(function ($) {
                         prj.postAsyncListProjects(project, function (result_id) {
                             if (result_id > 0) {
                                 // Окей, записали
-                                project_detali.view(result_id, 0);
+                                project_detali.view(result_id, 0,
+                                    function (result_project) {
+                                        // Добавим в галерею
+                                        addCardGallery(result_project);
+                                        // Отобразить в галерее
+                                        var selected_filter = $('.cd-tab-filter .selected').parent().attr('data-filter');
+                                        $('.cd-gallery ul').mixItUp('filter', selected_filter !== undefined ? selected_filter : 'all');
+                                    });
+
                             } else {
                                 project_detali.updateTips("validate-info", "Ошибка добавления нового проекта");
                             }
@@ -506,7 +566,10 @@ jQuery(document).ready(function ($) {
                         prj.putAsyncListProjects(project, function (result_id) {
                             if (result_id > 0) {
                                 // Окей, записали
-                                project_detali.view(project_detali.id_project, 0);
+                                project_detali.view(project_detali.id_project, 0,
+                                    function (result_project) {
+                                        updateCardGallery(result_project);
+                                    });
                             } else {
                                 project_detali.updateTips("validate-info", "Ошибка записи проекта");
                             }
@@ -634,7 +697,10 @@ jQuery(document).ready(function ($) {
                         prj.putAsyncListProjects(project, function (result_id) {
                             if (result_id > 0) {
                                 // Окей, записали
-                                project_detali.view(project_detali.id_project, 0);
+                                project_detali.view(project_detali.id_project, 0,
+                                    function (result_project) {
+                                        updateCardGallery(result_project);
+                                    });
                             } else {
                                 project_detali.updateTips("validate-performer", "Ошибка записи проекта PERFORMER");
                             }
@@ -684,7 +750,10 @@ jQuery(document).ready(function ($) {
                         prj.putAsyncListProjects(project, function (result_id) {
                             if (result_id > 0) {
                                 // Окей, записали
-                                project_detali.view(project_detali.id_project, 0);
+                                project_detali.view(project_detali.id_project, 0,
+                                    function (result_project) {
+                                        updateCardGallery(result_project);
+                                    });
                             } else {
                                 project_detali.updateTips("validate-budget", "Ошибка записи проекта BUDGET");
                             }
@@ -878,7 +947,10 @@ jQuery(document).ready(function ($) {
                         prj.putAsyncListProjects(project, function (result_id) {
                             if (result_id > 0) {
                                 // Окей, записали
-                                project_detali.view(project_detali.id_project, 0);
+                                project_detali.view(project_detali.id_project, 0,
+                                    function (result_project) {
+                                        updateCardGallery(result_project);
+                                    });
                             } else {
                                 project_detali.updateTips("validate-manager", "Ошибка записи проекта MANAGER");
                             }
@@ -947,7 +1019,7 @@ jQuery(document).ready(function ($) {
                 //}
             },
             // Отобразить указаный проект в указанном режиме
-            view: function (id, mode) {
+            view: function (id, mode, callback) {
                 this.id_project = id;
                 if (mode === 1) {
                     project_detali.view_mode_project(null, mode);
@@ -958,20 +1030,14 @@ jQuery(document).ready(function ($) {
                     prj.getAsyncListProjectsOfID(id, function (result_project) {
                         project_detali.project = result_project;
                         project_detali.view_mode_project(result_project, mode);
-                        project_detali.set_mode(mode);
+                        project_detali.set_mode(mode, result_project.id_project_manager == pm.id);
                         //!!! Добавить обновление списка и карточек на эеране
                         LockScreenOff();
-
+                        if (typeof callback === 'function') {
+                            callback(result_project);
+                        }
                     });
                 }
-                //// Руководитель проектов и программ
-                //if (project.ProjectManager !== null) {
-                //    var user = getObjOflist(list_users, 'id', project.ProjectManager.id_user);
-                //    $('input#project-manager-fio').val(user.surname + ' ' + user.name + ' ' + user.patronymic);
-                //    $('input#project-manager-email').val(project.ProjectManager.email);
-                //    $('input#project-manager-phone-work').val(project.ProjectManager.phone_work);
-                //    $('input#project-manager-phone-mobile').val(project.ProjectManager.phone_mobile);
-                //}
                 // Показать страницу детально
                 this.content.addClass('is-visible');
             },
@@ -1152,8 +1218,8 @@ jQuery(document).ready(function ($) {
             },
 
             // Установить режим окна детально
-            set_mode: function (mode) {
-                $('.mode-view, .mode-add, .mode-edit, .mode-edit-info, .mode-edit-performer .mode-edit-budget .mode-edit-manager').hide();
+            set_mode: function (mode, edit) {
+                $('.mode-view, .mode-add, .mode-edit, .mode-edit-info, .mode-edit-performer, .mode-edit-budget, .mode-edit-manager').hide();
                 $('div.mode-edit').removeClass('mode-edit');
                 $(".validate-info").text('');
                 $(".validate-performer").text('');
@@ -1163,6 +1229,11 @@ jQuery(document).ready(function ($) {
                     case 0:
                         project_detali.mode = 0;
                         $('.mode-view').show();
+                        if (edit) {
+                            $('input#edit-info', 'input#edit-performer', 'input#edit-budget', 'input#edit-manager').show();
+                        } else {
+                            $('input#edit-info', 'input#edit-performer', 'input#edit-budget', 'input#edit-manager').hide();
+                        }
                         break;
                     case 1:
                         project_detali.mode = 1;
@@ -1368,25 +1439,27 @@ jQuery(document).ready(function ($) {
                     .append('<li><input class="filter" data-filter=".pm' + el.id + '" type="checkbox" id="checkbox' + el.id + '"><label class="checkbox-label" for="checkbox' + el.id + '">' + user.surname + ' ' + user.name + '</label></li>');
             });
             // Создадим список проектов
-            $.each(list_project, function (i, el) {
-                // Определим тип
-                var type = null;
-                var type_title = null;
-                switch (el.id_type_project) {
-                    case 1: type = 'strategic'; type_title = langView('text_type_title_strategic', langs); break;
-                    case 2: type = 'normative'; type_title = langView('text_type_title_normative', langs); break;
-                }
-                var status = null;
-                switch (el.id_status_project) {
-                    case 0: status = 'status-open'; break;
-                    case 1: status = 'status-close'; break;
-                    case 2: status = 'status-pause'; break;
-                }
-                var ss = getObjOflist(dpa.list_structural_subdivisions, 'id', el.id_structural_subdivisions);
-
-                $("section.cd-gallery ul")
-                    .append('<li class="mix ' + type + ' pm' + el.id_project_manager + ' ' + status + ' subdivisions' + el.id_structural_subdivisions + '"><a href="#" id="' + el.id + '"><img src="../../Images/project/pm' + el.id_project_manager + '.jpg" alt=""><div class="project-men"><p class="' + status + '">' + el.name_project_ru + '</p></div><div class="project-info"><h2>' + (ss !== null ? ss.name_subdivisions_ru : '?') + '</h2><p>' + type_title + (el.spp_sap !== "" ? ' (' + el.spp_sap + ')' : '') + '</p></div></a></li>');
-            });
+            loadGallery(list_project);
+            //$.each(list_project, function (i, el) {
+            //    addCardGallery(el);
+            //    // Определим тип
+            //    //var type = getTypeProjectGallery(el.id_type_project);
+            //    //var type_title = prj.getTypeProjectOfProject(el);
+            //    ////switch (el.id_type_project) {
+            //    ////    case 1: type = 'strategic'; type_title = langView('text_type_title_strategic', langs); break;
+            //    ////    case 2: type = 'normative'; type_title = langView('text_type_title_normative', langs); break;
+            //    ////}
+            //    //var status = getStatusProjectGallery(el.id_status_project);
+            //    ////switch (el.id_status_project) {
+            //    ////    case 0: status = 'status-open'; break;
+            //    ////    case 1: status = 'status-close'; break;
+            //    ////    case 2: status = 'status-pause'; break;
+            //    ////}
+            //    ////var ss = getObjOflist(dpa.list_structural_subdivisions, 'id', el.id_structural_subdivisions);
+            //    //var ss = prj.getStructuralSubdivisionsOfID(el.id_structural_subdivisions);
+            //    //$("section.cd-gallery ul")
+            //    //    .append('<li class="mix ' + type + ' pm' + el.id_project_manager + ' ' + status + ' subdivisions' + el.id_structural_subdivisions + '"><a href="#" id="' + el.id + '"><img src="../../Images/project/pm' + el.id_project_manager + '.jpg" alt=""><div class="project-men"><p class="' + status + '">' + el.name_project_ru + '</p></div><div class="project-info"><h2>' + (ss !== null ? ss.name_subdivisions_ru : '?') + '</h2><p>' + type_title + (el.spp_sap !== "" ? ' (' + el.spp_sap + ')' : '') + '</p></div></a></li>');
+            //});
 
             // Инициализация окна правки проекта 
             //confirm_edit_project.init();
@@ -1396,13 +1469,13 @@ jQuery(document).ready(function ($) {
 
 
             // Событие выбора проекта
-            $('.cd-gallery ul li a').on('click', function () {
-                event.preventDefault();
-                // Определим id проекта
-                var id = $(this).attr('id');
-                project_detali.view(id, 0);
+            //$('.cd-gallery ul li a').on('click', function () {
+            //    event.preventDefault();
+            //    // Определим id проекта
+            //    var id = $(this).attr('id');
+            //    project_detali.view(id, 0);
 
-            });
+            //});
 
             // Событие создание нового проекта
             $('a#new-project').on('click', function () {

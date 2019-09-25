@@ -328,16 +328,16 @@ Project.prototype.getAsyncWorkPerformers = function (callback) {
         },
     });
 };
-    /* ----------------------------------------------------------
+/* ----------------------------------------------------------
        функции получения 
-    -------------------------------------------------------------*/
-    // Получить тип проекта
+-------------------------------------------------------------*/
+// Получить тип проекта
 Project.prototype.getTypeProjectOfProject = function (project) {
     if (project && project.TypeProject) {
         return this.lang === 'ru' ? project.TypeProject.type_project_ru : project.TypeProject.type_project_en;
     } else return null;
 };
-    // Получить тип проекта
+// Получить тип проекта
 Project.prototype.getTypeProject = function (tp) {
     if (tp) {
         return this.lang === 'ru' ? tp.type_project_ru : tp.type_project_en;
@@ -358,6 +358,12 @@ Project.prototype.getGoalsProject = function (project) {
 
 };
 // Вернуть структурное подразделение по ID
+Project.prototype.getStructuralSubdivisionsOfID = function (id) {
+    if (id) {
+        return getObjOflist(this.dpa_obj.list_structural_subdivisions, 'id', id);
+    } else return null;
+};
+// Вернуть полное название структурного подразделения по ID
 Project.prototype.getFullNameStructuralSubdivisionsOfID = function (id) {
     if (id) {
         var structural_subdivisions = getObjOflist(this.dpa_obj.list_structural_subdivisions, 'id', id);
@@ -366,7 +372,7 @@ Project.prototype.getFullNameStructuralSubdivisionsOfID = function (id) {
         else return null;
     } else return null;
 };
-//
+// Вернуть название структурного подразделения по ID
 Project.prototype.getNameStructuralSubdivisionsOfID = function (id) {
     if (id) {
         var structural_subdivisions = getObjOflist(this.dpa_obj.list_structural_subdivisions, 'id', id);
