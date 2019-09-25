@@ -40,7 +40,7 @@ jQuery(document).ready(function ($) {
         pm = null,
         chain_pm = null,
         while_pm = '0',
-        list_project = null,
+        list_project = [],
         list_pm = [],
         list_ss = [],
         loadReference = function (callback) {
@@ -1230,9 +1230,16 @@ jQuery(document).ready(function ($) {
                         project_detali.mode = 0;
                         $('.mode-view').show();
                         if (edit) {
-                            $('input#edit-info', 'input#edit-performer', 'input#edit-budget', 'input#edit-manager').show();
+                            $('input#edit-info').show();
+                            $('input#edit-performer').show();
+                            $('input#edit-budget').show();
+                            $('input#edit-manager').show();
+
                         } else {
-                            $('input#edit-info', 'input#edit-performer', 'input#edit-budget', 'input#edit-manager').hide();
+                            $('input#edit-info').hide();
+                            $('input#edit-performer').hide();
+                            $('input#edit-budget').hide();
+                            $('input#edit-manager').hide();
                         }
                         break;
                     case 1:
