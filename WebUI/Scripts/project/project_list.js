@@ -73,7 +73,7 @@ jQuery(document).ready(function ($) {
                 user = result_user;
                 prj.getAsyncProjectManagerOfIDUser(user.id, function (result_pm) {
                     pm = result_pm;
-                    //pm.id = 11; // !!!!!!!!! тест
+                    //pm.id = 10; // !!!!!!!!! тест
                     prj.getAsyncChainProjectManagerOfIDPM(pm.id, function (result_chain_pm) {
                         chain_pm = result_chain_pm;
 
