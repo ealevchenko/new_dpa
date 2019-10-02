@@ -6,13 +6,18 @@
 @section styles {
     @Styles.Render("~/jquery-ui/css")
     @Styles.Render("~/DateTime/css")
+    <link rel="stylesheet" type="text/css" href="~/Content/Gantt/jsgantt.css">
+
     <link rel="stylesheet" type="text/css" href="~/Content/project/project_list.css">
+
 }
 
 @section scripts {
 
     @Scripts.Render("~/bundles/jquery-ui");
     @Scripts.Render("~/bundles/DateTime")
+    @*<script src="~/Scripts/Gantt/jsgantt.js" type="text/javascript"></script>*@
+
     <script src="~/Scripts/jquery.mixitup.min.js" type="text/javascript"></script>
     <script src="~/Scripts/jquery.cookie.js" type="text/javascript"></script>
     <script src="~/Scripts/shared/common.js" type="text/javascript"></script>
@@ -688,13 +693,24 @@
                     </div>
                 </div>
             </div>
-            <div id="accordion_project_steps">
-                <h3>@ProjectResource.title_project_steps</h3>
-                <div>
-
-                </div>
-            </div>
+            
         </form>
+        <div id="accordion_project_steps">
+            <h3>@ProjectResource.title_project_steps</h3>
+            <div>
+                @* Окно для просмотра *@
+                <div class="mode-view mode-edit-info mode-edit-performer mode-edit-budget">
+                    <div>
+                        <input type="button" id="edit-steps" value="Править">
+                    </div>
+                    <div>
+                        <script src="~/Scripts/Gantt/jsgantt.js" type="text/javascript"></script>
+                        <div style="position:relative" class="gantt" id="GanttChartDIV"></div>
+                    </div>
+                </div>
+                @* Окно для правки *@
+            </div>
+        </div>
     </div>
     <a href="#0" class="close cd-img-replace">Close</a>
     @*<nav class="cd-stretchy-nav">

@@ -19,11 +19,11 @@ namespace EFProjects.Entities
         public int id { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(100)]
         public string stages_project_ru { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(100)]
         public string stages_project_en { get; set; }
 
         [StringLength(1000)]
