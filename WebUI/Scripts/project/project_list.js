@@ -1142,7 +1142,89 @@ jQuery(document).ready(function ($) {
                         }
                     }
                     //  STEPS ------------------------------------------------------------
-                    out_grGantt();
+                    if (project.StagesProject) {
+                        g = new JSGantt.GanttChart('g', document.getElementById('GanttChartDIV'), 'month');
+                        g.setShowRes(1); // Show/Hide Responsible (0/1)
+                        g.setShowDur(1); // Show/Hide Duration (0/1)
+                        g.setShowComp(1); // Show/Hide % Complete(0/1)
+                        g.setCaptionType('Resource');  // Set to Show Caption (None,Caption,Resource,Duration,Complete)
+                        if (g) {
+                                //g.AddTaskItem(new JSGantt.TaskItem(1, 'Define Chart API', '', '', 'ff0000', 'http://google.com', 0, 'Brian', 0, 1, 0, 1));
+                                //g.AddTaskItem(new JSGantt.TaskItem(11, 'Chart Object', '20.07.2019', '21.08.2019', 'ff00ff', 'http://www.yahoo.com', 1, 'Shlomy', 100, 0, 1, 1));
+                                $.each(project.StagesProject, function (i, el) {
+                                    //var d = moment(el.start).format("MM.DD.YYYY");
+                                g.AddTaskItem(new JSGantt.TaskItem(el.id,
+                                    el.TemplatesStagesProject.stages_project_ru,
+                                    el.start != null ? moment(el.start).format("DD.MM.YYYY") : '',
+                                    el.stop != null ? moment(el.stop).format("DD.MM.YYYY") : '',
+                                    'ff00ff',
+                                    '',
+                                    el.mile != null ? el.mile : 0,
+                                    el.resource != null ? el.resource : '',
+                                    el.persent,
+                                    el.group,
+                                    el.parent_id != null ? el.parent_id : 0,
+                                    1,
+                                    el.depend));
+                            });
+
+                            //TaskItem (pID, pName, pStart, pEnd, pColor, pLink, pMile, pRes, pComp, pGroup, pParent, pOpen, pDepend)
+                            //pID: (обязательно) - уникальный идентификатор, используемый для идентификации каждой строки родительских функций и для установки идентификатора домена для скрытия / отображения
+                            //pName: (обязательно) это ярлык задачи
+                            //pStart: (обязательно) дата начала задачи, можно ввести пустую дату ('') для групп. Вы также можете ввести конкретное время (2/10/2008 12:00) для дополнительного разрешения или полдня.
+                            //    pEnd: (обязательно) дата окончания задачи, можно ввести пустую дату ('') для групп
+                            //pColor: (требуется) цвет html для этой задачи; например '00ff00'
+                            //pLink: (необязательно) любая http-ссылка, по которой переходили при щелчке панели задач.
+                            //    pMile: (необязательно) представляет веху
+                            //pRes: (необязательно) имя ресурса
+                            //pComp: (обязательно) процент выполнения
+                            //pGroup: (необязательно) указывает, является ли это группа (родительская) - 0 = НЕ родительский; 1 = IS Parent
+                            //pParent: (обязательно) идентифицирует родительский pID, это делает эту задачу дочерней по отношению к идентифицированной задаче
+                            //pOpen: изначально можно установить закрытие папки при первом рисовании графика
+                            //pDepend: необязательный список идентификаторов, эта задача зависит от ... линии, нарисованной из зависимых от этого элемента
+                            //pCaption: необязательный заголовок, который будет добавлен после панели задач, если для CaptionType установлено значение «Caption»
+                            // * Вы должны иметь возможность добавлять элементы на график в режиме реального времени с помощью JavaScript и выполнения команды "g.Draw ()".
+                            g.Draw();
+                            g.DrawDependencies();
+                        } else {
+                            alert("not defined");
+                        }
+
+                    };
+                    //out_grGantt();
+                    //g = new JSGantt.GanttChart('g', document.getElementById('GanttChartDIV'), 'day');
+                    //g.setShowRes(1); // Show/Hide Responsible (0/1)
+                    //g.setShowDur(1); // Show/Hide Duration (0/1)
+                    //g.setShowComp(1); // Show/Hide % Complete(0/1)
+                    //g.setCaptionType('Resource');  // Set to Show Caption (None,Caption,Resource,Duration,Complete)
+                    ////var gr = new Graphics();
+                    //if (g) {
+                    //    g.AddTaskItem(new JSGantt.TaskItem(1, 'Define Chart API', '', '', 'ff0000', 'http://google.com', 0, 'Brian', 0, 1, 0, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(11, 'Chart Object', '7/20/2008', '7/20/2008', 'ff00ff', 'http://www.yahoo.com', 1, 'Shlomy', 100, 0, 1, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(12, 'Task Objects', '', '', '00ff00', '', 0, 'Shlomy', 40, 1, 1, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(121, 'Constructor Proc', '7/21/2008', '8/9/2008', '00ffff', 'http://www.yahoo.com', 0, 'Brian T.', 60, 0, 12, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(122, 'Task Variables', '8/6/2008', '8/11/2008', 'ff0000', 'http://google.com', 0, 'Brian', 60, 0, 12, 1, 121));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(123, 'Task by Minute/Hour', '8/6/2008', '8/11/2008 12:00', 'ffff00', 'http://google.com', 0, 'Ilan', 60, 0, 12, 1, 121));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(124, 'Task Functions', '8/9/2008', '8/29/2008', 'ff0000', 'http://google.com', 0, 'Anyone', 60, 0, 12, 1, 0, 'This is another caption'));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(2, 'Create HTML Shell', '8/24/2008', '8/25/2008', 'ffff00', 'http://google.com', 0, 'Brian', 20, 0, 0, 1, 122));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(3, 'Code Javascript', '', '', 'ff0000', 'http://google.com', 0, 'Brian', 0, 1, 0, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(31, 'Define Variables', '7/25/2008', '8/17/2008', 'ff00ff', 'http://google.com', 0, 'Brian', 30, 0, 3, 1, '', 'Caption 1'));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(32, 'Calculate Chart Size', '8/15/2008', '8/24/2008', '00ff00', 'http://google.com', 0, 'Shlomy', 40, 0, 3, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(33, 'Draw Taks Items', '', '', '00ff00', 'http://google.com', 0, 'Someone', 40, 1, 3, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(332, 'Task Label Table', '8/6/2008', '8/11/2008', '0000ff', 'http://google.com', 0, 'Brian', 60, 0, 33, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(333, 'Task Scrolling Grid', '8/9/2008', '8/20/2008', '0000ff', 'http://google.com', 0, 'Brian', 60, 0, 33, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(34, 'Draw Task Bars', '', '', '990000', 'http://google.com', 0, 'Anybody', 60, 1, 3, 0));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(341, 'Loop each Task', '8/26/2008', '9/11/2008', 'ff0000', 'http://google.com', 0, 'Brian', 60, 0, 34, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(342, 'Calculate Start/Stop', '9/12/2008', '10/18/2008', 'ff6666', 'http://google.com', 0, 'Brian', 60, 0, 34, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(343, 'Draw Task Div', '10/13/2008', '10/17/2008', 'ff0000', 'http://google.com', 0, 'Brian', 60, 0, 34, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(344, 'Draw Completion Div', '10/17/2008', '11/04/2008', 'ff0000', 'http://google.com', 0, 'Brian', 60, 0, 34, 1, "342,343"));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(35, 'Make Updates', '12/17/2008', '2/04/2009', 'f600f6', 'http://google.com', 0, 'Brian', 30, 0, 3, 1));
+                    //    g.Draw();
+                    //    g.DrawDependencies();
+                    //}
+                    //else {
+                    //    alert("not defined");
+                    //}
                 }
             },
             //

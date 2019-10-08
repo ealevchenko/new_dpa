@@ -76,6 +76,9 @@ namespace WebUI.App_Start
             kernel.Bind<EFProjects.Abstract.IRepository<EFProjects.Entities.ListProjects>>().To<EFProjects.Concrete.EFListProjects>();
             kernel.Bind<EFProjects.Abstract.IRepository<EFProjects.Entities.TypeProject>>().To<EFProjects.Concrete.EFTypeProject>();
             kernel.Bind<EFProjects.Abstract.IRepository<EFProjects.Entities.WorkPerformers>>().To<EFProjects.Concrete.EFWorkPerformers>();
+            kernel.Bind<EFProjects.Abstract.IRepository<EFProjects.Entities.TemplatesStagesProject>>().To<EFProjects.Concrete.EFTemplatesStagesProject>();
+            kernel.Bind<EFProjects.Abstract.IRepository<EFProjects.Entities.StagesProject>>().To<EFProjects.Concrete.EFStagesProject>();
+
         }        
     }
 }

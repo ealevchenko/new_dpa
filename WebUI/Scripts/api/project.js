@@ -214,8 +214,30 @@ Project.prototype.postAsyncListProjects = function (project, callback) {
         },
     });
 };
-
-
+//======= ListProjects ======================================
+// Веруть список шагов проекта по id_project
+Project.prototype.getAsyncStagesProjectOfIDProject = function (id_project, callback) {
+    $.ajax({
+        type: 'GET',
+        url: '../../api/project/sp/project_id/' + id_project,
+        async: true,
+        dataType: 'json',
+        beforeSend: function () {
+            AJAXBeforeSend();
+        },
+        success: function (data) {
+            if (typeof callback === 'function') {
+                callback(data);
+            }
+        },
+        error: function (x, y, z) {
+            OnAJAXError(x, y, z);
+        },
+        complete: function () {
+            AJAXComplete();
+        },
+    });
+};
 //======= ProjectManager ======================================
 // Веруть список менеджеров проектов
 Project.prototype.getAsyncProjectManager = function (callback) {

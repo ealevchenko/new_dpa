@@ -212,7 +212,9 @@
     <Compile Include="Areas\Systems\SystemsAreaRegistration.cs" />
     <Compile Include="Controllers\api\ListProjectsController.cs" />
     <Compile Include="Controllers\api\ProjectManagerController.cs" />
+    <Compile Include="Controllers\api\StagesProjectController.cs" />
     <Compile Include="Controllers\api\StructuralSubdivisionsController.cs" />
+    <Compile Include="Controllers\api\TemplatesStagesProjectController.cs" />
     <Compile Include="Controllers\api\TypeProjectController.cs" />
     <Compile Include="Controllers\api\UsersController.cs" />
     <Compile Include="Controllers\api\WorkPerformersController.cs" />
