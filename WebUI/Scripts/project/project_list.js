@@ -1149,10 +1149,10 @@ jQuery(document).ready(function ($) {
                         g.setShowComp(1); // Show/Hide % Complete(0/1)
                         g.setCaptionType('Resource');  // Set to Show Caption (None,Caption,Resource,Duration,Complete)
                         if (g) {
-                                //g.AddTaskItem(new JSGantt.TaskItem(1, 'Define Chart API', '', '', 'ff0000', 'http://google.com', 0, 'Brian', 0, 1, 0, 1));
-                                //g.AddTaskItem(new JSGantt.TaskItem(11, 'Chart Object', '20.07.2019', '21.08.2019', 'ff00ff', 'http://www.yahoo.com', 1, 'Shlomy', 100, 0, 1, 1));
-                                $.each(project.StagesProject, function (i, el) {
-                                    //var d = moment(el.start).format("MM.DD.YYYY");
+                            //g.AddTaskItem(new JSGantt.TaskItem(1, 'Define Chart API', '', '', 'ff0000', 'http://google.com', 0, 'Brian', 0, 1, 0, 1));
+                            //g.AddTaskItem(new JSGantt.TaskItem(11, 'Chart Object', '20.07.2019', '21.08.2019', 'ff00ff', 'http://www.yahoo.com', 1, 'Shlomy', 100, 0, 1, 1));
+                            $.each(project.StagesProject, function (i, el) {
+                                //var d = moment(el.start).format("MM.DD.YYYY");
                                 g.AddTaskItem(new JSGantt.TaskItem(el.id,
                                     el.TemplatesStagesProject.stages_project_ru,
                                     el.start != null ? moment(el.start).format("DD.MM.YYYY") : '',
@@ -1190,6 +1190,65 @@ jQuery(document).ready(function ($) {
                             alert("not defined");
                         }
 
+                        //// Alternative format of the node (id & parent are required)
+                        //{
+                        //    id          : "string" // required
+                        //    parent      : "string" // required
+                        //    text        : "string" // node text
+                        //    icon        : "string" // string for custom
+                        //    state       : {
+                        //            opened    : boolean  // is the node open
+                        //            disabled  : boolean  // is the node disabled
+                        //            selected  : boolean  // is the node selected
+                        //    },
+                        //    li_attr     : {}  // attributes for the generated LI node
+                        //    a_attr      : {}  // attributes for the generated A node
+                        //}
+                        var data = [];
+                        $.each(project.StagesProject, function (i, el) {
+                            data.push({ id: el.id, parent: el.parent_id != null ? el.parent_id : "#", text: el.TemplatesStagesProject.stages_project_ru, state: { opened: true, selected: false } });
+                        });
+                        $('div#project-step-tree').jstree({
+                            "core": {
+                                "animation": 0,
+                                "check_callback": true,
+                                "themes": { "stripes": true },
+                                'data': data
+                            },
+                        });
+                        $('button#create-step').on('click', function () {
+                            event.preventDefault();
+                            var ref = $('div#project-step-tree').jstree(true),
+								sel = ref.get_selected();
+                            if (!sel.length) { return false; }
+                            sel = sel[0];
+                            sel = ref.create_node(sel, { "type": "file" });
+                            if (sel) {
+                                ref.edit(sel);
+                            }
+
+                        });
+                        $('div#project-step-tree').on('changed.jstree', function (e, data) {
+                            var i, j = [];
+                            var r
+                            for (i = 0, j = data.selected.length; i < j; i++) {
+                                r = data.instance.get_node(data.selected[i]);
+                            }
+                            //$('.steps-tree-detali').html('Selected: ' + r.join(', '));
+                        });
+
+
+
+                        //$('div#project-step-tree').jstree({
+                        //    'core': {
+                        //        'data': [
+                        //           { "id": "ajson1", "parent": "#", "text": "Simple root node" },
+                        //           { "id": "ajson2", "parent": "#", "text": "Root node 2" },
+                        //           { "id": "ajson3", "parent": "ajson2", "text": "Child 1" },
+                        //           { "id": "ajson4", "parent": "ajson2", "text": "Child 2" },
+                        //        ]
+                        //    }
+                        //});
                     };
                     //out_grGantt();
                     //g = new JSGantt.GanttChart('g', document.getElementById('GanttChartDIV'), 'day');

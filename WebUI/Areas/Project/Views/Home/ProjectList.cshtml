@@ -7,7 +7,7 @@
     @Styles.Render("~/jquery-ui/css")
     @Styles.Render("~/DateTime/css")
     <link rel="stylesheet" type="text/css" href="~/Content/Gantt/jsgantt.css">
-
+    <link rel="stylesheet" href="~/Content/themes/default/style.min.css">
     <link rel="stylesheet" type="text/css" href="~/Content/project/project_list.css">
 
 }
@@ -17,6 +17,7 @@
     @Scripts.Render("~/bundles/jquery-ui");
     @Scripts.Render("~/bundles/DateTime")
     <script src="~/Scripts/Gantt/jsgantt.js" type="text/javascript"></script>
+    <script src="~/Scripts/jstree.min.js" type="text/javascript"></script>
 
     <script src="~/Scripts/jquery.mixitup.min.js" type="text/javascript"></script>
     <script src="~/Scripts/jquery.cookie.js" type="text/javascript"></script>
@@ -693,7 +694,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </form>
         <div id="accordion_project_steps">
             <h3>@ProjectResource.title_project_steps</h3>
@@ -709,7 +710,25 @@
                     </div>
                 </div>
                 @* Окно для правки *@
+                <div class="mode-edit-step" id="accordion-step">
+                    <div class="project-steps">
+                        <div class="steps-tree">
+                            <div class="stap-tree-upr">
+                                <button type="button" id="create-step">Create</button>
+                                <button type="button" id="rename-step">Rename</button>
+                                <button type="button" id="delete-step">Delete</button>
+                            </div>
+                            <div class="step-tree-view">
+                                <div id="project-step-tree"></div>
+                            </div>
+                        </div>
+                        <div class="steps-tree-detali">
+                            edit
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
     <a href="#0" class="close cd-img-replace">Close</a>
