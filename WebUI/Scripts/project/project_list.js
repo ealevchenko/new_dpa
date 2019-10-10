@@ -225,6 +225,88 @@ jQuery(document).ready(function ($) {
                 addCardGallery(el);
             })
         },
+
+        project_step_detali = {
+            project_step_name: null,
+            project_step_group: null,
+            project_step_start: null,
+            project_step_stop: null,
+            project_step_resource: null,
+            project_step_compile: null,
+            project_step_compile_handle: null,
+            project_step_current: null,
+            project_step_skip: null,
+            select_project_step_parent: null,
+            select_project_step_depend: null,
+            project_step_coment: null,
+            curent_step: null,
+            init: function () {
+                this.project_step_name = $('input#project-step-name');
+                this.project_step_group = $('input#project-step-group').checkboxradio({ icon: true });
+                this.project_step_start = $('input#project-step-start');
+                this.project_step_stop = $('input#project-step-stop');
+                this.project_step_resource = $('input#project-step-resource');
+                this.project_step_compile_handle = $("#custom-handle");
+                this.project_step_compile = $('#slider-compile').slider({
+                    create: function () {
+                        project_step_detali.project_step_compile_handle.text($(this).slider("value"));
+                    },
+                    slide: function (event, ui) {
+                        project_step_detali.project_step_compile_handle.text(ui.value);
+                    }
+                });
+                this.project_step_current = $('input#project-step-current').checkboxradio({ icon: true });
+                this.project_step_skip = $('input#project-step-skip').checkboxradio({ icon: true });
+                this.select_project_step_parent = initSelect(
+                    $('select#project-step-parent'),
+                    { lang: lang },
+                    [],
+                    null,
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val();
+                    },
+                    null);
+                this.select_project_step_depend = initSelect(
+                    $('select#project-step-depend'),
+                    { lang: lang },
+                    [],
+                    null,
+                    -1,
+                    function (event) {
+                        event.preventDefault();
+                        var id = $(this).val();
+                    },
+                    null);
+                this.project_step_coment = $('textarea#project-step-coment');
+                // Перевести в режим просмотра
+                project_step_detali.mode_view();
+            },
+            mode_view: function () {
+                this.project_step_name.prop("disabled", true);
+                this.project_step_group.prop("disabled", true);
+                this.project_step_start.prop("disabled", true);
+                this.project_step_stop.prop("disabled", true);
+                this.project_step_resource.prop("disabled", true);
+                this.project_step_compile.slider("disable");
+                this.project_step_current.prop("disabled", true);
+                this.project_step_skip.prop("disabled", true);
+                this.select_project_step_parent.selectmenu("disable");
+                this.select_project_step_depend.selectmenu("disable");
+                this.project_step_coment.prop("disabled", true);
+            },
+            view_step: function (step) {
+                project_step_detali.curent_step = step;
+                if (step) {
+                    project_step_detali.project_step_name.val(step.TemplatesStagesProject.stages_project_ru);
+                    //project_step_detali.project_step_group.ch
+                    project_step_detali.project_step_compile.slider("value", step.persent);
+                    project_step_detali.project_step_compile_handle.text(step.persent)
+                }
+
+            },
+        },
         // Окно проекты детально
         project_detali = {
             content: $('.cd-project-content'),
@@ -1023,6 +1105,10 @@ jQuery(document).ready(function ($) {
                         var id = $(this).val()
                     },
                     null);
+                //------------------------------------------------------------------------------------------------
+                // STEPS ------------------------------------------------------------
+                //----------------------------------------------------------------------
+                project_step_detali.init();
 
                 //// Активировать меню редактирования пректов
                 //if ($('.cd-stretchy-nav').length > 0) {
@@ -1205,6 +1291,8 @@ jQuery(document).ready(function ($) {
                         //    a_attr      : {}  // attributes for the generated A node
                         //}
                         var data = [];
+                        var data_step = project.StagesProject;
+                        var select_step;
                         $.each(project.StagesProject, function (i, el) {
                             data.push({ id: el.id, parent: el.parent_id != null ? el.parent_id : "#", text: el.TemplatesStagesProject.stages_project_ru, state: { opened: true, selected: false } });
                         });
@@ -1233,6 +1321,11 @@ jQuery(document).ready(function ($) {
                             var r
                             for (i = 0, j = data.selected.length; i < j; i++) {
                                 r = data.instance.get_node(data.selected[i]);
+                                var step = getObjects(data_step, 'id', r.id);
+                                if (step.length) {
+                                    //select_step = step[0];
+                                    project_step_detali.view_step(step[0]);
+                                }
                             }
                             //$('.steps-tree-detali').html('Selected: ' + r.join(', '));
                         });

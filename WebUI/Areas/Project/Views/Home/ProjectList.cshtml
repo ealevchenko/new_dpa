@@ -694,7 +694,6 @@
                     </div>
                 </div>
             </div>
-
         </form>
         <div id="accordion_project_steps">
             <h3>@ProjectResource.title_project_steps</h3>
@@ -723,7 +722,55 @@
                             </div>
                         </div>
                         <div class="steps-tree-detali">
-                            edit
+                            <button type="button" id="delete-step">Добавить</button>
+                            <button type="button" id="delete-step">Править</button>
+                            <button type="button" id="delete-step">Удалить</button>
+                            <fieldset>
+                                @*<legend>Шаг проекта:</legend>*@
+                                <div class="step-field">
+                                    <label class="label-field" for="project-step-name">Шаг проекта:</label>
+                                    <input class="" type="text" id="project-step-name" name="project-step-name">
+                                </div>
+                                <div class="step-field">
+                                    <label class="" for="project-step-group">Папка:</label>
+                                    <input class="" type="checkbox" id="project-step-group" name="project-step-group">
+                                </div>
+                                <div class="step-field">
+                                    <label class="label-field" for="project-step-start">Начало и конец:</label>
+                                    <input class="left" type="date" id="project-step-start" name="project-step-start">
+                                    <input class="right" type="date" id="project-step-start" name="project-step-start">
+                                </div>
+                                <div class="step-field">
+                                    <label class="label-field" for="project-step-resource">Исполнитель:</label>
+                                    <input class="" type="text" id="project-step-resource" name="project-step-resource">
+                                </div>
+                                <div class="step-field">
+                                    <label class="label-field" for="project-step-name">% выполнения:</label>
+                                    <div class="slider" id="slider-compile">
+                                        <div id="custom-handle" class="ui-slider-handle"></div>
+                                    </div>
+                                </div>
+                                <div class="step-field">
+                                    <label class="" for="project-step-current">Текущий:</label>
+                                    <input class="" type="checkbox" id="project-step-current" name="project-step-current">
+                                </div>
+                                <div class="step-field">
+                                    <label class="" for="project-step-skip">Пропустить:</label>
+                                    <input class="" type="checkbox" id="project-step-skip" name="project-step-skip">
+                                </div>
+                                <div class="step-field">
+                                    <label class="label-field" for="project-step-parent">Родитель:</label>
+                                    <select class="" id="project-step-parent" name="project-step-parent"></select>
+                                </div>
+                                <div class="step-field">
+                                    <label class="label-field" for="project-step-depend">Зависит от:</label>
+                                    <select class="" id="project-step-depend" name="project-step-depend"></select>
+                                </div>
+                                <div class="step-field">
+                                    <label class="label-field" for="project-step-coment">Шаг проекта:</label>
+                                    <textarea class="" name="project-step-coment" id="project-step-coment"></textarea>
+                                </div>
+                            </fieldset>
                         </div>
                     </div>
                 </div>
