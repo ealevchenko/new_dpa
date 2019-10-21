@@ -14,6 +14,11 @@ var project_step_detali = {
     select_project_step_parent: null,
     select_project_step_depend: null,
     project_step_coment: null,
+    project_step_create: null,
+    project_step_edit: null,
+    project_step_delete: null,
+    project_step_cancel: null,
+    project_step_save: null,
     curent_step: null,  // текущий шаг
     data_step: [],      // загруженные шаги
     // Инициализация
@@ -54,18 +59,27 @@ var project_step_detali = {
                             enabled: false
                         },
                         setValue: function (s, s1, s2) {
-                            $('input#date-start').val(s1);
-                            $('input#date-stop').val(s2);
-                            panel_select_report.period = s1 + '-' + s2;
+                            if (s1 !== s2) {
+                                project_step_detali.project_step_start.val(s1);
+                                project_step_detali.project_step_stop.val(s2);
+                            } else {
+                                project_step_detali.project_step_start.val("");
+                                project_step_detali.project_step_stop.val("");
+                            }
+
                         }
                     }).
                     bind('datepicker-change', function (evt, obj) {
-                        panel_select_report.date_start = obj.date1;
-                        panel_select_report.date_stop = obj.date2;
-                        panel_select_report.period = obj.value;
+                        //panel_select_report.date_start = obj.date1;
+                        //panel_select_report.date_stop = obj.date2;
                     })
                     .bind('datepicker-closed', function () {
-                        tab_type_reports.activeTable(tab_type_reports.active, true);
+
+                    }).bind('datepicker-open',function(evt)
+                    {
+                        evt.stopPropagation();
+                        //project_step_detali.project_step_range.data('dateRangePicker').close();
+                        //evt.preventDefault();
                     });
         this.project_step_start = $('input#project-step-start');
         this.project_step_stop = $('input#project-step-stop');
@@ -104,6 +118,28 @@ var project_step_detali = {
             },
             null);
         this.project_step_coment = $('textarea#project-step-coment');
+        // Кнопки
+        // Добавить шаг
+        this.project_step_create = $('button#create-step').on('click', function () {
+
+        });
+        // Править шаг
+        this.project_step_edit = $('button#edit-step').on('click', function () {
+            project_step_detali.mode_edit();
+        });
+        // Удалить шаг
+        this.project_step_delete = $('button#delete-step').on('click', function () {
+
+        });
+        // Отмена шаг
+        this.project_step_cancel = $('button#cancel-step').on('click', function () {
+            project_step_detali.view_step(project_step_detali.curent_step);
+            project_step_detali.mode_view();
+        });
+        // Сохранить шаг
+        this.project_step_save = $('button#save-step').on('click', function () {
+
+        });
         // Перевести в режим просмотра
         project_step_detali.mode_view();
     },
@@ -113,6 +149,7 @@ var project_step_detali = {
         this.project_step_group.prop("disabled", true);
         this.project_step_start.prop("disabled", true);
         this.project_step_stop.prop("disabled", true);
+        this.project_step_range.prop("disabled", true);
         this.project_step_resource.prop("disabled", true);
         this.project_step_compile.slider("disable");
         this.project_step_current.prop("disabled", true);
@@ -120,6 +157,31 @@ var project_step_detali = {
         this.select_project_step_parent.selectmenu("disable");
         this.select_project_step_depend.selectmenu("disable");
         this.project_step_coment.prop("disabled", true);
+        this.project_step_create.show();
+        this.project_step_edit.show();
+        this.project_step_delete.show();
+        this.project_step_cancel.hide();
+        this.project_step_save.hide();
+    },
+    //
+    mode_edit: function () {
+        this.project_step_name.prop("disabled", false);
+        this.project_step_group.prop("disabled", false);
+        this.project_step_start.prop("disabled", false);
+        this.project_step_stop.prop("disabled", false);
+        this.project_step_range.prop("disabled", false);
+        this.project_step_resource.prop("disabled", false);
+        this.project_step_compile.slider("enable");
+        this.project_step_current.prop("disabled", false);
+        this.project_step_skip.prop("disabled", false);
+        this.select_project_step_parent.selectmenu("enable");
+        this.select_project_step_depend.selectmenu("enable");
+        this.project_step_coment.prop("disabled", false);
+        this.project_step_create.hide();
+        this.project_step_edit.hide();
+        this.project_step_delete.hide();
+        this.project_step_cancel.show();
+        this.project_step_save.show();
     },
     // Показать шаг
     view_step: function (step) {
@@ -127,9 +189,14 @@ var project_step_detali = {
         if (step) {
             project_step_detali.project_step_name.val(step.TemplatesStagesProject.stages_project_ru);
             project_step_detali.project_step_group.prop('checked', step.group).checkboxradio("refresh");
-            //project_step_detali.project_step_start
-            project_step_detali.project_step_compile.slider("value", step.persent);
-            project_step_detali.project_step_compile_handle.text(step.persent)
+            project_step_detali.project_step_range.data('dateRangePicker').setDateRange(step.start != null ? moment(step.start).format("DD.MM.YYYY") : "", step.stop != null ? moment(step.stop).format("DD.MM.YYYY") : "", true);
+            project_step_detali.project_step_resource.val(step.resource);
+            project_step_detali.project_step_compile.slider("value", step.persent); // Процент выполнения
+            project_step_detali.project_step_current.prop('checked', step.current).checkboxradio("refresh");
+            project_step_detali.project_step_skip.prop('checked', step.skip).checkboxradio("refresh");
+            project_step_detali.project_step_compile_handle.text(step.persent)      // отразить Процент выполнения
+
+            project_step_detali.project_step_coment.text(step.coment)      // коментарий
         }
 
     },

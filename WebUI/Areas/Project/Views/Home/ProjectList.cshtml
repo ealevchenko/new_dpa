@@ -713,18 +713,20 @@
                     <div class="project-steps">
                         <div class="steps-tree">
                             <div class="stap-tree-upr">
-                                <button type="button" id="create-step">Create</button>
+                                @*<button type="button" id="create-step">Create</button>
                                 <button type="button" id="rename-step">Rename</button>
-                                <button type="button" id="delete-step">Delete</button>
+                                <button type="button" id="delete-step">Delete</button>*@
                             </div>
                             <div class="step-tree-view">
                                 <div id="project-step-tree"></div>
                             </div>
                         </div>
                         <div class="steps-tree-detali">
-                            <button type="button" id="delete-step">Добавить</button>
-                            <button type="button" id="delete-step">Править</button>
+                            <button type="button" id="create-step">Добавить</button>
+                            <button type="button" id="edit-step">Править</button>
                             <button type="button" id="delete-step">Удалить</button>
+                            <button type="button" id="cancel-step">Отмена</button>
+                            <button type="button" id="save-step">Сохранить</button>
                             <fieldset>
                                 @*<legend>Шаг проекта:</legend>*@
                                 <div class="step-field">
@@ -770,7 +772,7 @@
                                     <select class="" id="project-step-depend" name="project-step-depend"></select>
                                 </div>
                                 <div class="step-field">
-                                    <label class="label-field" for="project-step-coment">Шаг проекта:</label>
+                                    <label class="label-field" for="project-step-coment">Коментарий:</label>
                                     <textarea class="" name="project-step-coment" id="project-step-coment"></textarea>
                                 </div>
                             </fieldset>
