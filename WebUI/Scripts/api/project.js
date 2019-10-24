@@ -8,6 +8,7 @@ Project.list_type_project = [];     // список типов проекта
 Project.list_work_performers = [];  // Подрядная организация
 Project.list_project = [];          // Список проектов
 Project.list_project_manager = [];  // Список руководителей проектов
+Project.list_templates_stages_project = [];  // Список шаблонов шагов  проекта
 
 Project.prototype.load = function (list, callback) {
     var count = list.length + 1;
@@ -52,6 +53,19 @@ Project.prototype.load = function (list, callback) {
         if (el === 'pm') {
             Project.prototype.getAsyncProjectManager(function (result_project_manager) {
                 obj.list_project_manager = result_project_manager;
+                count -= 1;
+                if (count <= 0) {
+                    if (typeof callback === 'function') {
+                        LockScreenOff();
+                        callback();
+                    }
+                }
+            });
+        };
+        // Загрузить список шаблонов шагов проекта
+        if (el === 'tsp') {
+            Project.prototype.getAsyncTemplatesStagesProject(function (result_templates_stages_project) {
+                obj.list_templates_stages_project = result_templates_stages_project;
                 count -= 1;
                 if (count <= 0) {
                     if (typeof callback === 'function') {
@@ -214,12 +228,36 @@ Project.prototype.postAsyncListProjects = function (project, callback) {
         },
     });
 };
-//======= ListProjects ======================================
+//======= StagesProject ======================================
 // Веруть список шагов проекта по id_project
 Project.prototype.getAsyncStagesProjectOfIDProject = function (id_project, callback) {
     $.ajax({
         type: 'GET',
         url: '../../api/project/sp/project_id/' + id_project,
+        async: true,
+        dataType: 'json',
+        beforeSend: function () {
+            AJAXBeforeSend();
+        },
+        success: function (data) {
+            if (typeof callback === 'function') {
+                callback(data);
+            }
+        },
+        error: function (x, y, z) {
+            OnAJAXError(x, y, z);
+        },
+        complete: function () {
+            AJAXComplete();
+        },
+    });
+};
+//======= TemplatesStagesProject ======================================
+// Веруть список шаблонов шагов проекта
+Project.prototype.getAsyncTemplatesStagesProject = function (callback) {
+    $.ajax({
+        type: 'GET',
+        url: '../../api/project/tsp/all',
         async: true,
         dataType: 'json',
         beforeSend: function () {

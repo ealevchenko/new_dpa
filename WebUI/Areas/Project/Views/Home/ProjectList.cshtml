@@ -698,129 +698,131 @@
         <div id="accordion_project_steps">
             <h3>@ProjectResource.title_project_steps</h3>
             <div>
-                @* Окно для просмотра *@
-                <div class="mode-view mode-edit-info mode-edit-performer mode-edit-budget mode-edit-manager">
-                    <div>
-                        <button type="button" id="edit-steps">Править</button>
-                        <button type="button" id="template-steps">Шаблон</button>
-                        <button type="button" id="save-steps">Сохранить</button>
-                        <button type="button" id="cancel-steps">Отмена</button>
-                    </div>
-                    <div>
-                        <div style="position:relative" class="gantt" id="GanttChartDIV"></div>
-                    </div>
-                </div>
-                @* Окно для правки *@
-                <div class="mode-edit-step" id="steps-edit">
-                    <div class="project-steps">
-                        <div class="steps-tree">
-                            <div class="stap-tree-upr">
-                                @*<button type="button" id="create-step">Create</button>
-                                    <button type="button" id="rename-step">Rename</button>
-                                    <button type="button" id="delete-step">Delete</button>*@
-                            </div>
-                            <div class="step-tree-view">
-                                <div id="project-step-tree"></div>
-                            </div>
+                <div>
+                    @* Окно для просмотра *@
+                    <div class="mode-view mode-edit-info mode-edit-performer mode-edit-budget mode-edit-manager">
+                        <div>
+                            <button type="button" id="edit-steps">Править</button>
+                            <button type="button" id="template-steps">Шаблон</button>
+                            <button type="button" id="save-steps">Сохранить</button>
+                            <button type="button" id="cancel-steps">Отмена</button>
                         </div>
-                        <div class="steps-tree-detali">
-                            <div id="steps-tree-detali-view">
-                                <button type="button" id="create-step">Добавить</button>
-                                <button type="button" id="edit-step">Править</button>
-                                <button type="button" id="delete-step">Удалить</button>
-                                <fieldset>
-                                    <div class="step-field">
-                                        <label class="label-field" for="project-step-name-view">Шаг проекта:</label>
-                                        <input class="" type="text" id="project-step-name-view" name="project-step-name-view" disabled="disabled">
-                                    </div>
-                                    <div class="step-field">
-                                        <label class="" for="project-step-group-view">Папка:</label>
-                                        <input class="" type="checkbox" id="project-step-group-view" name="project-step-group-view" disabled="disabled">
-                                    </div>
-                                    <div class="step-field">
-                                        <label class="label-field" for="project-step-range-view">Начало и конец:</label>
-                                        <input class="left" type="text" id="project-step-range-view" name="project-step-range-view" disabled="disabled">
-                                    </div>
-                                    <div class="step-field">
-                                        <label class="label-field" for="project-step-resource-view">Исполнитель:</label>
-                                        <input class="" type="text" id="project-step-resource-view" name="project-step-resource-view" disabled="disabled">
-                                    </div>
-                                    <div class="step-field">
-                                        <label class="label-field" for="project-step-compile-view">% выполнения:</label>
-                                        <input class="" type="text" id="project-step-compile-view" name="project-step-compile-view" disabled="disabled">
-                                    </div>
-                                    <div class="step-field">
-                                        <label class="" for="project-step-current-view">Текущий:</label>
-                                        <input class="" type="checkbox" id="project-step-current-view" name="project-step-current-view" disabled="disabled">
-                                    </div>
-                                    <div class="step-field">
-                                        <label class="" for="project-step-skip-view">Пропустить:</label>
-                                        <input class="" type="checkbox" id="project-step-skip-view" name="project-step-skip-view" disabled="disabled">
-                                    </div>
-                                    <div class="step-field">
-                                        <label class="label-field" for="project-step-parent-view">Родитель:</label>
-                                        <input class="" type="text" id="project-step-parent-view" name="project-step-parent-view" disabled="disabled">
-                                    </div>
-                                    <div class="step-field">
-                                        <label class="label-field" for="project-step-depend-view">Зависит от:</label>
-                                        <textarea class="" type="text" id="project-step-depend-view" name="project-step-depend-view" disabled="disabled"></textarea>
-                                    </div>
-                                    <div class="step-field">
-                                        <label class="label-field" for="project-step-coment-view">Коментарий:</label>
-                                        <textarea class="" name="project-step-coment-view" id="project-step-coment-view" disabled="disabled"></textarea>
-                                    </div>
-                                </fieldset>
+                        <div>
+                            <div style="position:relative" class="gantt" id="GanttChartDIV"></div>
+                        </div>
+                    </div>
+                    @* Окно для правки *@
+                    <div class="mode-edit-step" id="steps-edit">
+                        <div class="project-steps">
+                            <div class="steps-tree">
+                                <div class="stap-tree-upr">
+                                    @*<button type="button" id="create-step">Create</button>
+                        <button type="button" id="rename-step">Rename</button>
+                        <button type="button" id="delete-step">Delete</button>*@
+                                </div>
+                                <div class="step-tree-view">
+                                    <div id="project-step-tree"></div>
+                                </div>
                             </div>
-                            <div id="steps-tree-detali-edit">
-                                <button type="button" id="cancel-step">Отмена</button>
-                                <button type="button" id="save-step">Сохранить</button>
-                                <fieldset>
-                                    <div class="step-field">
-                                        <label class="label-field" for="project-step-name-edit">Шаг проекта:</label>
-                                        <input class="" type="text" id="project-step-name-edit" name="project-step-name-edit">
-                                    </div>
-                                    <div class="step-field">
-                                        <label class="" for="project-step-group-edit">Папка:</label>
-                                        <input class="" type="checkbox" id="project-step-group-edit" name="project-step-groupv">
-                                    </div>
-                                    <div class="step-field">
-                                        <label class="label-field" for="select-range-project-edit">Начало и конец:</label>
-                                        <span id="select-range-project-edit">
-                                            <input class="left" type="date" id="project-step-start-edit" name="project-step-start-edit">
-                                            <input class="right" type="date" id="project-step-start-edit" name="project-step-start-edit">
-                                        </span>
-                                    </div>
-                                    <div class="step-field">
-                                        <label class="label-field" for="project-step-resource-edit">Исполнитель:</label>
-                                        <input class="" type="text" id="project-step-resource-edit" name="project-step-resource-edit">
-                                    </div>
-                                    <div class="step-field">
-                                        <label class="label-field" for="project-step-compile-edit">% выполнения:</label>
-                                        <div class="slider" id="slider-compile-edit">
-                                            <div id="custom-handle-edit" class="ui-slider-handle"></div>
+                            <div class="steps-tree-detali">
+                                <div id="steps-tree-detali-view">
+                                    <button type="button" id="create-step">Добавить</button>
+                                    <button type="button" id="edit-step">Править</button>
+                                    <button type="button" id="delete-step">Удалить</button>
+                                    <fieldset>
+                                        <div class="step-field">
+                                            <label class="label-field" for="project-step-name-view">Шаг проекта:</label>
+                                            <input class="" type="text" id="project-step-name-view" name="project-step-name-view" disabled="disabled">
                                         </div>
-                                    </div>
-                                    <div class="step-field">
-                                        <label class="" for="project-step-current-edit">Текущий:</label>
-                                        <input class="" type="checkbox" id="project-step-current-edit" name="project-step-current-edit">
-                                    </div>
-                                    <div class="step-field">
-                                        <label class="" for="project-step-skip-edit">Пропустить:</label>
-                                        <input class="" type="checkbox" id="project-step-skip-edit" name="project-step-skip-edit">
-                                    </div>
-                                    <div class="step-field">
-                                        <label class="label-field" for="project-step-parent-edit">Родитель:</label>
-                                        <select class="" id="project-step-parent-edit" name="project-step-parent-edit"></select>
-                                    </div>
-                                    <div class="step-field">
-                                        <label class="label-field" for="project-step-depend-edit">Зависит от:</label>
-                                        <select class="" id="project-step-depend-edit" name="project-step-depend-edit"></select>
-                                    </div>
-                                    <div class="step-field">
-                                        <label class="label-field" for="project-step-coment-edit">Коментарий:</label>
-                                        <textarea class="" name="project-step-coment-edit" id="project-step-coment-edit"></textarea>
-                                    </div>
-                                </fieldset>
+                                        <div class="step-field">
+                                            <label class="" for="project-step-group-view">Папка:</label>
+                                            <input class="" type="checkbox" id="project-step-group-view" name="project-step-group-view" disabled="disabled">
+                                        </div>
+                                        <div class="step-field">
+                                            <label class="label-field" for="project-step-range-view">Начало и конец:</label>
+                                            <input class="left" type="text" id="project-step-range-view" name="project-step-range-view" disabled="disabled">
+                                        </div>
+                                        <div class="step-field">
+                                            <label class="label-field" for="project-step-resource-view">Исполнитель:</label>
+                                            <input class="" type="text" id="project-step-resource-view" name="project-step-resource-view" disabled="disabled">
+                                        </div>
+                                        <div class="step-field">
+                                            <label class="label-field" for="project-step-compile-view">% выполнения:</label>
+                                            <input class="" type="text" id="project-step-compile-view" name="project-step-compile-view" disabled="disabled">
+                                        </div>
+                                        <div class="step-field">
+                                            <label class="" for="project-step-current-view">Текущий:</label>
+                                            <input class="" type="checkbox" id="project-step-current-view" name="project-step-current-view" disabled="disabled">
+                                        </div>
+                                        <div class="step-field">
+                                            <label class="" for="project-step-skip-view">Пропустить:</label>
+                                            <input class="" type="checkbox" id="project-step-skip-view" name="project-step-skip-view" disabled="disabled">
+                                        </div>
+                                        <div class="step-field">
+                                            <label class="label-field" for="project-step-parent-view">Родитель:</label>
+                                            <input class="" type="text" id="project-step-parent-view" name="project-step-parent-view" disabled="disabled">
+                                        </div>
+                                        <div class="step-field">
+                                            <label class="label-field" for="project-step-depend-view">Зависит от:</label>
+                                            <textarea class="" type="text" id="project-step-depend-view" name="project-step-depend-view" disabled="disabled"></textarea>
+                                        </div>
+                                        <div class="step-field">
+                                            <label class="label-field" for="project-step-coment-view">Коментарий:</label>
+                                            <textarea class="" name="project-step-coment-view" id="project-step-coment-view" disabled="disabled"></textarea>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div id="steps-tree-detali-edit">
+                                    <button type="button" id="cancel-step">Отмена</button>
+                                    <button type="button" id="save-step">Сохранить</button>
+                                    <fieldset>
+                                        <div class="step-field">
+                                            <label class="label-field" for="project-step-name-edit">Шаг проекта:</label>
+                                            <input class="" type="text" id="project-step-name-edit" name="project-step-name-edit">
+                                        </div>
+                                        <div class="step-field">
+                                            <label class="" for="project-step-group-edit">Папка:</label>
+                                            <input class="" type="checkbox" id="project-step-group-edit" name="project-step-groupv">
+                                        </div>
+                                        <div class="step-field">
+                                            <label class="label-field" for="select-range-project-edit">Начало и конец:</label>
+                                            <span id="select-range-project-edit">
+                                                <input class="left" type="date" id="project-step-start-edit" name="project-step-start-edit">
+                                                <input class="right" type="date" id="project-step-start-edit" name="project-step-start-edit">
+                                            </span>
+                                        </div>
+                                        <div class="step-field">
+                                            <label class="label-field" for="project-step-resource-edit">Исполнитель:</label>
+                                            <input class="" type="text" id="project-step-resource-edit" name="project-step-resource-edit">
+                                        </div>
+                                        <div class="step-field">
+                                            <label class="label-field" for="project-step-compile-edit">% выполнения:</label>
+                                            <div class="slider" id="slider-compile-edit">
+                                                <div id="custom-handle-edit" class="ui-slider-handle"></div>
+                                            </div>
+                                        </div>
+                                        <div class="step-field">
+                                            <label class="" for="project-step-current-edit">Текущий:</label>
+                                            <input class="" type="checkbox" id="project-step-current-edit" name="project-step-current-edit">
+                                        </div>
+                                        <div class="step-field">
+                                            <label class="" for="project-step-skip-edit">Пропустить:</label>
+                                            <input class="" type="checkbox" id="project-step-skip-edit" name="project-step-skip-edit">
+                                        </div>
+                                        <div class="step-field">
+                                            <label class="label-field" for="project-step-parent-edit">Родитель:</label>
+                                            <select class="" id="project-step-parent-edit" name="project-step-parent-edit"></select>
+                                        </div>
+                                        <div class="step-field">
+                                            <label class="label-field" for="project-step-depend-edit">Зависит от:</label>
+                                            <select class="" id="project-step-depend-edit" name="project-step-depend-edit"></select>
+                                        </div>
+                                        <div class="step-field">
+                                            <label class="label-field" for="project-step-coment-edit">Коментарий:</label>
+                                            <textarea class="" name="project-step-coment-edit" id="project-step-coment-edit"></textarea>
+                                        </div>
+                                    </fieldset>
+                                </div>
                             </div>
                         </div>
                     </div>
