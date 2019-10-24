@@ -13,7 +13,6 @@ namespace EFProjects.Concrete
         {
         }
 
-        public virtual DbSet<DependenceStagesProject> DependenceStagesProject { get; set; }
         public virtual DbSet<ListProjects> ListProjects { get; set; }
         public virtual DbSet<ProjectManager> ProjectManager { get; set; }
         public virtual DbSet<StagesProject> StagesProject { get; set; }
@@ -92,18 +91,6 @@ namespace EFProjects.Concrete
                 .HasMany(e => e.TemplatesStagesProject)
                 .WithOptional(e => e.ProjectManager)
                 .HasForeignKey(e => e.id_project_manager);
-
-            modelBuilder.Entity<StagesProject>()
-                .HasMany(e => e.DependenceStagesProject)
-                .WithRequired(e => e.StagesProject)
-                .HasForeignKey(e => e.id_stage_project)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<StagesProject>()
-                .HasMany(e => e.DependenceStagesProject1)
-                .WithRequired(e => e.StagesProject1)
-                .HasForeignKey(e => e.id_dependent_project_stage)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<TemplatesStagesProject>()
                 .HasMany(e => e.StagesProject)

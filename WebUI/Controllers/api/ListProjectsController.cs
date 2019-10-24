@@ -105,7 +105,44 @@ namespace WebUI.Controllers.api
                             name_boss = l.WorkPerformers.name_boss,
                             phone_boss = l.WorkPerformers.phone_boss,
                         } : null,
-
+                        StagesProject = l.StagesProject.Select(t => new StagesProject
+                        {
+                            id = t.id,
+                            id_project = t.id_project,
+                            id_templates_stages_project = t.id_templates_stages_project,
+                            position = t.position,
+                            start = t.start,
+                            stop = t.stop,
+                            current = t.current,
+                            skip = t.skip,
+                            mile = t.mile,
+                            resource = t.resource,
+                            persent = t.persent,
+                            group = t.group,
+                            parent_id = t.parent_id,
+                            depend = t.depend,
+                            coment = t.coment,
+                            TemplatesStagesProject = new TemplatesStagesProject
+                            {
+                                id = t.id,
+                                stages_project_ru = t.TemplatesStagesProject.stages_project_ru,
+                                stages_project_en = t.TemplatesStagesProject.stages_project_en,
+                                stages_project_description_ru = t.TemplatesStagesProject.stages_project_description_ru,
+                                stages_project_description_en = t.TemplatesStagesProject.stages_project_description_en,
+                                id_project_manager = t.TemplatesStagesProject.id_project_manager,
+                                parent_id = t.TemplatesStagesProject.parent_id,
+                                ProjectManager = t.TemplatesStagesProject.ProjectManager != null ? new ProjectManager
+                                {
+                                    id = t.TemplatesStagesProject.ProjectManager.id,
+                                    id_user = t.TemplatesStagesProject.ProjectManager.id_user,
+                                    email = t.TemplatesStagesProject.ProjectManager.email,
+                                    phone_work = t.TemplatesStagesProject.ProjectManager.phone_work,
+                                    phone_mobile = t.TemplatesStagesProject.ProjectManager.phone_mobile,
+                                    adress = t.TemplatesStagesProject.ProjectManager.adress,
+                                    parent_id = t.TemplatesStagesProject.ProjectManager.parent_id,
+                                } : null,
+                            },
+                        }).ToList()
                     }).ToList();
                 if (list == null || list.Count() == 0)
                 {
@@ -128,7 +165,7 @@ namespace WebUI.Controllers.api
             {
                 ListProjects project = this.ef_lp
                     .Get()
-                    .Where(p=>p.id == id)
+                    .Where(p => p.id == id)
                     .ToList()
                     .Select(l => new ListProjects
                     {
@@ -205,7 +242,44 @@ namespace WebUI.Controllers.api
                             name_boss = l.WorkPerformers.name_boss,
                             phone_boss = l.WorkPerformers.phone_boss,
                         } : null,
-
+                        StagesProject = l.StagesProject.Select(t => new StagesProject
+                        {
+                            id = t.id,
+                            id_project = t.id_project,
+                            id_templates_stages_project = t.id_templates_stages_project,
+                            position = t.position,
+                            start = t.start,
+                            stop = t.stop,
+                            current = t.current,
+                            skip = t.skip,
+                            mile = t.mile,
+                            resource = t.resource,
+                            persent = t.persent,
+                            group = t.group,
+                            parent_id = t.parent_id,
+                            depend = t.depend,
+                            coment = t.coment,
+                            TemplatesStagesProject = new TemplatesStagesProject
+                            {
+                                id = t.id,
+                                stages_project_ru = t.TemplatesStagesProject.stages_project_ru,
+                                stages_project_en = t.TemplatesStagesProject.stages_project_en,
+                                stages_project_description_ru = t.TemplatesStagesProject.stages_project_description_ru,
+                                stages_project_description_en = t.TemplatesStagesProject.stages_project_description_en,
+                                id_project_manager = t.TemplatesStagesProject.id_project_manager,
+                                parent_id = t.TemplatesStagesProject.parent_id,
+                                ProjectManager = t.TemplatesStagesProject.ProjectManager != null ? new ProjectManager
+                                {
+                                    id = t.TemplatesStagesProject.ProjectManager.id,
+                                    id_user = t.TemplatesStagesProject.ProjectManager.id_user,
+                                    email = t.TemplatesStagesProject.ProjectManager.email,
+                                    phone_work = t.TemplatesStagesProject.ProjectManager.phone_work,
+                                    phone_mobile = t.TemplatesStagesProject.ProjectManager.phone_mobile,
+                                    adress = t.TemplatesStagesProject.ProjectManager.adress,
+                                    parent_id = t.TemplatesStagesProject.ProjectManager.parent_id,
+                                } : null,
+                            },
+                        }).ToList()
                     }).FirstOrDefault();
                 if (project == null)
                 {
@@ -355,7 +429,44 @@ namespace WebUI.Controllers.api
                             name_boss = l.WorkPerformers.name_boss,
                             phone_boss = l.WorkPerformers.phone_boss,
                         } : null,
-
+                        StagesProject = l.StagesProject.Select(t => new StagesProject
+                        {
+                            id = t.id,
+                            id_project = t.id_project,
+                            id_templates_stages_project = t.id_templates_stages_project,
+                            position = t.position,
+                            start = t.start,
+                            stop = t.stop,
+                            current = t.current,
+                            skip = t.skip,
+                            mile = t.mile,
+                            resource = t.resource,
+                            persent = t.persent,
+                            group = t.group,
+                            parent_id = t.parent_id,
+                            depend = t.depend,
+                            coment = t.coment,
+                            TemplatesStagesProject = new TemplatesStagesProject
+                            {
+                                id = t.id,
+                                stages_project_ru = t.TemplatesStagesProject.stages_project_ru,
+                                stages_project_en = t.TemplatesStagesProject.stages_project_en,
+                                stages_project_description_ru = t.TemplatesStagesProject.stages_project_description_ru,
+                                stages_project_description_en = t.TemplatesStagesProject.stages_project_description_en,
+                                id_project_manager = t.TemplatesStagesProject.id_project_manager,
+                                parent_id = t.TemplatesStagesProject.parent_id,
+                                ProjectManager = t.TemplatesStagesProject.ProjectManager != null ? new ProjectManager
+                                {
+                                    id = t.TemplatesStagesProject.ProjectManager.id,
+                                    id_user = t.TemplatesStagesProject.ProjectManager.id_user,
+                                    email = t.TemplatesStagesProject.ProjectManager.email,
+                                    phone_work = t.TemplatesStagesProject.ProjectManager.phone_work,
+                                    phone_mobile = t.TemplatesStagesProject.ProjectManager.phone_mobile,
+                                    adress = t.TemplatesStagesProject.ProjectManager.adress,
+                                    parent_id = t.TemplatesStagesProject.ProjectManager.parent_id,
+                                } : null,
+                            },
+                        }).ToList()
                     }).ToList();
                 if (list == null || list.Count() == 0)
                 {

@@ -56,12 +56,10 @@
     <Compile Include="Concrete\EFTemplatesStagesProject.cs" />
     <Compile Include="Concrete\EFStagesProject.cs" />
     <Compile Include="Concrete\EFProjectManager.cs" />
-    <Compile Include="Concrete\EFDependenceStagesProject.cs" />
     <Compile Include="Concrete\EFListProjects.cs" />
     <Compile Include="Concrete\EFRepository.cs" />
-    <Compile Include="Entities\DependenceStagesProject.cs" />
-    <Compile Include="Entities\ListProjects.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
+    <Compile Include="Entities\ListProjects.cs" />
     <Compile Include="Entities\ProjectManager.cs" />
     <Compile Include="Entities\StagesProject.cs" />
     <Compile Include="Entities\TemplatesStagesProject.cs" />

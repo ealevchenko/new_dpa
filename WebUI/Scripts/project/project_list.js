@@ -1,42 +1,573 @@
 ﻿
 var g = null;
+var project_step_detali = {
+    prj: null,
+    loadReference: function (callback) {
+        var count = 1;
+        // Згрузка библиотек project
+        project_step_detali.prj.load(['tsp'], function () {
+            count -= 1;
+            if (count <= 0) {
+                if (typeof callback === 'function') {
+                    LockScreenOff();
+                    callback();
+                }
+            }
+        });
+    },
+    project_step_tree: null,
+    project_steps_detali_edit: null,
+    project_steps_edit: null,
+    project_steps_template: null,
+    project_steps_save: null,
+    project_steps_cancel: null,
 
-var out_grGantt = function () {
+    project_steps_tree_detali_view: null,
+    project_steps_tree_detali_edit: null,
+    // view
+    project_step_name_view: null,
+    project_step_group_view: null,
+    project_step_range_view: null,
 
-    g = new JSGantt.GanttChart('g', document.getElementById('GanttChartDIV'), 'day');
-    g.setShowRes(1); // Show/Hide Responsible (0/1)
-    g.setShowDur(1); // Show/Hide Duration (0/1)
-    g.setShowComp(1); // Show/Hide % Complete(0/1)
-    g.setCaptionType('Resource');  // Set to Show Caption (None,Caption,Resource,Duration,Complete)
-    //var gr = new Graphics();
-    if (g) {
-        g.AddTaskItem(new JSGantt.TaskItem(1, 'Define Chart API', '', '', 'ff0000', 'http://google.com', 0, 'Brian', 0, 1, 0, 1));
-        g.AddTaskItem(new JSGantt.TaskItem(11, 'Chart Object', '7/20/2008', '7/20/2008', 'ff00ff', 'http://www.yahoo.com', 1, 'Shlomy', 100, 0, 1, 1));
-        g.AddTaskItem(new JSGantt.TaskItem(12, 'Task Objects', '', '', '00ff00', '', 0, 'Shlomy', 40, 1, 1, 1));
-        g.AddTaskItem(new JSGantt.TaskItem(121, 'Constructor Proc', '7/21/2008', '8/9/2008', '00ffff', 'http://www.yahoo.com', 0, 'Brian T.', 60, 0, 12, 1));
-        g.AddTaskItem(new JSGantt.TaskItem(122, 'Task Variables', '8/6/2008', '8/11/2008', 'ff0000', 'http://google.com', 0, 'Brian', 60, 0, 12, 1, 121));
-        g.AddTaskItem(new JSGantt.TaskItem(123, 'Task by Minute/Hour', '8/6/2008', '8/11/2008 12:00', 'ffff00', 'http://google.com', 0, 'Ilan', 60, 0, 12, 1, 121));
-        g.AddTaskItem(new JSGantt.TaskItem(124, 'Task Functions', '8/9/2008', '8/29/2008', 'ff0000', 'http://google.com', 0, 'Anyone', 60, 0, 12, 1, 0, 'This is another caption'));
-        g.AddTaskItem(new JSGantt.TaskItem(2, 'Create HTML Shell', '8/24/2008', '8/25/2008', 'ffff00', 'http://google.com', 0, 'Brian', 20, 0, 0, 1, 122));
-        g.AddTaskItem(new JSGantt.TaskItem(3, 'Code Javascript', '', '', 'ff0000', 'http://google.com', 0, 'Brian', 0, 1, 0, 1));
-        g.AddTaskItem(new JSGantt.TaskItem(31, 'Define Variables', '7/25/2008', '8/17/2008', 'ff00ff', 'http://google.com', 0, 'Brian', 30, 0, 3, 1, '', 'Caption 1'));
-        g.AddTaskItem(new JSGantt.TaskItem(32, 'Calculate Chart Size', '8/15/2008', '8/24/2008', '00ff00', 'http://google.com', 0, 'Shlomy', 40, 0, 3, 1));
-        g.AddTaskItem(new JSGantt.TaskItem(33, 'Draw Taks Items', '', '', '00ff00', 'http://google.com', 0, 'Someone', 40, 1, 3, 1));
-        g.AddTaskItem(new JSGantt.TaskItem(332, 'Task Label Table', '8/6/2008', '8/11/2008', '0000ff', 'http://google.com', 0, 'Brian', 60, 0, 33, 1));
-        g.AddTaskItem(new JSGantt.TaskItem(333, 'Task Scrolling Grid', '8/9/2008', '8/20/2008', '0000ff', 'http://google.com', 0, 'Brian', 60, 0, 33, 1));
-        g.AddTaskItem(new JSGantt.TaskItem(34, 'Draw Task Bars', '', '', '990000', 'http://google.com', 0, 'Anybody', 60, 1, 3, 0));
-        g.AddTaskItem(new JSGantt.TaskItem(341, 'Loop each Task', '8/26/2008', '9/11/2008', 'ff0000', 'http://google.com', 0, 'Brian', 60, 0, 34, 1));
-        g.AddTaskItem(new JSGantt.TaskItem(342, 'Calculate Start/Stop', '9/12/2008', '10/18/2008', 'ff6666', 'http://google.com', 0, 'Brian', 60, 0, 34, 1));
-        g.AddTaskItem(new JSGantt.TaskItem(343, 'Draw Task Div', '10/13/2008', '10/17/2008', 'ff0000', 'http://google.com', 0, 'Brian', 60, 0, 34, 1));
-        g.AddTaskItem(new JSGantt.TaskItem(344, 'Draw Completion Div', '10/17/2008', '11/04/2008', 'ff0000', 'http://google.com', 0, 'Brian', 60, 0, 34, 1, "342,343"));
-        g.AddTaskItem(new JSGantt.TaskItem(35, 'Make Updates', '12/17/2008', '2/04/2009', 'f600f6', 'http://google.com', 0, 'Brian', 30, 0, 3, 1));
-        g.Draw();
-        g.DrawDependencies();
-    }
-    else {
-        alert("not defined");
-    }
+    project_step_resource_view: null,
+    project_step_compile_view: null,
+
+    project_step_current_view: null,
+    project_step_skip_view: null,
+    select_project_step_parent_view: null,
+    select_project_step_depend_view: null,
+    project_step_coment_view: null,
+    // edit
+    project_step_name_edit: null,
+    project_step_group_edit: null,
+    project_step_start_edit: null,
+    project_step_stop_edit: null,
+    project_step_resource_edit: null,
+    project_step_compile_edit: null,
+    project_step_compile_handle_edit: null,
+    project_step_current_edit: null,
+    project_step_skip_edit: null,
+    select_project_step_parent_edit: null,
+    select_project_step_depend_edit: null,
+    project_step_coment_edit: null,
+
+    project_step_create: null,
+    project_step_edit: null,
+    project_step_delete: null,
+    project_step_cancel: null,
+    project_step_save: null,
+
+    lang: 'ru',
+    mode: 0,
+    id_project: 0,              // id проекта
+    steps_project: [],          // шаги проета проекта
+    steps_buffer: [],           // шаги проета проекта (буфер для редактирования)
+
+    curent_step: null,  // текущий шаг
+    //data_step: [],      // загруженные шаги
+    start_step: null,
+    stop_step: null,
+    //---------------------------------------------------------
+    // Инициализация
+    //---------------------------------------------------------
+    // Инициализация объектов 
+    init_obj: function () {
+        this.project_steps_detali_edit = $('div#steps-edit');
+        // Основные кнопки управления
+        this.project_steps_edit = $('button#edit-steps').on('click', function () {
+            project_step_detali.mode_edit_steps();
+        });
+        this.project_steps_template = $('button#template-steps').on('click', function () {
+            project_step_detali.steps_buffer = project_step_detali.get_steps_template();
+            project_step_detali.view_steps_project(1);
+
+        });
+        this.project_steps_save = $('button#save-steps').on('click', function () {
+
+        });
+        this.project_steps_cancel = $('button#cancel-steps').on('click', function () {
+            project_step_detali.steps_buffer = project_step_detali.get_steps_buffer(project_step_detali.steps_project);
+            project_step_detali.view_steps_project(0);
+            //project_step_detali.mode_view_steps();
+        });
+        // Инициализация дерева
+        this.project_step_tree = $('div#project-step-tree').jstree({
+            "core": {
+                "animation": 0,
+                "check_callback": true,
+                "themes": { "stripes": true },
+                'data': []
+            },
+        });
+        // Обработка события выбора шага
+        this.project_step_tree.on('changed.jstree', function (e, data) {
+            project_step_detali.mode_view_step();
+            var i, j = [];
+            var r
+            for (i = 0, j = data.selected.length; i < j; i++) {
+                r = data.instance.get_node(data.selected[i]);
+                // Получить шаг
+                var step = project_step_detali.get_step_of_data_step(r.id);
+                if (step) {
+                    project_step_detali.view_step(step); // Показать шаг
+                }
+            }
+            //$('.steps-tree-detali').html('Selected: ' + r.join(', '));
+        });
+        this.project_steps_tree_detali_view = $('div#steps-tree-detali-view');
+        this.project_steps_tree_detali_edit = $('div#steps-tree-detali-edit');
+        // Инициализация детального ввода
+        this.project_step_name_edit = $('input#project-step-name-edit');
+        this.project_step_name_view = $('input#project-step-name-view');
+        //
+        this.project_step_group_edit = $('input#project-step-group-edit').checkboxradio({ icon: true });
+        this.project_step_group_view = $('input#project-step-group-view').checkboxradio({ icon: true });
+        // Начало и конец
+        this.project_step_range_edit = $('#select-range-project-edit').dateRangePicker(
+                    {
+                        language: 'ru',
+                        format: 'DD.MM.YYYY HH:mm',
+                        separator: '-',
+                        autoClose: false,
+                        time: {
+                            enabled: false
+                        },
+                        setValue: function (s, s1, s2) {
+                            if (s1 !== s2) {
+                                project_step_detali.project_step_start_edit.val(s1);
+                                project_step_detali.project_step_stop_edit.val(s2);
+                            } else {
+                                project_step_detali.project_step_start_edit.val("");
+                                project_step_detali.project_step_stop_edit.val("");
+                            }
+
+                        }
+                    }).
+                    bind('datepicker-change', function (evt, obj) {
+                        project_step_detali.start_step = obj.date1,
+                        project_step_detali.stop_step = obj.date2
+                    })
+                    .bind('datepicker-closed', function () {
+
+                    }).bind('datepicker-open', function (evt) {
+                        evt.stopPropagation();
+                    });
+        this.project_step_start_edit = $('input#project-step-start-edit');
+        this.project_step_stop_edit = $('input#project-step-stop-edit');
+        this.project_step_range_view = $('input#project-step-range-view');
+        //
+        this.project_step_resource_edit = $('input#project-step-resource-edit');
+        this.project_step_resource_view = $('input#project-step-resource-view');
+        //
+        this.project_step_compile_handle_edit = $("#custom-handle-edit");
+        this.project_step_compile_edit = $('#slider-compile-edit').slider({
+            create: function () {
+                project_step_detali.project_step_compile_handle_edit.text($(this).slider("value"));
+            },
+            slide: function (event, ui) {
+                project_step_detali.project_step_compile_handle_edit.text(ui.value);
+            }
+        });
+        this.project_step_compile_view = $('input#project-step-compile-view');
+        //
+        this.project_step_current_edit = $('input#project-step-current-edit').checkboxradio({ icon: true });
+        this.project_step_current_view = $('input#project-step-current-view').checkboxradio({ icon: true });
+        //
+        this.project_step_skip_edit = $('input#project-step-skip-edit').checkboxradio({ icon: true });
+        this.project_step_skip_view = $('input#project-step-skip-view').checkboxradio({ icon: true });
+        //
+        this.select_project_step_parent_edit = initSelect(
+            $('select#project-step-parent-edit'),
+            { lang: this.lang },
+            [],
+            null,
+            -1,
+            function (event) {
+                event.preventDefault();
+                var id = $(this).val();
+            },
+            null);
+        this.select_project_step_parent_view = $('input#project-step-parent-view');
+        //
+        this.select_project_step_depend_edit = initSelect(
+            $('select#project-step-depend-edit'),
+            { lang: this.lang },
+            [],
+            null,
+            -1,
+            function (event) {
+                event.preventDefault();
+                var id = $(this).val();
+            },
+            null);
+        this.select_project_step_depend_view = $('textarea#project-step-depend-view');
+        //
+        this.project_step_coment_edit = $('textarea#project-step-coment-edit');
+        this.project_step_coment_view = $('textarea#project-step-coment-view');
+        //--------------------------------------------------------------------------
+        // Кнопки
+        // Добавить шаг
+        this.project_step_create = $('button#create-step').on('click', function () {
+
+        });
+        // Править шаг
+        this.project_step_edit = $('button#edit-step').on('click', function () {
+            project_step_detali.mode_edit_step();
+        });
+        // Удалить шаг
+        this.project_step_delete = $('button#delete-step').on('click', function () {
+
+        });
+        // Отмена шаг
+        this.project_step_cancel = $('button#cancel-step').on('click', function () {
+            project_step_detali.view_step(project_step_detali.curent_step);
+            project_step_detali.mode_view_step();
+        });
+        // Сохранить шаг
+        this.project_step_save = $('button#save-step').on('click', function () {
+            var new_step = project_step_detali.get_new_step();
+        });
+    },
+    // Общая иициализация
+    init: function (lang) {
+        this.lang = lang;
+        this.prj = prj = new Project(lang), // Создадим класс Project
+        // Загрузим справочники
+        this.loadReference(function () {
+            project_step_detali.init_obj();
+            // Перевести в режим просмотра
+            project_step_detali.mode_view_steps();
+        });
+    },
+    //--------------------------------------------------
+    // Перевести в режим
+    switch_mode_steps: function (mode) {
+        switch (mode) {
+            case 0: this.mode_view_steps(); break;
+            case 1: this.mode_edit_steps(); break;
+        }
+    },
+    // Перевести в режим просмотра шаги проекта
+    mode_view_steps: function () {
+        this.project_steps_detali_edit.hide();
+        this.project_steps_edit.show();
+        this.project_steps_template.hide();
+        this.project_steps_save.hide();
+        this.project_steps_cancel.hide();
+        this.mode_view_step()
+    },
+    // Перевести в режим редактирования шаги проекта
+    mode_edit_steps: function () {
+        this.project_steps_detali_edit.show();
+        this.project_steps_edit.hide();
+        this.project_steps_template.show();
+        this.project_steps_save.show();
+        this.project_steps_cancel.show();
+        this.view_tree(this.steps_buffer !== null ? this.steps_buffer : []);
+    },
+    //--------------------------------------------------
+    // Показать шаги проекта
+    load_steps_project: function (id_project, steps_project) {
+        this.id_project = id_project;
+        this.steps_project = steps_project;
+        this.steps_buffer = this.get_steps_buffer(this.steps_project);
+        this.view_steps_project(0);
+    },
+    // Преобразовать список шагов в список шагов для редактирования (buffer)
+    get_steps_buffer: function (steps) {
+        var steps_buffer = [];
+        $.each(steps, function (i, el) {
+            var buf = el;
+            buf['id_tree'] = el.id;
+            buf['parent_id_tree'] = el.parent_id;
+            steps_buffer.push(buf);
+        });
+        return steps_buffer;
+    },
+    //-----------------------------------------------------------------
+    // Преобразование шаблонов
+    //-----------------------------------------------------------------
+    // Получить буферный шаблон
+    get_template_step: function (i, el, group) {
+        return {
+            id_tree: el.id,
+            id: 0,
+            id_project: project_step_detali.id_project,
+            id_templates_stages_project: el.id,
+            position: i,
+            start: group !== true ? new Date() : null,
+            stop: group !== true ? new Date() : null,
+            current: false,
+            skip: false,
+            mile: null,
+            resource: '?',
+            persent: 0,
+            group: group,
+            parent_id_tree: el.parent_id,
+            parent_id: el.parent_id,
+            depend: null,
+            coment: null,
+            TemplatesStagesProject: el
+        }
+    },
+    // Упорядочивание шаблона при помощи рекурсии
+    find_steps_template: function (list, obj, res) {
+            var root = getObjects(list, 'parent_id', obj.id)
+            if (root.length > 0) {
+                $.each(root, function (i, el) {
+                    res.push(el);
+                    res = project_step_detali.find_steps_template(list, el, res);
+                });
+            } 
+            return res;
+    },
+    // Упорядочивание шаблона из масива данных
+    get_steps_template_root: function (data) {
+        var list_root = getObjects(data, 'parent_id', null)
+        var res = [];
+        $.each(list_root, function (i, el) {
+            res.push(el);
+            res = project_step_detali.find_steps_template(data, el, res)
+        });
+        return res;
+    },
+    // Преобразовать список шагов шаблона в список шагов шаблона для редактирования (buffer)
+    get_steps_template: function () {
+        var temp = this.prj.list_templates_stages_project;
+        var steps_template = [];
+        $.each(this.get_steps_template_root(temp), function (i, el) {
+            var root = getObjects(temp, 'parent_id', el.id)
+            var buf = project_step_detali.get_template_step(i + 1, el, (root.length>0 ? true: false));
+            steps_template.push(buf);
+        });
+        return steps_template;
+    },
+    //----------------------------------------------------------------
+    // Показать шаги проекта в указанном режиме
+    view_steps_project: function (mode){
+        this.view_gantt(this.steps_buffer !== null ? this.steps_buffer : [], 'month');
+        this.switch_mode_steps(mode);
+    },
+    // Перевести в режим просмотра шаг проекта
+    mode_view_step: function () {
+        this.mode = 0;
+        this.project_steps_tree_detali_view.show();
+        this.project_steps_tree_detali_edit.hide();
+    },
+    // Перевести в режим редактирования шаг проекта
+    mode_edit_step: function () {
+        this.mode = 1;
+        this.project_steps_tree_detali_view.hide();
+        this.project_steps_tree_detali_edit.show();
+    },
+    // Показать шаг
+    view_step: function (step) {
+        project_step_detali.curent_step = step;
+        if (step) {
+            project_step_detali.project_step_name_edit.val(step.TemplatesStagesProject.stages_project_ru);
+            project_step_detali.project_step_name_view.val(step.TemplatesStagesProject.stages_project_ru);
+
+            project_step_detali.project_step_group_edit.prop('checked', step.group).checkboxradio("refresh");
+            project_step_detali.project_step_group_view.prop('checked', step.group).checkboxradio("refresh");
+
+            project_step_detali.project_step_range_edit.data('dateRangePicker').setDateRange(step.start != null ? moment(step.start).format("DD.MM.YYYY") : "", step.stop != null ? moment(step.stop).format("DD.MM.YYYY") : "", true);
+            project_step_detali.project_step_range_view.val(step.start != null && step.stop != null ? moment(step.start).format("DD.MM.YYYY") + " - " + moment(step.stop).format("DD.MM.YYYY") : "");
+
+            project_step_detali.project_step_resource_edit.val(step.resource);
+            project_step_detali.project_step_resource_view.val(step.resource);
+
+            project_step_detali.project_step_compile_edit.slider("value", step.persent); // Процент выполнения
+            project_step_detali.project_step_compile_handle_edit.text(step.persent)      // отразить Процент выполнения
+            project_step_detali.project_step_compile_view.val(step.persent + "%");
+
+            project_step_detali.project_step_current_edit.prop('checked', step.current).checkboxradio("refresh");
+            project_step_detali.project_step_current_view.prop('checked', step.current).checkboxradio("refresh");
+
+            project_step_detali.project_step_skip_edit.prop('checked', step.skip).checkboxradio("refresh");
+            project_step_detali.project_step_skip_view.prop('checked', step.skip).checkboxradio("refresh");
+            // Получим родителя
+            var list_exceptions_value = [];
+            list_exceptions_value.push(step.id_tree);
+            updateOptionSelect(
+                 project_step_detali.select_project_step_parent_edit,
+                project_step_detali.steps_buffer,
+                function (row) {
+                    return { value: Number(row.id), text: row.TemplatesStagesProject.stages_project_ru };
+                },
+                step.parent_id_tree !== null ? step.parent_id_tree : -1,
+                list_exceptions_value.length > 0 ? list_exceptions_value : null);
+
+            var step_parent = project_step_detali.get_step_of_data_step(step.parent_id_tree)
+            project_step_detali.select_project_step_parent_view.val(step_parent !== null ? step_parent.TemplatesStagesProject.stages_project_ru : ""); // Процент выполнения
+            // Получим зависимость
+            var list_depend_str = "";
+            var list_depend = step.depend !== null ? step.depend.split(',') : [];
+            updateOptionSelect(
+                 project_step_detali.select_project_step_depend_edit,
+                project_step_detali.steps_buffer,
+                function (row) {
+                    return { value: Number(row.id), text: row.TemplatesStagesProject.stages_project_ru };
+                },
+                list_depend.length > 0 ? Number(list_depend[0]) : -1,
+                list_exceptions_value.length > 0 ? list_exceptions_value : null);
+            $.each(list_depend, function (i, el) {
+                var step_depend = project_step_detali.get_step_of_data_step(el)
+                list_depend_str += step_depend !== null ? step_depend.TemplatesStagesProject.stages_project_ru + "; " : "";
+            });
+            project_step_detali.select_project_step_depend_view.text(list_depend_str);
+
+            project_step_detali.project_step_coment_edit.text(step.coment)      // коментарий
+            project_step_detali.project_step_coment_view.text(step.coment)      // коментарий
+        }
+
+    },
+    // Показать диаграмму ганта
+    view_gantt: function (data, format) {
+        if (data) {
+            $('div#GanttChartDIV').empty();
+            //g = new JSGantt.GanttChart('g', document.getElementById('GanttChartDIV'), format);
+            g = new JSGantt.GanttChart('g', $('div#GanttChartDIV')[0], format);
+            g.setShowRes(1); // Show/Hide Responsible (0/1)
+            g.setShowDur(1); // Show/Hide Duration (0/1)
+            g.setShowComp(1); // Show/Hide % Complete(0/1)
+            g.setCaptionType('Resource');  // Set to Show Caption (None,Caption,Resource,Duration,Complete)
+            if (g) {
+                //g.AddTaskItem(new JSGantt.TaskItem(1, 'Define Chart API', '', '', 'ff0000', 'http://google.com', 0, 'Brian', 0, 1, 0, 1));
+                //g.AddTaskItem(new JSGantt.TaskItem(11, 'Chart Object', '20.07.2019', '21.08.2019', 'ff00ff', 'http://www.yahoo.com', 1, 'Shlomy', 100, 0, 1, 1));
+                $.each(data, function (i, el) {
+                    //var d = moment(el.start).format("MM.DD.YYYY");
+                    g.AddTaskItem(new JSGantt.TaskItem(el.id_tree,
+                        el.TemplatesStagesProject.stages_project_ru,
+                        el.start != null ? moment(el.start).format("DD.MM.YYYY") : '',
+                        el.stop != null ? moment(el.stop).format("DD.MM.YYYY") : '',
+                        'ff00ff',
+                        '',
+                        el.mile != null ? el.mile : 0,
+                        el.resource != null ? el.resource : '',
+                        el.persent,
+                        el.group,
+                        el.parent_id_tree != null ? el.parent_id_tree : 0,
+                        1,
+                        el.depend));
+                });
+
+                //TaskItem (pID, pName, pStart, pEnd, pColor, pLink, pMile, pRes, pComp, pGroup, pParent, pOpen, pDepend)
+                //pID: (обязательно) - уникальный идентификатор, используемый для идентификации каждой строки родительских функций и для установки идентификатора домена для скрытия / отображения
+                //pName: (обязательно) это ярлык задачи
+                //pStart: (обязательно) дата начала задачи, можно ввести пустую дату ('') для групп. Вы также можете ввести конкретное время (2/10/2008 12:00) для дополнительного разрешения или полдня.
+                //    pEnd: (обязательно) дата окончания задачи, можно ввести пустую дату ('') для групп
+                //pColor: (требуется) цвет html для этой задачи; например '00ff00'
+                //pLink: (необязательно) любая http-ссылка, по которой переходили при щелчке панели задач.
+                //    pMile: (необязательно) представляет веху
+                //pRes: (необязательно) имя ресурса
+                //pComp: (обязательно) процент выполнения
+                //pGroup: (необязательно) указывает, является ли это группа (родительская) - 0 = НЕ родительский; 1 = IS Parent
+                //pParent: (обязательно) идентифицирует родительский pID, это делает эту задачу дочерней по отношению к идентифицированной задаче
+                //pOpen: изначально можно установить закрытие папки при первом рисовании графика
+                //pDepend: необязательный список идентификаторов, эта задача зависит от ... линии, нарисованной из зависимых от этого элемента
+                //pCaption: необязательный заголовок, который будет добавлен после панели задач, если для CaptionType установлено значение «Caption»
+                // * Вы должны иметь возможность добавлять элементы на график в режиме реального времени с помощью JavaScript и выполнения команды "g.Draw ()".
+                g.Draw();
+                g.DrawDependencies();
+            } else {
+                alert("not defined");
+            }
+        }
+    },
+    // Показть дерево загрузи в новые данные
+    view_tree: function (data) {
+        var data_tree = [];
+        if (data) {
+            $.each(data, function (i, el) {
+                data_tree.push({ id: el.id_tree, parent: el.parent_id != null ? el.parent_id_tree : "#", text: el.TemplatesStagesProject.stages_project_ru, state: { opened: true, selected: false } });
+            });
+            project_step_detali.project_step_tree.jstree(true).settings.core.data = data_tree;
+            project_step_detali.project_step_tree.jstree(true).refresh();
+        }
+        //// Alternative format of the node (id & parent are required)
+        //{
+        //    id          : "string" // required
+        //    parent      : "string" // required
+        //    text        : "string" // node text
+        //    icon        : "string" // string for custom
+        //    state       : {
+        //            opened    : boolean  // is the node open
+        //            disabled  : boolean  // is the node disabled
+        //            selected  : boolean  // is the node selected
+        //    },
+        //    li_attr     : {}  // attributes for the generated LI node
+        //    a_attr      : {}  // attributes for the generated A node
+        //}
+    },
+    // Вернуть шаг по указаному id
+    get_step_of_data_step: function (id_step) {
+        if (this.steps_buffer.length > 0) {
+            var step = getObjects(this.steps_buffer, 'id_tree', id_step);
+            if (step.length) {
+                return step[0];
+            }
+        }
+        return null;
+    },
+    // Вернуть новый шаг
+    get_new_step: function () {
+        var old_step = project_step_detali.curent_step;
+        return {
+            id: old_step !== null ? old_step.id : 0,
+            id_project: old_step !== null ? old_step.id_project : 0,
+            id_templates_stages_project: old_step !== null ? old_step.id_templates_stages_project : 0,
+            position: old_step !== null ? old_step.position : 0,
+            start: project_step_detali.start_step,
+            stop: project_step_detali.stop_step,
+            current: project_step_detali.project_step_current_edit.prop('checked'),
+            skip: project_step_detali.project_step_skip_edit.prop('checked'),
+            mile: null,
+            resource: project_step_detali.project_step_resource_edit.val(),
+            persent: project_step_detali.project_step_compile_edit.slider("value"),
+            group: project_step_detali.project_step_group_edit.prop('checked'),
+            parent_id: project_step_detali.select_project_step_parent_edit.val(),
+            depend: project_step_detali.select_project_step_depend_edit.val(),
+            coment: project_step_detali.project_step_coment_edit.text()
+        }
+    },
 };
+
+//var out_grGantt = function () {
+
+//    g = new JSGantt.GanttChart('g', document.getElementById('GanttChartDIV'), 'day');
+//    g.setShowRes(1); // Show/Hide Responsible (0/1)
+//    g.setShowDur(1); // Show/Hide Duration (0/1)
+//    g.setShowComp(1); // Show/Hide % Complete(0/1)
+//    g.setCaptionType('Resource');  // Set to Show Caption (None,Caption,Resource,Duration,Complete)
+//    //var gr = new Graphics();
+//    if (g) {
+//        g.AddTaskItem(new JSGantt.TaskItem(1, 'Define Chart API', '', '', 'ff0000', 'http://google.com', 0, 'Brian', 0, 1, 0, 1));
+//        g.AddTaskItem(new JSGantt.TaskItem(11, 'Chart Object', '7/20/2008', '7/20/2008', 'ff00ff', 'http://www.yahoo.com', 1, 'Shlomy', 100, 0, 1, 1));
+//        g.AddTaskItem(new JSGantt.TaskItem(12, 'Task Objects', '', '', '00ff00', '', 0, 'Shlomy', 40, 1, 1, 1));
+//        g.AddTaskItem(new JSGantt.TaskItem(121, 'Constructor Proc', '7/21/2008', '8/9/2008', '00ffff', 'http://www.yahoo.com', 0, 'Brian T.', 60, 0, 12, 1));
+//        g.AddTaskItem(new JSGantt.TaskItem(122, 'Task Variables', '8/6/2008', '8/11/2008', 'ff0000', 'http://google.com', 0, 'Brian', 60, 0, 12, 1, 121));
+//        g.AddTaskItem(new JSGantt.TaskItem(123, 'Task by Minute/Hour', '8/6/2008', '8/11/2008 12:00', 'ffff00', 'http://google.com', 0, 'Ilan', 60, 0, 12, 1, 121));
+//        g.AddTaskItem(new JSGantt.TaskItem(124, 'Task Functions', '8/9/2008', '8/29/2008', 'ff0000', 'http://google.com', 0, 'Anyone', 60, 0, 12, 1, 0, 'This is another caption'));
+//        g.AddTaskItem(new JSGantt.TaskItem(2, 'Create HTML Shell', '8/24/2008', '8/25/2008', 'ffff00', 'http://google.com', 0, 'Brian', 20, 0, 0, 1, 122));
+//        g.AddTaskItem(new JSGantt.TaskItem(3, 'Code Javascript', '', '', 'ff0000', 'http://google.com', 0, 'Brian', 0, 1, 0, 1));
+//        g.AddTaskItem(new JSGantt.TaskItem(31, 'Define Variables', '7/25/2008', '8/17/2008', 'ff00ff', 'http://google.com', 0, 'Brian', 30, 0, 3, 1, '', 'Caption 1'));
+//        g.AddTaskItem(new JSGantt.TaskItem(32, 'Calculate Chart Size', '8/15/2008', '8/24/2008', '00ff00', 'http://google.com', 0, 'Shlomy', 40, 0, 3, 1));
+//        g.AddTaskItem(new JSGantt.TaskItem(33, 'Draw Taks Items', '', '', '00ff00', 'http://google.com', 0, 'Someone', 40, 1, 3, 1));
+//        g.AddTaskItem(new JSGantt.TaskItem(332, 'Task Label Table', '8/6/2008', '8/11/2008', '0000ff', 'http://google.com', 0, 'Brian', 60, 0, 33, 1));
+//        g.AddTaskItem(new JSGantt.TaskItem(333, 'Task Scrolling Grid', '8/9/2008', '8/20/2008', '0000ff', 'http://google.com', 0, 'Brian', 60, 0, 33, 1));
+//        g.AddTaskItem(new JSGantt.TaskItem(34, 'Draw Task Bars', '', '', '990000', 'http://google.com', 0, 'Anybody', 60, 1, 3, 0));
+//        g.AddTaskItem(new JSGantt.TaskItem(341, 'Loop each Task', '8/26/2008', '9/11/2008', 'ff0000', 'http://google.com', 0, 'Brian', 60, 0, 34, 1));
+//        g.AddTaskItem(new JSGantt.TaskItem(342, 'Calculate Start/Stop', '9/12/2008', '10/18/2008', 'ff6666', 'http://google.com', 0, 'Brian', 60, 0, 34, 1));
+//        g.AddTaskItem(new JSGantt.TaskItem(343, 'Draw Task Div', '10/13/2008', '10/17/2008', 'ff0000', 'http://google.com', 0, 'Brian', 60, 0, 34, 1));
+//        g.AddTaskItem(new JSGantt.TaskItem(344, 'Draw Completion Div', '10/17/2008', '11/04/2008', 'ff0000', 'http://google.com', 0, 'Brian', 60, 0, 34, 1, "342,343"));
+//        g.AddTaskItem(new JSGantt.TaskItem(35, 'Make Updates', '12/17/2008', '2/04/2009', 'f600f6', 'http://google.com', 0, 'Brian', 30, 0, 3, 1));
+//        g.Draw();
+//        g.DrawDependencies();
+//    }
+//    else {
+//        alert("not defined");
+//    }
+//};
 
 jQuery(document).ready(function ($) {
 
@@ -113,7 +644,7 @@ jQuery(document).ready(function ($) {
                 user = result_user;
                 prj.getAsyncProjectManagerOfIDUser(user.id, function (result_pm) {
                     pm = result_pm;
-                    //pm.id = 10; // !!!!!!!!! тест
+                    //pm.id = 1; // !!!!!!!!! тест
                     prj.getAsyncChainProjectManagerOfIDPM(pm.id, function (result_chain_pm) {
                         chain_pm = result_chain_pm;
 
@@ -225,6 +756,8 @@ jQuery(document).ready(function ($) {
                 addCardGallery(el);
             })
         },
+
+
         // Окно проекты детально
         project_detali = {
             content: $('.cd-project-content'),
@@ -1023,6 +1556,10 @@ jQuery(document).ready(function ($) {
                         var id = $(this).val()
                     },
                     null);
+                //------------------------------------------------------------------------------------------------
+                // STEPS ------------------------------------------------------------
+                //----------------------------------------------------------------------
+                project_step_detali.init(lang);
 
                 //// Активировать меню редактирования пректов
                 //if ($('.cd-stretchy-nav').length > 0) {
@@ -1142,7 +1679,86 @@ jQuery(document).ready(function ($) {
                         }
                     }
                     //  STEPS ------------------------------------------------------------
-                    out_grGantt();
+                    if (project.StagesProject) {
+                        project_step_detali.load_steps_project(project.id, project.StagesProject);
+                        //project_step_detali.view_gantt(project.StagesProject, 'month');
+                        //project_step_detali.view_tree(project.StagesProject);
+
+                        //var data = [];
+                        //var data_step = project.StagesProject;
+                        //var select_step;
+                        //$.each(project.StagesProject, function (i, el) {
+                        //    data.push({ id: el.id, parent: el.parent_id != null ? el.parent_id : "#", text: el.TemplatesStagesProject.stages_project_ru, state: { opened: true, selected: false } });
+                        //});
+                        //$('div#project-step-tree').jstree({
+                        //    "core": {
+                        //        "animation": 0,
+                        //        "check_callback": true,
+                        //        "themes": { "stripes": true },
+                        //        'data': data
+                        //    },
+                        //});
+                        //$('button#create-step').on('click', function () {
+                        //    event.preventDefault();
+                        //    var ref = $('div#project-step-tree').jstree(true),
+                        //		sel = ref.get_selected();
+                        //    if (!sel.length) { return false; }
+                        //    sel = sel[0];
+                        //    sel = ref.create_node(sel, { "type": "file" });
+                        //    if (sel) {
+                        //        ref.edit(sel);
+                        //    }
+
+                        //});
+
+
+
+
+                        //$('div#project-step-tree').jstree({
+                        //    'core': {
+                        //        'data': [
+                        //           { "id": "ajson1", "parent": "#", "text": "Simple root node" },
+                        //           { "id": "ajson2", "parent": "#", "text": "Root node 2" },
+                        //           { "id": "ajson3", "parent": "ajson2", "text": "Child 1" },
+                        //           { "id": "ajson4", "parent": "ajson2", "text": "Child 2" },
+                        //        ]
+                        //    }
+                        //});
+                    };
+                    //out_grGantt();
+                    //g = new JSGantt.GanttChart('g', document.getElementById('GanttChartDIV'), 'day');
+                    //g.setShowRes(1); // Show/Hide Responsible (0/1)
+                    //g.setShowDur(1); // Show/Hide Duration (0/1)
+                    //g.setShowComp(1); // Show/Hide % Complete(0/1)
+                    //g.setCaptionType('Resource');  // Set to Show Caption (None,Caption,Resource,Duration,Complete)
+                    ////var gr = new Graphics();
+                    //if (g) {
+                    //    g.AddTaskItem(new JSGantt.TaskItem(1, 'Define Chart API', '', '', 'ff0000', 'http://google.com', 0, 'Brian', 0, 1, 0, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(11, 'Chart Object', '7/20/2008', '7/20/2008', 'ff00ff', 'http://www.yahoo.com', 1, 'Shlomy', 100, 0, 1, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(12, 'Task Objects', '', '', '00ff00', '', 0, 'Shlomy', 40, 1, 1, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(121, 'Constructor Proc', '7/21/2008', '8/9/2008', '00ffff', 'http://www.yahoo.com', 0, 'Brian T.', 60, 0, 12, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(122, 'Task Variables', '8/6/2008', '8/11/2008', 'ff0000', 'http://google.com', 0, 'Brian', 60, 0, 12, 1, 121));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(123, 'Task by Minute/Hour', '8/6/2008', '8/11/2008 12:00', 'ffff00', 'http://google.com', 0, 'Ilan', 60, 0, 12, 1, 121));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(124, 'Task Functions', '8/9/2008', '8/29/2008', 'ff0000', 'http://google.com', 0, 'Anyone', 60, 0, 12, 1, 0, 'This is another caption'));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(2, 'Create HTML Shell', '8/24/2008', '8/25/2008', 'ffff00', 'http://google.com', 0, 'Brian', 20, 0, 0, 1, 122));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(3, 'Code Javascript', '', '', 'ff0000', 'http://google.com', 0, 'Brian', 0, 1, 0, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(31, 'Define Variables', '7/25/2008', '8/17/2008', 'ff00ff', 'http://google.com', 0, 'Brian', 30, 0, 3, 1, '', 'Caption 1'));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(32, 'Calculate Chart Size', '8/15/2008', '8/24/2008', '00ff00', 'http://google.com', 0, 'Shlomy', 40, 0, 3, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(33, 'Draw Taks Items', '', '', '00ff00', 'http://google.com', 0, 'Someone', 40, 1, 3, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(332, 'Task Label Table', '8/6/2008', '8/11/2008', '0000ff', 'http://google.com', 0, 'Brian', 60, 0, 33, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(333, 'Task Scrolling Grid', '8/9/2008', '8/20/2008', '0000ff', 'http://google.com', 0, 'Brian', 60, 0, 33, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(34, 'Draw Task Bars', '', '', '990000', 'http://google.com', 0, 'Anybody', 60, 1, 3, 0));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(341, 'Loop each Task', '8/26/2008', '9/11/2008', 'ff0000', 'http://google.com', 0, 'Brian', 60, 0, 34, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(342, 'Calculate Start/Stop', '9/12/2008', '10/18/2008', 'ff6666', 'http://google.com', 0, 'Brian', 60, 0, 34, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(343, 'Draw Task Div', '10/13/2008', '10/17/2008', 'ff0000', 'http://google.com', 0, 'Brian', 60, 0, 34, 1));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(344, 'Draw Completion Div', '10/17/2008', '11/04/2008', 'ff0000', 'http://google.com', 0, 'Brian', 60, 0, 34, 1, "342,343"));
+                    //    g.AddTaskItem(new JSGantt.TaskItem(35, 'Make Updates', '12/17/2008', '2/04/2009', 'f600f6', 'http://google.com', 0, 'Brian', 30, 0, 3, 1));
+                    //    g.Draw();
+                    //    g.DrawDependencies();
+                    //}
+                    //else {
+                    //    alert("not defined");
+                    //}
                 }
             },
             //

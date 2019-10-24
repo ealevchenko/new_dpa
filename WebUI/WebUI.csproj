@@ -212,7 +212,9 @@
     <Compile Include="Areas\Systems\SystemsAreaRegistration.cs" />
     <Compile Include="Controllers\api\ListProjectsController.cs" />
     <Compile Include="Controllers\api\ProjectManagerController.cs" />
+    <Compile Include="Controllers\api\StagesProjectController.cs" />
     <Compile Include="Controllers\api\StructuralSubdivisionsController.cs" />
+    <Compile Include="Controllers\api\TemplatesStagesProjectController.cs" />
     <Compile Include="Controllers\api\TypeProjectController.cs" />
     <Compile Include="Controllers\api\UsersController.cs" />
     <Compile Include="Controllers\api\WorkPerformersController.cs" />
@@ -559,6 +561,16 @@
     <Content Include="Content\project\home.css" />
     <Content Include="Content\project\home1.css" />
     <Content Include="Content\project\project_list.css" />
+    <Content Include="Content\themes\default-dark\32px.png" />
+    <Content Include="Content\themes\default-dark\40px.png" />
+    <Content Include="Content\themes\default-dark\style.css" />
+    <Content Include="Content\themes\default-dark\style.min.css" />
+    <Content Include="Content\themes\default-dark\throbber.gif" />
+    <Content Include="Content\themes\default\32px.png" />
+    <Content Include="Content\themes\default\40px.png" />
+    <Content Include="Content\themes\default\style.css" />
+    <Content Include="Content\themes\default\style.min.css" />
+    <Content Include="Content\themes\default\throbber.gif" />
     <Content Include="Images\project\1cd-intro-background.jpg" />
     <Content Include="Images\project\2.jpg" />
     <Content Include="Images\project\2img-1.jpg" />
@@ -834,6 +846,8 @@
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Content\DataTables\extensions\Buttons\css\mixins.scss" />
     <Content Include="Content\DataTables\extensions\Buttons\css\common.scss" />
+    <Content Include="Content\themes\default-dark\Thumbs.db" />
+    <Content Include="Content\themes\default\Thumbs.db" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Gantt\jsgantt.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -843,6 +857,8 @@
     <Content Include="Scripts\jquery.cookie-1.4.1.min.js" />
     <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.mixitup.min.js" />
+    <Content Include="Scripts\jstree.js" />
+    <Content Include="Scripts\jstree.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
