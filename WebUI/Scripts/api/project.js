@@ -252,6 +252,101 @@ Project.prototype.getAsyncStagesProjectOfIDProject = function (id_project, callb
         },
     });
 };
+// Веруть список всех шагов всех проектов
+Project.prototype.getAsyncStagesProject = function (callback) {
+    $.ajax({
+        type: 'GET',
+        url: '../../api/project/sp/all',
+        async: true,
+        dataType: 'json',
+        beforeSend: function () {
+            AJAXBeforeSend();
+        },
+        success: function (data) {
+            if (typeof callback === 'function') {
+                callback(data);
+            }
+        },
+        error: function (x, y, z) {
+            OnAJAXError(x, y, z);
+        },
+        complete: function () {
+            AJAXComplete();
+        },
+    });
+};
+//Обновить шаг проекта
+Project.prototype.putAsyncStagesProject = function (step, callback) {
+    $.ajax({
+        type: 'PUT',
+        url: '../../api/project/sp/' + step.id,
+        data: JSON.stringify(step),
+        contentType: "application/json;charset=utf-8",
+        async: true,
+        beforeSend: function () {
+            AJAXBeforeSend();
+        },
+        success: function (data) {
+            if (typeof callback === 'function') {
+                callback(data);
+            }
+        },
+        error: function (x, y, z) {
+            OnAJAXError(x, y, z);
+        },
+        complete: function () {
+            AJAXComplete();
+        },
+    });
+};
+// Удалить шаг по id
+Project.prototype.deleteAsyncStagesProject = function (id, callback) {
+    $.ajax({
+        url: '../../api/project/sp/' + id,
+        type: 'DELETE',
+        contentType: "application/json;charset=utf-8",
+        async: true,
+        beforeSend: function () {
+            AJAXBeforeSend();
+        },
+        success: function (data) {
+            if (typeof callback === 'function') {
+                callback(data);
+            }
+        },
+        error: function (x, y, z) {
+            OnAJAXError(x, y, z);
+        },
+        complete: function () {
+            AJAXComplete();
+        },
+    });
+};
+// Добавить шаг
+Project.prototype.postAsyncStagesProject = function (step, callback) {
+    $.ajax({
+        url: '../../api/project/sp/',
+        type: 'POST',
+        data: JSON.stringify(step),
+        contentType: "application/json;charset=utf-8",
+        async: true,
+        beforeSend: function () {
+            AJAXBeforeSend();
+        },
+        success: function (data) {
+            if (typeof callback === 'function') {
+                callback(data);
+            }
+        },
+        error: function (x, y, z) {
+            LockScreenOff();
+            OnAJAXError(x, y, z);
+        },
+        complete: function () {
+            AJAXComplete();
+        },
+    });
+};
 //======= TemplatesStagesProject ======================================
 // Веруть список шаблонов шагов проекта
 Project.prototype.getAsyncTemplatesStagesProject = function (callback) {

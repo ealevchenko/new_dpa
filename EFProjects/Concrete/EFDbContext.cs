@@ -20,6 +20,101 @@ namespace EFProjects.Concrete
         public virtual DbSet<TypeProject> TypeProject { get; set; }
         public virtual DbSet<WorkPerformers> WorkPerformers { get; set; }
 
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<ListProjects>()
+        //        .Property(e => e.budget)
+        //        .HasPrecision(19, 4);
+
+        //    modelBuilder.Entity<ListProjects>()
+        //        .Property(e => e.contract_value)
+        //        .HasPrecision(19, 4);
+
+        //    modelBuilder.Entity<ListProjects>()
+        //        .Property(e => e.contract_engineering_value)
+        //        .HasPrecision(19, 4);
+
+        //    modelBuilder.Entity<ListProjects>()
+        //        .Property(e => e.contract_equipment_value)
+        //        .HasPrecision(19, 4);
+
+        //    modelBuilder.Entity<ListProjects>()
+        //        .Property(e => e.contract_construction_value)
+        //        .HasPrecision(19, 4);
+
+        //    modelBuilder.Entity<ListProjects>()
+        //        .Property(e => e.contract_commissioning_value)
+        //        .HasPrecision(19, 4);
+
+        //    modelBuilder.Entity<ListProjects>()
+        //        .Property(e => e.contract_other_value)
+        //        .HasPrecision(19, 4);
+
+        //    modelBuilder.Entity<ListProjects>()
+        //        .Property(e => e.payment_engineering_value)
+        //        .HasPrecision(19, 4);
+
+        //    modelBuilder.Entity<ListProjects>()
+        //        .Property(e => e.payment_equipment_value)
+        //        .HasPrecision(19, 4);
+
+        //    modelBuilder.Entity<ListProjects>()
+        //        .Property(e => e.payment_construction_value)
+        //        .HasPrecision(19, 4);
+
+        //    modelBuilder.Entity<ListProjects>()
+        //        .Property(e => e.payment_commissioning_value)
+        //        .HasPrecision(19, 4);
+
+        //    modelBuilder.Entity<ListProjects>()
+        //        .Property(e => e.payment_other_value)
+        //        .HasPrecision(19, 4);
+
+        //    modelBuilder.Entity<ListProjects>()
+        //        .HasMany(e => e.StagesProject)
+        //        .WithRequired(e => e.ListProjects)
+        //        .HasForeignKey(e => e.id_project)
+        //        .WillCascadeOnDelete(false);
+
+        //    modelBuilder.Entity<ProjectManager>()
+        //        .HasMany(e => e.ListProjects)
+        //        .WithRequired(e => e.ProjectManager)
+        //        .HasForeignKey(e => e.id_project_manager)
+        //        .WillCascadeOnDelete(false);
+
+        //    modelBuilder.Entity<ProjectManager>()
+        //        .HasMany(e => e.ProjectManager1)
+        //        .WithOptional(e => e.ProjectManager2)
+        //        .HasForeignKey(e => e.parent_id);
+
+        //    modelBuilder.Entity<ProjectManager>()
+        //        .HasMany(e => e.TemplatesStagesProject)
+        //        .WithOptional(e => e.ProjectManager)
+        //        .HasForeignKey(e => e.id_project_manager);
+
+        //    modelBuilder.Entity<TemplatesStagesProject>()
+        //        .HasMany(e => e.StagesProject)
+        //        .WithRequired(e => e.TemplatesStagesProject)
+        //        .HasForeignKey(e => e.id_templates_stages_project)
+        //        .WillCascadeOnDelete(false);
+
+        //    modelBuilder.Entity<TemplatesStagesProject>()
+        //        .HasMany(e => e.TemplatesStagesProject1)
+        //        .WithOptional(e => e.TemplatesStagesProject2)
+        //        .HasForeignKey(e => e.parent_id);
+
+        //    modelBuilder.Entity<TypeProject>()
+        //        .HasMany(e => e.ListProjects)
+        //        .WithRequired(e => e.TypeProject)
+        //        .HasForeignKey(e => e.id_type_project)
+        //        .WillCascadeOnDelete(false);
+
+        //    modelBuilder.Entity<WorkPerformers>()
+        //        .HasMany(e => e.ListProjects)
+        //        .WithOptional(e => e.WorkPerformers)
+        //        .HasForeignKey(e => e.id_work_performer);
+        //}
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ListProjects>()

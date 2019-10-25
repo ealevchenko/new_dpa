@@ -233,5 +233,21 @@ namespace WebUI.Controllers.api
                 return -1;
             }
         }
+
+        // DELETE: api/project/sp/8
+        [HttpDelete]
+        [Route("{id:int}")]
+        public int DeleteStagesProject(int id)
+        {
+            try
+            {
+                this.ef_sp.Delete(id);
+                return this.ef_sp.Save();
+            }
+            catch (Exception e)
+            {
+                return -1;
+            }            
+        }
     }
 }
