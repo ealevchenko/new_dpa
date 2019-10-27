@@ -83,7 +83,7 @@ var project_step_detali = {
 
         });
         this.project_steps_save = $('button#save-steps').on('click', function () {
-
+            project_step_detali.save_steps_project();
         });
         this.project_steps_cancel = $('button#cancel-steps').on('click', function () {
             project_step_detali.steps_buffer = project_step_detali.get_steps_buffer(project_step_detali.steps_project);
@@ -296,7 +296,7 @@ var project_step_detali = {
             id_templates_stages_project: el.id,
             position: i,
             start: group !== true ? new Date() : null,
-            stop: group !== true ? new Date() : null,
+            stop: group !== true ? moment(new Date()).add(1, 'days')._d : null,
             current: false,
             skip: false,
             mile: null,
@@ -312,14 +312,14 @@ var project_step_detali = {
     },
     // Упорядочивание шаблона при помощи рекурсии
     find_steps_template: function (list, obj, res) {
-            var root = getObjects(list, 'parent_id', obj.id)
-            if (root.length > 0) {
-                $.each(root, function (i, el) {
-                    res.push(el);
-                    res = project_step_detali.find_steps_template(list, el, res);
-                });
-            } 
-            return res;
+        var root = getObjects(list, 'parent_id', obj.id)
+        if (root.length > 0) {
+            $.each(root, function (i, el) {
+                res.push(el);
+                res = project_step_detali.find_steps_template(list, el, res);
+            });
+        }
+        return res;
     },
     // Упорядочивание шаблона из масива данных
     get_steps_template_root: function (data) {
@@ -337,14 +337,14 @@ var project_step_detali = {
         var steps_template = [];
         $.each(this.get_steps_template_root(temp), function (i, el) {
             var root = getObjects(temp, 'parent_id', el.id)
-            var buf = project_step_detali.get_template_step(i + 1, el, (root.length>0 ? true: false));
+            var buf = project_step_detali.get_template_step(i + 1, el, (root.length > 0 ? true : false));
             steps_template.push(buf);
         });
         return steps_template;
     },
     //----------------------------------------------------------------
     // Показать шаги проекта в указанном режиме
-    view_steps_project: function (mode){
+    view_steps_project: function (mode) {
         this.view_gantt(this.steps_buffer !== null ? this.steps_buffer : [], 'month');
         this.switch_mode_steps(mode);
     },
@@ -530,6 +530,133 @@ var project_step_detali = {
             coment: project_step_detali.project_step_coment_edit.text()
         }
     },
+    //--------------------------------------------------------------
+    // Сохранение и обновление
+    //--------------------------------------------------------------
+    // Сравнить существющие и новые шаги и вернуть список для удаления
+    get_delete_steps_project: function () {
+        var list_del = [];
+        $.each(this.steps_project, function (i, el) {
+            var step = getObjects(project_step_detali.steps_buffer, 'id', el.id)
+            if (step.length === 0) {
+                list_del.push(el);
+            }
+        });
+        return list_del;
+    },
+    // Вернуть список шагов для добавления
+    get_add_steps_project: function () {
+        return getObjects(project_step_detali.steps_buffer, 'id', 0)
+    },
+    // Удалить шаги вернув список результатов удаления 1-ок, -1-error
+    delete_steps_project: function (steps, callback) {
+        var count = steps.length;
+        // Удаление шагов
+        var res_del = [];
+        $.each(steps, function (i, el) {
+            prj.deleteAsyncStagesProject(el.id, function (res) {
+                res_del.push({ 'id': el.id, 'res': res });
+                count -= 1;
+                if (count <= 0) {
+                    if (typeof callback === 'function') {
+                        callback(res_del);
+                    }
+                }
+            })
+        });
+    },
+    // Добавить шаги вернув список добавленных шагов с новыми id
+    add_steps_project: function (steps, callback) {
+        var count = steps.length;
+        // Добавление шагов
+        var res_add = [];
+        $.each(steps, function (i, el) {
+            if (el.id === 0) {
+                // Надо добавить
+                var el_new = {
+                    id: 0,
+                    id_project: el.id_project,
+                    id_templates_stages_project: el.id_templates_stages_project,
+                    position: el.position,
+                    start: el.start,
+                    stop: el.stop,
+                    current: el.current,
+                    skip: el.skip,
+                    mile: el.mile,
+                    resource: el.resource,
+                    persent: el.persent,
+                    group: el.group,
+                    parent_id: el.parent_id,
+                    depend: el.depend,
+                    coment: el.coment,
+                    TemplatesStagesProject: null,
+                }
+                prj.postAsyncStagesProject(el_new, function (res) {
+                    el.id = res;
+                    res_add.push(el);
+                    count -= 1;
+                    if (count <= 0) {
+                        if (typeof callback === 'function') {
+                            callback(res_add);
+                        }
+                    }
+                })
+            } else {
+                // Надо обновить
+                res_add.push(el);
+            }
+
+        });
+    },
+    // Сохранить шаги проекта
+    save_steps_project: function () {
+        // Удалить не нужные шаги
+        var list_delete = this.get_delete_steps_project();
+        if (list_delete.length > 0) {
+            this.delete_steps_project(list_delete, function (res_del) {
+                // Добавим новые
+                //var list_add = project_step_detali.get_add_steps_project();
+                project_step_detali.add_steps_project(project_step_detali.steps_buffer, function (res_add) {
+                //project_step_detali.add_steps_project(list_add, function (res_add) {
+                    // обновим данные 
+                    var list_upd = [];
+                    $.each(res_add, function (i, el) {
+                        // Перестроим владельца
+                        var parent = el.parent_id_tree;
+                        if (parent !== null) {
+                            var step = getObjects(res_add, 'id_tree', parent)
+                            if (step.length > 0) {
+                                var id = step[0].id;
+                                el.parent_id_tree = id;
+                                el.parent_id = id;
+                            }
+                        }
+                        // Перестроим зависимости
+                        var depend = el.depend;
+                        if (depend !== null && depend !== '') {
+                            var list_depend = depend.split(',');
+                            // Пройдемся по всем зависемостям
+                            var list_new_depend = [];
+                            $.each(list_depend, function (i, el_depend) {
+                                var step_depend = getObjects(res_add, 'id_tree', el_depend)
+                                if (step_depend.length > 0) {
+                                    var id = step_depend[0].id;
+                                    list_new_depend.push(id);
+                                }
+                            });
+                            el.depend = list_new_depend.join(',');
+                        }
+                        list_upd.push(el);
+                    });
+
+                })
+            });
+        } else {
+
+        }
+
+    },
+
 };
 
 //var out_grGantt = function () {
