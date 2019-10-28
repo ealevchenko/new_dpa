@@ -58,6 +58,8 @@ var project_step_detali = {
     project_step_save: null,
 
     lang: 'ru',
+    langs: [],
+
     mode: 0,
     id_project: 0,              // id проекта
     steps_project: [],          // шаги проета проекта
@@ -124,34 +126,34 @@ var project_step_detali = {
         this.project_step_group_view = $('input#project-step-group-view').checkboxradio({ icon: true });
         // Начало и конец
         this.project_step_range_edit = $('#select-range-project-edit').dateRangePicker(
-                    {
-                        language: 'ru',
-                        format: 'DD.MM.YYYY HH:mm',
-                        separator: '-',
-                        autoClose: false,
-                        time: {
-                            enabled: false
-                        },
-                        setValue: function (s, s1, s2) {
-                            if (s1 !== s2) {
-                                project_step_detali.project_step_start_edit.val(s1);
-                                project_step_detali.project_step_stop_edit.val(s2);
-                            } else {
-                                project_step_detali.project_step_start_edit.val("");
-                                project_step_detali.project_step_stop_edit.val("");
-                            }
+            {
+                language: 'ru',
+                format: 'DD.MM.YYYY HH:mm',
+                separator: '-',
+                autoClose: false,
+                time: {
+                    enabled: false
+                },
+                setValue: function (s, s1, s2) {
+                    if (s1 !== s2) {
+                        project_step_detali.project_step_start_edit.val(s1);
+                        project_step_detali.project_step_stop_edit.val(s2);
+                    } else {
+                        project_step_detali.project_step_start_edit.val("");
+                        project_step_detali.project_step_stop_edit.val("");
+                    }
 
-                        }
-                    }).
-                    bind('datepicker-change', function (evt, obj) {
-                        project_step_detali.start_step = obj.date1,
-                        project_step_detali.stop_step = obj.date2
-                    })
-                    .bind('datepicker-closed', function () {
+                }
+            }).
+            bind('datepicker-change', function (evt, obj) {
+                project_step_detali.start_step = obj.date1,
+                    project_step_detali.stop_step = obj.date2
+            })
+            .bind('datepicker-closed', function () {
 
-                    }).bind('datepicker-open', function (evt) {
-                        evt.stopPropagation();
-                    });
+            }).bind('datepicker-open', function (evt) {
+                evt.stopPropagation();
+            });
         this.project_step_start_edit = $('input#project-step-start-edit');
         this.project_step_stop_edit = $('input#project-step-stop-edit');
         this.project_step_range_view = $('input#project-step-range-view');
@@ -231,13 +233,14 @@ var project_step_detali = {
     // Общая иициализация
     init: function (lang) {
         this.lang = lang;
+        this.langs = $.extend(true, $.extend(true, getLanguages($.Text_View, lang), getLanguages($.Text_Common, lang)), getLanguages($.Text_Table, lang)),
         this.prj = prj = new Project(lang), // Создадим класс Project
-        // Загрузим справочники
-        this.loadReference(function () {
-            project_step_detali.init_obj();
-            // Перевести в режим просмотра
-            project_step_detali.mode_view_steps();
-        });
+            // Загрузим справочники
+            this.loadReference(function () {
+                project_step_detali.init_obj();
+                // Перевести в режим просмотра
+                project_step_detali.mode_view_steps();
+            });
     },
     //--------------------------------------------------
     // Перевести в режим
@@ -269,7 +272,10 @@ var project_step_detali = {
     // Показать шаги проекта
     load_steps_project: function (id_project, steps_project) {
         this.id_project = id_project;
-        this.steps_project = steps_project;
+        // Сохранить отсортированный по возрастанию
+        this.steps_project = steps_project.sort(function compareNumbers(a, b) {
+            return a.position - b.position;
+        });
         this.steps_buffer = this.get_steps_buffer(this.steps_project);
         this.view_steps_project(0);
     },
@@ -308,7 +314,7 @@ var project_step_detali = {
             depend: null,
             coment: null,
             TemplatesStagesProject: el
-        }
+        };
     },
     // Упорядочивание шаблона при помощи рекурсии
     find_steps_template: function (list, obj, res) {
@@ -336,7 +342,7 @@ var project_step_detali = {
         var temp = this.prj.list_templates_stages_project;
         var steps_template = [];
         $.each(this.get_steps_template_root(temp), function (i, el) {
-            var root = getObjects(temp, 'parent_id', el.id)
+            var root = getObjects(temp, 'parent_id', el.id);
             var buf = project_step_detali.get_template_step(i + 1, el, (root.length > 0 ? true : false));
             steps_template.push(buf);
         });
@@ -370,14 +376,14 @@ var project_step_detali = {
             project_step_detali.project_step_group_edit.prop('checked', step.group).checkboxradio("refresh");
             project_step_detali.project_step_group_view.prop('checked', step.group).checkboxradio("refresh");
 
-            project_step_detali.project_step_range_edit.data('dateRangePicker').setDateRange(step.start != null ? moment(step.start).format("DD.MM.YYYY") : "", step.stop != null ? moment(step.stop).format("DD.MM.YYYY") : "", true);
-            project_step_detali.project_step_range_view.val(step.start != null && step.stop != null ? moment(step.start).format("DD.MM.YYYY") + " - " + moment(step.stop).format("DD.MM.YYYY") : "");
+            project_step_detali.project_step_range_edit.data('dateRangePicker').setDateRange(step.start !== null ? moment(step.start).format("DD.MM.YYYY") : "", step.stop !== null ? moment(step.stop).format("DD.MM.YYYY") : "", true);
+            project_step_detali.project_step_range_view.val(step.start !== null && step.stop !== null ? moment(step.start).format("DD.MM.YYYY") + " - " + moment(step.stop).format("DD.MM.YYYY") : "");
 
             project_step_detali.project_step_resource_edit.val(step.resource);
             project_step_detali.project_step_resource_view.val(step.resource);
 
             project_step_detali.project_step_compile_edit.slider("value", step.persent); // Процент выполнения
-            project_step_detali.project_step_compile_handle_edit.text(step.persent)      // отразить Процент выполнения
+            project_step_detali.project_step_compile_handle_edit.text(step.persent);      // отразить Процент выполнения
             project_step_detali.project_step_compile_view.val(step.persent + "%");
 
             project_step_detali.project_step_current_edit.prop('checked', step.current).checkboxradio("refresh");
@@ -389,7 +395,7 @@ var project_step_detali = {
             var list_exceptions_value = [];
             list_exceptions_value.push(step.id_tree);
             updateOptionSelect(
-                 project_step_detali.select_project_step_parent_edit,
+                project_step_detali.select_project_step_parent_edit,
                 project_step_detali.steps_buffer,
                 function (row) {
                     return { value: Number(row.id), text: row.TemplatesStagesProject.stages_project_ru };
@@ -403,7 +409,7 @@ var project_step_detali = {
             var list_depend_str = "";
             var list_depend = step.depend !== null ? step.depend.split(',') : [];
             updateOptionSelect(
-                 project_step_detali.select_project_step_depend_edit,
+                project_step_detali.select_project_step_depend_edit,
                 project_step_detali.steps_buffer,
                 function (row) {
                     return { value: Number(row.id), text: row.TemplatesStagesProject.stages_project_ru };
@@ -411,13 +417,13 @@ var project_step_detali = {
                 list_depend.length > 0 ? Number(list_depend[0]) : -1,
                 list_exceptions_value.length > 0 ? list_exceptions_value : null);
             $.each(list_depend, function (i, el) {
-                var step_depend = project_step_detali.get_step_of_data_step(el)
+                var step_depend = project_step_detali.get_step_of_data_step(el);
                 list_depend_str += step_depend !== null ? step_depend.TemplatesStagesProject.stages_project_ru + "; " : "";
             });
             project_step_detali.select_project_step_depend_view.text(list_depend_str);
 
-            project_step_detali.project_step_coment_edit.text(step.coment)      // коментарий
-            project_step_detali.project_step_coment_view.text(step.coment)      // коментарий
+            project_step_detali.project_step_coment_edit.text(step.coment);      // коментарий
+            project_step_detali.project_step_coment_view.text(step.coment);     // коментарий
         }
 
     },
@@ -438,15 +444,15 @@ var project_step_detali = {
                     //var d = moment(el.start).format("MM.DD.YYYY");
                     g.AddTaskItem(new JSGantt.TaskItem(el.id_tree,
                         el.TemplatesStagesProject.stages_project_ru,
-                        el.start != null ? moment(el.start).format("DD.MM.YYYY") : '',
-                        el.stop != null ? moment(el.stop).format("DD.MM.YYYY") : '',
+                        el.start !== null ? moment(el.start).format("DD.MM.YYYY") : '',
+                        el.stop !== null ? moment(el.stop).format("DD.MM.YYYY") : '',
                         'ff00ff',
                         '',
-                        el.mile != null ? el.mile : 0,
-                        el.resource != null ? el.resource : '',
+                        el.mile !== null ? el.mile : 0,
+                        el.resource !== null ? el.resource : '',
                         el.persent,
                         el.group,
-                        el.parent_id_tree != null ? el.parent_id_tree : 0,
+                        el.parent_id_tree !== null ? el.parent_id_tree : 0,
                         1,
                         el.depend));
                 });
@@ -479,7 +485,7 @@ var project_step_detali = {
         var data_tree = [];
         if (data) {
             $.each(data, function (i, el) {
-                data_tree.push({ id: el.id_tree, parent: el.parent_id != null ? el.parent_id_tree : "#", text: el.TemplatesStagesProject.stages_project_ru, state: { opened: true, selected: false } });
+                data_tree.push({ id: el.id_tree, parent: el.parent_id !== null ? el.parent_id_tree : "#", text: el.TemplatesStagesProject.stages_project_ru, state: { opened: true, selected: false } });
             });
             project_step_detali.project_step_tree.jstree(true).settings.core.data = data_tree;
             project_step_detali.project_step_tree.jstree(true).refresh();
@@ -528,7 +534,7 @@ var project_step_detali = {
             parent_id: project_step_detali.select_project_step_parent_edit.val(),
             depend: project_step_detali.select_project_step_depend_edit.val(),
             coment: project_step_detali.project_step_coment_edit.text()
-        }
+        };
     },
     //--------------------------------------------------------------
     // Сохранение и обновление
@@ -546,7 +552,7 @@ var project_step_detali = {
     },
     // Вернуть список шагов для добавления
     get_add_steps_project: function () {
-        return getObjects(project_step_detali.steps_buffer, 'id', 0)
+        return getObjects(project_step_detali.steps_buffer, 'id', 0);
     },
     // Удалить шаги вернув список результатов удаления 1-ок, -1-error
     delete_steps_project: function (steps, callback) {
@@ -608,52 +614,98 @@ var project_step_detali = {
 
         });
     },
+    // Обновить шаги
+    update_steps_project: function (steps, callback) {
+        var count = steps.length;
+        // Добавление шагов
+        var res_upd = [];
+        $.each(steps, function (i, el) {
+            // Надо добавить
+            var el_new = {
+                id: el.id,
+                id_project: el.id_project,
+                id_templates_stages_project: el.id_templates_stages_project,
+                position: el.position,
+                start: el.start,
+                stop: el.stop,
+                current: el.current,
+                skip: el.skip,
+                mile: el.mile,
+                resource: el.resource,
+                persent: el.persent,
+                group: el.group,
+                parent_id: el.parent_id,
+                depend: el.depend,
+                coment: el.coment,
+                TemplatesStagesProject: null
+            };
+            prj.putAsyncStagesProject(el_new, function (res) {
+                res_upd.push({ 'id': el.id, 'res': res });
+                count -= 1;
+                if (count <= 0) {
+                    if (typeof callback === 'function') {
+                        callback(res_upd);
+                    }
+                }
+            });
+        });
+    },
+    // Добавить новые скорректировать ссылки на родителя и зависимости и обновить шаги в базе
+    save_add_update_steps_project: function () {
+        project_step_detali.add_steps_project(project_step_detali.steps_buffer, function (res_add) {
+            //project_step_detali.add_steps_project(list_add, function (res_add) {
+            // обновим данные 
+            var list_upd = [];
+            $.each(res_add, function (i, el) {
+                // Перестроим владельца
+                var parent = el.parent_id_tree;
+                if (parent !== null) {
+                    var step = getObjects(res_add, 'id_tree', parent);
+                    if (step.length > 0) {
+                        var id = step[0].id;
+                        el.parent_id_tree = id;
+                        el.parent_id = id;
+                    }
+                }
+                // Перестроим зависимости
+                var depend = el.depend;
+                if (depend !== null && depend !== '') {
+                    var list_depend = depend.split(',');
+                    // Пройдемся по всем зависемостям
+                    var list_new_depend = [];
+                    $.each(list_depend, function (i, el_depend) {
+                        var step_depend = getObjects(res_add, 'id_tree', el_depend);
+                        if (step_depend.length > 0) {
+                            var id = step_depend[0].id;
+                            list_new_depend.push(id);
+                        }
+                    });
+                    el.depend = list_new_depend.join(',');
+                }
+                list_upd.push(el);
+            });
+
+            $.each(list_upd, function (i, el) {
+                el.id_tree = el.id;
+            });
+            // Обновить изменения
+            project_step_detali.update_steps_project(list_upd, function (res_upd) {
+                LockScreenOff();
+            });
+        });
+    },
     // Сохранить шаги проекта
     save_steps_project: function () {
         // Удалить не нужные шаги
+        LockScreen(langView('mess_save', this.langs));
         var list_delete = this.get_delete_steps_project();
         if (list_delete.length > 0) {
             this.delete_steps_project(list_delete, function (res_del) {
-                // Добавим новые
-                //var list_add = project_step_detali.get_add_steps_project();
-                project_step_detali.add_steps_project(project_step_detali.steps_buffer, function (res_add) {
-                //project_step_detali.add_steps_project(list_add, function (res_add) {
-                    // обновим данные 
-                    var list_upd = [];
-                    $.each(res_add, function (i, el) {
-                        // Перестроим владельца
-                        var parent = el.parent_id_tree;
-                        if (parent !== null) {
-                            var step = getObjects(res_add, 'id_tree', parent)
-                            if (step.length > 0) {
-                                var id = step[0].id;
-                                el.parent_id_tree = id;
-                                el.parent_id = id;
-                            }
-                        }
-                        // Перестроим зависимости
-                        var depend = el.depend;
-                        if (depend !== null && depend !== '') {
-                            var list_depend = depend.split(',');
-                            // Пройдемся по всем зависемостям
-                            var list_new_depend = [];
-                            $.each(list_depend, function (i, el_depend) {
-                                var step_depend = getObjects(res_add, 'id_tree', el_depend)
-                                if (step_depend.length > 0) {
-                                    var id = step_depend[0].id;
-                                    list_new_depend.push(id);
-                                }
-                            });
-                            el.depend = list_new_depend.join(',');
-                        }
-                        list_upd.push(el);
-                    });
-
-                })
+                project_step_detali.save_add_update_steps_project();
             });
         } else {
-
-        }
+            project_step_detali.save_add_update_steps_project();
+        };
 
     },
 
@@ -881,7 +933,7 @@ jQuery(document).ready(function ($) {
             $("section.cd-gallery ul").empty();
             $.each(list_project, function (i, el) {
                 addCardGallery(el);
-            })
+            });
         },
 
 

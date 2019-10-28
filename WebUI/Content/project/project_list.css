@@ -1800,7 +1800,7 @@ Stretchy Nav style - common to:
 }
 
 .steps-tree {
-    width: 30%;
+    width: 50%;
     float: left;
     margin: 2px;
     padding: 5px;
@@ -1808,7 +1808,7 @@ Stretchy Nav style - common to:
 }
 
 .steps-tree-detali {
-    margin-left: 31%;
+    margin-left: 51%;
     margin-top: 2px;
     margin-bottom: 2px;
     margin-right: 2px;
