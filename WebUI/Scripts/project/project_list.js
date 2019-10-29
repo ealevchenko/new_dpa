@@ -108,13 +108,17 @@ var project_step_detali = {
             //e.stopPropagation();
             project_step_detali.mode_view_step();
             var i, j = [];
-            var r
+            var r;
+            project_step_detali.project_step_edit.hide();
+            project_step_detali.project_step_delete.hide();
             for (i = 0, j = data.selected.length; i < j; i++) {
                 r = data.instance.get_node(data.selected[i]);
                 // Получить шаг
                 var step = project_step_detali.get_step_of_data_step(r.id);
                 if (step) {
                     project_step_detali.view_step(step); // Показать шаг
+                    project_step_detali.project_step_edit.show();
+                    project_step_detali.project_step_delete.show();
                 }
             }
         });
@@ -272,7 +276,7 @@ var project_step_detali = {
         this.project_steps_template.hide();
         this.project_steps_save.hide();
         this.project_steps_cancel.hide();
-        this.mode_view_step()
+        this.mode_view_step();
     },
     // Перевести в режим редактирования шаги проекта
     mode_edit_steps: function () {
@@ -334,7 +338,7 @@ var project_step_detali = {
     },
     // Упорядочивание шаблона при помощи рекурсии
     find_steps_template: function (list, obj, res) {
-        var root = getObjects(list, 'parent_id', obj.id)
+        var root = getObjects(list, 'parent_id', obj.id);
         if (root.length > 0) {
             $.each(root, function (i, el) {
                 res.push(el);
