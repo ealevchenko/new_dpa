@@ -75,25 +75,6 @@ var project_step_detali = {
     // Инициализация объектов 
     init_obj: function () {
         this.project_steps_detali_edit = $('div#steps-edit');
-        //--------------------------------------------------
-        // Основные кнопки управления
-        //--------------------------------------------------
-        this.project_steps_edit = $('button#edit-steps').on('click', function () {
-            project_step_detali.mode_edit_steps();
-        });
-        this.project_steps_template = $('button#template-steps').on('click', function () {
-            project_step_detali.steps_buffer = project_step_detali.get_steps_template();
-            project_step_detali.view_steps_project(1);
-
-        });
-        this.project_steps_save = $('button#save-steps').on('click', function () {
-            project_step_detali.save_steps_project();
-        });
-        this.project_steps_cancel = $('button#cancel-steps').on('click', function () {
-            project_step_detali.steps_buffer = project_step_detali.get_steps_buffer(project_step_detali.steps_project);
-            project_step_detali.view_steps_project(0);
-            //project_step_detali.mode_view_steps();
-        });
         // Инициализация дерева
         this.project_step_tree = $('div#project-step-tree').jstree({
             "core": {
@@ -106,19 +87,22 @@ var project_step_detali = {
         // Обработка события выбора шага
         this.project_step_tree.on('changed.jstree', function (e, data) {
             //e.stopPropagation();
-            project_step_detali.mode_view_step();
+            
             var i, j = [];
             var r;
-            project_step_detali.project_step_edit.hide();
-            project_step_detali.project_step_delete.hide();
+            // Кнопки спрятать
+            //project_step_detali.project_step_edit.hide();
+            //project_step_detali.project_step_delete.hide();
             for (i = 0, j = data.selected.length; i < j; i++) {
                 r = data.instance.get_node(data.selected[i]);
+                project_step_detali.switch_mode_step(0);
                 // Получить шаг
                 var step = project_step_detali.get_step_of_data_step(r.id);
                 if (step) {
                     project_step_detali.view_step(step); // Показать шаг
-                    project_step_detali.project_step_edit.show();
-                    project_step_detali.project_step_delete.show();
+                    // Кнопки показать
+                   // project_step_detali.project_step_edit.show();
+                    //project_step_detali.project_step_delete.show();
                 }
             }
         });
@@ -212,6 +196,25 @@ var project_step_detali = {
         //
         this.project_step_coment_edit = $('textarea#project-step-coment-edit');
         this.project_step_coment_view = $('textarea#project-step-coment-view');
+        //--------------------------------------------------
+        // Основные кнопки управления
+        //--------------------------------------------------
+        this.project_steps_edit = $('button#edit-steps').on('click', function () {
+            project_step_detali.mode_edit_steps();
+        });
+        this.project_steps_template = $('button#template-steps').on('click', function () {
+            project_step_detali.steps_buffer = project_step_detali.get_steps_template();
+            project_step_detali.view_steps_project(1);
+
+        });
+        this.project_steps_save = $('button#save-steps').on('click', function () {
+            project_step_detali.save_steps_project();
+        });
+        this.project_steps_cancel = $('button#cancel-steps').on('click', function () {
+            project_step_detali.steps_buffer = project_step_detali.get_steps_buffer(project_step_detali.steps_project);
+            project_step_detali.view_steps_project(0);
+            //project_step_detali.mode_view_steps();
+        });
         //--------------------------------------------------------------------------
         // Кнопки для редактирования выбранного шага
         //--------------------------------------------------------------------------
@@ -221,20 +224,40 @@ var project_step_detali = {
         });
         // Править шаг
         this.project_step_edit = $('button#edit-step').on('click', function () {
-            project_step_detali.mode_edit_step();
+            project_step_detali.switch_mode_step(1);
         });
         // Удалить шаг
         this.project_step_delete = $('button#delete-step').on('click', function () {
-
+            var step = getObjects(project_step_detali.steps_buffer, 'id_tree', project_step_detali.curent_step.id_tree);
+            if (step.length) {
+                // Обновить 
+                var step_del = step[0];
+                // Проверим на потомков
+                if (project_step_detali.isChieldOfIDStep(project_step_detali.steps_buffer, step_del.id_tree)) return;
+                // Проверить на зависисмости
+                if (project_step_detali.isDependOfIDStep(project_step_detali.steps_buffer, step_del.id_tree)) return;
+                // Удалить
+                var new_buffer = [];
+                var position = 1;
+                $.each(project_step_detali.steps_buffer, function (i, el) {
+                    if (step_del.id_tree !== el.id_tree) {
+                        el.position = position;
+                        new_buffer.push(el);
+                        position += 1;
+                    }
+                });
+                project_step_detali.steps_buffer = new_buffer;
+                project_step_detali.view_step(null); // отобразить пустой шаг (обнулим и текущий шаг)
+                project_step_detali.view_steps_project(1);
+            }
         });
         // Отмена шаг
         this.project_step_cancel = $('button#cancel-step').on('click', function () {
             project_step_detali.view_step(project_step_detali.curent_step);
-            project_step_detali.mode_view_step();
+            project_step_detali.switch_mode_step(0);
         });
         // Сохранить шаг
         this.project_step_save = $('button#save-step').on('click', function () {
-            //var new_step = project_step_detali.get_new_step();
             // Найти шаг в буфере
             var step = getObjects(project_step_detali.steps_buffer, 'id_tree', project_step_detali.curent_step.id_tree);
             if (step.length) {
@@ -276,7 +299,7 @@ var project_step_detali = {
         this.project_steps_template.hide();
         this.project_steps_save.hide();
         this.project_steps_cancel.hide();
-        this.mode_view_step();
+        this.switch_mode_step(-1);
     },
     // Перевести в режим редактирования шаги проекта
     mode_edit_steps: function () {
@@ -374,6 +397,20 @@ var project_step_detali = {
         this.view_gantt(this.steps_buffer !== null ? this.steps_buffer : [], 'month');
         this.switch_mode_steps(mode);
     },
+    // Перевести в режим панель информации по шугу
+    switch_mode_step: function (mode_step) {
+        switch (mode_step) {
+            case 0: this.mode_view_step(); break;
+            case 1: this.mode_edit_step(); break;
+            default: this.mode_null_step(); break;
+        }
+    },
+    // Перевести в режим неопределенного шага проекта
+    mode_null_step: function () {
+        this.mode_step = -1;
+        this.project_steps_tree_detali_view.hide();
+        this.project_steps_tree_detali_edit.hide();
+    },
     // Перевести в режим просмотра шаг проекта
     mode_view_step: function () {
         this.mode_step = 0;
@@ -446,6 +483,8 @@ var project_step_detali = {
 
             project_step_detali.project_step_coment_edit.text(step.coment);      // коментарий
             project_step_detali.project_step_coment_view.text(step.coment);     // коментарий
+        } else {
+            project_step_detali.switch_mode_step(-1);
         }
 
     },
@@ -550,8 +589,8 @@ var project_step_detali = {
             step_old.resource = project_step_detali.project_step_resource_edit.val();
             step_old.persent = project_step_detali.project_step_compile_edit.slider("value");
             step_old.group = project_step_detali.project_step_group_edit.prop('checked');
-            step_old.parent_id = project_step_detali.select_project_step_parent_edit.val()!== "-1" ? Number(project_step_detali.select_project_step_parent_edit.val()) : null;
-            step_old.depend = project_step_detali.select_project_step_depend_edit.val()!=="-1" ? project_step_detali.select_project_step_depend_edit.val() : null;
+            step_old.parent_id = project_step_detali.select_project_step_parent_edit.val() !== "-1" ? Number(project_step_detali.select_project_step_parent_edit.val()) : null;
+            step_old.depend = project_step_detali.select_project_step_depend_edit.val() !== "-1" ? project_step_detali.select_project_step_depend_edit.val() : null;
             step_old.coment = project_step_detali.project_step_coment_edit.text();
             new_step = step_old;
         } else {
@@ -758,6 +797,26 @@ var project_step_detali = {
         };
 
     },
+    //--------------------------------------------------------------
+    // Вспомогательные функции
+    //--------------------------------------------------------------
+    // Поиск в списке шагов зависимости от указаного id
+    isDependOfIDStep: function (list_steps, id) {
+        var result = false;
+        $.each(project_step_detali.steps_buffer, function (i, el_depend) {
+            var list_depend = el_depend.depend !== null ? el_depend.depend.split(',') : [];
+            $.each(list_depend, function (i, el_depend_chield) {
+                if (Number(el_depend_chield) === id)
+                    result = true;
+            });
+        });
+        return result;
+    },
+    // Поиск в списке шагов потомков от указаного id
+    isChieldOfIDStep: function (list_steps, id) {
+        var step_chield = getObjects(list_steps, 'parent_id_tree', id);
+        if (step_chield.length > 0) { return true; } else { return false; }
+    }
 
 };
 
