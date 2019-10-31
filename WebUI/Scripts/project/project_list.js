@@ -39,6 +39,7 @@ var project_step_detali = {
     project_step_coment_view: null,
     // edit
     project_step_name_edit: null,
+    project_step_name_select_edit: null,
     project_step_group_edit: null,
     project_step_start_edit: null,
     project_step_stop_edit: null,
@@ -110,6 +111,17 @@ var project_step_detali = {
         this.project_steps_tree_detali_edit = $('div#steps-tree-detali-edit');
         // Инициализация детального ввода
         this.project_step_name_edit = $('input#project-step-name-edit');
+        this.project_step_name_select_edit = initSelect(
+            $('select#project-step-name-select-edit'),
+            { lang: this.lang },
+            [],
+            null,
+            -1,
+            function (event) {
+                event.preventDefault();
+                var id = $(this).val();
+            },
+            null);
         this.project_step_name_view = $('input#project-step-name-view');
         //
         this.project_step_group_edit = $('input#project-step-group-edit').checkboxradio({ icon: true });
@@ -259,14 +271,14 @@ var project_step_detali = {
         // Сохранить шаг
         this.project_step_save = $('button#save-step').on('click', function () {
             // Найти шаг в буфере
-            var step = getObjects(project_step_detali.steps_buffer, 'id_tree', project_step_detali.curent_step.id_tree);
+            var step = (project_step_detali.curent_step !== null ? getObjects(project_step_detali.steps_buffer, 'id_tree', project_step_detali.curent_step.id_tree) : []);
             if (step.length) {
                 // Обновить 
                 var step_upd = step[0];
                 project_step_detali.curent_step = project_step_detali.get_new_step(step_upd);
             } else {
                 // Создать новый
-                project_step_detali.curent_step.get_new_step(null);
+                project_step_detali.curent_step = project_step_detali.get_new_step(null);
                 project_step_detali.view_step(project_step_detali.curent_step, 0);
             }
             project_step_detali.view_steps_project(1);
@@ -372,7 +384,7 @@ var project_step_detali = {
     },
     // Упорядочивание шаблона из масива данных
     get_steps_template_root: function (data) {
-        var list_root = getObjects(data, 'parent_id', null)
+        var list_root = getObjects(data, 'parent_id', null);
         var res = [];
         $.each(list_root, function (i, el) {
             res.push(el);
@@ -432,11 +444,17 @@ var project_step_detali = {
     view_step: function (step, mode_step) {
         project_step_detali.curent_step = step;
         project_step_detali.switch_mode_step(mode_step);
+        // Проверим на потомков и зависимости
+        var active_delete = (step !== null ? project_step_detali.isChieldOfIDStep(project_step_detali.steps_buffer, step.id_tree) || project_step_detali.isDependOfIDStep(project_step_detali.steps_buffer, step.id_tree) : false);
         if (mode_step === 0) {
             if (step) {
                 project_step_detali.project_step_create.show();
                 project_step_detali.project_step_edit.show();
-                project_step_detali.project_step_delete.show();
+                if (active_delete !== true) {
+                    project_step_detali.project_step_delete.show();
+                } else {
+                    project_step_detali.project_step_delete.hide();
+                }
             } else {
                 project_step_detali.project_step_create.hide();
                 project_step_detali.project_step_edit.hide();
@@ -445,61 +463,57 @@ var project_step_detali = {
             // Просмотр
             project_step_detali.project_step_name_view.val(step !== null ? step.TemplatesStagesProject.stages_project_ru : '');
             project_step_detali.project_step_group_view.prop('checked', step !== null ? step.group : false).checkboxradio((step !== null ? "disable" : "enable")).checkboxradio("refresh");
-            project_step_detali.project_step_range_view.val(step !== null ? (step.start !== null && step.stop !== null ? moment(step.start).format("DD.MM.YYYY") + " - " + moment(step.stop).format("DD.MM.YYYY") : ""): "");
-            project_step_detali.project_step_resource_view.val(step !== null ? step.resource: "");
+            project_step_detali.project_step_range_view.val(step !== null ? (step.start !== null && step.stop !== null ? moment(step.start).format("DD.MM.YYYY") + " - " + moment(step.stop).format("DD.MM.YYYY") : "") : "");
+            project_step_detali.project_step_resource_view.val(step !== null ? step.resource : "");
             project_step_detali.project_step_compile_view.val(step !== null ? step.persent + "%" : "");
             project_step_detali.project_step_current_view.prop('checked', step !== null ? step.current : false).checkboxradio((step !== null ? "disable" : "enable")).checkboxradio("refresh");
             project_step_detali.project_step_skip_view.prop('checked', step !== null ? step.skip : false).checkboxradio((step !== null ? "disable" : "enable")).checkboxradio("refresh");
-
             // Получим родителя
-            var step_parent = project_step_detali.get_step_of_data_step(step.parent_id_tree);
+            var step_parent = step !== null ? project_step_detali.get_step_of_data_step(step.parent_id_tree) : null;
             project_step_detali.select_project_step_parent_view.val(step_parent !== null ? step_parent.TemplatesStagesProject.stages_project_ru : ""); // Процент выполнения
-
             // Получим зависимость
-            var list_depend_str = "";
-            var list_depend = step.depend !== null ? step.depend.split(',') : [];
-            $.each(list_depend, function (i, el) {
-                var step_depend = project_step_detali.get_step_of_data_step(el);
-                list_depend_str += step_depend !== null ? step_depend.TemplatesStagesProject.stages_project_ru + "; " : "";
-            });
-            project_step_detali.select_project_step_depend_view.text(list_depend_str);
-
-            project_step_detali.project_step_coment_view.text(step !== null ? step.coment: "");     // коментарий
-
-
+            project_step_detali.select_project_step_depend_view.text(project_step_detali.get_step_depend(step));
+            project_step_detali.project_step_coment_view.text(step !== null ? step.coment : "");     // коментарий
         }
         if (mode_step === 1) {
             // Правка
-            project_step_detali.project_step_name_edit.val(step !== null ? step.TemplatesStagesProject.stages_project_ru : '');
+            if (step !== null) {
+                project_step_detali.project_step_name_edit.val(step.TemplatesStagesProject.stages_project_ru).show();
+                this.project_step_name_select_edit.selectmenu("widget").hide();
+            } else {
+                project_step_detali.project_step_name_edit.val('').hide();
+                updateOptionSelect(
+                    this.project_step_name_select_edit,
+                    project_step_detali.prj.list_templates_stages_project,
+                    function (row) {
+                        return { value: Number(row.id), text: row.stages_project_ru };
+                    },
+                    -1,
+                    null);
+                this.project_step_name_select_edit.selectmenu("widget").show();
+            }
             project_step_detali.project_step_group_edit.prop('checked', step !== null ? step.group : false).checkboxradio("refresh");
             project_step_detali.project_step_range_edit.data('dateRangePicker').setDateRange(step !== null && step.start !== null ? moment(step.start).format("DD.MM.YYYY") : "", step !== null && step.stop !== null ? moment(step.stop).format("DD.MM.YYYY") : "", true);
-            project_step_detali.start_step = (step !== null ? step.start :null);
+            project_step_detali.start_step = (step !== null ? step.start : null);
             project_step_detali.stop_step = (step !== null ? step.stop : null);
             project_step_detali.project_step_resource_edit.val(step !== null ? step.resource : "");
             project_step_detali.project_step_compile_edit.slider("value", step !== null ? step.persent : 0); // Процент выполнения
             project_step_detali.project_step_compile_handle_edit.text(step !== null ? step.persent : 0);      // отразить Процент выполнения
             project_step_detali.project_step_current_edit.prop('checked', step !== null ? step.current : false).checkboxradio("refresh");
             project_step_detali.project_step_skip_edit.prop('checked', step !== null ? step.skip : false).checkboxradio("refresh");
-
             // Получим родителя
             var list_exceptions_value = [];
-            list_exceptions_value.push(step.id_tree);
+            if (step !== null) { list_exceptions_value.push(step.id_tree); }
             updateOptionSelect(
                 project_step_detali.select_project_step_parent_edit,
                 project_step_detali.steps_buffer,
                 function (row) {
                     return { value: Number(row.id), text: row.TemplatesStagesProject.stages_project_ru };
                 },
-                step.parent_id_tree !== null ? step.parent_id_tree : -1,
+                step !== null && step.parent_id_tree !== null ? step.parent_id_tree : -1,
                 list_exceptions_value.length > 0 ? list_exceptions_value : null);
-
             // Получим зависимость
-            var list_depend_str = "";
-            var list_depend = step.depend !== null ? step.depend.split(',') : [];
-            $.each(list_depend, function (i, el) {
-                var step_depend = project_step_detali.get_step_of_data_step(el);
-                list_depend_str += step_depend !== null ? step_depend.TemplatesStagesProject.stages_project_ru + "; " : "";
-            });
+            var list_depend = step !== null && step.depend !== null ? step.depend.split(',') : [];
             updateOptionSelect(
                 project_step_detali.select_project_step_depend_edit,
                 project_step_detali.steps_buffer,
@@ -508,10 +522,7 @@ var project_step_detali = {
                 },
                 list_depend.length > 0 ? Number(list_depend[0]) : -1,
                 list_exceptions_value.length > 0 ? list_exceptions_value : null);
-
-
-            project_step_detali.project_step_coment_edit.text(step !== null ? step.coment: "");      // коментарий
-
+            project_step_detali.project_step_coment_edit.text(step !== null ? step.coment : "");      // коментарий
         }
     },
     // Показать диаграмму ганта
@@ -620,27 +631,28 @@ var project_step_detali = {
             step_old.coment = project_step_detali.project_step_coment_edit.text();
             new_step = step_old;
         } else {
-
+            var id_templates_stages_project = project_step_detali.project_step_name_select_edit.val() !== "-1" ? Number(project_step_detali.project_step_name_select_edit.val()) : 0;
+            new_step = {
+                id: 0,
+                id_tree: 0,
+                id_project: project_step_detali.id_project,
+                id_templates_stages_project: id_templates_stages_project,
+                position: 0,
+                start: project_step_detali.start_step,
+                stop: project_step_detali.stop_step,
+                current : project_step_detali.project_step_current_edit.prop('checked'),
+                skip : project_step_detali.project_step_skip_edit.prop('checked'),
+                resource : project_step_detali.project_step_resource_edit.val(),
+                persent : project_step_detali.project_step_compile_edit.slider("value"),
+                group : project_step_detali.project_step_group_edit.prop('checked'),
+                parent_id : project_step_detali.select_project_step_parent_edit.val() !== "-1" ? Number(project_step_detali.select_project_step_parent_edit.val()) : null,
+                parent_id_tree : project_step_detali.select_project_step_parent_edit.val() !== "-1" ? Number(project_step_detali.select_project_step_parent_edit.val()) : null,
+                depend: project_step_detali.select_project_step_depend_edit.val() !== "-1" ? project_step_detali.select_project_step_depend_edit.val() : null,
+                coment: project_step_detali.project_step_coment_edit.text(),
+                TemplatesStagesProject: project_step_detali.prj.getTemplateStageProjectLocalOfID(id_templates_stages_project)
+            };
         }
         return new_step;
-        //var old_step = project_step_detali.curent_step;
-        //return {
-        //    id: old_step !== null ? old_step.id : 0,
-        //    id_project: old_step !== null ? old_step.id_project : 0,
-        //    id_templates_stages_project: old_step !== null ? old_step.id_templates_stages_project : 0,
-        //    position: old_step !== null ? old_step.position : 0,
-        //    start: project_step_detali.start_step,
-        //    stop: project_step_detali.stop_step,
-        //    current: project_step_detali.project_step_current_edit.prop('checked'),
-        //    skip: project_step_detali.project_step_skip_edit.prop('checked'),
-        //    mile: null,
-        //    resource: project_step_detali.project_step_resource_edit.val(),
-        //    persent: project_step_detali.project_step_compile_edit.slider("value"),
-        //    group: project_step_detali.project_step_group_edit.prop('checked'),
-        //    parent_id: project_step_detali.select_project_step_parent_edit.val(),
-        //    depend: project_step_detali.select_project_step_depend_edit.val(),
-        //    coment: project_step_detali.project_step_coment_edit.text()
-        //};
     },
     //--------------------------------------------------------------
     // Сохранение и обновление
@@ -649,7 +661,7 @@ var project_step_detali = {
     get_delete_steps_project: function () {
         var list_del = [];
         $.each(this.steps_project, function (i, el) {
-            var step = getObjects(project_step_detali.steps_buffer, 'id', el.id)
+            var step = getObjects(project_step_detali.steps_buffer, 'id', el.id);
             if (step.length === 0) {
                 list_del.push(el);
             }
@@ -841,9 +853,23 @@ var project_step_detali = {
     // Поиск в списке шагов потомков от указаного id
     isChieldOfIDStep: function (list_steps, id) {
         var step_chield = getObjects(list_steps, 'parent_id_tree', id);
-        if (step_chield.length > 0) { return true; } else { return false; }
+        if (step_chield.length > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    },
+    // Получить зависимости по указаному шагу
+    get_step_depend: function (step) {
+        var list_depend_str = "";
+        if (step === null) return "";
+        var list_depend = step.depend !== null ? step.depend.split(',') : [];
+        $.each(list_depend, function (i, el) {
+            var step_depend = project_step_detali.get_step_of_data_step(el);
+            list_depend_str += step_depend !== null ? step_depend.TemplatesStagesProject.stages_project_ru + "; " : "";
+        });
+        return list_depend_str;
     }
-
 };
 
 //var out_grGantt = function () {

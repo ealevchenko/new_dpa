@@ -1234,7 +1234,7 @@ Form
         overflow: auto;
     }
 
-    .cd-form input[type="button"] {
+    .cd-form input[type="button"], button {
         /* button style */
         border: none;
         background: #2c97de;
@@ -1253,7 +1253,7 @@ Form
         appearance: none;
     }
 
-.no-touch .cd-form input[type="button"]:hover {
+.no-touch .cd-form input[type="button"]:hover, button:hover {
     background: #42a2e1;
 }
 

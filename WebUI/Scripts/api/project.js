@@ -733,3 +733,19 @@ Project.prototype.getPhoneWorkProjectManagerOfID = function (project_manager) {
     }
     return null;
 };
+//------------------------------------------------------------------------
+//  TemplatesStagesProject
+//------------------------------------------------------------------------
+// Вернуть рабочий телефон руководителя проектов
+Project.prototype.getTemplateStageProjectOfID = function (templates_steps, id) {
+    if (templates_steps) {
+        var template_step = getObjects(templates_steps, 'id', id);
+        return template_step.length > 0 ? template_step[0] : null;
+    }
+};
+//
+Project.prototype.getTemplateStageProjectLocalOfID = function (id) {
+    if (this.list_templates_stages_project) {
+        return getObjects(this.list_templates_stages_project, 'id', id);
+    }
+};
