@@ -340,7 +340,7 @@ var updateOptionSelect = function (obj_select, data, callback_option, value_sele
     if (value_select === -1) {
         options.push("<option value='-1' >" + (lang == 'en' ? 'Select...' : 'Выберите...') + "</option>");
     }
-    if (data !== null) {
+    if (data !== null && data.length>0) {
         for (i = 0, count_data_update = data.length; i < count_data_update; i++) {
             var option = { value: data[i].value, text: data[i].text, disabled: data[i].disabled };
             // Преобразовать формат

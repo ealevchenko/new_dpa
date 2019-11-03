@@ -746,6 +746,7 @@ Project.prototype.getTemplateStageProjectOfID = function (templates_steps, id) {
 //
 Project.prototype.getTemplateStageProjectLocalOfID = function (id) {
     if (this.list_templates_stages_project) {
-        return getObjects(this.list_templates_stages_project, 'id', id);
+        var template_step = getObjects(this.list_templates_stages_project, 'id', id);
+        return template_step.length > 0 ? template_step[0] : null;
     }
 };
