@@ -5,7 +5,7 @@ var project_step_detali = {
     loadReference: function (callback) {
         var count = 1;
         // Згрузка библиотек project
-        project_step_detali.prj.load(['tsp'], function () {
+        project_step_detali.prj.load(['tsp'], false, function () {
             count -= 1;
             if (count <= 0) {
                 if (typeof callback === 'function') {
@@ -1094,9 +1094,9 @@ jQuery(document).ready(function ($) {
             LockScreen(langView('mess_load', langs));
             var count = 2;
             // Згрузка библиотек project
-            prj.load(['type', 'wp'], function () {
+            prj.load(['dpa', 'type', 'wp'], false, function () {
                 count -= 1;
-                if (count <= 0) {
+                if (count === 0) {
                     if (typeof callback === 'function') {
                         LockScreenOff();
                         callback();
@@ -1104,9 +1104,9 @@ jQuery(document).ready(function ($) {
                 }
             });
             // Згрузка библиотек project
-            dpa.load(['user', 'ss'], function () {
+            dpa.load(['user', 'ss'], false, function () {
                 count -= 1;
-                if (count <= 0) {
+                if (count === 0) {
                     if (typeof callback === 'function') {
                         LockScreenOff();
                         callback();
@@ -1120,13 +1120,13 @@ jQuery(document).ready(function ($) {
                 user = result_user;
                 prj.getAsyncProjectManagerOfIDUser(user.id, function (result_pm) {
                     pm = result_pm;
-                    //pm.id = 1; // !!!!!!!!! тест
+                    pm.id = 1; // !!!!!!!!! тест
                     prj.getAsyncChainProjectManagerOfIDPM(pm.id, function (result_chain_pm) {
                         chain_pm = result_chain_pm;
 
                         while_pm = '0';
                         for (i = 0, count_i = chain_pm.length; i < count_i; i++) {
-                            while_pm += ',' + chain_pm[i].id
+                            while_pm += ',' + chain_pm[i].id;
                         }
 
                         prj.getAsyncListProjectsOfListIDPM(while_pm, function (result_lp) {
@@ -2029,7 +2029,7 @@ jQuery(document).ready(function ($) {
                     -1,
                     function (event) {
                         event.preventDefault();
-                        var id = $(this).val()
+                        var id = $(this).val();
                     },
                     null);
                 //------------------------------------------------------------------------------------------------
@@ -2755,10 +2755,6 @@ jQuery(document).ready(function ($) {
 
         });
     });
-
-
-
-
 });
 
 /*****************************************************

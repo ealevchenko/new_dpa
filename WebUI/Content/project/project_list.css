@@ -25,11 +25,15 @@ body {
     background-color: #e7e7e7;
 }
 
-/*a {
+a {
   color: #41307c;
   text-decoration: none;
-}*/
+}
 
+.cd-gallery ul li a:hover {
+    text-decoration: none;
+    font-weight: bold;
+}
 /* -------------------------------- 
 
 Main Components 
@@ -55,7 +59,6 @@ Main Components
     line-height: 180px;
   }
 }*/
-
 .cd-main-content {
     /*padding-top:120px;*/
     position: relative;

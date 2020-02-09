@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using EFProjects.Helper;
 
 namespace WebUI.Controllers.api
 {
@@ -290,6 +291,30 @@ namespace WebUI.Controllers.api
             catch (Exception e)
             {
                 return NotFound();
+            }
+        }
+
+        // GET: api/project/lp/open
+        [Route("open")]
+        [ResponseType(typeof(ListProjects))]
+        public IHttpActionResult GetOpenListProjects()
+        {
+            try
+            {
+                List<ListProjects> list = this.ef_lp
+                    .Context
+                    .ToList()
+                    .Where(l=>l.id_status_project == 0)
+                    .Select(l => l.GetListProjects()).ToList();
+                //if (list == null || list.Count() == 0)
+                //{
+                //    return NotFound();
+                //}
+                return Ok(list);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
 

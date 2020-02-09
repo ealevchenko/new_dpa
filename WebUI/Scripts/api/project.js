@@ -10,27 +10,30 @@ Project.list_project = [];          // Список проектов
 Project.list_project_manager = [];  // Список руководителей проектов
 Project.list_templates_stages_project = [];  // Список шаблонов шагов  проекта
 
-Project.prototype.load = function (list, callback) {
-    var count = list.length + 1;
+Project.prototype.load = function (list, lockOff, callback) {
+    var count = list.length;
     var obj = this;
-    this.dpa_obj.load(['user', 'ss'], function () {
-        count -= 1;
-        if (count <= 0) {
-            if (typeof callback === 'function') {
-                LockScreenOff();
-                callback();
-            }
-        }
-    });
     $.each(list, function (i, el) {
+        // Загрузить список типов проекта
+        if (el === 'dpa') {
+            obj.dpa_obj.load(['user', 'ss'], lockOff, function () {
+                count -= 1;
+                if (count === 0) {
+                    if (typeof callback === 'function') {
+                        if (lockOff) { LockScreenOff(); }
+                        callback();
+                    }
+                }
+            });
+        };
         // Загрузить список типов проекта
         if (el === 'type') {
             Project.prototype.getAsyncTypeProject(function (result_type_project) {
                 obj.list_type_project = result_type_project;
                 count -= 1;
-                if (count <= 0) {
+                if (count === 0) {
                     if (typeof callback === 'function') {
-                        LockScreenOff();
+                        if (lockOff) { LockScreenOff(); }
                         callback();
                     }
                 }
@@ -41,9 +44,9 @@ Project.prototype.load = function (list, callback) {
             Project.prototype.getAsyncWorkPerformers(function (result_work_performers) {
                 obj.list_work_performers = result_work_performers;
                 count -= 1;
-                if (count <= 0) {
+                if (count === 0) {
                     if (typeof callback === 'function') {
-                        LockScreenOff();
+                        if (lockOff) { LockScreenOff(); }
                         callback();
                     }
                 }
@@ -54,9 +57,9 @@ Project.prototype.load = function (list, callback) {
             Project.prototype.getAsyncProjectManager(function (result_project_manager) {
                 obj.list_project_manager = result_project_manager;
                 count -= 1;
-                if (count <= 0) {
+                if (count === 0) {
                     if (typeof callback === 'function') {
-                        LockScreenOff();
+                        if (lockOff) { LockScreenOff(); }
                         callback();
                     }
                 }
@@ -67,16 +70,16 @@ Project.prototype.load = function (list, callback) {
             Project.prototype.getAsyncTemplatesStagesProject(function (result_templates_stages_project) {
                 obj.list_templates_stages_project = result_templates_stages_project;
                 count -= 1;
-                if (count <= 0) {
+                if (count === 0) {
                     if (typeof callback === 'function') {
-                        LockScreenOff();
+                        if (lockOff) { LockScreenOff(); }
                         callback();
                     }
                 }
             });
         };
     });
-}
+};
 /* ----------------------------------------------------------
 AJAX функции
 -------------------------------------------------------------*/
@@ -109,6 +112,29 @@ Project.prototype.getAsyncListProjectsOfID = function (id, callback) {
     $.ajax({
         type: 'GET',
         url: '../../api/project/lp/id/' + id,
+        async: true,
+        dataType: 'json',
+        beforeSend: function () {
+            AJAXBeforeSend();
+        },
+        success: function (data) {
+            if (typeof callback === 'function') {
+                callback(data);
+            }
+        },
+        error: function (x, y, z) {
+            OnAJAXError(x, y, z);
+        },
+        complete: function () {
+            AJAXComplete();
+        },
+    });
+};
+//
+Project.prototype.getAsyncOpenListProjects = function (callback) {
+    $.ajax({
+        type: 'GET',
+        url: '../../api/project/lp/open',
         async: true,
         dataType: 'json',
         beforeSend: function () {
@@ -528,8 +554,7 @@ Project.prototype.getStructuralSubdivisionsOfID = function (id) {
 Project.prototype.getFullNameStructuralSubdivisionsOfID = function (id) {
     if (id) {
         var structural_subdivisions = getObjOflist(this.dpa_obj.list_structural_subdivisions, 'id', id);
-        if (structural_subdivisions)
-        { return this.lang === 'ru' ? structural_subdivisions.name_subdivisions_full_ru : structural_subdivisions.name_subdivisions_full_en; }
+        if (structural_subdivisions) { return this.lang === 'ru' ? structural_subdivisions.name_subdivisions_full_ru : structural_subdivisions.name_subdivisions_full_en; }
         else return null;
     } else return null;
 };
@@ -537,8 +562,7 @@ Project.prototype.getFullNameStructuralSubdivisionsOfID = function (id) {
 Project.prototype.getNameStructuralSubdivisionsOfID = function (id) {
     if (id) {
         var structural_subdivisions = getObjOflist(this.dpa_obj.list_structural_subdivisions, 'id', id);
-        if (structural_subdivisions)
-        { return this.lang === 'ru' ? structural_subdivisions.name_subdivisions_ru : structural_subdivisions.name_subdivisions_en; }
+        if (structural_subdivisions) { return this.lang === 'ru' ? structural_subdivisions.name_subdivisions_ru : structural_subdivisions.name_subdivisions_en; }
         else return null;
     } else return null;
 };

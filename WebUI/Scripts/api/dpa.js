@@ -8,7 +8,7 @@ Dpa.list_users = [];
 
 Dpa.list_structural_subdivisions = [];
 
-Dpa.prototype.load = function (list, callback) {
+Dpa.prototype.load = function (list, lockOff, callback) {
     var count = list.length;
     var obj = this;
     $.each(list, function (i, el) {
@@ -16,9 +16,9 @@ Dpa.prototype.load = function (list, callback) {
             Dpa.prototype.getAsyncUsers(function (result_users) {
                 obj.list_users = result_users;
                 count -= 1;
-                if (count <= 0) {
+                if (count === 0) {
                     if (typeof callback === 'function') {
-                        LockScreenOff();
+                        if (lockOff) { LockScreenOff(); }
                         callback();
                     }
                 }
@@ -28,9 +28,9 @@ Dpa.prototype.load = function (list, callback) {
             Dpa.prototype.getAsyncStructuralSubdivisions(function (result_structural_subdivisions) {
                 obj.list_structural_subdivisions = result_structural_subdivisions;
                 count -= 1;
-                if (count <= 0) {
+                if (count === 0) {
                     if (typeof callback === 'function') {
-                        LockScreenOff();
+                        if (lockOff) { LockScreenOff(); }
                         callback();
                     }
                 }
@@ -111,6 +111,16 @@ Dpa.prototype.getAsyncStructuralSubdivisions = function (callback) {
     });
 };
 /* ----------------------------------------------------------
+функции для работы с объектами
+-------------------------------------------------------------*/
+Dpa.prototype.getValueObj = function (obj, name) {
+    return obj ? obj[name] : null;
+};
+//
+Dpa.prototype.getValueCultureObj = function (obj, name) {
+    return obj ? obj[name + '_' + this.lang] : null;
+};
+/* ----------------------------------------------------------
 Функции
 -------------------------------------------------------------*/
 //======= Users ======================================
@@ -125,23 +135,74 @@ Dpa.prototype.getUsersOfID = function (id_user) {
 // Фамилия пользователя
 Dpa.prototype.getSurnameUsers = function (user) {
     if (user) return user.surname;
-    return null
+    return null;
 };
 // Имя пользователя
 Dpa.prototype.getNameUsers = function (user) {
     if (user) return user.name;
-    return null
+    return null;
 };
 // Отчество пользователя
 Dpa.prototype.getPatronymicUsers = function (user) {
     if (user) return user.patronymic;
-    return null
+    return null;
 };
 // email пользователя
 Dpa.prototype.getEmailUsers = function (user) {
     if (user) return user.email;
-    return null
+    return null;
 };
+//======= StructuralSubdivisions ======================================
+//
+Dpa.prototype.getStructuralSubdivisions_Internal_Of_ID = function (id) {
+    if (this.list_structural_subdivisions) {
+        var obj = getObjects(this.list_structural_subdivisions, 'id', id);
+        return obj && obj.length > 0 ? obj[0] : null;
+    }
+};
+//
+Dpa.prototype.getValue_StructuralSubdivisions_Of_ID = function (id, name) {
+    var obj = this.getStructuralSubdivisions_Internal_Of_ID(id);
+    return obj ? obj[name] : null;
+};
+//
+Dpa.prototype.getValueCulture_StructuralSubdivisions_Of_ID = function (id, name) {
+    var obj = this.getStructuralSubdivisions_Internal_Of_ID(id);
+    return obj ? obj[name + '_' + this.lang] : null;
+};
+//
+Dpa.prototype.getListStructuralSubdivisions = function (fvalue, ftext, lang) {
+    var list = [];
+    if (this.list_structural_subdivisions) {
+        for (i = 0, j = this.list_structural_subdivisions.length; i < j; i++) {
+            var l = this.list_structural_subdivisions[i];
+            if (lang) {
+                list.push({ value: l[fvalue], text: l[ftext + '_' + lang] });
+            } else {
+                list.push({ value: l[fvalue], text: l[ftext] });
+            }
+
+        }
+    }
+    return list;
+};
+
+Dpa.prototype.getStructuralSubdivisions_Internal_Of_Type = function (id, type) {
+    if (this.list_structural_subdivisions) {
+        var obj = getObjects(this.list_structural_subdivisions, 'id', id);
+        if (obj && obj.length > 0) {
+            var res = obj[0];
+            if (res.type > type) {
+                return this.getStructuralSubdivisions_Internal_Of_Type(res.parent_id, type);
+            } else {
+                return res;
+            }
+        } else {
+            return null;
+        }
+    }
+};
+
 // Получить название структурного подразделения
 Dpa.prototype.getNameStructuralSubdivisions = function (ss) {
     if (ss) {
@@ -154,4 +215,6 @@ Dpa.prototype.getFullNameStructuralSubdivisions = function (ss) {
         return this.lang === 'ru' ? ss.name_subdivisions_full_ru : ss.name_subdivisions_full_en;
     } else return null;
 };
+
+
 

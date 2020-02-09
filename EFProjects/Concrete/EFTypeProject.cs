@@ -26,6 +26,11 @@ namespace EFProjects.Concrete
             get { return this.db.Database; }
         }
 
+        public IQueryable<TypeProject> Context
+        {
+            get { return db.TypeProject; }
+        }
+
         public IEnumerable<TypeProject> Get()
         {
             try

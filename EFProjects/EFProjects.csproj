@@ -65,6 +65,7 @@
     <Compile Include="Entities\TemplatesStagesProject.cs" />
     <Compile Include="Entities\TypeProject.cs" />
     <Compile Include="Entities\WorkPerformers.cs" />
+    <Compile Include="Helper\project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

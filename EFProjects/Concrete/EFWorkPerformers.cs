@@ -26,6 +26,11 @@ namespace EFProjects.Concrete
             get { return this.db.Database; }
         }
 
+        public IQueryable<WorkPerformers> Context
+        {
+            get { return db.WorkPerformers; }
+        }
+
         public IEnumerable<WorkPerformers> Get()
         {
             try

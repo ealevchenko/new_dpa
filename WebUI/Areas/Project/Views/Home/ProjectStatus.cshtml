@@ -1,0 +1,231 @@
+﻿@using WebUI.App_GlobalResources;
+@{
+    ViewBag.Title = "Статус проектов";
+    Layout = "~/Areas/Project/Views/Shared/_Project.cshtml";
+}
+@section styles {
+    @Styles.Render("~/jquery-ui/css")
+    @* <link rel="stylesheet" type="text/css" href="~/Content/Gantt/jsgantt.css">*@
+    @*<link rel="stylesheet" href="~/Content/themes/default/style.min.css">*@
+    <link rel="stylesheet" type="text/css" href="~/Content/project/project_status.css">
+
+}
+
+@section scripts {
+
+    @Scripts.Render("~/bundles/jquery-ui");
+
+    @*<script src="~/Scripts/Gantt/jsgantt.js" type="text/javascript"></script>
+        <script src="~/Scripts/jstree.min.js" type="text/javascript"></script>*@
+
+    <script src="~/Scripts/jquery.mixitup.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/shared/common.js" type="text/javascript"></script>
+
+    <script src="~/Scripts/api/common.js" type="text/javascript"></script>
+    <script src="~/Scripts/api/dpa.js" type="text/javascript"></script>
+    <script src="~/Scripts/api/project.js" type="text/javascript"></script>
+
+    <script src="~/Scripts/project/project_status.js" type="text/javascript"></script>
+
+}
+
+<input id="username" type="hidden" value="@User.Identity.Name" />
+<div id="lockPanel" class="LockOff"></div>
+<main class="cd-main-content">
+    <div class="cd-tab-filter-wrapper">
+        <div class="cd-tab-filter">
+            <ul class="cd-filters">
+                <li class="placeholder">
+                    <a data-type="all" href="#0">All</a> <!-- selected option on mobile -->
+                </li>
+                <li class="filter"><a class="selected" href="#0" data-type="all">@ProjectResource.filter_All</a></li>
+                <li class="filter" data-filter=".strategic"><a href="#0" data-type="strategic">@ProjectResource.filter_Strategic_CAPEX</a></li>
+                <li class="filter" data-filter=".normative"><a href="#0" data-type="normative">@ProjectResource.filter_Normative_CAPEX</a></li>
+            </ul> <!-- cd-filters -->
+        </div> <!-- cd-tab-filter -->
+    </div> <!-- cd-tab-filter-wrapper -->
+    <section class="cd-gallery">
+        <ul>
+            <li class="mix strategic check1 status-open subdivisions2">
+                <a href="#0">
+                    <div class="card border-danger">
+                        <div class="card-header bg-danger text-white">
+                            <h1>Нормативный CAPEX</h1>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <img class="card-img-top" src="~/Images/project/pm-card4.png" alt="Card image cap">
+                                </div>
+                                <div class="col-xl-6" id="prj-info">
+                                    <h2 class="card-title text-danger">AMKR</h2>
+                                    <p class="card-text">
+                                        Оборудование системой Fingerprint холла ИВЦ» и «Системы видеоконференцсвязи и отображения компьютерной видеоинформации в конференцзалах и комнате переговоров здании ИВЦ» (под ключ) ПАО «АрселорМиттал Кривой Рог»
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="mix strategic check1 status-open subdivisions2">
+                <a href="#0">
+                    <div class="card border-dark">
+                        <div class="card-header bg-dark text-white">
+                            <h1>Нормативный CAPEX</h1>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <img class="card-img-top" src="~/Images/project/pm-card4.png" alt="Card image cap">
+                                </div>
+                                <div class="col-xl-6" id="prj-info">
+                                    <h2 class="card-title text-dark">AMKR</h2>
+                                    <p class="card-text">
+                                        Оборудование системой Fingerprint холла ИВЦ» и «Системы видеоконференцсвязи и отображения компьютерной видеоинформации в конференцзалах и комнате переговоров здании ИВЦ» (под ключ) ПАО «АрселорМиттал Кривой Рог»
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="mix strategic check1 status-open subdivisions2">
+                <a href="#0">
+                    <div class="card border-primary">
+                        <div class="card-header bg-primary text-white">
+                            <h1>Нормативный CAPEX</h1>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <img class="card-img-top" src="~/Images/project/pm-card4.png" alt="Card image cap">
+                                </div>
+                                <div class="col-xl-6" id="prj-info">
+                                    <h2 class="card-title text-primary">AMKR</h2>
+                                    <p class="card-text">
+                                        Оборудование системой Fingerprint холла ИВЦ» и «Системы видеоконференцсвязи и отображения компьютерной видеоинформации в конференцзалах и комнате переговоров здании ИВЦ» (под ключ) ПАО «АрселорМиттал Кривой Рог»
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="mix normative check2 status-open subdivisions3">
+                <a href="#0">
+                    <div class="card border-info">
+                        <div class="card-header bg-info text-white">
+                            <h1>Стратегический CAPEX</h1>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <img class="card-img-top" src="~/Images/project/pm-card4.png" alt="Card image cap">
+                                </div>
+                                <div class="col-xl-6" id="prj-info">
+                                    <h2 class="card-title text-info">АЦ-2</h2>
+                                    <p class="card-text">
+                                        АСУТП агломашины №4 (собственно а/м, эксгаутер, экомониторинг) АЦ2
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="mix normative check2 status-open subdivisions3">
+                <a href="#0">
+                    <div class="card border-warning">
+                        <div class="card-header bg-warning text-white">
+                            <h1>Стратегический CAPEX</h1>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <img class="card-img-top" src="~/Images/project/pm-card4.png" alt="Card image cap">
+                                </div>
+                                <div class="col-xl-6" id="prj-info">
+                                    <h2 class="card-title text-warning">АЦ-2</h2>
+                                    <p class="card-text">
+                                        АСУТП агломашины №4 (собственно а/м, эксгаутер, экомониторинг) АЦ3
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <div class="cd-fail-message">No results found</div>
+    </section> <!-- cd-gallery -->
+    <div class="cd-filter">
+        <form>
+            @*<div class="cd-filter-block">
+                    <h4>Search</h4>
+
+                    <div class="cd-filter-content">
+                        <input type="search" placeholder="Try strategic...">
+                    </div> <!-- cd-filter-content -->
+                </div> <!-- cd-filter-block -->*@
+
+            <div class="cd-filter-block" id="list-project-manager">
+                <h4>@ProjectResource.filter_title_project_manager</h4>
+                <ul class="cd-filter-content cd-filters list">
+                    @*<li>
+                            <input class="filter" data-filter=".check1" type="checkbox" id="checkbox1">
+                            <label class="checkbox-label" for="checkbox1">Option 1</label>
+                        </li>
+                        <li>
+                            <input class="filter" data-filter=".check2" type="checkbox" id="checkbox2">
+                            <label class="checkbox-label" for="checkbox2">Option 2</label>
+                        </li>
+                        <li>
+                            <input class="filter" data-filter=".check3" type="checkbox" id="checkbox3">
+                            <label class="checkbox-label" for="checkbox3">Option 3</label>
+                        </li>*@
+                </ul> <!-- cd-filter-content -->
+            </div> <!-- cd-filter-block -->
+
+            <div class="cd-filter-block">
+                <h4>@ProjectResource.filter_title_subdivisions</h4>
+
+                <div class="cd-filter-content">
+                    <div class="cd-select cd-filters">
+                        <select class="filter" name="selectThis" id="selectThis">
+                            <option value="">@ProjectResource.filter_select_title_select_division</option>
+                            @*<option value=".subdivisions1">Option 1</option>
+                                <option value=".subdivisions2">Option 2</option>
+                                <option value=".subdivisions3">Option 3</option>
+                                <option value=".subdivisions4">Option 4</option>*@
+                        </select>
+                    </div> <!-- cd-select -->
+                </div> <!-- cd-filter-content -->
+            </div> <!-- cd-filter-block -->
+            <div class="cd-filter-block">
+                <h4>@ProjectResource.filter_title_status</h4>
+                <ul class="cd-filter-content cd-filters list">
+                    <li>
+                        <input class="filter" data-filter="" type="radio" name="radioButton" id="radio1">
+                        <label class="radio-label" for="radio1">@ProjectResource.filter_All</label>
+                    </li>
+                    <li>
+                        <input class="filter" data-filter=".status-open" type="radio" name="radioButton" id="status-open" checked>
+                        <label class="radio-label" for="status-open">@ProjectResource.filter_status_open</label>
+                    </li>
+                    <li>
+                        <input class="filter" data-filter=".status-close" type="radio" name="radioButton" id="status-close">
+                        <label class="radio-label" for="status-close">@ProjectResource.filter_status_close</label>
+                    </li>
+                    <li>
+                        <input class="filter" data-filter=".status-pause" type="radio" name="radioButton" id="status-pause">
+                        <label class="radio-label" for="status-pause">@ProjectResource.filter_status_pause</label>
+                    </li>
+
+                </ul> <!-- cd-filter-content -->
+            </div> <!-- cd-filter-block -->
+        </form>
+        <a href="#0" class="cd-close">@ProjectResource.filter_title_close</a>
+    </div> <!-- cd-filter -->
+    <a href="#0" class="cd-filter-trigger">@ProjectResource.filter_title_filters</a>
+</main> <!-- cd-main-content -->

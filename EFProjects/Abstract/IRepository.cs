@@ -10,6 +10,7 @@ namespace EFProjects.Abstract
     public interface IRepository<T> : IDisposable where T : class
     {
         Database Database { get; }
+        IQueryable<T> Context { get; }
         IEnumerable<T> Get();       // получение всех объектов
         T Get(int id);              // получение одного объекта по id
         void Add(T item);           // создание объекта
