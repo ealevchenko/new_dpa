@@ -45,6 +45,10 @@ namespace WebUI
                 "~/Content/themes/base/jquery-ui.structure.css",
                 "~/Content/themes/base/jquery-ui.theme.css"));
 
+            // Moment ---------------------------------------------------------------------------
+            bundles.Add(new ScriptBundle("~/bundles/Moment").Include(
+                "~/Scripts/moment.min.js"
+                ));
 
             //bundles.Add(new StyleBundle("~/Content/css").Include(
             //          //"~/Content/bootstrap.css",
@@ -65,8 +69,8 @@ namespace WebUI
 
             // Календарь
             bundles.Add(new ScriptBundle("~/bundles/DateTime").Include(
-                "~/Scripts/DateTime/moment.min.js"
-                , "~/Scripts/DateTime/jquery.daterangepicker.js"
+                //"~/Scripts/DateTime/moment.min.js",
+                "~/Scripts/DateTime/jquery.daterangepicker.js"
                 ));
 
             bundles.Add(new StyleBundle("~/DateTime/css").Include("~/Content/DateTime/daterangepicker.css"));

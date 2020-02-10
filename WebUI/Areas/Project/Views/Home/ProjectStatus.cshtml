@@ -12,7 +12,7 @@
 }
 
 @section scripts {
-
+    @Scripts.Render("~/bundles/Moment")
     @Scripts.Render("~/bundles/jquery-ui");
 
     @*<script src="~/Scripts/Gantt/jsgantt.js" type="text/javascript"></script>
@@ -203,8 +203,29 @@
                                 <div class="row col-xl-12">
                                     <p><strong>Тип проекта: </strong><em id="type_project"></em></p>
                                 </div>
-                                <div class="row col-xl-12">
-                                    <p><strong>Структурное подразделение: </strong><em id="structural_subdivisions"></em></p>
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <p><strong>Подразделение внедрения: </strong><em id="structural_subdivisions"></em></p>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <p><strong>Подразделение заказчик: </strong><em id="customer"></em></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <p><strong>СПП Элемент: </strong><em id="spp_sap"></em></p>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <p><strong>Владелец строки: </strong><em id="spp_owner"></em></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <p><strong>Начало проекта: </strong><em id="start_project"></em></p>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <p><strong>Конец проекта(по контракту): </strong><em id="stop_project_contract"></em></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

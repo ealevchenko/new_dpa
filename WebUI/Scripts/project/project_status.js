@@ -207,7 +207,12 @@
                     $('#name_project').text(prj.getValueCultureObj(project_status, 'name_project'));
                     $('#goals_project').text($.trim(prj.getValueCultureObj(project_status, 'goals_project')));
                     $('#type_project').text(prj.getValueCultureObj(project_status.TypeProject, 'type_project'));
-                   // $('#structural_subdivisions').text(prj.getValueCultureObj(project_status.TypeProject, 'type_project'));
+                    $('#structural_subdivisions').text(prj.dpa_obj.getValueCulture_StructuralSubdivisions_Of_ID(project_status.id_structural_subdivisions, 'name_subdivisions_full'));
+                    $('#customer').text(prj.dpa_obj.getValueCulture_StructuralSubdivisions_Of_ID(project_status.id_project_customer, 'name_subdivisions_full'));
+                    $('#spp_sap').text(project_status.spp_sap);
+                    $('#spp_owner').text(prj.dpa_obj.getValueCulture_StructuralSubdivisions_Of_ID(project_status.id_spp_owner, 'name_subdivisions_full'));
+                    $('#start_project').text(project_status.start_project ? moment(project_status.start_project).format('DD.MM.YYYY') : '');
+                    $('#stop_project_contract').text(project_status.start_project ? moment(project_status.stop_project_contract).format('DD.MM.YYYY') : '');
                     // Показать страницу детально
                     this.content.addClass('is-visible');
                 }
