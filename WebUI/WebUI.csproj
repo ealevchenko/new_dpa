@@ -596,12 +596,13 @@
     <Content Include="Images\project\Kaspersky-Lab-Industrial.jpg" />
     <Content Include="Images\project\M5_2.png" />
     <Content Include="Images\project\mercato-digitale.jpg" />
+    <Content Include="Images\project\pm-card-norm.png" />
+    <Content Include="Images\project\pm-card-str.png" />
     <Content Include="Images\project\pm-card.png" />
     <Content Include="Images\project\pm-card1.png" />
     <Content Include="Images\project\pm-card2.png" />
     <Content Include="Images\project\pm-card3.png" />
     <Content Include="Images\project\pm-card4.jfif" />
-    <Content Include="Images\project\pm-card4.png" />
     <Content Include="Images\project\pm-card5.jfif" />
     <Content Include="Images\project\pm-card6.jfif" />
     <Content Include="Images\project\pm-card8.jpeg" />

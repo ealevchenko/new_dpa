@@ -160,7 +160,7 @@
     <value>Отчеты</value>
   </data>
   <data name="home_menu_2_description" xml:space="preserve">
-    <value>Список выших проектов.</value>
+    <value>Список ваших проектов.</value>
   </data>
   <data name="home_menu_2_name" xml:space="preserve">
     <value>Проекты</value>
@@ -398,5 +398,14 @@
   </data>
   <data name="title_work_phone" xml:space="preserve">
     <value>Рабочий телефон:</value>
+  </data>
+  <data name="filter_select_title_select_departmen" xml:space="preserve">
+    <value>Выберите департамент</value>
+  </data>
+  <data name="filter_title_department" xml:space="preserve">
+    <value>Департаменты</value>
+  </data>
+  <data name="filter_title_select_division" xml:space="preserve">
+    <value>Подразделения</value>
   </data>
 </root>

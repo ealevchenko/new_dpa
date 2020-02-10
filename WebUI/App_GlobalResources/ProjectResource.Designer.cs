@@ -79,6 +79,15 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Выберите департамент.
+        /// </summary>
+        public static string filter_select_title_select_departmen {
+            get {
+                return ResourceManager.GetString("filter_select_title_select_departmen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Выберите подразделение.
         /// </summary>
         public static string filter_select_title_select_division {
@@ -133,6 +142,15 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Департаменты.
+        /// </summary>
+        public static string filter_title_department {
+            get {
+                return ResourceManager.GetString("filter_title_department", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Фильтр.
         /// </summary>
         public static string filter_title_filters {
@@ -156,6 +174,15 @@ namespace WebUI.App_GlobalResources {
         public static string filter_title_project_manager {
             get {
                 return ResourceManager.GetString("filter_title_project_manager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Подразделения.
+        /// </summary>
+        public static string filter_title_select_division {
+            get {
+                return ResourceManager.GetString("filter_title_select_division", resourceCulture);
             }
         }
         
@@ -196,7 +223,7 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Список выших проектов..
+        ///   Ищет локализованную строку, похожую на Список ваших проектов..
         /// </summary>
         public static string home_menu_2_description {
             get {

@@ -4,6 +4,7 @@
         {
             'default':  //default language: ru
             {
+                'text_select_all': 'Все',
                 //'text_type_title_strategic': 'Стратегический',
                 //'text_type_title_normative': 'Нормативный',
                 //'text_title_project': ' CAPEX',
@@ -16,6 +17,7 @@
             },
             'en':  //default language: English
             {
+                'text_select_all': 'All',
                 //'text_type_title_strategic': 'Strategic',
                 //'text_type_title_normative': 'Normative',
                 //'text_title_project': ' CAPEX',
@@ -36,10 +38,15 @@
         //g = new JSGantt.GanttChart('g', document.getElementById('GanttChartDIV'), 'day'),
         langs = $.extend(true, $.extend(true, getLanguages($.Text_View, lang), getLanguages($.Text_Common, lang)), getLanguages($.Text_Table, lang)),
         user_name = $('input#username').val(),
+        // Список открытых проектов
         list_open_project = null,
-        //
+        // Список структурных подразделений
+        list_ss = null,
+        // Список департаментов
+        list_department = null,
+        // Загрузка справочников
         loadReference = function (callback) {
-            LockScreen(langView('mess_load', langs));
+            //LockScreen(langView('mess_load', langs));
             var count = 2;
             // Згрузка библиотек project
             prj.load(['dpa', 'type', 'wp'], false, function () {
@@ -64,37 +71,155 @@
 
             });
         },
-        //
+        // Обработка и подготовка данных
         loadData = function (callback) {
             // Определим список структурных подразделений по которым идут проекты
-            var uniqueNames = [];
-            var list_ss = [];
+
+            var uniqueNames_ss = [];
+            var uniqueNames_dep = [];
+            list_ss = [];
+            list_department = [];
             $.each(list_open_project, function (i, el) {
-                if ($.inArray(el.id_structural_subdivisions, uniqueNames) === -1) {
-                    uniqueNames.push(el.id_structural_subdivisions);
-                    //list_ss.push(el.id_structural_subdivisions);
-                    list_ss.push(getObjOflist(prj.dpa_obj.list_structural_subdivisions, 'id', el.id_structural_subdivisions));
+                var subdivisions = getObjOflist(prj.dpa_obj.list_structural_subdivisions, 'id', el.id_structural_subdivisions);
+                if ($.inArray(el.id_structural_subdivisions, uniqueNames_ss) === -1) {
+                    uniqueNames_ss.push(el.id_structural_subdivisions);
+                    list_ss.push(subdivisions);
                 }
+                var dep = prj.dpa_obj.getStructuralSubdivisions_Internal_Of_Type(el.id_structural_subdivisions, 1);
+                if ($.inArray(dep.id, uniqueNames_dep) === -1) {
+                    uniqueNames_dep.push(dep.id);
+                    list_department.push(dep);
+                }
+                el['department'] = dep;
+                el['subdivisions'] = subdivisions;
             });
-            //
-            uniqueNames = [];
-            var list_dep = [];
-            $.each(list_ss, function (i, el) {
-                var res = prj.dpa_obj.getStructuralSubdivisions_Internal_Of_Type(el.id, 1);
-                if ($.inArray(res.id, uniqueNames) === -1) {
-                    uniqueNames.push(res.id);
-                    list_dep.push(res);
-                }
+            // Сортируем 
+            list_department.sort(function (a, b) {
+                if (a.type > b.type) return 1;
+                if (a.type < b.type) return -1;
+                return 0;
             });
             //
             if (typeof callback === 'function') {
-                 callback();
+                LockScreenOff();
+                callback();
             }
+        },
+        // Добавить карту к галереи
+        addCardGallery = function (project) {
+            if (project) {
+                var type = getTypeProjectGallery(project.id_type_project);
+                var type_title = prj.getValueCultureObj(project.TypeProject, 'type_project');
+                var department = project.department;
+                var subdivisions = project.subdivisions;
+                var fon_class = "dark";
+                switch (department.id) {
+                    case 1: {
+                        fon_class = "dark";
+                        break;
+                    }
+                    case 2: {
+                        fon_class = "primary";
+                        break;
+                    }
+                    case 16: {
+                        fon_class = "info";
+                        break;
+                    }
+                    case 17: {
+                        fon_class = "warning";
+                        break;
+                    }
+                    case 3: {
+                        fon_class = "success";
+                        break;
+                    }
+                    case 13: {
+                        fon_class = "danger";
+                        break;
+                    }
+                    default: {
+                        fon_class = "secondary";
+                        break;
+                    }
+                }
+
+                var li = '<li class="mix ' + type + ' departmen' + department.id + ' subdivisions' + subdivisions.id + '"><a href="#" id="' + project.id + '">' +
+                            '<div class="card border-' + fon_class + '">' +
+                                '<div class="card-header bg-' + fon_class + ' text-white">' +
+                                    '<h1>' + type_title + ' (' + prj.dpa_obj.getValueCultureObj(department, 'name_subdivisions') + ')' + '</h1>' +
+                                 '</div>' +
+                                '<div class="card-body">' +
+                                    '<div class="row">' +
+                                    '<div class="col-xl-6">' +
+                                        '<img class="card-img-top" src="../../Images/project/' + (project.id_type_project === 1 ? "pm-card-str.png" : "pm-card-norm.png") + '" alt="Card image cap">' +
+                                    '</div>' +
+                                    '<div class="col-xl-6" id="prj-info">' +
+                                        '<h2 class="card-title text-' + fon_class + '">' + prj.dpa_obj.getValueCultureObj(subdivisions, 'name_subdivisions') + '</h2>' +
+                                        '<p class="card-text">' + prj.dpa_obj.getValueCultureObj(project, 'name_project') + '</p>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</a></li>';
+                $("section.cd-gallery ul").append(li);
+                // Привяжим событие выбора проекта
+                $("section.cd-gallery ul li a#" + project.id).on('click', function () {
+                    event.preventDefault();
+                    // Определим id проекта
+                    var id = $(this).attr('id');
+                    project_detali.view(id);
+                });
+            }
+        },
+        // Загрузить галерею
+        loadGallery = function (list_project) {
+            $("section.cd-gallery ul").empty();
+            $.each(list_project, function (i, el) {
+                addCardGallery(el);
+            });
+        },
+        //--------------------------------------
+        // Получить тип проекта для формирования галереи
+        getTypeProjectGallery = function (id_type_project) {
+            switch (id_type_project) {
+                case 1: return 'strategic';
+                case 2: return 'normative';
+            }
+        },
+        //-------------------------------------------
+        //
+                // Окно проекты детально
+        project_detali = {
+            content: $('.cd-project-content'),
+            init: function () {
+                // Настройка закрыть детали проекта
+                project_detali.content.on('click', '.close', function (event) {
+                    event.preventDefault();
+                    project_detali.content.removeClass('is-visible');
+                });
+            },
+            // Отобразить указаный проект в указанном режиме
+            view: function (id) {
+                var project_status = getObjOflist(list_open_project, 'id', id);
+                if (project_status) {
+                    $('#name_project_title').text(prj.getValueCultureObj(project_status, 'name_project'));
+                    $('#name_project').text(prj.getValueCultureObj(project_status, 'name_project'));
+                    $('#goals_project').text($.trim(prj.getValueCultureObj(project_status, 'goals_project')));
+                    $('#type_project').text(prj.getValueCultureObj(project_status.TypeProject, 'type_project'));
+                   // $('#structural_subdivisions').text(prj.getValueCultureObj(project_status.TypeProject, 'type_project'));
+                    // Показать страницу детально
+                    this.content.addClass('is-visible');
+                }
+
+            },
         };
 
     //================================================================
     // Основной вход
     //=================================================================
+
+    LockScreen(langView('mess_delay', langs));
 
     //************************
     //open/close lateral filter
@@ -222,13 +347,50 @@
         }, 200);
     });
     //************************
-    // Отсортируем по открытым проектам
-    $('.cd-gallery ul').mixItUp('filter', '.status-open');
 
     // Загрузка библиотек
     loadReference(function (result) {
         loadData(function (result) {
+            // Создадим список структурных подразделений
+            $("select#select-subdivisions").empty().append('<option value="">' + langView('text_select_all', langs) + '</option>');
+            $.each(list_ss, function (i, el) {
+                $("select#select-subdivisions")
+                    .append('<option value=".subdivisions' + el.id + '">' + prj.dpa_obj.getValueCultureObj(el, 'name_subdivisions_full') + '</option>');
+            });
+            // Создадим список департаментов
+            $("select#select-department").empty().append('<option value="">' + langView('text_select_all', langs) + '</option>');
+            $.each(list_department, function (i, el) {
+                $("select#select-department")
+                    .append('<option value=".departmen' + el.id + '">' + prj.dpa_obj.getValueCultureObj(el, 'name_subdivisions_full') + '</option>');
+            });
+            var list = null;
+            $("select#select-department").change(function () {
+                $("select#select-department option:selected").each(function () {
+                    var id = $(this).val();
+                    if (id) {
+                        id = id.replace('.departmen', '');
+                        list = getObjects(list_ss, 'parent_id', id);
+                    } else {
+                        list = list_ss;
+                    }
+                    // Создадим список структурных подразделений
+                    $("select#select-subdivisions").empty().append('<option value="">' + langView('text_select_all', langs) + '</option>');
+                    $.each(list, function (i, el) {
+                        $("select#select-subdivisions")
+                            .append('<option value=".subdivisions' + el.id + '">' + prj.dpa_obj.getValueCultureObj(el, 'name_subdivisions_full') + '</option>');
+                    });
+                });
+            });
+            // Загрузим галерею
+            loadGallery(list_open_project);
 
+            project_detali.init();
+
+            // Отсортируем по открытым проектам
+            $('.cd-gallery ul').mixItUp('filter', 'all');
+
+            // !!!!!!!!!!!!!!!!!! тест убрать
+            project_detali.view(17);
         });
     });
 

@@ -516,6 +516,17 @@ Project.prototype.getAsyncWorkPerformers = function (callback) {
     });
 };
 /* ----------------------------------------------------------
+функции для работы с объектами
+-------------------------------------------------------------*/
+Project.prototype.getValueObj = function (obj, name) {
+    return obj ? obj[name] : null;
+};
+//
+Project.prototype.getValueCultureObj = function (obj, name) {
+    return obj ? obj[name + '_' + this.lang] : null;
+};
+
+/* ----------------------------------------------------------
        функции получения 
 -------------------------------------------------------------*/
 // Получить тип проекта
@@ -773,4 +784,41 @@ Project.prototype.getTemplateStageProjectLocalOfID = function (id) {
         var template_step = getObjects(this.list_templates_stages_project, 'id', id);
         return template_step.length > 0 ? template_step[0] : null;
     }
+};
+
+/* ----------------------------------------------------------
+функции для работы с внутреним массивом
+-------------------------------------------------------------*/
+//======= dpa_obj.list_structural_subdivisions  (Список структурных подразделений) ======================================
+Project.prototype.getStructuralSubdivisions_Internal_Of_ID = function (id) {
+    if (this.dpa_obj && this.dpa_obj.list_structural_subdivisions) {
+        var obj = getObjects(this.dpa_obj.list_structural_subdivisions, 'id', id);
+        return obj && obj.length > 0 ? obj[0] : null;
+    }
+};
+//
+Project.prototype.getValue_StructuralSubdivisions_Of_ID = function (id, name) {
+    var obj = this.getStructuralSubdivisions_Internal_Of_ID(id);
+    return obj ? obj[name] : null;
+};
+//
+Project.prototype.getValueCulture_StructuralSubdivisions_Of_ID = function (id, name) {
+    var obj = this.getStructuralSubdivisions_Internal_Of_ID(id);
+    return obj ? obj[name + '_' + this.lang] : null;
+};
+//
+Project.prototype.getListStructuralSubdivisions = function (fvalue, ftext, lang) {
+    var list = [];
+    if (this.dpa_obj && this.dpa_obj.list_structural_subdivisions) {
+        for (i = 0, j = this.dpa_obj.list_structural_subdivisions.length; i < j; i++) {
+            var l = this.dpa_obj.list_structural_subdivisions[i];
+            if (lang) {
+                list.push({ value: l[fvalue], text: l[ftext + '_' + lang] });
+            } else {
+                list.push({ value: l[fvalue], text: l[ftext] });
+            }
+
+        }
+    }
+    return list;
 };

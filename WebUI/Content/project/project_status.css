@@ -35,6 +35,31 @@ body {
     /*font-weight: bold;*/
 }
 
+/*Блокировка экрана*/
+.LockOff {
+    display: none;
+    visibility: hidden;
+}
+
+.LockOn {
+    display: block;
+    visibility: visible;
+    position: absolute;
+    z-index: 999;
+    top: 0px;
+    left: 0px;
+    width: 105%;
+    height: 1000%;
+    background-color: #ccc;
+    text-align: center;
+    padding-top: 20%;
+    filter: alpha(opacity=75);
+    opacity: 0.75;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: xx-large;
+    color: #0033CC;
+}
+
 /* -------------------------------- 
 
 Main Components 
@@ -780,7 +805,7 @@ xcustom form elements
 }
 
 div#prj-info p {
-    height:200px;
+    height: 200px;
     /*max-height:200px;*/
     font-size: 1.4rem;
     opacity: .6;
@@ -790,5 +815,114 @@ div#prj-info p {
     text-overflow: ellipsis;
     /*white-space: nowrap;*/
     text-align: left;
-    color:#331d35
+    color: #331d35;
+}
+
+
+/* -------------------------------- 
+
+Project content panel 
+
+-------------------------------- */
+.cd-project-content {
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    background-color: #ebebeb;
+    /* Force Hardware Acceleration */
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateY(100%);
+    -moz-transform: translateY(100%);
+    -ms-transform: translateY(100%);
+    -o-transform: translateY(100%);
+    transform: translateY(100%);
+    -webkit-transition: -webkit-transform 0.4s 0s, visibility 0s 0.4s;
+    -moz-transition: -moz-transform 0.4s 0s, visibility 0s 0.4s;
+    transition: transform 0.4s 0s, visibility 0s 0.4s;
+    -webkit-transition-timing-function: cubic-bezier(0.67, 0.15, 0.83, 0.83);
+    -moz-transition-timing-function: cubic-bezier(0.67, 0.15, 0.83, 0.83);
+    transition-timing-function: cubic-bezier(0.67, 0.15, 0.83, 0.83);
+}
+
+    .cd-project-content > div {
+        height: 100%;
+        overflow-y: auto;
+        padding: 4em 2em;
+    }
+
+    .cd-project-content.is-visible {
+        visibility: visible;
+        -webkit-transform: translateY(0);
+        -moz-transform: translateY(0);
+        -ms-transform: translateY(0);
+        -o-transform: translateY(0);
+        transform: translateY(0);
+        -webkit-transition: -webkit-transform 0.4s 0s, visibility 0s 0s;
+        -moz-transition: -moz-transform 0.4s 0s, visibility 0s 0s;
+        transition: transform 0.4s 0s, visibility 0s 0s;
+        -webkit-transition-timing-function: cubic-bezier(0.67, 0.15, 0.83, 0.83);
+        -moz-transition-timing-function: cubic-bezier(0.67, 0.15, 0.83, 0.83);
+        transition-timing-function: cubic-bezier(0.67, 0.15, 0.83, 0.83);
+    }
+
+        .cd-project-content.is-visible > div {
+            /* smooth scrolling on iOS */
+            -webkit-overflow-scrolling: touch;
+        }
+
+    .cd-project-content p {
+        margin-bottom: 1em;
+        font-size: 1.4rem;
+        color: #6f757c;
+        line-height: 1.6;
+        font-weight:400;
+    }
+
+
+
+    .cd-project-content .close {
+        display: block;
+        height: 32px;
+        width: 32px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: url(../../Images/project/cd-close-dark.svg) no-repeat center center;
+    }
+
+.cd-img-replace {
+    /* replace text with image */
+    color: transparent;
+    overflow: hidden;
+    text-indent: 100%;
+    white-space: nowrap;
+}
+
+@media only screen and (min-width: 900px) {
+    /*.cd-project-content h2 {
+        font-size: 4rem;
+    }
+
+    .cd-project-content em {
+        font-size: 2.4rem;
+    }
+
+    .cd-project-content p {
+        font-size: 1.8rem;
+    }*/
+
+    .cd-project-content .close {
+        top: 30px;
+        right: 5%;
+    }
 }
