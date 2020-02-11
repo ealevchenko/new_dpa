@@ -395,7 +395,7 @@
             $('.cd-gallery ul').mixItUp('filter', 'all');
 
             // !!!!!!!!!!!!!!!!!! тест убрать
-            project_detali.view(17);
+            //project_detali.view(17);
         });
     });
 
