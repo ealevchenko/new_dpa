@@ -661,6 +661,13 @@ Project.prototype.StringValueCurrency = function (value, currency) {
     }
     return null;
 };
+// Получить строку стоимости по полю
+Project.prototype.getPriceProject = function (project, name) {
+    if (project) {
+        return this.StringValueCurrency((name === 'budget' ? project[name] : project[name + '_value']), project[name + '_currency']);
+    } else return null;
+};
+
 // Получить бюджет
 Project.prototype.getBudgetProject = function (project) {
     if (project) {
@@ -821,4 +828,53 @@ Project.prototype.getListStructuralSubdivisions = function (fvalue, ftext, lang)
         }
     }
     return list;
+};
+//======= Project.list_project_manager  (Список руководителей проектов) ======================================
+// Получить объект руководитель проекта по id
+Project.prototype.getProjectManager_Internal_Of_ID = function (id) {
+    if (this.list_project_manager) {
+        var obj = getObjects(this.list_project_manager, 'id', id);
+        return obj && obj.length > 0 ? obj[0] : null;
+    }
+};
+// Получить поле объекта руководитель проекта по id и имени поля
+Project.prototype.getValue_ProjectManager_Of_ID = function (id, name) {
+    var obj = this.getProjectManager_Internal_Of_ID(id);
+    return obj ? obj[name] : null;
+};
+// Получить поле объекта руководитель проекта по id и имени поля, с учетом региональных настроек
+Project.prototype.getValueCulture_ProjectManager_Of_ID = function (id, name) {
+    var obj = this.getProjectManager_Internal_Of_ID(id);
+    return obj ? obj[name + '_' + this.lang] : null;
+};
+// Получить список объектов в формате (value, text), с учетом региональных настроек  
+Project.prototype.getListProjectManager = function (fvalue, ftext, lang) {
+    var list = [];
+    if (this.list_project_manager) {
+        for (i = 0, j = this.list_project_manager.length; i < j; i++) {
+            var l = this.list_project_manager[i];
+            if (lang) {
+                list.push({ value: l[fvalue], text: l[ftext + '_' + lang] });
+            } else {
+                list.push({ value: l[fvalue], text: l[ftext] });
+            }
+
+        }
+    }
+    return list;
+};
+//======= dpa_obj.list_users  (Список пользователей) ======================================
+// Получить объект User по id менеджера проекта
+Project.prototype.getUser_Internal_Of_IDProjectManager = function (id_project_manager) {
+    if (this.dpa_obj) {
+        var id = this.getValue_ProjectManager_Of_ID(id_project_manager, 'id_user');
+        return this.dpa_obj.getUsers_Internal_Of_ID(id_project_manager);
+    }
+};
+// Получить объект User из объекта руководитель проекта
+Project.prototype.getUser_Internal_Of_ProjectManager = function (project_manager) {
+    if (this.dpa_obj) {
+        var id = this.getValueObj(project_manager, 'id_user');
+        return this.dpa_obj.getUsers_Internal_Of_ID(id);
+    }
 };

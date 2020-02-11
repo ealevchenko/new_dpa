@@ -123,7 +123,7 @@ Dpa.prototype.getValueCultureObj = function (obj, name) {
 /* ----------------------------------------------------------
 Функции
 -------------------------------------------------------------*/
-//======= Users ======================================
+//
 Dpa.prototype.getSNPofIDUsers = function (id_user) {
     var user = getObjOflist(this.list_users, 'id', id_user);
     if (user) return user.surname + ' ' + user.name + ' ' + user.patronymic;
@@ -153,6 +153,66 @@ Dpa.prototype.getEmailUsers = function (user) {
     return null;
 };
 //======= StructuralSubdivisions ======================================
+// Получить название структурного подразделения
+Dpa.prototype.getNameStructuralSubdivisions = function (ss) {
+    if (ss) {
+        return this.lang === 'ru' ? ss.name_subdivisions_ru : ss.name_subdivisions_en;
+    } else return null;
+};
+// Получить полное название структурного подразделения
+Dpa.prototype.getFullNameStructuralSubdivisions = function (ss) {
+    if (ss) {
+        return this.lang === 'ru' ? ss.name_subdivisions_full_ru : ss.name_subdivisions_full_en;
+    } else return null;
+};
+/* ----------------------------------------------------------
+функции для работы с внутреним массивом
+-------------------------------------------------------------*/
+//======= Dpa.list_users  (Список пользователей) ======================================
+//
+Dpa.prototype.getUsers_Internal_Of_ID = function (id) {
+    if (this.list_users) {
+        var obj = getObjects(this.list_users, 'id', id);
+        return obj && obj.length > 0 ? obj[0] : null;
+    }
+};
+//
+Dpa.prototype.getValue_Users_Of_ID = function (id, name) {
+    var obj = this.getUsers_Internal_Of_ID(id);
+    return obj ? obj[name] : null;
+};
+//
+Dpa.prototype.getValueCulture_Users_Of_ID = function (id, name) {
+    var obj = this.getUsers_Internal_Of_ID(id);
+    return obj ? obj[name + '_' + this.lang] : null;
+};
+// 
+Dpa.prototype.getValue_FIOUsers_Of_User = function (user) {
+    return user ? user.surname + ' ' + user.name + ' ' + user.patronymic : '';
+};
+//
+Dpa.prototype.getValue_FIOUsers_Of_ID = function (id) {
+    var obj = this.getUsers_Internal_Of_ID(id);
+    return this.getValue_FIOUsers_Of_User(obj);
+};
+//
+Dpa.prototype.getListUsers = function (fvalue, ftext, lang) {
+    var list = [];
+    if (this.list_users) {
+        for (i = 0, j = this.list_users.length; i < j; i++) {
+            var l = this.list_users[i];
+            if (lang) {
+                list.push({ value: l[fvalue], text: l[ftext + '_' + lang] });
+            } else {
+                list.push({ value: l[fvalue], text: l[ftext] });
+            }
+
+        }
+    }
+    return list;
+};
+
+//======= Dpa.list_structural_subdivisions  (Список структурных подразделений) ======================================
 //
 Dpa.prototype.getStructuralSubdivisions_Internal_Of_ID = function (id) {
     if (this.list_structural_subdivisions) {
@@ -201,19 +261,6 @@ Dpa.prototype.getStructuralSubdivisions_Internal_Of_Type = function (id, type) {
             return null;
         }
     }
-};
-
-// Получить название структурного подразделения
-Dpa.prototype.getNameStructuralSubdivisions = function (ss) {
-    if (ss) {
-        return this.lang === 'ru' ? ss.name_subdivisions_ru : ss.name_subdivisions_en;
-    } else return null;
-};
-// Получить полное название структурного подразделения
-Dpa.prototype.getFullNameStructuralSubdivisions = function (ss) {
-    if (ss) {
-        return this.lang === 'ru' ? ss.name_subdivisions_full_ru : ss.name_subdivisions_full_en;
-    } else return null;
 };
 
 

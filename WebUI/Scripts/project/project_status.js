@@ -213,6 +213,23 @@
                     $('#spp_owner').text(prj.dpa_obj.getValueCulture_StructuralSubdivisions_Of_ID(project_status.id_spp_owner, 'name_subdivisions_full'));
                     $('#start_project').text(project_status.start_project ? moment(project_status.start_project).format('DD.MM.YYYY') : '');
                     $('#stop_project_contract').text(project_status.start_project ? moment(project_status.stop_project_contract).format('DD.MM.YYYY') : '');
+                    $('#work_performer').text(prj.getValueCultureObj(project_status.WorkPerformers, 'name_performer'));
+                    var user = prj.getUser_Internal_Of_ProjectManager(project_status.ProjectManager);
+                    $('#project_manager').text(prj.dpa_obj.getValue_FIOUsers_Of_User(user));
+
+                    $('#budget').text(prj.getPriceProject(project_status, 'budget'));
+                    $('#contract').text(prj.getPriceProject(project_status, 'contract'));
+
+                    $('#contract_engineering').text(prj.getPriceProject(project_status, 'contract_engineering'));
+                    $('#payment_engineering').text(prj.getPriceProject(project_status, 'payment_engineering'));
+                    $('#contract_equipment').text(prj.getPriceProject(project_status, 'contract_equipment'));
+                    $('#payment_equipment').text(prj.getPriceProject(project_status, 'payment_equipment'));
+                    $('#contract_construction').text(prj.getPriceProject(project_status, 'contract_construction'));
+                    $('#payment_construction').text(prj.getPriceProject(project_status, 'payment_construction'));
+                    $('#contract_commissioning').text(prj.getPriceProject(project_status, 'contract_commissioning'));
+                    $('#payment_commissioning').text(prj.getPriceProject(project_status, 'payment_commissioning'));
+                    $('#contract_other').text(prj.getPriceProject(project_status, 'contract_other'));
+                    $('#payment_other').text(prj.getPriceProject(project_status, 'payment_other'));
                     // Показать страницу детально
                     this.content.addClass('is-visible');
                 }
@@ -395,7 +412,7 @@
             $('.cd-gallery ul').mixItUp('filter', 'all');
 
             // !!!!!!!!!!!!!!!!!! тест убрать
-            //project_detali.view(17);
+            project_detali.view(28);
         });
     });
 
