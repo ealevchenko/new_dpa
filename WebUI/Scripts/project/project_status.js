@@ -151,10 +151,10 @@
                                  '</div>' +
                                 '<div class="card-body">' +
                                     '<div class="row">' +
-                                    '<div class="col-xl-6">' +
+                                    '<div class="col-xl-4">' +
                                         '<img class="card-img-top" src="../../Images/project/' + (project.id_type_project === 1 ? "pm-card-str.png" : "pm-card-norm.png") + '" alt="Card image cap">' +
                                     '</div>' +
-                                    '<div class="col-xl-6" id="prj-info">' +
+                                    '<div class="col-xl-8" id="prj-info">' +
                                         '<h2 class="card-title text-' + fon_class + '">' + prj.dpa_obj.getValueCultureObj(subdivisions, 'name_subdivisions') + '</h2>' +
                                         '<p class="card-text">' + prj.dpa_obj.getValueCultureObj(project, 'name_project') + '</p>' +
                                     '</div>' +
