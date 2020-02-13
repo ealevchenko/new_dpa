@@ -926,3 +926,8 @@ Project content panel
         right: 5%;
     }
 }
+
+table#table-budget {
+    font-size:1.4rem;
+    color:#6f757c;
+}

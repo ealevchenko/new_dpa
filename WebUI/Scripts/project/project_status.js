@@ -1,4 +1,5 @@
-﻿jQuery(document).ready(function ($) {
+﻿var g = null;
+jQuery(document).ready(function ($) {
 
     $.Text_View =
         {
@@ -179,6 +180,66 @@
                 addCardGallery(el);
             });
         },
+
+        view_current_steps = function (steps) {
+            var steps = steps.filter(function (x) {
+                return !x.group && x.persent > 0 && x.persent < 100 ? true : false;
+            });
+            $('div#current_step').empty();
+            $.each(steps, function (i, el) {
+                var step = '<div class="row">' +
+                                '<div class="col-xl-12 mb-2">' +
+                                    '<p><strong>' + '№' + Number(Number(i) + Number(1))+ ' ' + prj.getValueCultureObj(el.TemplatesStagesProject, 'stages_project') + ', исполнитель : ' + el.resource + ', выполненно на: ' + el.persent + '%</strong></p>' +
+                                    '<p><em>Примечание : ' + el.coment + '</em></p>' +
+                                '</div>' +
+                            '</div>';
+                $('div#current_step').append(step);
+            });
+        },
+
+        // Преобразовать список шагов в список шагов для редактирования (buffer)
+        get_steps_buffer = function (steps) {
+            var steps_buffer = [];
+            $.each(steps, function (i, el) {
+                var buf = el;
+                buf['id_tree'] = el.id;
+                buf['parent_id_tree'] = el.parent_id;
+                steps_buffer.push(buf);
+            });
+            return steps_buffer;
+        },
+        // Показать ганта
+        view_gantt = function (data, format) {
+            if (data) {
+                $('div#GanttChartDIV').empty();
+                g = new JSGantt.GanttChart('g', $('div#GanttChartDIV')[0], format);
+                g.setShowRes(1); // Show/Hide Responsible (0/1)
+                g.setShowDur(1); // Show/Hide Duration (0/1)
+                g.setShowComp(1); // Show/Hide % Complete(0/1)
+                g.setCaptionType('Resource');  // Set to Show Caption (None,Caption,Resource,Duration,Complete)
+                if (g) {
+                    $.each(data, function (i, el) {
+                        g.AddTaskItem(new JSGantt.TaskItem(el.id_tree,
+                            el.TemplatesStagesProject.stages_project_ru,
+                            el.start !== null ? moment(el.start).format("DD.MM.YYYY") : '',
+                            el.stop !== null ? moment(el.stop).format("DD.MM.YYYY") : '',
+                            'ff00ff',
+                            '',
+                            el.mile !== null ? el.mile : 0,
+                            el.resource !== null ? el.resource : '',
+                            el.persent,
+                            el.group,
+                            el.parent_id_tree !== null ? el.parent_id_tree : 0,
+                            1,
+                            el.depend));
+                    });
+                    g.Draw();
+                    g.DrawDependencies();
+                } else {
+                    alert("not defined");
+                }
+            }
+        },
         //--------------------------------------
         // Получить тип проекта для формирования галереи
         getTypeProjectGallery = function (id_type_project) {
@@ -230,6 +291,9 @@
                     $('#payment_commissioning').text(prj.getPriceProject(project_status, 'payment_commissioning'));
                     $('#contract_other').text(prj.getPriceProject(project_status, 'contract_other'));
                     $('#payment_other').text(prj.getPriceProject(project_status, 'payment_other'));
+
+                    view_current_steps(project_status.StagesProject);
+                    view_gantt(get_steps_buffer(project_status.StagesProject), 'month');
                     // Показать страницу детально
                     this.content.addClass('is-visible');
                 }
@@ -412,7 +476,7 @@
             $('.cd-gallery ul').mixItUp('filter', 'all');
 
             // !!!!!!!!!!!!!!!!!! тест убрать
-            project_detali.view(28);
+            //project_detali.view(28);
         });
     });
 
