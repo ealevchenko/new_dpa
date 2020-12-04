@@ -17,3 +17,22 @@ var OnAJAXError = function (x, y, z) {
 var AJAXComplete = function () {
     //LockScreenOff();
 };
+
+// Обработка ошибок
+var OnAJAXMetodError = function (metod, x, y, z) {
+    var status = "";
+    var status_text = "";
+    var message = "";
+
+    if (x && x.status) {
+        status = x.status;
+    }
+    if (x && x.statusText) {
+        status_text = x.statusText;
+    }
+    if (x && x.responseJSON) {
+        message = x.responseJSON.Message;
+    }
+    alert('Metod js : ' + metod + '\nStatus : ' + status + '\nStatusText : ' + status_text + '\nMessage : ' + message);
+    LockScreenOff();
+};

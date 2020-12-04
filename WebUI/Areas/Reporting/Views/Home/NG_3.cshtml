@@ -1,0 +1,87 @@
+﻿@using WebUI.App_GlobalResources;
+@{
+    ViewBag.Title = @GlobalResource.home_link_reporting;
+}
+
+@section styles {
+    @Styles.Render("~/DataTables/css")
+    @Styles.Render("~/DateTime/css")
+    <link rel="stylesheet" type="text/css" href="~/Content/Reporting/ns_3.css">
+
+
+}
+
+@section scripts {
+    @Scripts.Render("~/bundles/Moment")
+    @Scripts.Render("~/bundles/DataTables")
+    @Scripts.Render("~/bundles/DateTime")
+
+    <script src="~/Scripts/api/common.js"></script> <!-- Общая библиотека методов программы -->
+    <script src="~/Scripts/api/dpa_ng.js"></script> <!-- Общая библиотека методов программы -->
+
+    <script src="~/Scripts/shared/common.js"></script> <!-- Общая библиотека методов программы -->
+    <script src="~/Scripts/reporting/ng3.js"></script> <!--  -->
+
+}
+<div class="container-fluid">
+    <div class="alert" id="main-alert"></div>
+    <div class="row">
+        <div class="col-xl-12 mb-3 mt-2">
+            <div class="card border-dark mb-3">
+                <div class="card-header bg-secondary text-white">
+                    <div class="row">
+                        <div class="col-xl-12 text-center">
+                            <div class="container-fluid">
+                                <form class="form-inline">
+                                    <label class="col-form-label text-white mr-2" for="report_for">Период:</label>
+                                    <input type="datetime" id="report_for" name="report_for" class="form-control mr-3" />
+                                    <button type="button" class="btn btn-primary" id="view_report" >ПОКАЗАТЬ</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body text-dark pl-3 pr-3" style="font-size:1.3rem">
+                    <div class="card">
+                        <div class="card-header" id="park_state_info" style="text-transform:uppercase">
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-5">
+                                    <fieldset class="border-primary">
+                                        <legend class="text-primary">Схема</legend>
+                                        <div class="form-row">
+                                            <div class="col-xl-12 mb-1 text-left">
+                                                @*<img src="~/Images/reporting/NG_3.jpg" />*@
+                                                <img src="~/Images/reporting/NG_3.jpg" class="img-fluid" alt="Responsive image">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-xl-7">
+                                    <fieldset class="border-primary">
+                                        <legend class="text-primary">Приборы учета</legend>
+                                        <div class="row">
+                                            <div class="col-xl-12">
+                                                <div class="card border-primary mb-3">
+                                                    <div class="card-header">БАЛАНС</div>
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-xl-12 operator-detali-tables">
+                                                                <table id="balance-ng" class="display compact hover row-border" style="width:100%; table-layout: fixed"></table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

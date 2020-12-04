@@ -20,6 +20,11 @@
     background-image: url(../Images/pattern.png), url(../Images/datp.jpg);
 }
 
+.img-header-reporting {
+    background-image: url(../Images/pattern.png), url(../Images/work.jpg);
+}
+
+
 .img-header-mt {
     background-image: url(../Image/header.jpg);
 }

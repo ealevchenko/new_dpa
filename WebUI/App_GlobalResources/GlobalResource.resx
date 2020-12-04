@@ -129,6 +129,18 @@
   <data name="home_link_2" xml:space="preserve">
     <value>...</value>
   </data>
+  <data name="home_link_analytical_reporting" xml:space="preserve">
+    <value>Аналитическая отчетность</value>
+  </data>
+  <data name="home_link_balance" xml:space="preserve">
+    <value>Баланс</value>
+  </data>
+  <data name="home_link_balanse_n3" xml:space="preserve">
+    <value>ПГ 3-нитка</value>
+  </data>
+  <data name="home_link_description__balanse_n3" xml:space="preserve">
+    <value>Расход ПГ на АМКР (3 нитка)</value>
+  </data>
   <data name="home_link_equipment" xml:space="preserve">
     <value>Оборудование</value>
   </data>
@@ -137,6 +149,9 @@
   </data>
   <data name="home_link_project" xml:space="preserve">
     <value>Проекты</value>
+  </data>
+  <data name="home_link_reporting" xml:space="preserve">
+    <value>Отчетность</value>
   </data>
   <data name="home_link_systems" xml:space="preserve">
     <value>Системы</value>

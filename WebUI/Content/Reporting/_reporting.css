@@ -1,0 +1,169 @@
+﻿/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, main {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+        content: '';
+        content: none;
+    }
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/**/
+header {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    background-position: center;
+    text-align: center;
+    color: white;
+    /*background-color:#ccc;*/
+}
+    header .header-content {
+        position: relative;
+        text-align: center;
+        margin-top: 55px;
+        padding: 15px 15px;
+        width: 100%;
+        color: rgba(51, 29, 53, 0.8);
+    }
+
+/*navbar*/
+.navbar-amkr {
+    border-color: rgba(34, 34, 34, 0.05);
+    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    -webkit-transition: all 0.35s;
+    -moz-transition: all 0.35s;
+    transition: all 0.35s;
+}
+
+    .navbar-amkr .navbar-header .navbar-brand {
+        color: #F05F40;
+        font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+        .navbar-amkr .navbar-header .navbar-brand:hover,
+        .navbar-amkr .navbar-header .navbar-brand:focus {
+            color: white;
+        }
+
+    .navbar-amkr .navbar-header .navbar-toggle {
+        font-weight: 700;
+        font-size: 12px;
+        color: rgba(255, 252, 252, 0.7);
+        text-transform: uppercase;
+    }
+
+    .navbar-amkr .nav > li > a,
+    .navbar-amkr .nav > li > a:focus {
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 13px;
+        color: rgba(255, 252, 252, 0.7);
+    }
+
+        .navbar-amkr .nav > li > a:hover,
+        .navbar-amkr .nav > li > a:focus:hover {
+            color: white;
+        }
+
+    .navbar-amkr .nav > li.active > a,
+    .navbar-amkr .nav > li.active > a:focus {
+        color: white !important;
+        background-color: transparent;
+    }
+
+        .navbar-amkr .nav > li.active > a:hover,
+        .navbar-amkr .nav > li.active > a:focus:hover {
+            background-color: transparent;
+        }
+
+.navbar-header button {
+    color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, .1);
+}
+
+
+.bg-x {
+    background-color: rgba(0,0,0,0.15);
+}
+
+.bg-amkr {
+    background-color: #F25823;
+    color: white;
+}
+
+
+/*Блокировка экрана*/
+.LockOff {
+    display: none;
+    /*visibility: hidden;*/
+}
+
+.LockOn {
+    display: block;
+    visibility: visible;
+    position: absolute;
+    z-index: 1999;
+    top: 0px;
+    left: 0px;
+    width: 105%;
+    height: 1000%;
+    background-color: #ccc;
+    text-align: center;
+    padding-top: 20%;
+    filter: alpha(opacity=75);
+    opacity: 0.75;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: xx-large;
+    color: #0033CC;
+}

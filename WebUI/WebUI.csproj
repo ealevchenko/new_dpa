@@ -152,6 +152,7 @@
     <Folder Include="Areas\Personnel\Models\" />
     <Folder Include="Areas\Personnel\Views\Shared\" />
     <Folder Include="Areas\Project\Models\" />
+    <Folder Include="Areas\Reporting\Models\" />
     <Folder Include="Areas\Systems\Models\" />
     <Folder Include="Models\" />
   </ItemGroup>
@@ -207,10 +208,13 @@
     <Compile Include="Areas\Personnel\PersonnelAreaRegistration.cs" />
     <Compile Include="Areas\Project\Controllers\HomeController.cs" />
     <Compile Include="Areas\Project\ProjectAreaRegistration.cs" />
+    <Compile Include="Areas\Reporting\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Reporting\ReportingAreaRegistration.cs" />
     <Compile Include="Areas\Systems\Controllers\HomeController.cs" />
     <Compile Include="Areas\Systems\SystemsAreaRegistration.cs" />
     <Compile Include="Controllers\api\ListProjectsController.cs" />
     <Compile Include="Controllers\api\ProjectManagerController.cs" />
+    <Compile Include="Controllers\api\Reportong\NG\NGController.cs" />
     <Compile Include="Controllers\api\StagesProjectController.cs" />
     <Compile Include="Controllers\api\StructuralSubdivisionsController.cs" />
     <Compile Include="Controllers\api\TemplatesStagesProjectController.cs" />
@@ -561,6 +565,9 @@
     <Content Include="Content\project\home1.css" />
     <Content Include="Content\project\project_list.css" />
     <Content Include="Content\project\project_status.css" />
+    <Content Include="Content\Reporting\index.css" />
+    <Content Include="Content\Reporting\ns_3.css" />
+    <Content Include="Content\Reporting\_reporting.css" />
     <Content Include="Content\themes\default-dark\32px.png" />
     <Content Include="Content\themes\default-dark\40px.png" />
     <Content Include="Content\themes\default-dark\style.css" />
@@ -571,6 +578,7 @@
     <Content Include="Content\themes\default\style.css" />
     <Content Include="Content\themes\default\style.min.css" />
     <Content Include="Content\themes\default\throbber.gif" />
+    <Content Include="Images\amk_logo.png" />
     <Content Include="Images\project\1cd-intro-background.jpg" />
     <Content Include="Images\project\2.jpg" />
     <Content Include="Images\project\2img-1.jpg" />
@@ -632,8 +640,10 @@
     <Content Include="Images\project\уimg-3.jpg" />
     <Content Include="Images\project\ууау.jpg" />
     <Content Include="Images\project\ьь.jpg" />
+    <Content Include="Images\reporting\NG_3.jpg" />
     <Content Include="Scripts\api\common.js" />
     <Content Include="Scripts\api\dpa.js" />
+    <Content Include="Scripts\api\dpa_ng.js" />
     <Content Include="Scripts\api\project.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -860,6 +870,12 @@
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
     <Content Include="Areas\Project\Views\Home\ProjectStatus.cshtml" />
+    <Content Include="Areas\Reporting\Views\web.config" />
+    <Content Include="Areas\Reporting\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Reporting\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Reporting\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Reporting\Views\Home\NG_3.cshtml" />
+    <Content Include="Areas\Reporting\Views\Shared\_Reporting.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Gantt\jsgantt.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -1072,6 +1088,7 @@
     <Content Include="Scripts\project\main_home1.js" />
     <Content Include="Scripts\project\project_status.js" />
     <Content Include="Scripts\project\test.js" />
+    <Content Include="Scripts\reporting\ng3.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -1197,6 +1214,10 @@
     <ProjectReference Include="..\EFProjects\EFProjects.csproj">
       <Project>{d0ab0dbd-0fb8-4db8-872a-fa4a68d73bbc}</Project>
       <Name>EFProjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EFReporting\EFReporting.csproj">
+      <Project>{85a73621-ca8b-4e97-b10f-a3dd2115f527}</Project>
+      <Name>EFReporting</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

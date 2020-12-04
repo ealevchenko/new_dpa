@@ -1,0 +1,30 @@
+﻿@using WebUI.App_GlobalResources;
+@{
+    ViewBag.Title = @GlobalResource.home_title;
+    ViewBag.section = @GlobalResource.home_link_reporting;
+    Layout = "~/Views/Shared/_Global.cshtml";
+}
+
+@section styles {
+    <link rel="stylesheet" type="text/css" href="~/Content/Reporting/index.css">
+}
+
+@section scripts {
+    <script>
+        $('body').addClass('img-header-reporting');
+    </script>
+}
+
+
+<ul class="ca-menu">
+    <li>
+        <a href='@Url.Action("NG_3", "Home", new { Area = "Reporting" })'>
+            <span class="ca-icon">i</span>
+            <div class="ca-content">
+                <h2 class="ca-main">@GlobalResource.home_link_balanse_n3</h2>
+                <h3 class="ca-sub">@GlobalResource.home_link_description__balanse_n3</h3>
+            </div>
+        </a>
+    </li>
+</ul>
+

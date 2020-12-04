@@ -226,6 +226,32 @@ var outVal = function (i) {
     return i != null ? Number(i) : '';
 };
 
+
+
+var get_date_value_obj = function (obj, lang) {
+    if (obj && obj.val()) {
+        return get_date_value(obj.val(), lang);
+    }
+    return null;
+};
+
+var get_date_value = function (s_date, lang) {
+    if (s_date) {
+        var dt = moment(s_date, lang === 'ru' ? 'DD.MM.YYYY' : 'MM/DD/YYYY');
+        return dt ? dt._d : null;
+    }
+    return null;
+};
+
+var get_datetime_value = function (s_date, lang) {
+    if (s_date) {
+        var dt = moment(s_date, lang === 'ru' ? 'DD.MM.YYYY HH:mm:ss' : 'MM/DD/YYYY HH:mm:ss');
+        return dt ? dt._d : null;
+    }
+    return null;
+};
+
+
 /* ----------------------------------------------------------
     Блокировка экрана
 -------------------------------------------------------------*/
@@ -364,3 +390,72 @@ var updateOptionSelect = function (obj_select, data, callback_option, value_sele
         .val(value_select)
         .selectmenu("refresh");
 };
+
+//
+var cd_initDateTimeRangePicker = function (obj_select, property, close_function) {
+    var dtrp = {
+        obj: null,
+        lang: 'ru',
+        time: true,
+        select_date: null,
+        init: function (obj_select, property, close_function) {
+            if (property.lang == null) {
+                dtrp.lang = property.lang;
+            }
+            if (property.time !== null) {
+                dtrp.time = property.time;
+            }
+
+            dtrp.obj = obj_select.dateRangePicker(
+                {
+                    language: dtrp.lang,
+                    format: dtrp.lang === 'ru' ? 'DD.MM.YYYY' + (dtrp.time ? ' HH:mm' : '') : 'DD\MM\YYYY' + (dtrp.time ? ' HH:mm' : ''),
+                    autoClose: false,
+                    singleDate: true,
+                    singleMonth: true,
+                    showShortcuts: false,
+                    time: {
+                        enabled: dtrp.time
+                    },
+                }).
+                bind('datepicker-change', function (evt, obj) {
+                    dtrp.select_date = obj.date1;
+                }).bind('datepicker-closed', function () {
+                    //dtrp.setDateTime(dtrp.select_date); // Иначе дату не возможно убрать
+                    // Преобразовать формат
+                    if (typeof close_function === 'function') {
+                        close_function(dtrp.select_date);
+                    }
+                });
+        },
+        getDateTime: function () {
+            return dtrp.select_date;
+        },
+        setDateTime: function (datetime) {
+            var e = dtrp.obj.attr("disabled");
+            if (e === "disabled") {
+                dtrp.obj.prop("disabled", false);
+            }
+            if (datetime !== null) {
+                dtrp.obj.data('dateRangePicker').setDateRange(moment(datetime).format('DD.MM.YYYY' + (dtrp.time ? ' HH:mm' : '')), moment(datetime).format('DD.MM.YYYY' + (dtrp.time ? ' HH:mm' : '')), true);
+            } else {
+                // Установить текущую дату и время
+                dtrp.obj.data('dateRangePicker').setDateRange(moment().format('DD.MM.YYYY' + (dtrp.time ? ' HH:mm' : '')), moment().format('DD.MM.YYYY' + (dtrp.time ? ' HH:mm' : '')), true);
+                dtrp.obj.data('dateRangePicker').clear();
+                dtrp.select_date = null; // чтобы вернуло нет даты
+            }
+            if (e === "disabled") {
+                dtrp.obj.prop("disabled", true);
+            }
+        },
+        enable: function (enb) {
+            dtrp.obj.prop("disabled", !enb);
+        },
+        val: function () {
+            return dtrp.obj.val();
+            //dtrp.getDateTime();
+        }
+    };
+    dtrp.init(obj_select, property, close_function);
+    return dtrp;
+}

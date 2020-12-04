@@ -19,7 +19,7 @@ namespace WebUI.App_GlobalResources {
     // с помощью такого средства, как ResGen или Visual Studio.
     // Чтобы добавить или удалить член, измените файл .ResX и снова запустите ResGen
     // с параметром /str или перестройте свой проект VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class GlobalResource {
@@ -97,6 +97,42 @@ namespace WebUI.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Аналитическая отчетность.
+        /// </summary>
+        public static string home_link_analytical_reporting {
+            get {
+                return ResourceManager.GetString("home_link_analytical_reporting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Баланс.
+        /// </summary>
+        public static string home_link_balance {
+            get {
+                return ResourceManager.GetString("home_link_balance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на ПГ 3-нитка.
+        /// </summary>
+        public static string home_link_balanse_n3 {
+            get {
+                return ResourceManager.GetString("home_link_balanse_n3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Расход ПГ на АМКР (3 нитка).
+        /// </summary>
+        public static string home_link_description__balanse_n3 {
+            get {
+                return ResourceManager.GetString("home_link_description__balanse_n3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Оборудование.
         /// </summary>
         public static string home_link_equipment {
@@ -120,6 +156,15 @@ namespace WebUI.App_GlobalResources {
         public static string home_link_project {
             get {
                 return ResourceManager.GetString("home_link_project", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Отчетность.
+        /// </summary>
+        public static string home_link_reporting {
+            get {
+                return ResourceManager.GetString("home_link_reporting", resourceCulture);
             }
         }
         
