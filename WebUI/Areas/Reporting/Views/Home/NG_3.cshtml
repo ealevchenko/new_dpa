@@ -68,7 +68,26 @@
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-xl-12 operator-detali-tables">
-                                                                <table id="balance-ng" class="display compact hover row-border" style="width:100%; table-layout: fixed"></table>
+                                                                <table id="balance-ng" class="display compact hover row-border" style="width:100%; table-layout: fixed">
+                                                                    <tfoot>
+                                                                        <tr>
+                                                                            <th></th>
+                                                                            <th style="text-align:right">Итого потребители:</th>
+                                                                            <th style="text-align:right; font-weight:600" id="consumption"></th>
+                                                                            <th></th>
+                                                                            <th></th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th></th>
+                                                                            <th style="text-align:right">Небаланс:</th>
+                                                                            <th style="text-align:right; font-weight:600" id="imbalance"></th>
+                                                                            <th></th>
+                                                                            <th></th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                    </tfoot>
+                                                                </table>
                                                             </div>
                                                         </div>
                                                     </div>

@@ -39,3 +39,13 @@ tr.group:hover {
     text-align: center;
     text-transform: uppercase;
 }
+
+td.metering_units_name {
+    text-align:left;
+    text-transform:uppercase;
+}
+
+td.value {
+    text-align:right;
+    color:#4800ff;
+}

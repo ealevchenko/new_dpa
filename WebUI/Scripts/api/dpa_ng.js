@@ -2,10 +2,10 @@
     this.lang = lang;
 };
 
-DPA_NG.prototype.getViewBalanceNG3 = function (datetime,root, callback) {
+DPA_NG.prototype.getViewDailyIntakeNG = function (datetime, root, callback) {
     $.ajax({
         type: 'GET',
-        url: '../../api/reporting/ng/balance/n3/date/' + datetime.substring(0, 19) + '/root/' + root,
+        url: '../../api/reporting/ng/daily_intake/date/' + datetime.substring(0, 19) + '/root/' + root,
         async: true,
         dataType: 'json',
         beforeSend: function () {
@@ -17,7 +17,7 @@ DPA_NG.prototype.getViewBalanceNG3 = function (datetime,root, callback) {
             }
         },
         error: function (x, y, z) {
-            OnAJAXMetodError("DPA_NG.getViewBalanceNG3", x, y, z);
+            OnAJAXMetodError("DPA_NG.getViewDailyIntakeNG", x, y, z);
         },
         complete: function () {
             AJAXComplete();

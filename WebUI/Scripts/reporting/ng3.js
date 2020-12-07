@@ -89,12 +89,44 @@
                     api.column(groupColumn, { page: 'current' }).data().each(function (group, i) {
                         if (last !== group) {
                             $(rows).eq(i).before(
-                                '<tr class="group"><td colspan="3">' + group + '</td></tr>'
+                                '<tr class="group"><td colspan="5">' + group + '</td></tr>'
                             );
 
                             last = group;
                         }
                     });
+                },
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api(), data;
+
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function (i) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '') * 1 :
+                            typeof i === 'number' ?
+                            i : 0;
+                    };
+
+                    // Total over all pages
+                    total = api
+                        .column(2)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    //// Total over this page
+                    //pageTotal = api
+                    //    .column( 4, { page: 'current'} )
+                    //    .data()
+                    //    .reduce( function (a, b) {
+                    //        return intVal(a) + intVal(b);
+                    //    }, 0 );
+
+                    // Update footer
+                    //$( api.column( 4 ).footer() ).html(
+                    //    '$'+pageTotal +' ( $'+ total +' total)'
+                    //);
                 },
                 columns: [
                     {
@@ -107,21 +139,35 @@
                         data: function (row, type, val, meta) {
                             return row.metering_units_name;
                         },
-                        title: 'Учетный узел', width: "250px", orderable: false, searchable: false
+                        title: 'Учетный узел', width: "200px", orderable: false, searchable: false, className: "metering_units_name"
                     },
                     {
                         data: function (row, type, val, meta) {
-                            return row.value;
+                            return row.value!== null ? row.value.toFixed(1) : null;
 
                         },
-                        title: 'Значение', width: "30px", orderable: false, searchable: false
+                        title: 'Потреб.', width: "50px", orderable: false, searchable: false, className: "value"
                     },
                     {
                         data: function (row, type, val, meta) {
-                            return '';
+                            return row.optimal_consumption!== null ? row.optimal_consumption.toFixed(1) : null;
 
                         },
-                        title: 'Производство', width: "200px", orderable: false, searchable: false
+                        title: 'Оптим. потреб.', width: "50px", orderable: false, searchable: false, className: "value"
+                    },
+                    {
+                        data: function (row, type, val, meta) {
+                            return row.production!== null ? row.production.toFixed(1) : null;
+
+                        },
+                        title: 'Произв.', width: "50px", orderable: false, searchable: false, className: "value"
+                    },
+                    {
+                        data: function (row, type, val, meta) {
+                            return row.production_unit;
+
+                        },
+                        title: 'Ед.изм.', width: "50px", orderable: false, searchable: false
                     },
                 ],
             });
@@ -130,7 +176,8 @@
         load: function (date, root) {
             //var date = get_datetime_value(pn_select.report_for.val(), lang);
             ////toISOStringTZ()
-            ng.getViewBalanceNG3(toISOStringTZ(date), root, function (data) {
+            LockScreen(langView('mess_delay', langs));
+            ng.getViewDailyIntakeNG(toISOStringTZ(date), root, function (data) {
                 table_balance.view(data);
             });
         },
@@ -140,6 +187,17 @@
             table_balance.obj.clear();
             if (table_balance.list_ng && table_balance.list_ng.length > 0) {
                 table_balance.obj.rows.add(table_balance.list_ng.sort(function (a, b) { return a.id_metering_units - b.id_metering_units; }));
+                var consumption_value = 0;
+                var admission_value = 0;
+                $.each(table_balance.list_ng, function (i, el) {
+                    if (el.first === 0) {
+                        consumption_value += el.value;
+                    } else {
+                        admission_value += el.value;
+                    }
+                });
+                $('th#consumption').html(consumption_value.toFixed(1));
+                $('th#imbalance').html(Number(admission_value - consumption_value).toFixed(1));
             } else {
 
             };
@@ -159,5 +217,6 @@
     //pn_select.report_for.setDateTime(moment(date_curent).format('DD.MM.YYYY'));
     //var list = ng.getViewBalanceNG3(toISOStringTZ(date_curent._d), 1);
     // Инициализация окна править группу ограничений
-    LockScreenOff();
+    table_balance.load(get_datetime_value(pn_select.report_for.val(), lang), 1)
+    //LockScreenOff();
 });

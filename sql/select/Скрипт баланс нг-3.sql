@@ -1,6 +1,6 @@
 use [KRR-PA-REP-SBF]
 
-declare @date date = convert(datetime,'2020-12-03',120)
+declare @date date = convert(datetime,'2020-12-07',120)
 declare @home_mu int = 1
 
 SELECT 
@@ -15,8 +15,11 @@ SELECT
       ,mu.[working]
       ,mu.[note]
       ,bl.[value]
+      ,[production] = (SELECT sum ([value]) FROM [KRR-PA-REP-SBF].[BALANCE].[DailyProduction] where [id_daily_intake] = bl.[id])
+	  ,[production_unit] = (SELECT min([production_unit]) FROM [KRR-PA-REP-SBF].[BALANCE].[Directory_Production] where [id_metering_units] = bl.[id_metering_units])
+	  ,[optimal_consumption] = (SELECT sum([optimal consumption]) FROM [KRR-PA-REP-SBF].[BALANCE].[Directory_Production] where [id_metering_units] = bl.[id_metering_units])
 	  --into BALANCE
-  FROM [KRR-PA-REP-SBF].[BALANCE].[Balance_NG_3] as bl Left JOIN 
+  FROM [KRR-PA-REP-SBF].[BALANCE].[DailyIntake] as bl Left JOIN 
   [BALANCE].[Directory_Metering_Units] as mu ON mu.id = bl.[id_metering_units]
   where bl.[date] = @date and mu.[id] = @home_mu
   union
@@ -32,6 +35,9 @@ SELECT
       ,mu.[working]
       ,mu.[note]
       ,bl.[value]
-  FROM [KRR-PA-REP-SBF].[BALANCE].[Balance_NG_3] as bl Left JOIN 
+	  ,[production] = (SELECT sum ([value]) FROM [KRR-PA-REP-SBF].[BALANCE].[DailyProduction] where [id_daily_intake] = bl.[id])
+	  ,[production_unit] = (SELECT min([production_unit]) FROM [KRR-PA-REP-SBF].[BALANCE].[Directory_Production] where [id_metering_units] = bl.[id_metering_units])
+	  ,[optimal_consumption] = (SELECT sum([optimal consumption]) FROM [KRR-PA-REP-SBF].[BALANCE].[Directory_Production] where [id_metering_units] = bl.[id_metering_units])
+  FROM [KRR-PA-REP-SBF].[BALANCE].[DailyIntake] as bl Left JOIN 
   [BALANCE].[Directory_Metering_Units] as mu ON mu.id = bl.[id_metering_units]
   where bl.[date] = @date and mu.[parent_id] = @home_mu
