@@ -5,6 +5,39 @@
 body {
 }
 
+
+.date-picker {
+    z-index: 302;
+}
+
+.date-picker-wrapper {
+    z-index: 301;
+}
+
+    .date-picker-wrapper .gap {
+        z-index: 301;
+    }
+
+        .date-picker-wrapper .gap .gap-line .gap-1 {
+            z-index: 301;
+        }
+
+        .date-picker-wrapper .gap .gap-line .gap-2 {
+            z-index: 302;
+        }
+
+        .date-picker-wrapper .gap .gap-line .gap-3 {
+            z-index: 302;
+        }
+
+        .date-picker-wrapper .gap .gap-top-mask {
+            z-index: 303;
+        }
+
+        .date-picker-wrapper .gap .gap-bottom-mask {
+            z-index: 303;
+        }
+
 /**/
 legend {
     display: block;

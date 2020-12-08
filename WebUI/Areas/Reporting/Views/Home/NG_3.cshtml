@@ -21,7 +21,6 @@
 
     <script src="~/Scripts/shared/common.js"></script> <!-- Общая библиотека методов программы -->
     <script src="~/Scripts/reporting/ng3.js"></script> <!--  -->
-
 }
 <div class="container-fluid">
     <div class="alert" id="main-alert"></div>
@@ -35,7 +34,8 @@
                                 <form class="form-inline">
                                     <label class="col-form-label text-white mr-2" for="report_for">Период:</label>
                                     <input type="datetime" id="report_for" name="report_for" class="form-control mr-3" />
-                                    <button type="button" class="btn btn-primary" id="view_report" >ПОКАЗАТЬ</button>
+                                    @*<button type="button" class="btn btn-primary" id="view_report" >ПОКАЗАТЬ</button>*@
+                                    <button type="button" class="btn btn-primary" id="edit_report">Править</button>
                                 </form>
                             </div>
                         </div>
@@ -103,4 +103,260 @@
             </div>
         </div>
     </div>
+</div>
+
+<div id="edit_daily_intake" title="" style="display:none">
+    <div class="alert" id="edit_daily_intake_alert"></div>
+    <form id="form_edit_daily_intake">
+        <div class="col-xl-12">
+            <div class="form-group row" style="margin-bottom:0.5rem">
+                <label for="date_daily_intake" class="col-xl-2 col-form-label">За сутки:</label>
+                <div class="col-xl-4">
+                    <input type="date" class="form-control" id="date_daily_intake" name="date_daily_intake" title="" required="required">
+                    <div class="invalid-feedback"></div>
+                </div>
+                <button type="button" class="ml-3 btn btn-primary" id="add_report" disabled>Добавить</button>
+            </div>
+        </div>
+        <fieldset class="border-primary">
+            <legend class="text-primary">ВГС ДП-9 3-н</legend>
+            <div class="form-group row" style="margin-bottom:0.5rem">
+                <label for="vgs_dp9_3n" class="col-xl-2 col-form-label">Вход:</label>
+                <div class="col-xl-4">
+                    <input type="number" class="form-control" id="vgs_dp9_3n" name="vgs_dp9_3n" title="" required="required">
+                    <div class="invalid-feedback"></div>
+                </div>
+            </div>
+        </fieldset>
+        <div>
+            <ul class="nav nav-tabs" id="add_edit_tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="total-tab" data-toggle="tab" href="#tec_3" role="tab" aria-controls="tec_3" aria-selected="true">ТЭЦ-3</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="rent-tab" data-toggle="tab" href="#dp_9" role="tab" aria-controls="dp_9" aria-selected="false">ДП-9</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="rent-tab" data-toggle="tab" href="#ac_1_2_3" role="tab" aria-controls="ac_1_2_3" aria-selected="false">АЦ-1,2,3</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="tec_3" role="tabpanel" aria-labelledby="tec_3-tab">
+                    <fieldset class="border-primary">
+                        <legend class="text-primary">ГРП ТЭЦ-3</legend>
+                        <div class="form-group row" style="margin-bottom:0.5rem">
+                            <label for="grp_tec_3_f" class="col-xl-2 col-form-label">Расход:</label>
+                            <div class="col-xl-4">
+                                <input type="number" class="form-control" id="grp_tec_3_f" name="grp_tec_3_f" title="" required="required">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="form-group row" style="margin-bottom:0.5rem">
+                                    <label for="grp_tec_3_pk_5" class="col-xl-4 col-form-label">ПК-5:</label>
+                                    <div class="col-xl-8">
+                                        <input type="number" class="form-control" id="grp_tec_3_pk_5" name="grp_tec_3_pk_5" title="" required="required">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="margin-bottom:0.5rem">
+                                    <label for="grp_tec_3_pk_6" class="col-xl-4 col-form-label">ПК-6:</label>
+                                    <div class="col-xl-8">
+                                        <input type="number" class="form-control" id="grp_tec_3_pk_6" name="grp_tec_3_pk_6" title="" required="required">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="margin-bottom:0.5rem">
+                                    <label for="grp_tec_3_pk_7" class="col-xl-4 col-form-label">ПК-7:</label>
+                                    <div class="col-xl-8">
+                                        <input type="number" class="form-control" id="grp_tec_3_pk_7" name="grp_tec_3_pk_7" title="" required="required">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="margin-bottom:0.5rem">
+                                    <label for="grp_tec_3_pk_8" class="col-xl-4 col-form-label">ПК-8:</label>
+                                    <div class="col-xl-8">
+                                        <input type="number" class="form-control" id="grp_tec_3_pk_8" name="grp_tec_3_pk_8" title="" required="required">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="tab-pane fade" id="dp_9" role="tabpanel" aria-labelledby="dp_9-tab">
+                    <fieldset class="border-primary">
+                        <legend class="text-primary">ДП-9</legend>
+                        <div class="form-group row" style="margin-bottom:0.5rem">
+                            <label for="dp_9_sw1_f" class="col-xl-3 col-form-label">F ДП-9 ГО-св.1:</label>
+                            <div class="col-xl-3">
+                                <input type="number" class="form-control" id="dp_9_sw1_f" name="dp_9_sw1_f" title="" required="required">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <label for="dp_9_sw2_f" class="col-xl-3 col-form-label">F ДП-9 ГО-св.2:</label>
+                            <div class="col-xl-3">
+                                <input type="number" class="form-control" id="dp_9_sw2_f" name="dp_9_sw2_f" title="" required="required">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="form-group row" style="margin-bottom:0.5rem">
+                            <label for="dp_9_hn_f" class="col-xl-3 col-form-label">F ДП-9 х.н.:</label>
+                            <div class="col-xl-3">
+                                <input type="number" class="form-control" id="dp_9_hn_f" name="dp_9_hn_f" title="" required="required">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="form-group row" style="margin-bottom:0.5rem">
+                            <label for="dp_9_f" class="col-xl-3 col-form-label">F ДП-9:</label>
+                            <div class="col-xl-3">
+                                <input type="number" class="form-control" id="dp_9_f" name="dp_9_f" title="" required="required">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="form-group row" style="margin-bottom:0.5rem">
+                                    <label for="dp_9_p" class="col-xl-6 col-form-label">Произв. ДП-9:</label>
+                                    <div class="col-xl-6">
+                                        <input type="number" class="form-control" id="dp_9_p" name="dp_9_p" title="" required="required">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row" style="margin-bottom:0.5rem">
+                            <label for="dp_9_put_f" class="col-xl-3 col-form-label">F ДП-9 ПУТ:</label>
+                            <div class="col-xl-3">
+                                <input type="number" class="form-control" id="dp_9_put_f" name="dp_9_put_f" title="" required="required">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="form-group row" style="margin-bottom:0.5rem">
+                                    <label for="dp_9_put_p" class="col-xl-6 col-form-label">Произв. ПУТ:</label>
+                                    <div class="col-xl-6">
+                                        <input type="number" class="form-control" id="dp_9_put_p" name="dp_9_put_p" title="" required="required">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="tab-pane fade" id="ac_1_2_3" role="tabpanel" aria-labelledby="ac_1_2_3-tab">
+                    <fieldset class="border-primary">
+                        <legend class="text-primary">АЦ-1-2-3</legend>
+                        <div class="form-group row" style="margin-bottom:0.5rem">
+                            <label for="gr_f" class="col-xl-3 col-form-label">F Гараж разм.:</label>
+                            <div class="col-xl-3">
+                                <input type="number" class="form-control" id="gr_f" name="gr_f" title="" required="required">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="form-group row" style="margin-bottom:0.5rem">
+                            <label for="ac_1_f" class="col-xl-3 col-form-label">F АЦ-1:</label>
+                            <div class="col-xl-3">
+                                <input type="number" class="form-control" id="ac_1_f" name="ac_1_f" title="" required="required">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="form-group row" style="margin-bottom:0.5rem">
+                                    <label for="ac_1_p_am_1" class="col-xl-6 col-form-label">Произв. АМ-1:</label>
+                                    <div class="col-xl-6">
+                                        <input type="number" class="form-control" id="ac_1_p_am_1" name="ac_1_p_am_1" title="" required="required">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="margin-bottom:0.5rem">
+                                    <label for="ac_1_p_am_2" class="col-xl-6 col-form-label">Произв. АМ-2:</label>
+                                    <div class="col-xl-6">
+                                        <input type="number" class="form-control" id="ac_1_p_am_2" name="ac_1_p_am_2" title="" required="required">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="margin-bottom:0.5rem">
+                                    <label for="ac_1_p_am_3" class="col-xl-6 col-form-label">Произв. АМ-3:</label>
+                                    <div class="col-xl-6">
+                                        <input type="number" class="form-control" id="ac_1_p_am_3" name="ac_1_p_am_3" title="" required="required">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="margin-bottom:0.5rem">
+                                    <label for="ac_1_p_am_4" class="col-xl-6 col-form-label">Произв. АМ-4:</label>
+                                    <div class="col-xl-6">
+                                        <input type="number" class="form-control" id="ac_1_p_am_4" name="ac_1_p_am_4" title="" required="required">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="margin-bottom:0.5rem">
+                                    <label for="ac_1_p_am_5" class="col-xl-6 col-form-label">Произв. АМ-5:</label>
+                                    <div class="col-xl-6">
+                                        <input type="number" class="form-control" id="ac_1_p_am_5" name="ac_1_p_am_5" title="" required="required">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="margin-bottom:0.5rem">
+                                    <label for="ac_1_p_am_6" class="col-xl-6 col-form-label">Произв. АМ-6:</label>
+                                    <div class="col-xl-6">
+                                        <input type="number" class="form-control" id="ac_1_p_am_6" name="ac_1_p_am_6" title="" required="required">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row" style="margin-bottom:0.5rem">
+                            <label for="ac_2_f" class="col-xl-3 col-form-label">F АЦ-2:</label>
+                            <div class="col-xl-3">
+                                <input type="number" class="form-control" id="ac_2_f" name="ac_2_f" title="" required="required">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="form-group row" style="margin-bottom:0.5rem">
+                                    <label for="ac_2_p_am_1" class="col-xl-6 col-form-label">Произв. АМ-1:</label>
+                                    <div class="col-xl-6">
+                                        <input type="number" class="form-control" id="ac_2_p_am_1" name="ac_2_p_am_1" title="" required="required">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="margin-bottom:0.5rem">
+                                    <label for="ac_2_p_am_2" class="col-xl-6 col-form-label">Произв. АМ-2:</label>
+                                    <div class="col-xl-6">
+                                        <input type="number" class="form-control" id="ac_2_p_am_2" name="ac_2_p_am_2" title="" required="required">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="margin-bottom:0.5rem">
+                                    <label for="ac_2_p_am_3" class="col-xl-6 col-form-label">Произв. АМ-3:</label>
+                                    <div class="col-xl-6">
+                                        <input type="number" class="form-control" id="ac_2_p_am_3" name="ac_2_p_am_3" title="" required="required">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="margin-bottom:0.5rem">
+                                    <label for="ac_2_p_am_4" class="col-xl-6 col-form-label">Произв. АМ-4:</label>
+                                    <div class="col-xl-6">
+                                        <input type="number" class="form-control" id="ac_2_p_am_4" name="ac_2_p_am_4" title="" required="required">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="margin-bottom:0.5rem">
+                                    <label for="ac_2_p_am_5" class="col-xl-6 col-form-label">Произв. АМ-5:</label>
+                                    <div class="col-xl-6">
+                                        <input type="number" class="form-control" id="ac_2_p_am_5" name="ac_2_p_am_5" title="" required="required">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row" style="margin-bottom:0.5rem">
+                                    <label for="ac_2_p_am_6" class="col-xl-6 col-form-label">Произв. АМ-6:</label>
+                                    <div class="col-xl-6">
+                                        <input type="number" class="form-control" id="ac_2_p_am_6" name="ac_2_p_am_6" title="" required="required">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+
+        <!-- Allow form submission with keyboard without duplicating the dialog button -->
+        <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </form>
 </div>

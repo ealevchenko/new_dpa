@@ -251,6 +251,22 @@ var get_datetime_value = function (s_date, lang) {
     return null;
 };
 
+// Врнуть значение Input с проверкой
+var get_input_number_value = function (obj) {
+    if (obj) {
+        return obj.val() !== '' ? Number(obj.val()) : null;
+    }
+    return null;
+};
+
+// Врнуть значение Input с проверкой
+var get_input_string_value = function (obj) {
+    if (obj) {
+        return obj.val() !== '' ? obj.val() : null;
+    }
+    return null;
+};
+
 
 /* ----------------------------------------------------------
     Блокировка экрана
@@ -459,3 +475,407 @@ var cd_initDateTimeRangePicker = function (obj_select, property, close_function)
     dtrp.init(obj_select, property, close_function);
     return dtrp;
 }
+
+//==============================================================================================
+/* ----------------------------------------------------------
+    Функции вывода сообщений
+-------------------------------------------------------------*/
+var ALERT = function (alert) {
+    this.alert = alert;
+};
+// Очистить сообщения
+ALERT.prototype.clear_message = function () {
+    if (this.alert) {
+        this.alert.hide().text('');
+    }
+};
+// Вывести сообщение об ошибке
+ALERT.prototype.out_error_message = function (message) {
+    if (this.alert) {
+        this.alert.show().removeClass('alert-success alert-warning').addClass('alert-danger');
+        if (message) {
+            this.alert.append(message).append($('<br />'));
+        }
+    }
+};
+// Вывести сообщение об ошибке
+ALERT.prototype.out_warning_message = function (message) {
+    if (this.alert) {
+        this.alert.show().removeClass('alert-success alert-danger').addClass('alert-warning');
+        if (message) {
+            this.alert.append(message).append($('<br />'));
+        }
+    }
+};
+// Вывести информационное сообщение
+ALERT.prototype.out_info_message = function (message) {
+    if (this.alert) {
+        this.alert.show().removeClass('alert-danger alert-warning').addClass('alert-success');
+        if (message) {
+            this.alert.append(message).append($('<br />'));
+        }
+    }
+};
+
+//==============================================================================================
+/* ----------------------------------------------------------
+    Функции валидации и вывода сообщений
+-------------------------------------------------------------*/
+var VALIDATION = function (lang, alert, all_obj) {
+
+    this.lang = lang;
+    this.alert = alert;
+    this.all_obj = all_obj;
+    this.type_message = 0; // 0- ок 1-warning 2-error
+};
+VALIDATION.prototype.clear_all = function () {
+    this.clear_message();
+    this.clear_error();
+};
+// Очистить все ошибки
+VALIDATION.prototype.clear_error = function (obj) {
+    if (obj) {
+        obj.removeClass('is-valid is-invalid');
+    } else {
+        this.all_obj.removeClass('is-valid is-invalid');
+    }
+};
+// Очистить сообщения
+VALIDATION.prototype.clear_message = function () {
+    if (this.alert) {
+        this.alert.hide().text('');
+        this.type_message = 0;
+    }
+};
+// Вывести сообщение об ошибке
+VALIDATION.prototype.out_error_message = function (message) {
+    if (this.alert) {
+        if (this.type_message <= 1) {
+            this.alert.show().removeClass('alert-success alert-warning').addClass('alert-danger');
+            this.type_message = 2;
+        }
+        if (message) {
+            this.alert.append(message).append($('<br />'));
+        }
+    }
+};
+// Вывести сообщение внимание
+VALIDATION.prototype.out_warning_message = function (message) {
+    if (this.alert) {
+        if (this.type_message <= 0) {
+            this.alert.show().removeClass('alert-success alert-danger').addClass('alert-warning');
+            this.type_message = 1;
+        }
+        if (message) {
+            this.alert.append(message).append($('<br />'));
+        }
+    }
+};
+// Вывести информационное сообщение
+VALIDATION.prototype.out_info_message = function (message) {
+    if (this.alert) {
+        if (this.type_message === 0) {
+            this.alert.show().removeClass('alert-success alert-danger').addClass('alert-success');
+        }
+        if (message) {
+            this.alert.text(message);
+        }
+    }
+};
+// Установить признак ошибка
+VALIDATION.prototype.set_control_error = function (o, message) {
+    o.removeClass('is-valid').addClass('is-invalid');
+    if (message) {
+        o.next(".invalid-feedback").text(message);
+    }
+};
+// Установить признак Ok
+VALIDATION.prototype.set_control_ok = function (o, message) {
+    o.removeClass('is-invalid').addClass('is-valid');
+    if (message) {
+        o.next(".valid-feedback").text(message);
+    }
+};
+// Установить признак ошибка
+VALIDATION.prototype.set_object_error = function (o, mes_error) {
+    this.set_control_error(o, mes_error);
+    this.out_error_message(mes_error);
+    return false;
+};
+// Установить признак ок
+VALIDATION.prototype.set_object_ok = function (o, mes_ok) {
+    this.set_control_ok(o, mes_ok);
+    this.out_info_message(mes_ok);
+    return true;
+};
+// Проверка на пустое значение
+VALIDATION.prototype.checkValueOfNull = function (o, val, mes_error, mes_ok) {
+    if (val === '' || val === null) {
+        this.set_control_error(o, mes_error);
+        this.out_error_message(mes_error);
+        return false;
+    } else {
+        this.set_control_ok(o, mes_ok);
+        this.out_info_message(mes_ok);
+        return true;
+    }
+};
+// Проверка на пустой объект
+VALIDATION.prototype.checkInputOfNull = function (o, mes_error, mes_ok, off_message) {
+    if (o.val() === '' || o.val() === null) {
+        this.set_control_error(o, mes_error);
+        if (!(off_message !== undefined && off_message))
+            this.out_error_message(mes_error);
+        return false;
+    } else {
+        this.set_control_ok(o, mes_ok);
+        if (!(off_message !== undefined && off_message))
+            this.out_info_message(mes_ok);
+        return true;
+    }
+};
+// Проверка Select на выбраный раздел
+VALIDATION.prototype.checkSelection = function (o, mes_error, mes_ok, off_message) {
+    var s = Number(o.val())
+    if (Number(o.val()) < 0) {
+        this.set_control_error(o, mes_error);
+        if (!(off_message !== undefined && off_message))
+            this.out_error_message(mes_error);
+        return false;
+    } else {
+        this.set_control_ok(o, mes_ok);
+        if (!(off_message !== undefined && off_message))
+            this.out_info_message(mes_ok);
+        return true;
+    }
+};
+// проверка на шаблон
+VALIDATION.prototype.checkRegexp = function (o, regexp, mes_error, mes_ok) {
+    if (!(regexp.test(o.val()))) {
+        this.set_control_error(o, mes_error);
+        this.out_error_message(mes_error);
+        return false;
+    } else {
+        this.set_control_ok(o, mes_ok);
+        this.out_info_message(mes_ok);
+        return true;
+    }
+};
+// Проверим Input введенное значение входит в диапазон (пустое значение - не допускается)
+VALIDATION.prototype.checkInputOfRange = function (o, min, max, mes_error, mes_ok) {
+    if (o.val() !== '' && o.val() !== null) {
+        var value = Number(o.val());
+        if (isNaN(value) || value > max || value < min) {
+            this.set_control_error(o, mes_error);
+            this.out_error_message(mes_error);
+            return false;
+        } else {
+            this.set_control_ok(o, mes_ok);
+            this.out_info_message(mes_ok);
+            return true;
+        }
+    } else {
+        this.set_control_error(o, mes_error);
+        this.out_error_message(mes_error);
+        return false;
+    }
+};
+// Проверим Input введенное значение входит в диапазон (пустое значение - допускается)
+VALIDATION.prototype.checkInputOfRange_IsNull = function (o, min, max, mes_error, mes_ok) {
+    if (o.val() !== '' && o.val() !== null) {
+        var value = Number(o.val());
+        if (isNaN(value) || value > max || value < min) {
+            this.set_control_error(o, mes_error);
+            this.out_error_message(mes_error);
+            return false;
+        } else {
+            this.set_control_ok(o, mes_ok);
+            this.out_info_message(mes_ok);
+            return true;
+        }
+    } else {
+        this.set_control_ok(o, mes_ok);
+        this.out_info_message(mes_ok);
+        return true;
+    }
+};
+// Проверим Input введенное значение соответствует формату даты и времени (пустое значение - не допускается)
+VALIDATION.prototype.checkInputOfDateTime = function (o, format, mes_ok) {
+    if (o.val() !== '' && o.val() !== null) {
+        var s = o.val();
+        var dt = moment(o.val(), format);
+        if (!dt.isValid()) {
+            this.set_control_error(o, "Дата должна быть указана в формате '" + format + "'");
+            this.out_error_message("Дата должна быть указана в формате '" + format + "'");
+            return false;
+        } else {
+            this.set_control_ok(o, mes_ok);
+            this.out_info_message(mes_ok);
+            return true;
+        }
+    } else {
+        this.set_control_error(o, "Дата должна быть указана в формате '" + format + "'");
+        this.out_error_message("Дата должна быть указана в формате '" + format + "'");
+        return false;
+    }
+};
+// Проверим Input введенное значение соответствует формату даты и времени (пустое значение - допускается)
+VALIDATION.prototype.checkInputOfDateTime_IsNull = function (o, format, mes_ok) {
+    if (o.val() !== '' && o.val() !== null) {
+        var s = o.val();
+        var dt = moment(o.val(), format);
+        if (!dt.isValid()) {
+            this.set_control_error(o, "Дата должна быть указана в формате '" + format + "'");
+            this.out_error_message("Дата должна быть указана в формате '" + format + "'");
+            return false;
+        } else {
+            this.set_control_ok(o, mes_ok);
+            this.out_info_message(mes_ok);
+            return true;
+        }
+    } else {
+        this.set_control_ok(o, mes_ok);
+        this.out_info_message(mes_ok);
+        return true;
+    }
+};
+// Проверим Input введенное значение есть в списке (пустое значение - не допускается)
+VALIDATION.prototype.checkInputOfList = function (o, list, mes_error, mes_ok, off_message) {
+    if (o.val() !== '' && o.val() !== null) {
+        var text = o.val();
+        var obj = getObjects(list, 'text', text);
+        if (!obj || obj.length === 0) {
+            this.set_control_error(o, mes_error);
+            if (!(off_message !== undefined && off_message))
+                this.out_error_message(mes_error);
+            return false;
+        } else {
+            this.set_control_ok(o, mes_ok);
+            if (!(off_message !== undefined && off_message))
+                this.out_info_message(mes_ok);
+            return true;
+        }
+    } else {
+        this.set_control_error(o, mes_error);
+        if (!(off_message !== undefined && off_message))
+            this.out_error_message(mes_error);
+        return false;
+    }
+};
+// Проверим Input введенное значение есть в списке (пустое значение - допускается)
+VALIDATION.prototype.checkInputOfList_IsNull = function (o, list, mes_error, mes_ok, off_message) {
+    if (o.val() !== '' && o.val() !== null) {
+        var text = o.val();
+        var obj = getObjects(list, 'text', text);
+        if (!obj || obj.length === 0) {
+            this.set_control_error(o, mes_error);
+            if (!(off_message !== undefined && off_message))
+                this.out_error_message(mes_error);
+            return false;
+        } else {
+            this.set_control_ok(o, mes_ok);
+            if (!(off_message !== undefined && off_message))
+                this.out_info_message(mes_ok);
+            return true;
+        }
+    } else {
+        this.set_control_ok(o, mes_ok);
+        if (!(off_message !== undefined && off_message))
+            this.out_info_message(mes_ok);
+        return true;
+    }
+};
+// Проверим Input введенное значение есть в в указаном справочнике (пустое значение - не допускается)
+VALIDATION.prototype.checkInputOfDirectory = function (o, link, name_func, mes_error, mes_ok, off_message) {
+    if (o.val() !== '' && o.val() !== null) {
+        var result = null;
+        eval('result = link.' + name_func + '(Number(o.val()))');
+        if (!result || result.length === 0) {
+            this.set_control_error(o, mes_error);
+            if (!(off_message !== undefined && off_message))
+                this.out_error_message(mes_error);
+            return false;
+        } else {
+            this.set_control_ok(o, mes_ok);
+            if (!(off_message !== undefined && off_message))
+                this.out_info_message(mes_ok);
+            return true;
+        }
+    } else {
+        this.set_control_error(o, mes_error);
+        if (!(off_message !== undefined && off_message))
+            this.out_error_message(mes_error);
+        return false;
+    }
+};
+// Проверим Input введенное значение есть в в указаном справочнике (пустое значение - допускается)
+VALIDATION.prototype.checkInputOfDirectory_IsNull = function (o, link, name_func, mes_error, mes_ok, off_message) {
+    if (o.val() !== '' && o.val() !== null) {
+        var result = null;
+        eval('result = link.' + name_func + '(Number(o.val()))');
+        if (!result || result.length === 0) {
+            this.set_control_error(o, mes_error);
+            if (!(off_message !== undefined && off_message))
+                this.out_error_message(mes_error);
+            return false;
+        } else {
+            this.set_control_ok(o, mes_ok);
+            if (!(off_message !== undefined && off_message))
+                this.out_info_message(mes_ok);
+            return true;
+        }
+    } else {
+        this.set_control_ok(o, mes_ok);
+        if (!(off_message !== undefined && off_message))
+            this.out_info_message(mes_ok);
+        return true;
+    }
+};
+// Проверим Input введенное значение есть в в указаном справочнике (пустое значение - не допускается)
+VALIDATION.prototype.checkInputTextOfDirectory = function (o, link, name_func, field, mes_error, mes_ok, off_message) {
+    if (o.val() !== '' && o.val() !== null) {
+        var result = null;
+        eval('result = link.' + name_func + '("' + field + '", link.lang, o.val())');
+        if (!result || result.length === 0) {
+            this.set_control_error(o, mes_error);
+            if (!(off_message !== undefined && off_message))
+                this.out_error_message(mes_error);
+            return false;
+        } else {
+            this.set_control_ok(o, mes_ok);
+            if (!(off_message !== undefined && off_message))
+                this.out_info_message(mes_ok);
+            return true;
+        }
+    } else {
+        this.set_control_error(o, mes_error);
+        if (!(off_message !== undefined && off_message))
+            this.out_error_message(mes_error);
+        return false;
+    }
+};
+// Проверим Input введенное значение есть в в указаном справочнике (пустое значение - допускается)
+VALIDATION.prototype.checkInputTextOfDirectory_IsNull = function (o, link, name_func, field, mes_error, mes_ok, off_message) {
+    if (o.val() !== '' && o.val() !== null) {
+        var result = null;
+        var ss = o.val();
+        eval('result = link.' + name_func + '("' + field + '", link.lang, o.val())');
+        if (!result || result.length === 0) {
+            this.set_control_error(o, mes_error);
+            if (!(off_message !== undefined && off_message))
+                this.out_error_message(mes_error);
+            return false;
+        } else {
+            this.set_control_ok(o, mes_ok);
+            if (!(off_message !== undefined && off_message))
+                this.out_info_message(mes_ok);
+            return true;
+        }
+    } else {
+        this.set_control_ok(o, mes_ok);
+        if (!(off_message !== undefined && off_message))
+            this.out_info_message(mes_ok);
+        return true;
+    }
+};
+//==============================================================================================

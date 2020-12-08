@@ -9,6 +9,13 @@ namespace EFReporting.Entities.NG
     [Table("BALANCE.Directory_Metering_Units")]
     public partial class Directory_Metering_Units
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Directory_Metering_Units()
+        {
+            DailyIntake = new HashSet<DailyIntake>();
+            Directory_Production = new HashSet<Directory_Production>();
+        }
+
         public int id { get; set; }
 
         public int id_structural_subdivisions { get; set; }
@@ -29,5 +36,11 @@ namespace EFReporting.Entities.NG
         public string note { get; set; }
 
         public int? parent_id { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DailyIntake> DailyIntake { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Directory_Production> Directory_Production { get; set; }
     }
 }

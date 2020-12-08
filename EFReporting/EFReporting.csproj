@@ -53,10 +53,16 @@
     <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFRepository.cs" />
+    <Compile Include="Concrete\NG\EFDirectory_Production.cs" />
+    <Compile Include="Concrete\NG\EFDailyProduction.cs" />
+    <Compile Include="Concrete\NG\EFDailyIntake.cs" />
     <Compile Include="Concrete\NG\EFBalance_NG_3.cs" />
     <Compile Include="Concrete\NG\EFDirectory_Metering_Units.cs" />
     <Compile Include="Entities\NG\Balance_NG_3.cs" />
     <Compile Include="Entities\NG\Directory_Metering_Units.cs" />
+    <Compile Include="Entities\NG\DailyIntake.cs" />
+    <Compile Include="Entities\NG\DailyProduction.cs" />
+    <Compile Include="Entities\NG\Directory_Production.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

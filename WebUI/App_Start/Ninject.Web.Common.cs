@@ -79,9 +79,12 @@ namespace WebUI.App_Start
             kernel.Bind<EFProjects.Abstract.IRepository<EFProjects.Entities.TemplatesStagesProject>>().To<EFProjects.Concrete.EFTemplatesStagesProject>();
             kernel.Bind<EFProjects.Abstract.IRepository<EFProjects.Entities.StagesProject>>().To<EFProjects.Concrete.EFStagesProject>();
 
-            kernel.Bind<EFReporting.Abstract.IRepository<EFReporting.Entities.NG.Directory_Metering_Units>>().To<EFReporting.Concrete.NG.EFDirectory_Metering_Units>();
-            kernel.Bind<EFReporting.Abstract.IRepository<EFReporting.Entities.NG.Balance_NG_3>>().To<EFReporting.Concrete.NG.EFBalance_NG_3>();
 
+            kernel.Bind<EFReporting.Abstract.IRepository<EFReporting.Entities.NG.Balance_NG_3>>().To<EFReporting.Concrete.NG.EFBalance_NG_3>();
+            kernel.Bind<EFReporting.Abstract.IRepository<EFReporting.Entities.NG.DailyIntake>>().To<EFReporting.Concrete.NG.EFDailyIntake>();
+            kernel.Bind<EFReporting.Abstract.IRepository<EFReporting.Entities.NG.DailyProduction>>().To<EFReporting.Concrete.NG.EFDailyProduction>();
+            kernel.Bind<EFReporting.Abstract.IRepository<EFReporting.Entities.NG.Directory_Metering_Units>>().To<EFReporting.Concrete.NG.EFDirectory_Metering_Units>();
+            kernel.Bind<EFReporting.Abstract.IRepository<EFReporting.Entities.NG.Directory_Production>>().To<EFReporting.Concrete.NG.EFDirectory_Production>();
         }        
     }
 }
